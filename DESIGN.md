@@ -306,6 +306,17 @@ scroll, including full-page screenshots and print, which is a poor trade for a
 site whose pages get screenshotted and shared. The global reduced-motion rule
 still neutralises transitions for users who ask for it.
 
+The home page's region map is the one scroll-driven surface, and it is allowed
+only because it does not take that trade. Nothing is revealed by scrolling: the
+finished plan-view map is server-rendered and visible before any script runs, so
+a document that never scrolls still captures a complete section. Scrolling
+changes the map's viewing angle, it does not bring it into existence. Under
+`prefers-reduced-motion` the map holds one frame at its final state.
+
+Anything else that wants to animate on scroll has to clear the same bar: correct
+and complete at rest, better in motion. If it is blank until scrolled, it does
+not ship.
+
 ## Brand usage
 
 The mark is used at 32px in the header and 48px on the 404 page, always above

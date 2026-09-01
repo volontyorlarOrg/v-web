@@ -141,3 +141,59 @@ test.describe("mobile menu", () => {
     await expect(trigger).toBeFocused();
   });
 });
+
+test.describe("the region map", () => {
+  test("renders a plan-view map and every region name without JavaScript", async ({
+    browser,
+  }) => {
+    const context = await browser.newContext({ javaScriptEnabled: false });
+    const page = await context.newPage();
+    await page.goto("/en");
+
+    const section = page.locator("#regions-map");
+    await expect(section).toHaveCount(1);
+
+    await expect(section.locator("svg")).toHaveCount(1);
+    await expect(section.locator("svg path")).toHaveCount(14);
+    await expect(section.locator("li")).toHaveCount(14);
+
+    await context.close();
+  });
+
+  for (const [locale, name] of [
+    ["uz", "Qoraqalpogʻiston"],
+    ["ru", "Каракалпакстан"],
+    ["en", "Karakalpakstan"],
+  ] as const) {
+    test(`names the regions in ${locale}`, async ({ page }) => {
+      await page.goto(`/${locale}`);
+      await expect(page.locator("#regions-map li").filter({ hasText: name })).toHaveCount(1);
+      await expect(page.locator("#regions-map li")).toHaveCount(14);
+    });
+  }
+
+  test("pins a panel that releases into the next section", async ({ page }) => {
+    await page.goto("/en");
+    const geometry = await page.evaluate(() => {
+      const section = document.querySelector("#regions-map") as HTMLElement;
+      const panel = section.firstElementChild as HTMLElement;
+      return {
+        sectionHeight: section.offsetHeight,
+        panelHeight: panel.offsetHeight,
+        panelPosition: getComputedStyle(panel).position,
+        viewport: window.innerHeight,
+      };
+    });
+
+    expect(geometry.panelPosition).toBe("sticky");
+    expect(geometry.sectionHeight).toBeGreaterThan(geometry.panelHeight);
+    expect(geometry.panelHeight).toBeLessThanOrEqual(geometry.viewport);
+  });
+
+  test("the heading is the section's accessible name", async ({ page }) => {
+    await page.goto("/en");
+    const region = page.getByRole("region", { name: /one map/i });
+    await expect(region).toHaveCount(1);
+    await expect(region.getByRole("heading", { level: 2 })).toBeVisible();
+  });
+});

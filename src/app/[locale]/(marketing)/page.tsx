@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { BrandArc } from "@/components/brand/logo";
 import { ActionLink } from "@/components/marketing/action-link";
 import { NameBoard } from "@/components/marketing/name-board";
+import { RegionMapSection } from "@/components/marketing/region-map/region-map-section";
 import { Eyebrow, Section, SectionHeader, StatusChip } from "@/components/marketing/section";
 import { StatGrid, type Stat } from "@/components/marketing/stats";
 import { StepRail, type Step } from "@/components/marketing/steps";
@@ -126,6 +127,8 @@ function Home({ locale }: { locale: Locale }) {
           </div>
         </div>
       </section>
+
+      <RegionMapSection locale={locale} />
 
       <Section tone="sunk">
         <SectionHeader
