@@ -30,3 +30,5 @@ folder. Never store secrets or unverified external claims.
 - `gotchas/next-typegen-before-typecheck.md` — why `typecheck` runs typegen
 - `gotchas/tailwind-minifies-hex-tokens-to-three-digits.md` — why a design token
   read at run time must not be parsed as a base-16 integer
+- `gotchas/building-while-the-dev-server-runs-unstyles-the-page.md` — why a
+  production build breaks a live `next dev`, and how to recognise it
