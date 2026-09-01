@@ -1,249 +1,295 @@
 ---
-name: Volontyorlar V3
-description: A calm night-signal system that makes volunteering feel credible, visible, and worth returning to.
+name: YVC Marketing
+description: A civic notice board in UN Blue — plainspoken, evidence-led, and light enough for a phone on mobile data.
 colors:
-  night: "#071719"
-  field: "#0D2529"
-  panel: "#123438"
-  panel-strong: "#174147"
-  signal-line: "#285158"
-  text: "#F4FBFB"
-  muted: "#A8C0C2"
-  volontyorlar-teal: "#45C1C4"
-  teal-ink: "#082326"
-  deadline-amber: "#F3A94A"
+  paper: "#FBFAF7"
+  surface: "#FFFFFF"
+  surface-sunk: "#F1EFE9"
+  surface-soft: "#E7F1F8"
+  ink: "#1C242B"
+  ink-muted: "#566270"
+  border: "#E3E0D8"
+  border-control: "#949084"
+  primary: "#007FC2"
+  primary-ink: "#005E92"
+  primary-deep: "#004A73"
+  primary-fg: "#FFFFFF"
+  primary-muted: "#BFDCEF"
+  destructive: "#B3261E"
 typography:
   display:
-    fontFamily: "Bricolage Grotesque, sans-serif"
-    fontSize: "clamp(3.25rem, 7vw, 6rem)"
-    fontWeight: 600
-    lineHeight: 0.94
-    letterSpacing: "-0.04em"
-  headline:
-    fontFamily: "Bricolage Grotesque, sans-serif"
-    fontSize: "2.25rem"
-    fontWeight: 600
-    lineHeight: 1.25
+    fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(2.5rem, 7.4vw, 4.5rem)"
+    fontWeight: 700
+    lineHeight: 0.98
     letterSpacing: "-0.035em"
+  headline:
+    fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(1.875rem, 4.2vw, 2.75rem)"
+    fontWeight: 700
+    lineHeight: 1.08
+    letterSpacing: "-0.03em"
   title:
-    fontFamily: "Bricolage Grotesque, sans-serif"
-    fontSize: "1.5rem"
-    fontWeight: 600
-    lineHeight: 1.25
-    letterSpacing: "-0.025em"
+    fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "1.25rem"
+    fontWeight: 700
+    lineHeight: 1.3
+    letterSpacing: "-0.02em"
+  lead:
+    fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "clamp(1.0625rem, 1.4vw, 1.25rem)"
+    fontWeight: 400
+    lineHeight: 1.6
+    letterSpacing: "normal"
   body:
-    fontFamily: "Manrope, sans-serif"
+    fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
     fontSize: "1rem"
     fontWeight: 400
-    lineHeight: 1.75
+    lineHeight: 1.65
     letterSpacing: "normal"
   label:
-    fontFamily: "Manrope, sans-serif"
+    fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
     fontSize: "0.75rem"
-    fontWeight: 800
+    fontWeight: 700
     lineHeight: 1.4
     letterSpacing: "0.14em"
 rounded:
-  md: "8px"
-  lg: "12px"
-  xl: "16px"
-  card: "24px"
-  feature: "28px"
-  callout: "32px"
+  sm: "6px"
+  md: "10px"
+  lg: "14px"
+  xl: "20px"
+  2xl: "28px"
   full: "9999px"
 spacing:
-  xs: "4px"
-  sm: "8px"
-  md: "16px"
-  lg: "24px"
-  xl: "32px"
-  section-mobile: "96px"
-  section-wide: "128px"
+  gutter-mobile: "20px"
+  gutter-wide: "32px"
+  section-mobile: "80px"
+  section-wide: "112px"
+  container: "76rem"
 components:
   button-primary:
-    backgroundColor: "{colors.volontyorlar-teal}"
-    textColor: "{colors.teal-ink}"
+    backgroundColor: "{colors.primary-ink}"
+    textColor: "{colors.primary-fg}"
     rounded: "{rounded.lg}"
     padding: "0 24px"
     height: "52px"
   button-primary-hover:
-    backgroundColor: "#62D1D3"
-    textColor: "{colors.teal-ink}"
+    backgroundColor: "{colors.primary-deep}"
+    textColor: "{colors.primary-fg}"
     rounded: "{rounded.lg}"
     padding: "0 24px"
     height: "52px"
-  button-secondary:
+  button-outline:
     backgroundColor: "transparent"
-    textColor: "{colors.text}"
+    textColor: "{colors.ink}"
+    borderColor: "{colors.border-control}"
     rounded: "{rounded.lg}"
     padding: "0 24px"
     height: "52px"
   button-inverse:
-    backgroundColor: "{colors.teal-ink}"
-    textColor: "{colors.text}"
+    backgroundColor: "{colors.primary-fg}"
+    textColor: "{colors.primary-ink}"
     rounded: "{rounded.lg}"
     padding: "0 24px"
     height: "52px"
-  opportunity-card:
-    backgroundColor: "{colors.panel}"
-    textColor: "{colors.text}"
-    rounded: "{rounded.feature}"
-    padding: "28px"
+  card:
+    backgroundColor: "{colors.surface}"
+    borderColor: "{colors.border}"
+    rounded: "{rounded.lg}"
+    padding: "24px"
   status-chip:
-    backgroundColor: "{colors.volontyorlar-teal}"
-    textColor: "{colors.teal-ink}"
-    rounded: "{rounded.md}"
-    padding: "4px 10px"
+    backgroundColor: "transparent"
+    textColor: "{colors.ink-muted}"
+    borderColor: "{colors.border-control}"
+    rounded: "{rounded.sm}"
+    padding: "4px 8px"
 ---
 
-# Design System: Volontyorlar V3
+# Design System: YVC Marketing
 
 ## Overview
 
-**Creative North Star: "Night Signal Board"**
+**Creative North Star: "Public notice board"**
 
-Volontyorlar feels like a calm public signal after dark: clear enough to guide a first-time volunteer, structured enough to make participation feel credible, and warm enough to invite young people in without becoming childish. The dark field creates focus; teal marks action, progress, and verified participation; restrained amber calls attention only to time-sensitive or illustrative context.
+The site reads like a well-set civic notice: warm paper, dark ink, one blue that
+means action, and hairline rules doing the structural work. It is confident
+without shouting, and credible enough for the schools, agencies, and partner
+organisations YVC depends on — while staying young through scale, directness,
+and plain language rather than through decoration.
 
-The system is purposeful and trustworthy rather than institutional. Asymmetrical editorial compositions, large plainspoken headlines, and compact evidence cards create momentum, while the constant-stroke volunteer-journey timeline makes the experience recognizably Volontyorlar. Planned or illustrative material is always labeled in the interface, so visual confidence never becomes a false live-product claim.
+This direction consolidates the three retired explorations: V1's poster
+confidence in typographic scale and solid bands, V2's evidence discipline —
+tabular figures, labelled facts, nothing unaccounted for — and V3's mobile-first
+composition, honest labelling of what is not yet real, and restraint about
+motion. It drops V1's yellow, V2's serif register, and V3's dark teal field,
+none of which survive contact with the delivered UN Blue brand set.
 
-**Key Characteristics:**
+**Key characteristics**
 
-- Dark, calm tonal fields with high-clarity type.
-- Asymmetrical editorial layouts that become a direct vertical flow on mobile.
-- Teal used as a signal for action, progress, confirmation, and identity.
-- A constant-stroke volunteer-journey timeline as the signature graphic behavior.
-- Rounded, bordered surfaces with flat or tonal depth and rare teal shadow.
-- Explicit labels for concept, planned, illustrative, and launch-target content.
+- Warm paper ground, dark ink type, exactly one brand hue.
+- Hairline grids and tone bands instead of shadows and gradients.
+- Oversized tabular numerals carrying the evidence.
+- A rule-led label system that never uses the logo below its minimum size.
+- Provisional material labelled in words, never by colour alone.
 
 ## Colors
 
-The palette is a restrained night field in which teal behaves like a legible signal, amber behaves like a scarce notice, and pale text carries the message without glare.
+The palette is the delivered brand set plus the neutrals needed to hold it.
 
 ### Primary
 
-- **Volontyorlar Teal:** Use for primary actions, active milestones, positive confirmation, brand marks, links, and the journey signal.
-
-### Secondary
-
-- **Deadline Amber:** Reserve for deadlines, launch-target labels, and clearly illustrative notices; it is informative, not decorative.
+- **Primary `#007FC2`** — the mark, decorative arcs, and display figures. It is
+  4.18:1 on paper: valid for graphics and for type at 24px and above, never for
+  body copy.
+- **Primary Ink `#005E92`** — links, small labels, solid action fills, and the
+  focus ring. This is the token that carries text-sized blue.
+- **Primary Deep `#004A73`** — hover state on solid actions.
+- **Primary Muted `#BFDCEF`** — secondary copy on a blue band.
 
 ### Neutral
 
-- **Night:** The page canvas and deepest inset surfaces.
-- **Field:** Broad section bands, secondary cards, and hover fills.
-- **Panel:** Default raised tonal surface for content and reached states.
-- **Panel Strong:** Confirmed or emphasized journey states.
-- **Signal Line:** Borders, timeline tracks, dividers, and quiet structural separation.
-- **Text:** Primary copy and high-value facts.
-- **Muted:** Supporting copy, metadata, and inactive states.
-- **Teal Ink:** High-contrast copy on solid teal actions and callouts.
+- **Paper** — the page ground.
+- **Surface** — cards and raised content.
+- **Surface Sunk** — alternating section bands.
+- **Surface Soft** — the one blue-tinted band.
+- **Ink / Ink Muted** — primary and secondary copy.
+- **Border / Border Control** — hairlines, and the heavier 3:1 boundary that
+  interactive controls need.
 
-### Named Rules
+### Named rules
 
-**The Signal Rarity Rule.** Teal identifies action, progress, confirmation, or identity; do not wash whole sections in it except for a single decisive callout.
+**The Two Blues Rule.** `#007FC2` is a graphic; `#005E92` is text. If a blue
+element carries words at body size, it uses Primary Ink. A test in
+`src/app/design-tokens.test.ts` enforces both halves.
 
-**The Honest Amber Rule.** Amber is limited to deadlines and visibly labeled illustrative or target information; never use it as a generic accent.
+**The Single Hue Rule.** There is no secondary accent. Status and emphasis come
+from words, weight, and surface tone. Red exists as a token for urgent or
+destructive meaning and is currently unused.
 
 ## Typography
 
-**Display Font:** Bricolage Grotesque (with sans-serif fallback)
-**Body Font:** Manrope (with sans-serif fallback)
+**One family:** Onest, self-hosted through `next/font`, Latin, Latin Extended,
+and Cyrillic subsets.
 
-**Character:** Bricolage Grotesque gives the page a youthful editorial voice with compact, memorable shapes. Manrope keeps navigation, evidence, captions, and explanatory copy calm and highly legible.
+**Character:** Onest is the face the delivered logo specification verified for
+U+02BB, the turned comma Uzbek needs in *oʻ* and *gʻ*, and it carries Russian
+Cyrillic. One family in five weights keeps the three languages in one voice and
+keeps the mobile font payload to a single variable file.
 
 ### Hierarchy
 
-- **Display** (600, fluid hero scale, 0.94 line-height): Hero statements only; keep them plainspoken, short, and visually dominant.
-- **Headline** (600, 2.25rem mobile and 3rem from the small breakpoint, 1.25 line-height): Major section ideas and conversion moments.
-- **Title** (600, 1.5rem, 1.25 line-height): Opportunity titles, journey steps, and card-level ideas.
-- **Body** (400, 1rem, 1.75 line-height): Explanations and product truth; readable measures generally stay below about 42rem.
-- **Label** (800, 0.75rem, 0.14em letter-spacing, uppercase): Categories, target labels, record captions, and explicit status disclosures.
+- **Display** (700, fluid to 4.5rem, 0.98 line-height): one direct human idea
+  per page, never a feature list.
+- **Headline** (700, fluid to 2.75rem): section ideas.
+- **Title** (700, 1.25rem): cards, steps, and legal sections.
+- **Lead** (400, fluid to 1.25rem): the sentence under a headline.
+- **Body** (400, 1rem, 1.65 line-height): explanation; measure stays under
+  about 42rem.
+- **Label** (700, 0.75rem, 0.14em, uppercase): eyebrows and metadata, preceded
+  by a 24px rule.
 
-### Named Rules
+### Named rule
 
-**The Plainspoken Display Rule.** Display type carries one direct human idea at a time; never turn it into ornamental brand copy or a dense feature list.
+**The Plainspoken Display Rule.** Display type says something a sixteen-year-old
+would say out loud. Russian and Uzbek run longer than English, so every display
+line is checked at 360px in all three languages.
 
 ## Layout
 
-The system is mobile first. Content sits inside a centered 80rem maximum container with 20px side gutters on small screens and 32px gutters from the small breakpoint. Major sections use a 96px vertical rhythm on mobile and 128px on wider screens; compact evidence bands use deliberately tighter spacing.
+Mobile first. Content sits in a 76rem container with 20px gutters, 32px from the
+small breakpoint. Sections use 80px of vertical rhythm on mobile and 112px on
+wider screens, and each one owns a single idea.
 
-Desktop compositions are editorial and asymmetrical: hero copy pairs with the journey, opportunity cards use a 1.35-to-0.85 feature grid, and the record uses a 0.82-to-1.18 narrative/evidence split. These become single-column flows below the large breakpoint, preserving reading order and giving every action full-width breathing room where needed. Use visible borders and tonal bands to mark transitions instead of decorative dividers.
+Section boundaries are tone changes — paper, sunk, soft, and one solid blue
+callout — with a hairline border between them. Asymmetric two-column
+compositions collapse to a single column below the large breakpoint in reading
+order.
 
-**The One Story Per Fold Rule.** Each major band should communicate one idea—journey, launch target, opportunities, or record—before asking the reader to process the next.
+**The One Idea Per Band Rule.** A band explains one thing: what we do, how it
+works, who we work with, where we are going, or what is being prepared.
 
-## Elevation & Depth
+## Elevation & depth
 
-The system is flat by default. Depth comes from moving between Night, Field, Panel, and Panel Strong, reinforced by a one-pixel Signal Line border. Teal-tinted shadows appear only beneath the most consequential evidence surfaces or as a small signal glow; they must remain soft, rare, and subordinate to content.
-
-### Shadow Vocabulary
-
-- **Signal Halo** (`0 0 18px rgba(69, 193, 196, 0.8)`): The moving point on the volunteer journey.
-- **Journey Lift** (`0 28px 70px -44px rgba(69, 193, 196, 0.65)`): The first opportunity card in the journey sequence.
-- **Record Lift** (`0 34px 90px -58px rgba(69, 193, 196, 0.8)`): The complete volunteer-record preview.
-
-### Named Rules
-
-**The Tonal-First Rule.** Establish hierarchy with surface color and borders before adding any shadow.
+Flat. Hierarchy comes from surface tone and one-pixel borders. There is one
+shadow in the system, under the open mobile navigation panel, because it floats
+over content. No card, button, or band carries a shadow.
 
 ## Shapes
 
-Cards and actions use gently rounded corners, with radius increasing with scale: compact chips and labels use 8px, buttons use 12px, journey and utility cards use 16px, feature cards use 24–28px, and the final callout uses 32px. Circular nodes belong to people, progress points, and the journey track. Borders are thin and quiet; thick outlines appear only as oversized, low-contrast decorative rings inside a clipped feature surface.
-
-**The Rounded, Not Soft Rule.** Corners should feel approachable and engineered; avoid pill-shaped cards, bubbly containers, and arbitrary mixed radii.
+Radii grow with scale: 6px chips, 10px small controls, 14px buttons and cards,
+20px larger panels, 28px on the closing callout. Circles belong to the mark's
+dot and to the step nodes. Borders are thin and quiet.
 
 ## Components
 
 ### Buttons
 
-Buttons feel direct, compact, and confident.
+- **Shape:** 14px radius, 44px minimum height in navigation and 52px for page
+  actions.
+- **Primary:** solid Primary Ink with white label, lifting 2px on hover.
+- **Outline:** transparent with a Border Control edge that turns blue on hover.
+- **Inverse:** white on the blue callout.
+- **Focus:** a 3px Primary Ink outline at 3px offset, everywhere, from the base
+  layer.
 
-- **Shape:** Gently rounded rectangle (12px) with a 44px minimum height in navigation and 52px for primary page actions.
-- **Primary:** Solid Volontyorlar Teal with Teal Ink, extra-bold Manrope, and 24px horizontal padding.
-- **Hover / Focus:** Lighten the teal and lift by 2px on hover; return to baseline on active. Every keyboard focus uses a 3px teal outline with a 4px offset.
-- **Secondary:** Transparent Night surface, Text foreground, and a Signal Line border that shifts to teal with a Field fill on hover.
-- **Inverse:** Teal Ink on the teal callout, with Text foreground and a restrained upward hover shift.
+### Hairline grids
 
-### Chips
+Groups whose length is fixed and fills the grid — the stat strip, the six things
+YVC does, the three contact audiences — use a one-pixel gap over a border-toned
+background, which reads as a printed table. Lists whose length varies use
+separated bordered cards instead, because an empty cell in a gap-filled grid
+looks like a fault.
 
-- **Style:** Compact 8px corners, extra-bold labels, and minimal 4px by 10px padding. Solid teal marks the primary category or a reached status; Field and Panel hold secondary metadata.
-- **State:** Amber text is permitted only for a deadline or explicit illustrative/target label. Inactive status text uses Muted rather than reduced opacity.
+### Step rail
 
-### Cards / Containers
+Four numbered steps on a continuous hairline, vertical on mobile and horizontal
+from the large breakpoint, with a solid blue node each. The rail is decorative;
+the ordered list carries the meaning.
 
-- **Corner Style:** 16px for compact and journey cards; 24–28px for feature and record cards.
-- **Background:** Alternate Field, Panel, Panel Strong, and Night according to information priority.
-- **Shadow Strategy:** Flat at rest except for the selected journey and record evidence surfaces described in Elevation & Depth.
-- **Border:** One-pixel Signal Line, with a translucent teal border reserved for confirmed or reached states.
-- **Internal Padding:** 20–24px for compact cards and 28–36px for feature cards, reducing toward the lower end on mobile.
+### Status chip
+
+A dashed-border, uppercase label for material that is planned rather than live,
+such as the course. Meaning is in the words; the dashed edge only reinforces it.
 
 ### Navigation
 
-Navigation is a quiet 80px bar with the horizontal brand mark, one muted text link on wider screens, and one compact teal action. Mobile hides the secondary text link but preserves the brand and journey action. The header uses a translucent Night fill, a subtle lower border, and background blur without turning into a floating glass card.
+A 64px bar on mobile and 80px from the large breakpoint: mark plus organisation
+name, the language control at every width, and one action. Below the large
+breakpoint the page links move into a disclosure panel that closes on Escape and
+on selection.
 
-### Volunteer Journey Timeline
+## Motion
 
-The signature journey is a constant one-pixel vertical Signal Line with circular icon nodes and offset cards for opportunity, planned application, and confirmed attendance. The signal dot travels along the line while cards reveal in a brief stagger; both behaviors stop under reduced-motion preferences. The track must stay continuous and the confirmed node is the only solid teal node.
+Transitions on hover and focus, and nothing else. There are no scroll reveals:
+a scroll-driven reveal leaves sections blank in any context that does not
+scroll, including full-page screenshots and print, which is a poor trade for a
+site whose pages get screenshotted and shared. The global reduced-motion rule
+still neutralises transitions for users who ask for it.
 
-### Volunteer Record
+## Brand usage
 
-The record preview combines a compact identity row, three evenly divided facts, and a vertical level ladder. Reached levels use Panel with teal checks; future levels stay transparent with Muted copy. Tabular numerals keep hours, event counts, reliability, and thresholds aligned.
+The mark is used at 32px in the header and 48px on the 404 page, always above
+its documented 16px minimum, never cropped or recoloured in parts. Large
+decorative shapes use the arc alone, which is a derived graphic device rather
+than the logo. The organisation name is set as real HTML text next to the mark
+instead of using the delivered SVG lockup, whose wordmark cannot load its
+typeface. See `docs/brand/BRAND_ASSETS.md`.
 
-## Do's and Don'ts
+## Do's and don'ts
 
-### Do:
+### Do
 
-- **Do** use Night, Field, Panel, and Panel Strong to establish hierarchy before adding effects.
-- **Do** keep teal focused on action, progress, confirmation, and brand identity.
-- **Do** make the volunteer journey line constant-stroke, continuous, and readable at mobile width.
-- **Do** use plainspoken editorial headlines and short, evidence-led supporting copy.
-- **Do** label planned, illustrative, concept, and launch-target material where it appears.
-- **Do** preserve keyboard focus and reduced-motion behavior in every new interactive pattern.
+- **Do** carry hierarchy with surface tone and hairlines before anything else.
+- **Do** keep `#007FC2` for graphics and large figures, `#005E92` for text.
+- **Do** set every number in tabular figures.
+- **Do** label anything that is planned, in preparation, or not yet published.
+- **Do** check display lines at 360px in Uzbek, Russian, and English.
 
-### Don't:
+### Don't
 
-- **Don't** use gradients.
-- **Don't** invent live opportunities, active authentication, partner counts, or other unverified product claims.
-- **Don't** turn the landing page into a product dashboard or introduce form controls that the surface does not need.
-- **Don't** use amber as a general decorative highlight or red as a substitute for deadline meaning.
-- **Don't** add generic glassmorphism, heavy ambient shadows, neon glow fields, or noisy decorative texture.
-- **Don't** make the youth-oriented tone childish with bubbly shapes, mascots, stickers, or novelty type.
+- **Don't** use gradients, glassmorphism, ambient shadows, or glow.
+- **Don't** introduce a second accent hue, or use red for anything but urgency.
+- **Don't** put a literal hex value in a component.
+- **Don't** claim live opportunities, active authentication, or partners that
+  are not in `PRODUCT.md`.
+- **Don't** render the mark below 16px or crop it for decoration.

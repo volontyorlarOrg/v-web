@@ -1,60 +1,86 @@
 # YVC Product Context
 
-## The idea
+## What Youth Volunteer Club is
 
-Youth Volunteering Community gives young people a reusable profile and a
-credible history of volunteering. Instead of applying from scratch every time,
-volunteers can reuse their information and essays while building a record of
-events, hours, attendance, and reliability.
+Youth Volunteer Club (YVC) helps high school students in Uzbekistan discover and
+apply to meaningful volunteering. It was founded on **4 June 2025** by **Arslon
+Rajabov** and **Parizoda Abdurakhimova**.
 
-The durable advantage is the participation record: a directory of volunteer
-opportunities can be copied, but a trusted community with demonstrated
-attendance history cannot.
+YVC has grown past reposting other people's opportunities. It now:
 
-## Planned product scope
+- finds volunteer opportunities;
+- contacts organisers;
+- sources events;
+- builds partnerships;
+- supplies volunteers;
+- builds regional operations.
 
-- Home and opportunity discovery, including filtering by region
-- Opportunity detail pages and a short application flow
-- One-tap Telegram sign-in
-- A profile completed once and reused
-- Saved, reusable application essays
-- A volunteer record with level, events, hours, reliability, and a shareable link
-- An admin panel for posting opportunities, reviewing applicants, and confirming attendance
+## Verified facts
 
-## Volunteer levels
+These are the only figures and relationships the website may present. They are
+encoded in `src/lib/content/org.ts`; the message catalogs carry only the prose
+around them.
 
-| Level | Qualification |
+| Fact | Value |
 | --- | --- |
-| Newcomer | Joined the community |
-| Active | Completed 3 events |
-| Trusted | Completed 8 events with at least 85% reliability |
-| Core | Completed 20 events with at least 90% reliability and standout reviews |
+| Telegram community | 3,600+ followers |
+| Instagram | 220+ followers |
+| Events supplied with volunteers | 50+ |
+| Applications for regional project manager and coordinator roles | 500+ |
+| Regional expansion target | all 14 regions of Uzbekistan |
+| Partnership | O‘ZLIDEP Party |
+| Support and recognition | Youth Affairs Agency, Uzbekistan Volunteer Association, Republican Children's Library |
+| Opportunity sources | Yashil Qo‘llar, Youth Run Club, Youth for Good, Youth Grants, Relay Fellowship |
 
-Reliability is the percentage of accepted events a volunteer attended. A
-volunteer must not be penalized when an organizer fails to confirm attendance.
+Do not add partnerships, statistics, testimonials, awards, offices, addresses,
+or integrations that are not on this list.
 
-## Experience and brand direction
+## Near-term education initiative
 
-- Mobile first, because visitors primarily arrive from Telegram links
-- English at launch, with Uzbek planned next
-- Navy for structure, teal for primary actions, and red only for deadlines
-- Use all five logo colors selectively for categories and volunteer levels
-- Prefer a focused six-week product over premature partner/coordinator dashboards
+A short, practical course is **in preparation**: volunteering basics, how to
+apply, how to write a volunteering essay, dos and don'ts, and understanding what
+volunteering is and how to take part effectively.
 
-## Explicitly deferred
+Nothing about it is published: there is no schedule, enrolment, price, or
+delivery mode. The site says exactly that, and emits no `Course` structured data
+until real course information exists.
 
-- Partner dashboards
-- Coordinator dashboards
-- Courses
+## System boundary
 
-Organizations initially send opportunity details to the core team, which posts
-them through the admin panel.
+The product is intentionally split in two.
 
-## Launch inputs
+| Marketing website (this repository) | YVC application (separate repository) |
+| --- | --- |
+| Brand and public positioning | Volunteer authentication and sessions |
+| Public pages and partner presentation | Opportunity browsing, filtering, applications |
+| Explanations of how YVC works | Reusable profiles and saved essays |
+| Course marketing | Volunteer records, hours, attendance |
+| SEO, metadata, structured data, legal pages | Admin and partner workflows |
+| Central links into the application | Any backend contract |
 
-- At least 15 real opportunities
-- Three partners
-- A functioning notification bot
+The marketing site must not become a second copy of the application. It explains
+opportunities; it does not host a marketplace.
 
-This document captures product direction from the supplied brief. It is not
-proof that any product flow, backend contract, domain, or integration is live.
+## Languages
+
+Uzbek, Russian, and English are all product languages. Uzbek is the default
+audience locale. Every user-facing string exists in all three, and the language
+is carried by the URL, never by browser storage.
+
+## Presented, not implemented
+
+The original brief also described one-tap Telegram sign-in, reusable
+applications, volunteer levels, reliability scoring, and an admin panel. None of
+that is implemented here, and this document is not evidence that any of it is
+live. Terminology for those concepts is kept in
+[`docs/data/DATA_MODEL.md`](docs/data/DATA_MODEL.md) so the marketing copy stays
+consistent with the eventual application, not so it can be claimed as shipped.
+
+## Needs verification
+
+- Public marketing domain and the product application origin
+- Relationship between the delivered `volontyorlar` wordmark and the canonical
+  product name Youth Volunteer Club
+- Public channel addresses (Telegram, Instagram) and any other contact route
+- Legal entity details behind the privacy and terms pages
+- Whether the course will be free, paid, online, or in person

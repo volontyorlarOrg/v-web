@@ -1,7 +1,9 @@
 # Product Data Concepts
 
-This is a terminology skeleton derived from the supplied brief. It is not a
-database schema and does not authorize implementation choices.
+Vocabulary owned by the **separate YVC application**, kept here so marketing
+copy stays consistent with the product it points at. It is not a database
+schema, it does not authorize implementation choices, and none of it is
+implemented in this repository.
 
 ## Presented concepts
 
@@ -21,6 +23,13 @@ database schema and does not authorize implementation choices.
 - Missing organizer confirmation must not penalize the volunteer.
 - Levels are Newcomer, Active, Trusted, and Core with thresholds recorded in
   `PRODUCT.md`.
+
+## Marketing boundary
+
+The marketing site may explain that volunteering is organised around
+opportunities, organisers, and taking part. It must not present a volunteer
+record, level, reliability score, or application flow as something this website
+offers, and it holds no sample volunteer or opportunity data.
 
 ## Needs verification
 

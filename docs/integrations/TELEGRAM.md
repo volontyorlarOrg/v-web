@@ -7,10 +7,15 @@ from Telegram links. A functioning notification bot is listed as a launch input.
 
 ## Implemented
 
-Nothing. The repository contains no Telegram bot token, widget script, OAuth
-callback, Login Widget configuration, Mini App SDK, bot username, webhook, deep
-link, or backend verification route. V3 visually demonstrates the intended
-journey but does not attempt authentication.
+Nothing, and nothing will be. Telegram sign-in belongs to the separate YVC
+application; this repository contains no bot token, widget script, OAuth
+callback, Login Widget configuration, Mini App SDK, bot username, webhook, or
+verification route.
+
+The marketing site's only relationship with Telegram is an outbound link to the
+public community channel, and only when `NEXT_PUBLIC_TELEGRAM_URL` is
+configured. While it is empty the join action falls back to the contact page
+rather than linking to an unverified address.
 
 ## Needs verification
 
@@ -23,5 +28,6 @@ journey but does not attempt authentication.
 - Deep-link payload format and attribution
 - Privacy notice and deletion behavior for Telegram profile data
 
-Do not add a bot token or signature secret to `NEXT_PUBLIC_*`. Integration code
-must wait for a verified backend contract and Telegram application ownership.
+Do not add a bot token or signature secret to `NEXT_PUBLIC_*`, and do not add
+integration code to this repository at all: it belongs to the application.
+`NEXT_PUBLIC_TELEGRAM_URL` is a public channel address, not a credential.

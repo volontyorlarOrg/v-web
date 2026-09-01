@@ -1,8 +1,10 @@
 # YVC Web
 
-Public, mobile-first website for Youth Volunteering Community. This repository
-currently contains landing-page explorations and the shared frontend
-environment. This setup does not implement authenticated product flows.
+The public, mobile-first marketing website for **Youth Volunteer Club (YVC)**,
+a volunteering community for high school students in Uzbekistan.
+
+This repository is the marketing site only. Volunteer accounts, opportunity
+browsing, applications, and records belong to the separate YVC application.
 
 ## Requirements
 
@@ -17,39 +19,66 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+Open [http://localhost:3000](http://localhost:3000); it redirects to the best
+matching locale.
 
 ## Commands
 
 | Command | Purpose |
 | --- | --- |
-| `npm run dev` | Start the Turbopack development server |
-| `npm run dev:webpack` | Start the Webpack fallback server |
-| `npm run lint` | Run ESLint |
-| `npx tsc --noEmit` | Run the strict TypeScript check |
-| `npm run build` | Create a Webpack production build |
+| `npm run dev` | Turbopack development server |
+| `npm run dev:webpack` | Webpack development fallback |
+| `npm run lint` | ESLint |
+| `npm run typecheck` | Route typegen plus a strict TypeScript check |
+| `npm run test` | Vitest unit and component tests |
+| `npm run test:e2e` | Playwright smoke suite against a production build |
+| `npm run build` | Webpack production build |
 | `npm run start` | Serve an existing production build |
 
 ## Frontend foundation
 
-- Next.js 16 App Router and React 19
-- strict TypeScript with `@/*` aliases for both `src/` and the repository root
-- Tailwind CSS 4
-- i18next/react-i18next for English and Uzbek localization
-- Motion for interaction and section motion
-- next-themes for class-based themes
-- Radix primitives, shadcn configuration, CVA, clsx, and tailwind-merge
-- Lucide icons and Three.js for product-specific visual scenes when justified
+- Next.js 16 App Router and React 19, server components by default
+- Strict TypeScript with the `@/*` alias pointing at `src/`
+- Tailwind CSS 4 with semantic tokens in `src/app/globals.css`
+- `next-intl` for `uz` / `ru` / `en` routing and catalogs
+- `class-variance-authority`, `clsx`, `tailwind-merge`, and Lucide icons
+- One typeface, Onest, self-hosted through `next/font`
+
+Every marketing route is statically generated. The only runtime code is
+`src/proxy.ts`, which sends a prefix-less URL to the right locale.
+
+## Routes
+
+`/` redirects to a locale. Each locale then serves the same eight pages:
+
+```
+/{uz|ru|en}
+/{uz|ru|en}/about
+/{uz|ru|en}/volunteering
+/{uz|ru|en}/partners
+/{uz|ru|en}/course
+/{uz|ru|en}/contact
+/{uz|ru|en}/privacy
+/{uz|ru|en}/terms
+```
+
+Plus `/robots.txt` and `/sitemap.xml`.
+
+## Environment variables
+
+All four variables in `.env.example` are optional and blank on purpose, because
+no domain or channel address is verified yet:
+
+| Variable | Effect while unset |
+| --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Pages send `noindex`, `robots.txt` disallows crawling, and the sitemap is empty |
+| `NEXT_PUBLIC_APP_ORIGIN` | Links into the YVC application are not rendered |
+| `NEXT_PUBLIC_TELEGRAM_URL` | The join action falls back to the contact page |
+| `NEXT_PUBLIC_INSTAGRAM_URL` | The channel is omitted from the footer and contact page |
+
+`NEXT_PUBLIC_*` values are embedded in the browser bundle. Never put a bot
+token, session key, or database credential in one.
 
 See [`docs/README.md`](docs/README.md) for project context and
 [`docs/operations/DEVELOPMENT_AND_DEPLOYMENT.md`](docs/operations/DEVELOPMENT_AND_DEPLOYMENT.md)
 for the environment contract.
-
-## Environment variables
-
-The marketing site currently requires no runtime secrets or public environment
-variables. Keep local values in `.env.local`; only the value-free
-`.env.example` may be committed.
-
-Do not add Telegram bot tokens, database credentials, or session secrets to
-`NEXT_PUBLIC_*` variables; those values are sent to every browser.

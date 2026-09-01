@@ -1,6 +1,6 @@
 # Project Agent Skills
 
-## Installed from the Dwelve toolset
+## Installed
 
 The reusable skills are mirrored in both `.agents/skills/` and
 `.claude/skills/` so compatible project agents receive the same guidance.
@@ -16,14 +16,14 @@ the repository.
 
 ## Intentionally not copied
 
-| Dwelve-local skill | Reason |
+| Skill | Reason |
 | --- | --- |
 | `design-taste-frontend-v1` | Deprecated compatibility version |
 | old local `impeccable` | Superseded by the available v4 plugin |
 | `stitch-design-taste` | Google Stitch is not available in this workspace |
-| `gpt-taste` | Requires a GSAP-heavy direction not selected for V3 |
-| `minimalist-ui` | Aesthetic preset unrelated to the selected V3 direction |
-| `industrial-brutalist-ui` | Aesthetic preset unrelated to the selected V3 direction |
+| `gpt-taste` | Requires a GSAP-heavy direction the production design does not use |
+| `minimalist-ui` | Aesthetic preset unrelated to the production design |
+| `industrial-brutalist-ui` | Aesthetic preset unrelated to the production design |
 | `high-end-visual-design` | Overlaps available Impeccable/Frontend Design guidance |
 | `full-output-enforcement` | Generic response behavior, not a project capability |
 
