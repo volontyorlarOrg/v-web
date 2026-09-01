@@ -42,6 +42,12 @@
       "secondaryCta": "Qanday ishlaydi",
       "note": "Mamlakat boʻylab yuqori sinf oʻquvchilari uchun ochiq."
     },
+    "map": {
+      "eyebrow": "Mamlakat boʻylab",
+      "title": "Oʻzbekistonning oʻn toʻrtta hududi, bitta xarita",
+      "lead": "Sahifani pastga suring: xarita qiyshayadi va har bir hudud oʻz belgisi bilan koʻtariladi. Klub aynan shu oʻn toʻrtta hududda ishlashni maqsad qilgan.",
+      "regionsHeading": "Oʻzbekiston hududlari"
+    },
     "stats": {
       "eyebrow": "Bugungi holat",
       "title": "Shu paytgacha qilingan ish",

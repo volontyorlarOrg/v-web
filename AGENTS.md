@@ -51,9 +51,16 @@ belong to the separate YVC application. Do not rebuild them here.
 - Vitest + Testing Library for units and components, Playwright for smoke paths
 - npm with a committed lockfile
 
-There is no theme library, animation library, or 3D library: the design ships
-one light theme, motion is CSS-only, and no surface justifies WebGL. Do not add
-TanStack, React Hook Form, Zod, Zustand, auth SDKs, or dashboard packages.
+There is no theme library and no animation library: the design ships one light
+theme and motion is otherwise CSS-only. Do not add TanStack, React Hook Form,
+Zod, Zustand, auth SDKs, or dashboard packages.
+
+`three` is the single exception, and it is scoped to one surface: the home
+page's region map (`src/components/marketing/region-map/`). It is loaded
+dynamically so it never enters the initial bundle, and the section renders a
+complete server-side SVG map without it. Adding WebGL anywhere else, or reaching
+for a React renderer such as `@react-three/fiber`, needs a fresh decision — see
+`docs/architecture/ARCHITECTURE.md`.
 
 For framework behaviour, read `node_modules/next/dist/docs/` before relying on
 older Next.js knowledge. Middleware is called Proxy in Next.js 16

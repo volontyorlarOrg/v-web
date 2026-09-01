@@ -42,6 +42,12 @@
       "secondaryCta": "See how it works",
       "note": "Open to high school students across the country."
     },
+    "map": {
+      "eyebrow": "Across the country",
+      "title": "Fourteen regions of Uzbekistan, one map",
+      "lead": "Scroll on: the map tips over and every region rises with its own marker. These fourteen regions are what the club is building towards.",
+      "regionsHeading": "Regions of Uzbekistan"
+    },
     "stats": {
       "eyebrow": "Where we are now",
       "title": "The work so far",
