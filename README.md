@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# YVC Web
 
-## Getting Started
+Public, mobile-first website for Youth Volunteering Community. This repository
+currently contains landing-page explorations and the shared frontend
+environment. This setup does not implement authenticated product flows.
 
-First, run the development server:
+## Requirements
+
+- Node.js 22.13 or newer
+- npm and the committed `package-lock.json`
+
+## Setup
 
 ```bash
+npm ci
+cp .env.example .env.local
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the Turbopack development server |
+| `npm run dev:webpack` | Start the Webpack fallback server |
+| `npm run lint` | Run ESLint |
+| `npx tsc --noEmit` | Run the strict TypeScript check |
+| `npm run build` | Create a Webpack production build |
+| `npm run start` | Serve an existing production build |
 
-## Learn More
+## Frontend foundation
 
-To learn more about Next.js, take a look at the following resources:
+- Next.js 16 App Router and React 19
+- strict TypeScript with `@/*` aliases for both `src/` and the repository root
+- Tailwind CSS 4
+- i18next/react-i18next for English and Uzbek localization
+- Motion for interaction and section motion
+- next-themes for class-based themes
+- Radix primitives, shadcn configuration, CVA, clsx, and tailwind-merge
+- Lucide icons and Three.js for product-specific visual scenes when justified
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+See [`docs/README.md`](docs/README.md) for project context and
+[`docs/operations/DEVELOPMENT_AND_DEPLOYMENT.md`](docs/operations/DEVELOPMENT_AND_DEPLOYMENT.md)
+for the environment contract.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Environment variables
 
-## Deploy on Vercel
+The marketing site currently requires no runtime secrets or public environment
+variables. Keep local values in `.env.local`; only the value-free
+`.env.example` may be committed.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Do not add Telegram bot tokens, database credentials, or session secrets to
+`NEXT_PUBLIC_*` variables; those values are sent to every browser.
