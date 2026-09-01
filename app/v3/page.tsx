@@ -1,276 +1,454 @@
+import type { CSSProperties } from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Manrope } from "next/font/google";
+import {
+  ArrowDownRight,
+  ArrowRight,
+  Check,
+  Clock3,
+  FileText,
+  MapPin,
+  Send,
+  ShieldCheck,
+  Sparkles,
+  UserRound,
+} from "lucide-react";
+import { Bricolage_Grotesque, Manrope } from "next/font/google";
 
-const manrope = Manrope({ subsets: ["latin"], variable: "--font-body" });
+const display = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-display",
+});
+
+const body = Manrope({
+  subsets: ["latin"],
+  variable: "--font-body",
+});
 
 export const metadata: Metadata = {
-  title: "YVC — One tap from chat",
-  description: "Volunteering that starts where you already are: Telegram.",
+  title: "Volontyorlar — every hour counts",
+  description:
+    "A mobile-first concept for finding volunteer opportunities and keeping a confirmed record of showing up.",
+  openGraph: {
+    title: "Volontyorlar — V3 concept preview",
+    description:
+      "A planned concept for discovering opportunities, applying from a reusable profile, and keeping confirmed volunteer hours.",
+    images: [{ url: "/opengraph-image.png", width: 1200, height: 630 }],
+  },
 };
 
-const cards = [
-  { tags: "#environment #tashkent", title: "Tree planting, botanical garden", meta: "Sat 09:00 · 5 hours", places: "12 places", deadline: "closes Thu" },
-  { tags: "#education #samarkand", title: "Reading hour with 3rd graders", meta: "Sun 11:00 · 3 hours", places: "4 places", deadline: "closes tomorrow" },
-  { tags: "#health #bukhara", title: "Blood drive registration desk", meta: "Sat 10:00 · 4 hours", places: "8 places", deadline: "closes 17 Sep" },
-  { tags: "#community #namangan", title: "Neighbourhood clean-up", meta: "Sun 08:00 · 4 hours", places: "15 places", deadline: "closes 24 Sep" },
-  { tags: "#events #fergana", title: "Marathon water station crew", meta: "Sun 07:00 · 6 hours", places: "20 places", deadline: "closes 18 Sep" },
-];
+const opportunities = [
+  {
+    category: "Environment",
+    region: "Tashkent",
+    title: "Tree planting at the botanical garden",
+    schedule: "Saturday · 09:00 · 5 hours",
+    note: "Illustrative listing · 12 sample places",
+    featured: true,
+  },
+  {
+    category: "Education",
+    region: "Samarkand",
+    title: "Reading hour with primary pupils",
+    schedule: "Sunday · 11:00 · 3 hours",
+    note: "Illustrative listing",
+    featured: false,
+  },
+  {
+    category: "Community",
+    region: "Namangan",
+    title: "Neighbourhood clean-up crew",
+    schedule: "Sunday · 08:00 · 4 hours",
+    note: "Illustrative listing",
+    featured: false,
+  },
+] as const;
 
 const levels = [
-  { name: "Newcomer", req: "joined", done: true },
-  { name: "Active", req: "3 events", done: true },
-  { name: "Trusted", req: "8 events · 85%", done: false },
-  { name: "Core", req: "20 events · 90%", done: false },
-];
+  { name: "Newcomer", requirement: "Joined", reached: true },
+  { name: "Active", requirement: "3 events", reached: true },
+  { name: "Trusted", requirement: "8 events · 85%", reached: false },
+  { name: "Core", requirement: "20 events · 90% + reviews", reached: false },
+] as const;
+
+const tokens = {
+  "--v3-bg": "#071719",
+  "--v3-field": "#0D2529",
+  "--v3-panel": "#123438",
+  "--v3-panel-strong": "#174147",
+  "--v3-line": "#285158",
+  "--v3-text": "#F4FBFB",
+  "--v3-muted": "#A8C0C2",
+  "--v3-teal": "#45C1C4",
+  "--v3-teal-dark": "#082326",
+  "--v3-amber": "#F3A94A",
+} as CSSProperties;
 
 export default function V3() {
   return (
     <div
-      className={`${manrope.variable} min-h-screen bg-(--bg) pb-24 text-(--text) font-(family-name:--font-body) md:pb-0`}
-      style={{
-        "--bg": "#0E1621",
-        "--panel": "#17212B",
-        "--in": "#182533",
-        "--out": "#2B5278",
-        "--edge": "#243342",
-        "--text": "#E7EDF3",
-        "--muted": "#8FA0B0",
-        "--blue": "#4FA9E8",
-        "--link": "#6AB3F0",
-        "--amber": "#E8A13C",
-      } as React.CSSProperties}
+      id="top"
+      className={`${display.variable} ${body.variable} v3-root min-h-screen overflow-x-hidden bg-(--v3-bg) font-(family-name:--font-body) text-(--v3-text)`}
+      style={tokens}
     >
       <style>{`
-        @keyframes v3-pop { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
-        .v3-b1 { animation: v3-pop 0.35s ease-out 0.2s both; }
-        .v3-b2 { animation: v3-pop 0.35s ease-out 0.9s both; }
-        .v3-b3 { animation: v3-pop 0.35s ease-out 1.6s both; }
-        @media (prefers-reduced-motion: reduce) { .v3-b1, .v3-b2, .v3-b3 { animation: none; } }
-        .v3-scroll::-webkit-scrollbar { display: none; }
+        .v3-root { color-scheme: dark; }
+        .v3-root ::selection { background: #45c1c4; color: #071719; }
+        .v3-root :focus-visible { outline: 3px solid #45c1c4; outline-offset: 4px; }
+        .v3-root { scrollbar-color: #45c1c4 #0d2529; scrollbar-width: thin; }
+        .v3-signal { animation: v3-signal 4.6s cubic-bezier(.16,1,.3,1) infinite; }
+        .v3-pulse { animation: v3-pulse 3.2s cubic-bezier(.16,1,.3,1) infinite; }
+        .v3-stage { animation: v3-stage .7s cubic-bezier(.16,1,.3,1) both; }
+        .v3-stage:nth-child(2) { animation-delay: 120ms; }
+        .v3-stage:nth-child(3) { animation-delay: 240ms; }
+        @keyframes v3-signal {
+          0%, 12% { transform: translateY(0); opacity: 0; }
+          20% { opacity: 1; }
+          72% { opacity: 1; }
+          88%, 100% { transform: translateY(278px); opacity: 0; }
+        }
+        @keyframes v3-pulse {
+          0%, 70%, 100% { box-shadow: 0 0 0 0 rgba(69,193,196,0); }
+          78% { box-shadow: 0 0 0 10px rgba(69,193,196,.10); }
+        }
+        @keyframes v3-stage {
+          from { opacity: .45; filter: blur(5px); transform: translateY(10px); }
+          to { opacity: 1; filter: blur(0); transform: translateY(0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .v3-root { scroll-behavior: auto; }
+          .v3-signal, .v3-pulse, .v3-stage { animation: none; }
+        }
       `}</style>
 
-      {/* Nav — apps keep it to a name and a link */}
-      <header className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-        <div className="flex items-center gap-2.5">
-          <Image src="/yvc-white.png" alt="YVC" width={30} height={30} />
-          <span className="text-base font-extrabold tracking-tight">YVC</span>
+      <header className="relative z-30 border-b border-white/8 bg-(--v3-bg)/92 backdrop-blur-xl">
+        <div className="mx-auto flex min-h-20 max-w-7xl items-center justify-between gap-6 px-5 sm:px-8">
+          <a href="#top" aria-label="Volontyorlar home" className="rounded-md">
+            <Image
+              src="/logo/volontyorlar-horizontal.svg"
+              alt="Volontyorlar"
+              width={540}
+              height={128}
+              priority
+              className="h-auto w-40 sm:w-48"
+            />
+          </a>
+          <nav aria-label="Main navigation" className="flex items-center gap-5 text-sm font-semibold">
+            <a className="hidden text-(--v3-muted) transition-colors hover:text-(--v3-text) sm:block" href="#record">
+              Your record
+            </a>
+            <a
+              href="#journey"
+              className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-(--v3-teal) px-4 text-(--v3-teal-dark) transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-[#62D1D3] active:translate-y-0"
+            >
+              See the journey
+              <ArrowDownRight aria-hidden="true" className="size-4" strokeWidth={2} />
+            </a>
+          </nav>
         </div>
-        <a href="#cta" className="text-sm font-bold text-(--link) hover:underline">
-          Sign in with Telegram
-        </a>
       </header>
 
-      {/* Hero: headline + the channel doing the pitching */}
-      <section className="mx-auto grid max-w-6xl items-center gap-12 px-5 pb-16 pt-8 md:grid-cols-2 md:pt-14">
-        <div>
-          <h1 className="text-4xl font-extrabold leading-[1.08] tracking-tight md:text-6xl">
-            Volunteering starts where you already are.
-          </h1>
-          <p className="mt-5 max-w-md text-lg leading-relaxed text-(--muted)">
-            Opportunities land in Telegram. You sign in with Telegram. You apply in two minutes —
-            and every hour you show up for is counted, for good.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <a
-              href="#cta"
-              className="rounded-[10px] bg-(--blue) px-6 py-3.5 font-extrabold text-[#0B141D] hover:bg-(--link)"
-            >
-              Sign in with Telegram
-            </a>
-            <span className="text-sm text-(--muted)">No password. No forms. Ever.</span>
-          </div>
-          <dl className="mt-10 flex gap-10 tabular-nums">
-            {[
-              { v: "3,000+", k: "volunteers" },
-              { v: "15+", k: "live now" },
-              { v: "6", k: "regions" },
-            ].map((s) => (
-              <div key={s.k}>
-                <dt className="sr-only">{s.k}</dt>
-                <dd className="text-2xl font-extrabold">{s.v}</dd>
-                <dd className="mt-0.5 text-xs font-semibold uppercase tracking-wider text-(--muted)">{s.k}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-
-        {/* Signature: a channel post + the two replies that ARE the product */}
-        <div className="mx-auto w-full max-w-sm rounded-xl border border-(--edge) bg-(--panel)">
-          <div className="flex items-center gap-3 border-b border-(--edge) px-4 py-3">
-            <Image src="/yvc.png" alt="" width={34} height={34} className="rounded-full bg-white p-0.5" />
-            <div>
-              <div className="text-sm font-bold">YVC · opportunities</div>
-              <div className="text-xs text-(--muted)">3,204 subscribers</div>
-            </div>
-          </div>
-          <div className="space-y-3 p-4">
-            <div className="v3-b1 max-w-[88%] rounded-xl rounded-bl-[4px] bg-(--in) p-3.5">
-              <p className="text-sm font-bold text-(--link)">Tree planting — Tashkent</p>
-              <p className="mt-1 text-sm leading-relaxed">
-                Sat 09:00 at the botanical garden. 12 places.{" "}
-                <span className="font-semibold text-(--amber)">Closes Thursday.</span>
+      <main>
+        <section className="relative isolate border-b border-white/8">
+          <svg
+            aria-hidden="true"
+            className="absolute inset-x-0 top-0 -z-10 h-[88%] w-full text-(--v3-teal) opacity-[.035]"
+          >
+            <defs>
+              <pattern
+                id="v3-signal-grid"
+                width="32"
+                height="32"
+                patternUnits="userSpaceOnUse"
+              >
+                <path
+                  d="M32 0H0V32"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#v3-signal-grid)" />
+          </svg>
+          <div className="mx-auto grid min-h-[calc(100svh-5rem)] max-w-7xl items-center gap-12 px-5 py-14 sm:px-8 lg:grid-cols-[1.04fr_.96fr] lg:py-20">
+            <div className="max-w-3xl">
+              <p className="mb-7 inline-flex items-center gap-2 text-sm font-semibold text-(--v3-muted)">
+                <span className="size-2 rounded-full bg-(--v3-teal) shadow-[0_0_0_6px_rgba(69,193,196,.1)]" />
+                Concept preview · no live sign-in yet
               </p>
-              <p className="mt-1.5 text-right text-[11px] text-(--muted)">1.2K views · 18:02</p>
-            </div>
-            <div className="v3-b2 ml-auto max-w-[70%] rounded-xl rounded-br-[4px] bg-(--out) p-3.5">
-              <p className="text-sm font-medium">I&apos;m in — sent my saved essay</p>
-              <p className="mt-1.5 text-right text-[11px] text-(--link)">18:03 ✓✓</p>
-            </div>
-            <div className="v3-b3 max-w-[88%] rounded-xl rounded-bl-[4px] bg-(--in) p-3.5">
-              <p className="text-sm leading-relaxed">
-                Attendance confirmed. <span className="font-bold">+5 hours</span>, reliability{" "}
-                <span className="font-bold">100%</span>. Two more events to{" "}
-                <span className="font-bold text-(--link)">Active</span>.
+              <h1 className="max-w-[15ch] font-(family-name:--font-display) text-[clamp(3.25rem,7vw,6rem)] font-semibold leading-[.94] tracking-[-.04em] text-balance">
+                Your hours should remember you.
+              </h1>
+              <p className="mt-7 max-w-2xl text-lg leading-8 text-(--v3-muted) text-pretty sm:text-xl">
+                Volontyorlar is planned as one place to find an opportunity,
+                apply from a reusable profile, and keep a confirmed record of
+                every time you showed up.
               </p>
-              <p className="mt-1.5 text-right text-[11px] text-(--muted)">Sun 14:11</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Snap-scroll opportunity rail */}
-      <section className="py-6">
-        <div className="mx-auto mb-5 flex max-w-6xl items-baseline justify-between px-5">
-          <h2 className="text-xl font-extrabold">This month</h2>
-          <span className="text-sm text-(--muted)">swipe →</span>
-        </div>
-        <div className="v3-scroll flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 [scrollbar-width:none] md:px-[max(1.25rem,calc((100vw-72rem)/2+1.25rem))]">
-          {cards.map((c) => (
-            <article
-              key={c.title}
-              className="w-72 shrink-0 snap-start rounded-xl border border-(--edge) bg-(--panel) p-5"
-            >
-              <p className="text-xs font-semibold lowercase text-(--link)">{c.tags}</p>
-              <h3 className="mt-3 text-lg font-bold leading-snug">{c.title}</h3>
-              <p className="mt-1.5 text-sm text-(--muted)">{c.meta}</p>
-              <div className="mt-6 flex items-center justify-between text-sm">
-                <span className="text-(--muted)">
-                  {c.places} · <span className="font-semibold text-(--amber)">{c.deadline}</span>
-                </span>
-                <a href="#cta" className="font-bold text-(--link) hover:underline">
-                  Apply
+              <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <a
+                  href="#journey"
+                  className="inline-flex min-h-13 items-center justify-center gap-2 rounded-xl bg-(--v3-teal) px-6 font-extrabold text-(--v3-teal-dark) transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-[#62D1D3] active:translate-y-0"
+                >
+                  Follow one opportunity
+                  <ArrowRight aria-hidden="true" className="size-5" strokeWidth={2.2} />
+                </a>
+                <a
+                  href="#launch"
+                  className="inline-flex min-h-13 items-center justify-center rounded-xl border border-(--v3-line) px-6 font-bold text-(--v3-text) transition-colors hover:border-(--v3-teal) hover:bg-(--v3-field)"
+                >
+                  Read the launch target
                 </a>
               </div>
-            </article>
-          ))}
-        </div>
-      </section>
+            </div>
 
-      {/* Record + levels */}
-      <section className="mx-auto max-w-6xl px-5 py-16">
-        <div className="rounded-xl border border-(--edge) bg-(--panel) p-7 md:p-10">
-          <div className="grid items-center gap-10 md:grid-cols-2">
+            <div id="journey" className="relative mx-auto w-full max-w-xl scroll-mt-24">
+              <div aria-hidden="true" className="absolute bottom-16 left-7 top-16 w-px bg-(--v3-line) sm:left-9">
+                <span className="v3-signal absolute -left-1.5 top-0 size-3 rounded-full bg-(--v3-teal) shadow-[0_0_18px_rgba(69,193,196,.8)]" />
+              </div>
+              <div className="space-y-4">
+                <article className="v3-stage relative ml-14 rounded-2xl border border-(--v3-line) bg-(--v3-panel)/95 p-5 shadow-[0_28px_70px_-44px_rgba(69,193,196,.65)] sm:ml-20 sm:p-6">
+                  <span className="absolute -left-[3.15rem] top-6 grid size-10 place-items-center rounded-full border border-(--v3-line) bg-(--v3-bg) text-(--v3-teal) sm:-left-[4.8rem] sm:size-12">
+                    <Send aria-hidden="true" className="size-5" strokeWidth={1.8} />
+                  </span>
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div>
+                      <p className="text-xs font-bold tracking-[.14em] text-(--v3-teal) uppercase">Illustrative opportunity</p>
+                      <h2 className="mt-2 font-(family-name:--font-display) text-xl font-semibold tracking-tight sm:text-2xl">
+                        Tree planting · Tashkent
+                      </h2>
+                    </div>
+                    <span className="rounded-lg bg-(--v3-field) px-2.5 py-1 text-xs font-bold text-(--v3-amber)">Deadline Thu</span>
+                  </div>
+                  <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-sm text-(--v3-muted)">
+                    <span className="inline-flex items-center gap-1.5"><Clock3 aria-hidden="true" className="size-4" />Saturday · 09:00</span>
+                    <span className="inline-flex items-center gap-1.5"><MapPin aria-hidden="true" className="size-4" />Botanical garden</span>
+                  </div>
+                </article>
+
+                <article className="v3-stage relative ml-14 rounded-2xl border border-(--v3-line) bg-(--v3-field) p-5 sm:ml-20 sm:p-6">
+                  <span className="absolute -left-[3.15rem] top-6 grid size-10 place-items-center rounded-full border border-(--v3-line) bg-(--v3-bg) text-(--v3-teal) sm:-left-[4.8rem] sm:size-12">
+                    <FileText aria-hidden="true" className="size-5" strokeWidth={1.8} />
+                  </span>
+                  <p className="text-sm font-extrabold text-(--v3-text)">Planned application</p>
+                  <p className="mt-2 leading-7 text-(--v3-muted)">
+                    Profile details are reused. A saved essay can be pulled in.
+                    The brief targets three steps and about two minutes.
+                  </p>
+                </article>
+
+                <article className="v3-stage v3-pulse relative ml-14 rounded-2xl border border-(--v3-teal)/55 bg-(--v3-panel-strong) p-5 sm:ml-20 sm:p-6">
+                  <span className="absolute -left-[3.15rem] top-6 grid size-10 place-items-center rounded-full bg-(--v3-teal) text-(--v3-teal-dark) sm:-left-[4.8rem] sm:size-12">
+                    <ShieldCheck aria-hidden="true" className="size-5" strokeWidth={2.1} />
+                  </span>
+                  <div className="flex items-center justify-between gap-4">
+                    <div>
+                      <p className="text-sm font-extrabold">Attendance confirmed</p>
+                      <p className="mt-1 text-sm text-(--v3-muted)">Illustrative record update</p>
+                    </div>
+                    <strong className="font-(family-name:--font-display) text-2xl font-semibold tabular-nums text-(--v3-teal)">+5 h</strong>
+                  </div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="launch" className="border-b border-white/8 bg-(--v3-field) scroll-mt-20">
+          <div className="mx-auto grid max-w-7xl gap-7 px-5 py-8 sm:px-8 lg:grid-cols-[1fr_auto] lg:items-center">
             <div>
-              <h2 className="text-2xl font-extrabold leading-snug md:text-3xl">
-                Hours that don&apos;t disappear.
-              </h2>
-              <p className="mt-4 max-w-sm leading-relaxed text-(--muted)">
-                Organizers confirm who actually came. Your level, hours and reliability live on one
-                shareable page — proof for universities, employers, embassies.
-              </p>
-              <p className="mt-4 text-sm text-(--muted)">
-                Reliability = events attended ÷ events accepted. No star ratings.
+              <h2 className="font-(family-name:--font-display) text-2xl font-semibold tracking-tight">The launch target is concrete.</h2>
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-(--v3-muted)">
+                These are requirements from the supplied brief, not claims about the current state.
               </p>
             </div>
-            <div className="space-y-2.5">
-              {levels.map((l) => (
-                <div
-                  key={l.name}
-                  className={`flex items-center justify-between rounded-lg border px-4 py-3 ${
-                    l.done ? "border-(--out) bg-(--in)" : "border-(--edge) bg-transparent opacity-60"
-                  }`}
-                >
-                  <span className="font-bold">{l.name}</span>
-                  <span className="text-sm tabular-nums text-(--muted)">
-                    {l.done ? "✓ " : ""}
-                    {l.req}
+            <ul className="grid grid-cols-3 divide-x divide-(--v3-line) rounded-2xl border border-(--v3-line) bg-(--v3-bg)/45">
+              {[
+                ["15+", "opportunities"],
+                ["3", "partners"],
+                ["1", "working bot"],
+              ].map(([value, label]) => (
+                <li key={label} className="px-4 py-4 text-center sm:px-7">
+                  <span className="block text-[9px] font-extrabold tracking-[.16em] text-(--v3-amber) uppercase">
+                    Launch target
                   </span>
+                  <strong className="block font-(family-name:--font-display) text-2xl font-semibold tabular-nums text-(--v3-teal)">{value}</strong>
+                  <span className="mt-1 block text-[11px] font-bold tracking-wide text-(--v3-muted) uppercase">{label}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section id="opportunities" className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 className="max-w-3xl font-(family-name:--font-display) text-4xl font-semibold leading-tight tracking-[-.035em] text-balance sm:text-5xl">
+                Find the work that fits your weekend.
+              </h2>
+              <p className="mt-5 max-w-2xl leading-7 text-(--v3-muted)">
+                The examples below demonstrate the planned browse experience.
+                They are not live opportunities.
+              </p>
+            </div>
+            <span className="inline-flex items-center gap-2 text-sm font-bold text-(--v3-teal)">
+              Illustrative listings
+              <Sparkles aria-hidden="true" className="size-4" strokeWidth={1.8} />
+            </span>
+          </div>
+
+          <div className="mt-10 grid gap-4 lg:grid-cols-[1.35fr_.85fr]">
+            <article className="group relative min-h-96 overflow-hidden rounded-[1.75rem] border border-(--v3-line) bg-(--v3-panel) p-7 sm:p-9">
+              <div aria-hidden="true" className="absolute -right-20 -top-20 size-72 rounded-full border-[46px] border-(--v3-teal)/9 transition-transform duration-700 ease-out group-hover:scale-110" />
+              <div className="relative flex h-full flex-col">
+                <div className="flex flex-wrap gap-2 text-xs font-extrabold tracking-wide uppercase">
+                  <span className="rounded-lg bg-(--v3-teal) px-2.5 py-1 text-(--v3-teal-dark)">{opportunities[0].category}</span>
+                  <span className="rounded-lg bg-(--v3-field) px-2.5 py-1 text-(--v3-muted)">{opportunities[0].region}</span>
                 </div>
+                <h3 className="mt-auto max-w-xl pt-20 font-(family-name:--font-display) text-3xl font-semibold leading-tight tracking-[-.03em] sm:text-5xl">
+                  {opportunities[0].title}
+                </h3>
+                <div className="mt-6 flex flex-col gap-5 border-t border-(--v3-line) pt-5 sm:flex-row sm:items-end sm:justify-between">
+                  <div className="space-y-1 text-sm text-(--v3-muted)">
+                    <p>{opportunities[0].schedule}</p>
+                    <p>{opportunities[0].note}</p>
+                  </div>
+                  <a href="#journey" className="inline-flex items-center gap-2 font-extrabold text-(--v3-teal) underline-offset-4 hover:underline">
+                    See the application concept
+                    <ArrowRight aria-hidden="true" className="size-4" />
+                  </a>
+                </div>
+              </div>
+            </article>
+
+            <div className="grid gap-4">
+              {opportunities.slice(1).map((opportunity) => (
+                <article key={opportunity.title} className="rounded-[1.5rem] border border-(--v3-line) bg-(--v3-field) p-6 transition-colors hover:bg-(--v3-panel)">
+                  <p className="mb-5 text-[10px] font-extrabold tracking-[.15em] text-(--v3-amber) uppercase">
+                    {opportunity.note}
+                  </p>
+                  <div className="flex items-center justify-between gap-4 text-xs font-extrabold tracking-wide uppercase">
+                    <span className="text-(--v3-teal)">{opportunity.category}</span>
+                    <span className="text-(--v3-muted)">{opportunity.region}</span>
+                  </div>
+                  <h3 className="mt-7 max-w-md font-(family-name:--font-display) text-2xl font-semibold leading-tight tracking-tight">
+                    {opportunity.title}
+                  </h3>
+                  <p className="mt-4 text-sm leading-6 text-(--v3-muted)">{opportunity.schedule}</p>
+                </article>
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA */}
-      <section id="cta" className="mx-auto max-w-6xl px-5 pb-20 pt-4 text-center">
-        <h2 className="mx-auto max-w-lg text-3xl font-extrabold leading-snug">
-          The next event is this weekend.
-        </h2>
-        <a
-          href="#"
-          className="mt-7 inline-block rounded-[10px] bg-(--blue) px-8 py-4 text-lg font-extrabold text-[#0B141D] hover:bg-(--link)"
-        >
-          Sign in with Telegram
-        </a>
-        <p className="mt-4 text-sm text-(--muted)">Free · English now, Uzbek next</p>
-      </section>
+        <section id="record" className="border-y border-white/8 bg-(--v3-field) scroll-mt-20">
+          <div className="mx-auto grid max-w-7xl gap-14 px-5 py-24 sm:px-8 sm:py-32 lg:grid-cols-[.82fr_1.18fr] lg:items-center">
+            <div>
+              <h2 className="font-(family-name:--font-display) text-4xl font-semibold leading-tight tracking-[-.035em] text-balance sm:text-5xl">
+                A record that gets stronger every time you show up.
+              </h2>
+              <p className="mt-6 max-w-xl text-lg leading-8 text-(--v3-muted)">
+                Organizers confirm attendance. Your completed events, hours,
+                reliability, and level stay together on one planned shareable page.
+              </p>
+              <div className="mt-8 rounded-2xl border border-(--v3-line) bg-(--v3-bg)/45 p-5">
+                <p className="font-bold text-(--v3-text)">Reliability has one rule</p>
+                <p className="mt-2 leading-7 text-(--v3-muted)">
+                  Events attended ÷ events accepted. If an organizer forgets to
+                  confirm, the volunteer is never penalized.
+                </p>
+              </div>
+            </div>
 
-      {/* Footer */}
-      <footer className="border-t border-(--edge) py-8">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5 text-sm text-(--muted)">
-          <div className="flex items-center gap-2">
-            <Image src="/yvc-white.png" alt="" width={22} height={22} />
-            <span>Youth Volunteering Community · Uzbekistan</span>
+            <div className="rounded-[1.75rem] border border-(--v3-line) bg-(--v3-bg) p-5 shadow-[0_34px_90px_-58px_rgba(69,193,196,.8)] sm:p-8">
+              <div className="flex items-center justify-between gap-4 border-b border-(--v3-line) pb-6">
+                <div className="flex items-center gap-4">
+                  <span className="grid size-12 place-items-center rounded-full bg-(--v3-panel) text-(--v3-teal)">
+                    <UserRound aria-hidden="true" className="size-6" strokeWidth={1.8} />
+                  </span>
+                  <div>
+                    <p className="font-extrabold">Illustrative volunteer</p>
+                    <p className="mt-1 text-xs font-bold tracking-wide text-(--v3-muted) uppercase">Record preview</p>
+                  </div>
+                </div>
+                <span className="rounded-lg bg-(--v3-panel) px-3 py-1.5 text-sm font-extrabold text-(--v3-teal)">Active</span>
+              </div>
+
+              <dl className="grid grid-cols-3 divide-x divide-(--v3-line) py-7 text-center">
+                {[
+                  ["3", "events"],
+                  ["14", "hours"],
+                  ["100%", "reliability"],
+                ].map(([value, label]) => (
+                  <div key={label} className="px-2">
+                    <dd className="font-(family-name:--font-display) text-2xl font-semibold tabular-nums sm:text-3xl">{value}</dd>
+                    <dt className="mt-1 text-[11px] font-bold tracking-wide text-(--v3-muted) uppercase">{label}</dt>
+                  </div>
+                ))}
+              </dl>
+
+              <div className="space-y-2.5">
+                {levels.map((level) => (
+                  <div
+                    key={level.name}
+                    className={`flex min-h-14 items-center justify-between gap-4 rounded-xl border px-4 ${
+                      level.reached
+                        ? "border-(--v3-teal)/35 bg-(--v3-panel)"
+                        : "border-(--v3-line) text-(--v3-muted)"
+                    }`}
+                  >
+                    <span className="inline-flex items-center gap-2 font-extrabold">
+                      {level.reached ? <Check aria-hidden="true" className="size-4 text-(--v3-teal)" strokeWidth={2.4} /> : null}
+                      {level.name}
+                    </span>
+                    <span className="text-sm font-semibold tabular-nums">{level.requirement}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-          <span>@yvc_opportunities</span>
+        </section>
+
+        <section className="mx-auto max-w-7xl px-5 py-24 sm:px-8 sm:py-32">
+          <div className="relative overflow-hidden rounded-[2rem] bg-(--v3-teal) px-6 py-14 text-(--v3-teal-dark) sm:px-12 sm:py-20">
+            <div aria-hidden="true" className="absolute -right-16 -top-20 size-72 rounded-full border-[54px] border-(--v3-teal-dark)/8" />
+            <div className="relative max-w-3xl">
+              <h2 className="font-(family-name:--font-display) text-4xl font-semibold leading-[1.02] tracking-[-.04em] text-balance sm:text-6xl">
+                First make showing up easier. Then make it count.
+              </h2>
+              <p className="mt-6 max-w-2xl text-lg font-semibold leading-8 text-[#123E42]">
+                This page is a visual test of the V3 direction. Product access,
+                Telegram authentication, and live opportunities remain outside
+                this prototype until their contracts are available.
+              </p>
+              <a
+                href="#top"
+                className="mt-9 inline-flex min-h-13 items-center gap-2 rounded-xl bg-(--v3-teal-dark) px-6 font-extrabold text-(--v3-text) transition-[background-color,transform] hover:-translate-y-0.5 hover:bg-[#0D3034] active:translate-y-0"
+              >
+                View the concept again
+                <ArrowRight aria-hidden="true" className="size-5" />
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer className="border-t border-white/8 pb-10 pt-8">
+        <div className="mx-auto flex max-w-7xl flex-col gap-6 px-5 sm:px-8 md:flex-row md:items-center md:justify-between">
+          <Image
+            src="/logo/volontyorlar-horizontal-white.svg"
+            alt="Volontyorlar"
+            width={540}
+            height={128}
+            loading="eager"
+            className="h-auto w-44"
+          />
+          <p className="max-w-md text-sm leading-6 text-(--v3-muted) md:text-right">
+            Youth Volunteering Community · Uzbekistan<br />
+            English at launch · Uzbek planned next
+          </p>
         </div>
       </footer>
-
-      {/* Mobile sticky CTA — everyone arrives on a phone */}
-      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-(--edge) bg-(--panel) p-3 md:hidden">
-        <a
-          href="#cta"
-          className="block rounded-[10px] bg-(--blue) py-3.5 text-center font-extrabold text-[#0B141D]"
-        >
-          Sign in with Telegram
-        </a>
-      </div>
     </div>
   );
 }
-
-/* ============================================================================
-   DESIGN NOTES — V3 "Night shift" (Telegram-native dark: messenger blues + amber)
-
-   PATTERN
-   The page behaves like the app it funnels into. The hero's right half is a
-   Telegram channel ("YVC · opportunities", subscriber count, view counts,
-   read checkmarks) demonstrating the whole loop in three messages: post →
-   apply with a saved essay → hours and reliability confirmed. Opportunities
-   are a thumb-friendly snap-scroll rail with lowercase #hashtag tags instead
-   of category chips; levels are a progress list; a sticky bottom CTA bar on
-   mobile mimics an app. Show, don't tell.
-
-   PALETTE (borrowed from Telegram's own dark theme, not from the logo)
-   Bg #0E1621 / panel #17212B / bubbles #182533 & #2B5278 — the exact
-   elevation family a Telegram user's eye already trusts at night
-   Blue #4FA9E8 — the only button colour, dark text on it for contrast
-   Link #6AB3F0 — links, tags, active states
-   Amber #E8A13C — the single warm accent, reserved for deadlines
-   No rainbow: categories are hashtags, levels are filled/unfilled rows.
-
-   TYPE
-   Manrope only, 400–800. Real messaging apps don't use display faces —
-   one family with a heavy top weight IS the authentic voice here. Numerals
-   set tabular for the stats.
-
-   WHY IT'S GOOD
-   + Truest to the real journey in the product doc: a teenager opening a
-     Telegram link at 11pm lands somewhere that feels native, not corporate.
-   + The channel hero explains the product faster than any headline could,
-     and its details (views, ✓✓, subscribers) buy believability for free.
-   + Single family, four colours, flat panels — the cheapest system to keep
-     consistent across the future app, bot messages and admin panel.
-
-   WHY IT'S BAD
-   − Dark pages read less trustworthy to parents, schools and the partner
-     organizations the launch depends on ("3 partners to launch").
-   − Borrowing Telegram's visual language invites comparison with the real
-     thing, and flirts with looking like an unofficial client rather than
-     an organization with its own identity.
-   − Amber-on-navy is the only urgency signal; colour-blind-safe, but the
-     page has little range left for celebration moments (level-ups) without
-     breaking its own restraint.
-   ========================================================================= */

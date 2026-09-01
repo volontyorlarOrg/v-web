@@ -14,9 +14,16 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "YVC",
+  title: "Volontyorlar — YVC",
   description: "Youth Volunteering Community — Uzbekistan",
+  icons: {
+    icon: "/logo/volontyorlar-mark.svg",
+    apple: "/apple-icon.png",
+  },
 };
+
+const showStyleSwitcher =
+  process.env.NEXT_PUBLIC_SHOW_STYLE_SWITCHER === "true";
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
@@ -26,7 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         {children}
-        <StyleSwitcher />
+        {showStyleSwitcher ? <StyleSwitcher /> : null}
       </body>
     </html>
   );

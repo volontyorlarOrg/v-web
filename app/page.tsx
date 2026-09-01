@@ -3,8 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "YVC — landing page explorations",
-  description: "Three design directions for the YVC marketing landing page.",
+  title: "Volontyorlar — landing page explorations",
+  description: "Three design directions for the Volontyorlar marketing landing page.",
 };
 
 const versions = [
@@ -38,8 +38,8 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#FBFAF7] px-5 py-14 font-sans text-[#1F2933]">
       <main className="mx-auto max-w-3xl">
-        <div className="flex items-center gap-3">
-          <Image src="/yvc.png" alt="YVC" width={40} height={40} />
+        <div className="flex items-center gap-4">
+          <Image src="/logo/volontyorlar-horizontal.svg" alt="Volontyorlar" width={540} height={128} className="h-auto w-44" />
           <h1 className="text-2xl font-bold tracking-tight">Landing page explorations</h1>
         </div>
         <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[#52606D]">

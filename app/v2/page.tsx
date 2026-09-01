@@ -12,7 +12,7 @@ const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], 
 const body = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-body" });
 
 export const metadata: Metadata = {
-  title: "YVC — Proof you showed up",
+  title: "Volontyorlar — Proof you showed up",
   description: "A volunteer record nobody can copy: events, hours, reliability.",
 };
 
@@ -62,8 +62,8 @@ export default function V2() {
       <header className="border-b-4 border-double border-(--ink)">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
           <div className="flex items-center gap-2.5">
-            <Image src="/yvc.png" alt="YVC" width={32} height={32} />
-            <span className="font-(family-name:--font-display) text-lg font-bold">YVC</span>
+            <Image src="/logo/volontyorlar-mark.svg" alt="Volontyorlar" width={32} height={32} />
+            <span className="font-(family-name:--font-display) text-lg font-bold">Volontyorlar</span>
             <span className="ml-2 hidden font-(family-name:--font-mono) text-xs uppercase tracking-widest opacity-70 sm:inline">
               Volunteer register · Uzbekistan
             </span>
@@ -238,7 +238,7 @@ export default function V2() {
       {/* Footer — microprint line, like the bottom of a document */}
       <footer className="border-t-4 border-double border-(--ink) py-6">
         <p className="mx-auto max-w-6xl truncate px-5 font-(family-name:--font-mono) text-[10px] uppercase tracking-[0.3em] opacity-60">
-          YVC · Youth Volunteering Community · Uzbekistan · English now Uzbek next · YVC · Youth
+          Volontyorlar · Youth Volunteering Community · Uzbekistan · English now Uzbek next · Volontyorlar · Youth
           Volunteering Community · Uzbekistan
         </p>
       </footer>

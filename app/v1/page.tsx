@@ -6,7 +6,7 @@ const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-disp
 const body = Figtree({ subsets: ["latin"], variable: "--font-body" });
 
 export const metadata: Metadata = {
-  title: "YVC — Show up. It adds up.",
+  title: "Volontyorlar — Show up. It adds up.",
   description: "Volunteering across Uzbekistan. One tap from Telegram.",
 };
 
@@ -59,9 +59,9 @@ export default function V1() {
       <header className="border-b-[3px] border-(--ink) bg-(--paper)">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
           <div className="flex items-center gap-2.5">
-            <Image src="/yvc.png" alt="YVC" width={36} height={36} />
+            <Image src="/logo/volontyorlar-mark.svg" alt="Volontyorlar" width={36} height={36} />
             <span className="font-(family-name:--font-display) text-lg font-extrabold tracking-tight">
-              YVC
+              Volontyorlar
             </span>
           </div>
           <nav className="hidden items-center gap-7 text-sm font-semibold md:flex">
@@ -226,8 +226,8 @@ export default function V1() {
       <footer className="bg-(--ink) py-8 text-(--paper)">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-5">
           <div className="flex items-center gap-2.5">
-            <Image src="/yvc-white.png" alt="" width={28} height={28} />
-            <span className="font-(family-name:--font-display) font-bold">YVC</span>
+            <Image src="/logo/volontyorlar-mark-white.svg" alt="" width={28} height={28} />
+            <span className="font-(family-name:--font-display) font-bold">Volontyorlar</span>
           </div>
           <p className="text-sm opacity-75">Youth Volunteering Community · Uzbekistan · English now, Uzbek next</p>
         </div>
