@@ -12,6 +12,10 @@
 
 # testing
 /coverage
+/test-results
+/playwright-report
+/blob-report
+/playwright/.cache
 
 # next.js
 /.next/
@@ -23,8 +27,9 @@
 # misc
 .DS_Store
 *.pem
-/.impeccable/*
-!/.impeccable/design.json
+# Scratch output from the Impeccable plugin; the design system now lives in
+# DESIGN.md, which is tracked.
+/.impeccable/
 
 # debug
 npm-debug.log*

@@ -10,76 +10,102 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 # YVC Web — Agent Guide
 
-This repository is the public YVC website. Read this file before meaningful
-work, then use [`docs/README.md`](docs/README.md) to load only the project
-context needed for the task.
+This repository is the public **Youth Volunteer Club** marketing website. Read
+this file before meaningful work, then use [`docs/README.md`](docs/README.md) to
+load only the project context the task needs.
 
 ## Product identity
 
-Youth Volunteering Community helps young people in Uzbekistan discover
-volunteer opportunities and build a trustworthy record of attendance. The
-product is mobile-first because most visitors arrive from Telegram links.
-English is the launch language; Uzbek is the next planned locale.
+**Youth Volunteer Club (YVC)** helps high school students in Uzbekistan find
+volunteering that is real and worth their time. YVC finds opportunities,
+contacts organisers, sources events, builds partnerships, supplies volunteers,
+and is building regional operations toward all 14 regions.
 
-The broader product brief includes opportunities, Telegram sign-in, reusable
-profiles and essays, applications, volunteer records, and an admin panel. This
-repository is currently scoped to the public website and its frontend
-foundation. Do not infer that backend, authentication, or dashboard behavior
-already exists here.
+Do not call the product "Youth Volunteering Community"; that name is retired.
+The delivered logo lockup still carries a `volontyorlar` wordmark, which is why
+the site renders the organisation name as real text next to the mark instead of
+using the lockup — see `docs/brand/BRAND_ASSETS.md`.
+
+Verified facts live in `src/lib/content/org.ts` and in
+[`PRODUCT.md`](PRODUCT.md). Nothing outside those sources may be presented as
+fact: no extra partners, statistics, testimonials, awards, offices, addresses,
+or integrations.
+
+## Repository boundary
+
+This repository owns the public marketing site only: positioning, public pages,
+partner presentation, SEO, metadata, structured data, legal pages, and links
+into the separate product application.
+
+It does not own volunteer authentication, sessions, dashboards, profiles,
+applications, essays, ratings, attendance records, or admin workflows. Those
+belong to the separate YVC application. Do not rebuild them here.
 
 ## Technology stack
 
-- Next.js 16 App Router, React 19, and strict TypeScript
-- Tailwind CSS 4
-- i18next/react-i18next for localization
-- Motion for interaction and section motion
-- next-themes for class-based light/dark mode
-- Radix/shadcn-compatible primitives, Lucide icons, and Three.js when justified
-- npm with a committed lockfile; Node.js 22.13 or newer
+- Next.js 16 App Router, React 19, strict TypeScript, Node.js 22.13+
+- Tailwind CSS 4 with semantic tokens in `src/app/globals.css`
+- `next-intl` for `uz` / `ru` / `en` routing and catalogs
+- Radix/shadcn-compatible foundation: `class-variance-authority`, `clsx`,
+  `tailwind-merge`, Lucide icons
+- Vitest + Testing Library for units and components, Playwright for smoke paths
+- npm with a committed lockfile
 
-Verify dependency versions in `package.json`. For Next.js behavior, consult the
-installed documentation in `node_modules/next/dist/docs/` before relying on
-older framework knowledge.
+There is no theme library, animation library, or 3D library: the design ships
+one light theme, motion is CSS-only, and no surface justifies WebGL. Do not add
+TanStack, React Hook Form, Zod, Zustand, auth SDKs, or dashboard packages.
 
-## Current repository map
+For framework behaviour, read `node_modules/next/dist/docs/` before relying on
+older Next.js knowledge. Middleware is called Proxy in Next.js 16
+(`src/proxy.ts`).
+
+## Repository map
 
 ```text
-app/            -> App Router layouts, pages, and global styles
-public/         -> public YVC brand assets
-docs/           -> stable project and environment documentation
-.agent-memory/  -> durable decisions, discoveries, and gotchas
-.github/        -> dependency updates and CI/security checks
-../product/     -> source product brief and master brand files (sibling folder)
+src/app/[locale]/(marketing)/  -> production marketing pages
+src/app/{robots,sitemap}.ts    -> crawl policy and localized sitemap
+src/app/global-not-found.tsx   -> 404 for unmatched URLs (root layout is dynamic)
+src/i18n/                      -> routing, navigation, request config, catalogs
+src/lib/seo/                   -> origin helpers, metadata builder, JSON-LD
+src/lib/routing/routes.ts      -> the public route registry
+src/lib/content/               -> verified facts and call-to-action resolution
+src/lib/constants/             -> external channels and analytics event names
+src/components/{ui,brand,marketing}/
+e2e/                           -> Playwright smoke suite
+docs/                          -> stable project documentation
+.agent-memory/                 -> durable decisions, discoveries, gotchas
 ```
-
-The current `/`, `/v1`, `/v2`, and `/v3` routes are design explorations. Keep
-them intact unless a task explicitly selects or replaces a direction.
 
 ## Critical rules
 
-- Preserve the mobile-first path from Telegram into the public site.
-- Do not invent backend contracts, Telegram credentials, domains, or deployment
-  values. Document unknown external details as needing verification.
-- Keep secrets out of source control. `NEXT_PUBLIC_*` values are browser-visible.
-- New user-facing copy must account for English and the planned Uzbek locale.
-- Reuse the shared dependency and token foundation before adding libraries or
-  one-off visual systems.
-- Use red only for urgent or destructive meaning such as deadlines; the product
-  brief reserves navy for structure and teal for primary action.
-- Preserve reduced-motion behavior, keyboard access, readable focus states, and
-  responsive behavior.
-- Update `/docs` when stable environment or architecture behavior changes.
+- Preserve the mobile-first path from Telegram: no horizontal overflow, thumb
+  sized controls, fast first render, and no hover-only interaction.
+- Never invent an origin. `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_APP_ORIGIN`,
+  `NEXT_PUBLIC_TELEGRAM_URL`, and `NEXT_PUBLIC_INSTAGRAM_URL` are all blank by
+  default, and the interface degrades instead of guessing. An unconfigured
+  marketing origin means `noindex` plus a disallowing `robots.txt`.
+- Keep secrets out of source control. `NEXT_PUBLIC_*` values reach every browser.
+- Every user-facing string exists in `uz`, `ru`, and `en`. Uzbek uses the turned
+  comma `ʻ` (U+02BB), Russian uses Cyrillic, and a test enforces key parity.
+- Add a public page by registering it in `src/lib/routing/routes.ts`; anything
+  else is invisible to the navigation and the sitemap.
+- Use semantic colour tokens, never literal hex. `#007FC2` is for the mark,
+  graphics, and type at 24px and above; `#005E92` carries small text and
+  white-on-blue labels. Red is reserved for urgent or destructive meaning.
+- Preserve reduced-motion behaviour, keyboard access, visible focus states, one
+  logical `h1` per page, and responsive behaviour.
+- Update `/docs` when stable environment or architecture behaviour changes.
 
 ## Default verification
 
-Run what applies:
-
 ```bash
 npm run lint
-npx tsc --noEmit
+npm run typecheck
+npm run test
 git diff --check
 ```
 
-Use `npm run build` only when the task calls for build/deployment validation.
-For UI work, also inspect the affected routes in a real browser at mobile and
-desktop widths and with reduced motion.
+Add `npm run build` for build or deployment work, and `npm run test:e2e` when
+routing, navigation, or the information architecture changes. For UI work also
+inspect the affected routes at mobile and desktop widths and with reduced
+motion.

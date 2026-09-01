@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" role="img" aria-labelledby="title desc">
+  <title id="title">Youth Volunteer Club</title>
+  <desc id="desc">Volunteering for young people in Uzbekistan.</desc>
+  <rect width="1200" height="630" fill="#005E92"/>
+  <g transform="translate(600 232) scale(1.6) translate(-100 -96.75)">
+    <circle cx="100" cy="76" r="20" fill="#FFFFFF"/>
+    <path d="M 41.74 81.30 A 59 59 0 0 0 158.26 81.30" fill="none" stroke="#FFFFFF" stroke-width="13" stroke-linecap="round"/>
+  </g>
+  <text x="600" y="428" text-anchor="middle" font-family="Onest, 'Segoe UI', system-ui, sans-serif" font-size="84" font-weight="700" letter-spacing="-2" fill="#FFFFFF">Youth Volunteer Club</text>
+  <text x="600" y="492" text-anchor="middle" font-family="Onest, 'Segoe UI', system-ui, sans-serif" font-size="26" font-weight="600" letter-spacing="3" fill="#BFDCEF">VOLUNTEERING FOR YOUNG PEOPLE · UZBEKISTAN</text>
+</svg>
