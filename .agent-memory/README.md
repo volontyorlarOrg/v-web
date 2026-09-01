@@ -32,3 +32,5 @@ folder. Never store secrets or unverified external claims.
   read at run time must not be parsed as a base-16 integer
 - `gotchas/building-while-the-dev-server-runs-unstyles-the-page.md` — why a
   production build breaks a live `next dev`, and how to recognise it
+- `gotchas/upgrade-insecure-requests-breaks-safari-on-localhost.md` — why the
+  site rendered unstyled in Safari and perfectly in Chrome
