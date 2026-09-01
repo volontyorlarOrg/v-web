@@ -2,10 +2,6 @@ import type { ReactNode } from "react";
 
 export type ProseSection = { id: string; title: string; body: string };
 
-/**
- * Legal and explanatory pages. A single measure, generous leading, and headings
- * that stay in one logical order below the page `h1`.
- */
 export function ProseSections({
   sections,
   children,

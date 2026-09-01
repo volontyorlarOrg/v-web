@@ -89,12 +89,30 @@ docs/                          -> stable project documentation
   comma `ʻ` (U+02BB), Russian uses Cyrillic, and a test enforces key parity.
 - Add a public page by registering it in `src/lib/routing/routes.ts`; anything
   else is invisible to the navigation and the sitemap.
-- Use semantic colour tokens, never literal hex. `#007FC2` is for the mark,
-  graphics, and type at 24px and above; `#005E92` carries small text and
-  white-on-blue labels. Red is reserved for urgent or destructive meaning.
+- Two brand colours with a role each. **Blue is the institution**: navigation,
+  structure, primary actions, the mark. **Orange is the person**: a confirmed
+  hour, a level reached, a number counting what people did. Blue and orange sit
+  1.25:1 apart and must never be combined — no two-colour mark, no orange on
+  blue, no blue on orange. Each hue has a graphics value (`#007FC2`, `#E85D30`,
+  24px and above) and a text value (`#005E92`, `#B34917`). The palette defines
+  no red. Use semantic tokens, never a literal hex.
 - Preserve reduced-motion behaviour, keyboard access, visible focus states, one
   logical `h1` per page, and responsive behaviour.
 - Update `/docs` when stable environment or architecture behaviour changes.
+
+## Code conventions
+
+- **Source files carry no comments.** Explanations go in `/docs` — see
+  [`docs/operations/EXTENDING.md`](docs/operations/EXTENDING.md). Names, types,
+  and test names carry intent inside the source. Compiler and linter directives
+  are not comments and stay.
+- Server Components by default; `"use client"` only for event handlers, client
+  state, browser APIs, or an interactive primitive, with the boundary as low as
+  practical.
+- Internal links use `navHref()` with `Link` from `@/i18n/navigation`, which
+  adds the locale prefix itself. `localePath()` and `localeUrl()` are for
+  anchors, canonical URLs, and structured data. Mixing them yields `/uz/uz/...`.
+- No literal hex, no hard-coded origin, no fabricated fact.
 
 ## Default verification
 
@@ -109,3 +127,6 @@ Add `npm run build` for build or deployment work, and `npm run test:e2e` when
 routing, navigation, or the information architecture changes. For UI work also
 inspect the affected routes at mobile and desktop widths and with reduced
 motion.
+
+To add anything — a page, copy, a locale, a token, a component, an external
+link — follow [`docs/operations/EXTENDING.md`](docs/operations/EXTENDING.md).

@@ -10,7 +10,6 @@ vi.mock("@/i18n/navigation", () => ({
     <a
       href={href}
       {...rest}
-      // jsdom cannot navigate; keep the component's own handler running.
       onClick={(event) => {
         event.preventDefault();
         onClick?.(event);
@@ -42,7 +41,6 @@ describe("MobileNav", () => {
     const trigger = screen.getByRole("button", { name: "Open menu" });
     expect(trigger).toHaveAttribute("aria-expanded", "false");
     expect(trigger).toHaveAttribute("aria-controls");
-    // A hidden panel is out of the accessibility tree entirely.
     expect(screen.queryByRole("navigation", { name: "Main navigation" })).toBeNull();
     expect(screen.queryByRole("link", { name: "About" })).toBeNull();
   });

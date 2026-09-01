@@ -12,7 +12,6 @@ export default getRequestConfig(async ({ requestLocale }) => {
   return {
     locale,
     messages: (await import(`./messages/${locale}.json`)).default,
-    // Fixed zone so server and client render identical dates for every visitor.
     timeZone: "Asia/Tashkent",
   };
 });

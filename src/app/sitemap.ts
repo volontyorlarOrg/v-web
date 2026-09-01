@@ -4,12 +4,6 @@ import { defaultLocale, locales } from "@/i18n/routing";
 import { alternateUrls, localeUrl, publicRoutes } from "@/lib/routing/routes";
 import { hasVerifiedMarketingOrigin } from "@/lib/seo/origin";
 
-/**
- * One entry per route per locale, each carrying the full `hreflang` set so the
- * three language versions are reported as alternates of one another. The
- * sitemap stays empty while no canonical host is configured, matching
- * `robots.ts`.
- */
 export default function sitemap(): MetadataRoute.Sitemap {
   if (!hasVerifiedMarketingOrigin()) return [];
 

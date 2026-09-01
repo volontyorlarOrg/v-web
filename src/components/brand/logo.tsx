@@ -1,15 +1,5 @@
 import { cn } from "@/lib/utils";
 
-/**
- * The YVC mark, inlined from the delivered geometry in docs/brand/LOGO_SPEC.md
- * (arc centre 100,72 · radius 59 · stroke 13 · dot centre 100,76 · radius 20).
- *
- * It is inlined rather than loaded through `next/image` so it inherits
- * `currentColor` and costs no extra request. The wordmark is real HTML text in
- * the site typeface: `public/logo/lockup-horizontal.svg` sets its wordmark as
- * SVG `<text>` in a font an isolated SVG cannot load, so it renders differently
- * on every platform. See .agent-memory/gotchas/svg-lockup-wordmark-font.md.
- */
 export function BrandMark({ className }: { className?: string }) {
   return (
     <svg
@@ -30,11 +20,6 @@ export function BrandMark({ className }: { className?: string }) {
   );
 }
 
-/**
- * The arc alone — a graphic device derived from the mark, not the mark itself.
- * Used for large decorative shapes so the logo is never cropped, tinted, or
- * rendered below its 16px minimum size (docs/brand/LOGO_SPEC.md).
- */
 export function BrandArc({ className }: { className?: string }) {
   return (
     <svg
@@ -70,16 +55,15 @@ export function BrandLockup({
       <BrandMark
         className={cn(
           "size-8",
-          tone === "primary" ? "text-primary" : "text-primary-fg",
+          tone === "primary" ? "text-primary" : "text-knockout",
         )}
       />
       <span
         className={cn(
           "text-[1.0625rem] leading-none font-bold tracking-[-0.02em]",
-          tone === "primary" ? "text-ink" : "text-primary-fg",
+          tone === "primary" ? "text-ink" : "text-knockout",
         )}
       >
-        {/* The full name needs room; narrow screens get the abbreviation. */}
         <span className="hidden sm:inline">{name}</span>
         <span className="sm:hidden">{shortName}</span>
       </span>

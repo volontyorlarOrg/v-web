@@ -8,12 +8,6 @@ import { ORGANIZATION_NAME } from "@/lib/content/org";
 import { localePath } from "@/lib/routing/routes";
 import "./globals.css";
 
-/**
- * `global-not-found` bypasses the layout tree, which is why it re-imports the
- * global stylesheet and the typeface. It also sits outside `[locale]`, so it
- * cannot know which language the visitor wanted: the page answers in all three
- * and offers a home link for each.
- */
 const onest = Onest({
   subsets: ["latin", "latin-ext", "cyrillic"],
   variable: "--font-onest",

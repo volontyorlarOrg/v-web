@@ -3,10 +3,6 @@ import { defineConfig, devices } from "@playwright/test";
 const PORT = 3210;
 const baseURL = `http://127.0.0.1:${PORT}`;
 
-/**
- * Smoke coverage for the production build. The site is fully static, so the
- * suite builds once and serves it, rather than driving the dev server.
- */
 export default defineConfig({
   testDir: "./e2e",
   fullyParallel: true,

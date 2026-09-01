@@ -8,13 +8,6 @@ import { buttonClass } from "@/components/ui/button";
 
 export type NavItem = { href: string; label: string };
 
-/**
- * Mobile disclosure navigation.
- *
- * The panel is a sibling of the trigger so the reading order stays logical, it
- * closes on Escape and on route change, and every control clears the 44px touch
- * target. Labels arrive already translated from the server component.
- */
 export function MobileNav({
   items,
   cta,

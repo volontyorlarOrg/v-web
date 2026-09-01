@@ -20,7 +20,6 @@ vi.mock("@/i18n/navigation", () => ({
     children,
     ...rest
   }: AnchorHTMLAttributes<HTMLAnchorElement> & { locale?: string }) => (
-    // The real component prefixes the locale; the stub records it instead.
     <a href={`/${locale}${href === "/" ? "" : href}`} {...rest}>
       {children}
     </a>

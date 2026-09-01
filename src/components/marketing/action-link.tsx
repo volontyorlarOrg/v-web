@@ -3,10 +3,6 @@ import type { ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
 import type { Destination } from "@/lib/content/cta";
 
-/**
- * Renders a destination as a locale-aware internal link or a safe external
- * anchor. Components should never branch on this themselves.
- */
 export function ActionLink({
   destination,
   className,

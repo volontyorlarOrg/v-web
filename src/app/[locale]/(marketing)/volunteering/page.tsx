@@ -49,6 +49,7 @@ function Volunteering({ locale }: { locale: Locale }) {
     id,
     title: home(`how.steps.${id}.title`),
     description: home(`how.steps.${id}.description`),
+    actor: id === "volunteer" ? "volunteer" : "organisation",
   }));
 
   return (

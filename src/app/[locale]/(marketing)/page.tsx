@@ -74,6 +74,7 @@ function Home({ locale }: { locale: Locale }) {
     id,
     title: t(`how.steps.${id}.title`),
     description: t(`how.steps.${id}.description`),
+    actor: id === "volunteer" ? "volunteer" : "organisation",
   }));
 
   const structuredData = [
@@ -93,11 +94,9 @@ function Home({ locale }: { locale: Locale }) {
     <>
       <script
         type="application/ld+json"
-        // Values come from a local module, not from user input.
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      {/* Hero ------------------------------------------------------------- */}
       <section className="relative isolate overflow-hidden border-b border-border">
         <BrandArc className="pointer-events-none absolute -top-16 -right-24 -z-10 size-[24rem] text-primary/[0.07] sm:-top-24 sm:-right-16 sm:size-[34rem]" />
         <div className="container-page py-16 sm:py-24">
@@ -128,7 +127,6 @@ function Home({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* What we do ------------------------------------------------------- */}
       <Section tone="sunk">
         <SectionHeader
           eyebrow={t("what.eyebrow")}
@@ -149,7 +147,6 @@ function Home({ locale }: { locale: Locale }) {
         </ul>
       </Section>
 
-      {/* How it works ----------------------------------------------------- */}
       <Section>
         <SectionHeader
           eyebrow={t("how.eyebrow")}
@@ -159,7 +156,6 @@ function Home({ locale }: { locale: Locale }) {
         <StepRail steps={steps} className="mt-14" />
       </Section>
 
-      {/* Who we work with -------------------------------------------------- */}
       <Section tone="soft">
         <SectionHeader
           eyebrow={t("sources.eyebrow")}
@@ -197,7 +193,6 @@ function Home({ locale }: { locale: Locale }) {
         </Link>
       </Section>
 
-      {/* Regions ---------------------------------------------------------- */}
       <Section>
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
           <SectionHeader
@@ -207,15 +202,15 @@ function Home({ locale }: { locale: Locale }) {
           />
           <dl className="grid gap-px overflow-hidden rounded-xl border border-primary-ink bg-primary-ink sm:grid-cols-2">
             <div className="bg-primary-ink p-7">
-              <dd className="tabular text-[clamp(2.75rem,8vw,4rem)] leading-none font-bold text-primary-fg">
+              <dd className="tabular text-[clamp(2.75rem,8vw,4rem)] leading-none font-bold text-knockout">
                 {format.number(TARGET_REGION_COUNT)}
               </dd>
               <dt className="mt-3 text-sm leading-snug text-primary-muted">
                 {t("regions.regionsLabel")}
               </dt>
             </div>
-            <div className="bg-primary-ink p-7 sm:border-l sm:border-primary-fg/25">
-              <dd className="tabular text-[clamp(2.75rem,8vw,4rem)] leading-none font-bold text-primary-fg">
+            <div className="bg-primary-ink p-7 sm:border-l sm:border-knockout/25">
+              <dd className="tabular text-[clamp(2.75rem,8vw,4rem)] leading-none font-bold text-knockout">
                 {plus(TRACTION.regionalRoleApplications)}
               </dd>
               <dt className="mt-3 text-sm leading-snug text-primary-muted">
@@ -226,7 +221,6 @@ function Home({ locale }: { locale: Locale }) {
         </div>
       </Section>
 
-      {/* Course ----------------------------------------------------------- */}
       <Section tone="sunk">
         <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
           <div>
@@ -255,11 +249,10 @@ function Home({ locale }: { locale: Locale }) {
         </div>
       </Section>
 
-      {/* Closing call to action ------------------------------------------- */}
       <Section>
         <div className="relative isolate overflow-hidden rounded-2xl bg-primary-ink px-6 py-14 sm:px-12 sm:py-16">
-          <BrandArc className="pointer-events-none absolute -right-16 -bottom-40 -z-10 size-96 text-primary-fg/12" />
-          <h2 className="max-w-[18ch] text-headline font-bold text-primary-fg text-balance">
+          <BrandArc className="pointer-events-none absolute -right-16 -bottom-40 -z-10 size-96 text-knockout/12" />
+          <h2 className="max-w-[18ch] text-headline font-bold text-knockout text-balance">
             {t("cta.title")}
           </h2>
           <p className="mt-5 max-w-xl text-lead text-primary-muted text-pretty">
@@ -273,7 +266,7 @@ function Home({ locale }: { locale: Locale }) {
               href={navHref("contact")}
               className={buttonClass({
                 variant: "outline",
-                className: "border-primary-fg/40 text-primary-fg hover:border-primary-fg hover:bg-primary-deep hover:text-primary-fg",
+                className: "border-knockout/40 text-knockout hover:border-knockout hover:bg-primary-deep hover:text-knockout",
               })}
             >
               {t("cta.secondary")}

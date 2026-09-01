@@ -49,8 +49,6 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          {/* Reachable at every width: a trilingual audience should never
-              have to open a menu to change language. */}
           <LocaleSwitcher label={t("languageLabel")} />
           <ActionLink
             destination={join}

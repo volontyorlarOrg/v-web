@@ -3,11 +3,6 @@ import type { MetadataRoute } from "next";
 import { locales, type Locale } from "@/i18n/routing";
 import { marketingOrigin } from "@/lib/seo/origin";
 
-/**
- * The public route registry. Every indexable marketing page is declared once
- * here, and the navigation, sitemap, and metadata layers all read from it.
- * Adding a page anywhere else is a bug: it would be missing from the sitemap.
- */
 export type RouteKey =
   | "home"
   | "about"
@@ -22,11 +17,8 @@ type SitemapEntry = MetadataRoute.Sitemap[number];
 
 export type PublicRoute = {
   key: RouteKey;
-  /** Path below the locale prefix. The home route is an empty string. */
   path: string;
-  /** Shown in the header and footer primary navigation. */
   inMainNav: boolean;
-  /** Shown in the footer legal row. */
   inLegalNav: boolean;
   priority: NonNullable<SitemapEntry["priority"]>;
   changeFrequency: NonNullable<SitemapEntry["changeFrequency"]>;
@@ -52,25 +44,18 @@ export function getRoute(key: RouteKey): PublicRoute {
   return route;
 }
 
-/**
- * Locale-agnostic href for `@/i18n/navigation`'s `Link`, which adds the locale
- * prefix itself. Never pass a `localePath()` result to that component.
- */
 export function navHref(key: RouteKey): string {
   return getRoute(key).path || "/";
 }
 
-/** Locale-prefixed pathname, e.g. `/uz/about`. The home route stays `/uz`. */
 export function localePath(locale: Locale, key: RouteKey): string {
   return `/${locale}${getRoute(key).path}`;
 }
 
-/** Absolute canonical URL for a route in one locale. */
 export function localeUrl(locale: Locale, key: RouteKey): string {
   return new URL(localePath(locale, key), `${marketingOrigin()}/`).toString();
 }
 
-/** `hreflang` map for a route, including `x-default` on the default locale. */
 export function alternateUrls(key: RouteKey): Record<string, string> {
   const alternates: Record<string, string> = {};
   for (const locale of locales) {

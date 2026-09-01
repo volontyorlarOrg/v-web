@@ -61,7 +61,6 @@ describe("message catalogs", () => {
   it("writes Russian in Cyrillic rather than leaving English copy behind", () => {
     const ru = values(load("ru"));
     const cyrillic = ru.filter(([, value]) => /[Ѐ-ӿ]/.test(value));
-    // Proper nouns such as "Youth Volunteer Club" and "Telegram" stay Latin.
     expect(cyrillic.length / ru.length).toBeGreaterThan(0.8);
   });
 });

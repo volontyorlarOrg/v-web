@@ -4,13 +4,6 @@ import { marketingUrl } from "@/lib/seo/origin";
 import { FOUNDED_ON, FOUNDERS } from "@/lib/content/org";
 import { verifiedSocialUrls } from "@/lib/constants/channels";
 
-/**
- * Structured data is limited to facts this repository can support. There is no
- * aggregate rating, review, address, telephone, or price anywhere, and the
- * course page publishes no schedule or enrolment, so no `Course` node is
- * emitted either.
- */
-
 type JsonLd = Record<string, unknown>;
 
 export function organizationJsonLd({
