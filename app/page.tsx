@@ -1,68 +1,88 @@
+import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "YVC — landing page explorations",
+  description: "Three design directions for the YVC marketing landing page.",
+};
+
+const versions = [
+  {
+    href: "/v1",
+    name: "1 · Poster",
+    thesis: "A civic poster turned into a page — butter yellow, print navy, tomato. Type is the visual.",
+    palette: ["#24333E", "#F5C742", "#C63D1A", "#FAF6EC"],
+    good: "Loud, warm, young — reads like a real youth-org poster, not corporate polish. Survives a logo change.",
+    bad: "Loudness has a ceiling: inner pages (rules, FAQs) will fight the uppercase poster voice.",
+  },
+  {
+    href: "/v2",
+    name: "2 · Record",
+    thesis: "A register, not a brochure — paper, writing ink, oxblood and blue stamp pads. The record card is the hero.",
+    palette: ["#26313A", "#8A3033", "#2F5570", "#8A6D14", "#F4F0E5"],
+    good: "Sells the actual moat (proof of showing up); the stamp motif extends straight into the product.",
+    bad: "Most serious of the three — teens may read serif + register as paperwork; tables are risky on mobile.",
+  },
+  {
+    href: "/v3",
+    name: "3 · Night",
+    thesis: "Telegram-native dark — the messenger's own blues plus one amber. A channel post does the pitching.",
+    palette: ["#0E1621", "#2B5278", "#4FA9E8", "#E8A13C"],
+    good: "Truest to the real journey (a phone, a Telegram link, 11pm); the chat hero explains the product in three messages.",
+    bad: "Dark reads less trustworthy to parents, schools and the partner orgs the launch depends on.",
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen bg-[#FBFAF7] px-5 py-14 font-sans text-[#1F2933]">
+      <main className="mx-auto max-w-3xl">
+        <div className="flex items-center gap-3">
+          <Image src="/yvc.png" alt="YVC" width={40} height={40} />
+          <h1 className="text-2xl font-bold tracking-tight">Landing page explorations</h1>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-[#52606D]">
+          Three directions, each grounded in a different truth from the product brief and each with
+          its own palette — none of them depends on the logo staying as it is. Use the switcher in
+          the corner to flip between them from any page. Full rationale lives in a comment at the
+          bottom of each version&apos;s source file.
+        </p>
+
+        <div className="mt-10 divide-y divide-[#D9DDE2] border-y border-[#D9DDE2]">
+          {versions.map((v) => (
+            <Link key={v.href} href={v.href} className="group block py-7">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <h2 className="text-lg font-bold group-hover:underline">{v.name}</h2>
+                <span className="flex items-center gap-1.5">
+                  {v.palette.map((c) => (
+                    <span
+                      key={c}
+                      className="size-4 rounded-sm border border-black/10"
+                      style={{ background: c }}
+                    />
+                  ))}
+                </span>
+              </div>
+              <p className="mt-2 font-medium">{v.thesis}</p>
+              <div className="mt-3 space-y-1 text-sm leading-relaxed text-[#52606D]">
+                <p>
+                  <span className="font-semibold text-[#1F2933]">For: </span>
+                  {v.good}
+                </p>
+                <p>
+                  <span className="font-semibold text-[#1F2933]">Against: </span>
+                  {v.bad}
+                </p>
+              </div>
+            </Link>
+          ))}
         </div>
+
+        <p className="mt-8 text-sm text-[#7B8794]">
+          Shared facts across all three: 15+ live opportunities · 6 regions · Telegram sign-in ·
+          levels Newcomer / Active / Trusted / Core · reliability = attended ÷ accepted.
+        </p>
       </main>
     </div>
   );
