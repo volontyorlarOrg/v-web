@@ -2,10 +2,6 @@ import { cn } from "@/lib/utils";
 
 export type BoardEntry = { id: string; name: string; note?: string };
 
-/**
- * A plain board of organisation names. No logos are shown: this repository
- * holds no partner artwork and no permission to reproduce any.
- */
 export function NameBoard({
   entries,
   className,
@@ -15,9 +11,6 @@ export function NameBoard({
 }) {
   return (
     <ul
-      // Gapped cards rather than a hairline grid: these lists have an odd
-      // number of entries, and an empty cell in a gap-filled grid reads as a
-      // rendering fault.
       className={cn("grid gap-3 sm:grid-cols-2 lg:grid-cols-3", className)}
     >
       {entries.map((entry) => (

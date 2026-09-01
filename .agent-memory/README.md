@@ -16,6 +16,9 @@ folder. Never store secrets or unverified external claims.
   exploration routes became one design system, one typeface, and three locales
 - `decisions/indexing-gated-on-verified-origin.md` — why the site refuses to be
   indexed until a canonical origin is configured
+- `decisions/two-brand-hues-with-a-role-split.md` — blue for the institution,
+  orange for the person, and why they may never touch
+- `decisions/source-files-carry-no-comments.md` — where the explanations went
 - `gotchas/product-brief-is-not-live-state.md` — what may and may not be claimed
 - `gotchas/svg-lockup-wordmark-font.md` — why the delivered lockup is not used
 - `gotchas/scroll-driven-reveals-are-blank-off-screen.md` — why there are no

@@ -14,16 +14,61 @@ as such below.
 
 ## Colour
 
-| Use | Hex | Contrast on white |
-| --- | --- | --- |
-| Logo, icons, large graphics | `#007FC2` | 4.36:1 |
-| Body text and small button labels | `#005E92` | 6.96:1 |
-| Ink and wordmark | `#222B33` | 14.37:1 |
-| Knockout | `#FFFFFF` | — |
+Two brand colours, both from the UN Volunteers / International Volunteer Day
+brand guide. [`LOGO_SPEC.md`](LOGO_SPEC.md) is the authority; this table records
+the values as they are installed in the token system.
 
-`#007FC2` clears the 3:1 threshold for graphics and large text but misses the
-4.5:1 floor for body text. Use it for the mark and for headings at 24px or
-larger. Anything smaller, and any white-on-blue label, uses `#005E92`.
+| Role | Hex | On white | Token | Use |
+| --- | --- | --- | --- | --- |
+| **Blue — the platform** | `#007FC2` | 4.36:1 | `--color-primary` | The mark, icons, structure, navigation, large graphics |
+| Blue deep | `#005E92` | 6.96:1 | `--color-primary-ink` | Body text, small labels, white-on-blue buttons |
+| **Orange — the volunteer** | `#E85D30` | 3.48:1 | `--color-accent` | Confirmations, achievement, highlights, large graphics |
+| Orange deep | `#B34917` | 5.41:1 | `--color-accent-ink` | Orange text, white-on-orange buttons |
+| Ink | `#222B33` | 14.37:1 | `--color-ink` | Body copy, wordmark |
+| Knockout | `#FFFFFF` | — | `--color-knockout` | On blue, orange, or ink |
+
+### The role split
+
+Blue is the institution: navigation, structure, primary actions, the mark.
+Orange is the person: a confirmed hour, a level reached, a thank-you. White
+dominates, blue carries structure, and orange appears only where a person did
+something. Rationing the orange is what keeps it meaning something.
+
+### Three rules that are not negotiable
+
+1. **The mark is never two-colour.** The two hues sit 1.25:1 apart, and 1.24:1
+   once desaturated. In greyscale, one-colour print, embroidery, or for a viewer
+   with colour vision deficiency, an orange dot on a blue arc merges into one
+   flat shape. The mark is blue, ink, or white — one colour at a time.
+2. **Never orange text on blue, or blue text on orange.** Same 1.25:1, and they
+   vibrate optically at that luminance.
+3. **Each hue has a graphics value and a text value.** `#007FC2` and `#E85D30`
+   clear the 3:1 graphics threshold on white but miss the 4.5:1 text floor. Use
+   them for the mark, headings at 24px and above, and large figures. Anything
+   text-sized, and any knockout label on a solid fill, uses `#005E92` or
+   `#B34917`.
+
+All three are enforced by `src/app/design-tokens.test.ts`, including the
+negative assertions: brand blue and brand orange must each stay *below* 4.5:1 on
+paper, and every blue/orange pairing must stay below 3:1, so nobody can quietly
+combine them.
+
+### Surfaces
+
+Orange clears 3:1 on every light surface in the system, but only just on the
+tinted bands: 3.48:1 on white, 3.33:1 on paper, 3.02:1 on the sunk band, and
+3.04:1 on the soft blue band. Orange figures therefore belong on white cards.
+The test asserts all four so a future change to a band tone fails loudly instead
+of silently dropping below the threshold.
+
+### No red
+
+The palette defines no red. An earlier `--color-destructive` of `#B3261E` was
+removed because it is 1.21:1 against orange deep — visually the same colour at a
+glance, and a trap for anyone reaching for "a red" to signal urgency. If a
+destructive or deadline state is ever needed, it has to be chosen against
+`#B34917` at 3:1 or better, and added to the specification rather than picked in
+a component.
 
 ## Construction and usage
 
@@ -110,9 +155,12 @@ See [`../../.agent-memory/gotchas/svg-lockup-wordmark-font.md`](../../.agent-mem
 
 - **Palette conflict.** Previously the explorations, `DESIGN.md`, and
   `.impeccable/design.json` were built on teal `#45C1C4`, which is not a brand
-  colour. The explorations and that token file are gone, and the production
-  design system is built on `#007FC2` / `#005E92` with a contrast test that
-  enforces where each may be used.
+  colour. The explorations and that token file are gone.
+- **Second brand colour.** The specification now defines orange `#E85D30` /
+  `#B34917` alongside the blues, with an explicit role split. The token system,
+  the design system, and the contrast test were updated to match; the site
+  applies orange to the traction figures and to the one step in the volunteer
+  journey the volunteer performs.
 
 ## Superseded assets
 

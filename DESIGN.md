@@ -1,21 +1,22 @@
 ---
 name: YVC Marketing
-description: A civic notice board in UN Blue — plainspoken, evidence-led, and light enough for a phone on mobile data.
+description: A civic notice board — blue for the institution, orange for the person, plainspoken and light enough for a phone on mobile data.
 colors:
   paper: "#FBFAF7"
   surface: "#FFFFFF"
   surface-sunk: "#F1EFE9"
   surface-soft: "#E7F1F8"
-  ink: "#1C242B"
+  ink: "#222B33"
   ink-muted: "#566270"
   border: "#E3E0D8"
   border-control: "#949084"
   primary: "#007FC2"
   primary-ink: "#005E92"
   primary-deep: "#004A73"
-  primary-fg: "#FFFFFF"
   primary-muted: "#BFDCEF"
-  destructive: "#B3261E"
+  accent: "#E85D30"
+  accent-ink: "#B34917"
+  knockout: "#FFFFFF"
 typography:
   display:
     fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
@@ -69,13 +70,13 @@ spacing:
 components:
   button-primary:
     backgroundColor: "{colors.primary-ink}"
-    textColor: "{colors.primary-fg}"
+    textColor: "{colors.knockout}"
     rounded: "{rounded.lg}"
     padding: "0 24px"
     height: "52px"
   button-primary-hover:
     backgroundColor: "{colors.primary-deep}"
-    textColor: "{colors.primary-fg}"
+    textColor: "{colors.knockout}"
     rounded: "{rounded.lg}"
     padding: "0 24px"
     height: "52px"
@@ -87,7 +88,7 @@ components:
     padding: "0 24px"
     height: "52px"
   button-inverse:
-    backgroundColor: "{colors.primary-fg}"
+    backgroundColor: "{colors.knockout}"
     textColor: "{colors.primary-ink}"
     rounded: "{rounded.lg}"
     padding: "0 24px"
@@ -111,11 +112,13 @@ components:
 
 **Creative North Star: "Public notice board"**
 
-The site reads like a well-set civic notice: warm paper, dark ink, one blue that
-means action, and hairline rules doing the structural work. It is confident
-without shouting, and credible enough for the schools, agencies, and partner
-organisations YVC depends on — while staying young through scale, directness,
-and plain language rather than through decoration.
+The site reads like a well-set civic notice: warm paper, dark ink, hairline
+rules doing the structural work, and two brand colours with a job each. Blue is
+the institution — navigation, structure, the mark. Orange is the person, and it
+appears only where a person did something. It is confident without shouting, and
+credible enough for the schools, agencies, and partner organisations YVC depends
+on, while staying young through scale, directness, and plain language rather
+than through decoration.
 
 This direction consolidates the three retired explorations: V1's poster
 confidence in typographic scale and solid bands, V2's evidence discipline —
@@ -126,45 +129,71 @@ none of which survive contact with the delivered UN Blue brand set.
 
 **Key characteristics**
 
-- Warm paper ground, dark ink type, exactly one brand hue.
+- Warm paper ground, dark ink type, two brand hues that never touch.
 - Hairline grids and tone bands instead of shadows and gradients.
-- Oversized tabular numerals carrying the evidence.
+- Oversized tabular numerals in orange carrying the human evidence.
 - A rule-led label system that never uses the logo below its minimum size.
 - Provisional material labelled in words, never by colour alone.
 
 ## Colors
 
-The palette is the delivered brand set plus the neutrals needed to hold it.
+Two brand hues plus the neutrals needed to hold them. Values and their contrast
+ratios are in `docs/brand/BRAND_ASSETS.md`; this section is about which one to
+reach for.
 
-### Primary
+### Blue — the platform
 
-- **Primary `#007FC2`** — the mark, decorative arcs, and display figures. It is
-  4.18:1 on paper: valid for graphics and for type at 24px and above, never for
-  body copy.
+- **Primary `#007FC2`** — the mark, decorative arcs, step nodes. Graphics and
+  type at 24px and above only.
 - **Primary Ink `#005E92`** — links, small labels, solid action fills, and the
   focus ring. This is the token that carries text-sized blue.
-- **Primary Deep `#004A73`** — hover state on solid actions.
+- **Primary Deep `#004A73`** — hover state on solid actions. Derived here, not
+  from the specification.
 - **Primary Muted `#BFDCEF`** — secondary copy on a blue band.
+
+### Orange — the volunteer
+
+- **Accent `#E85D30`** — traction figures and the volunteer's step node.
+  Graphics and figures at 24px and above only.
+- **Accent Ink `#B34917`** — the label attached to an orange moment, and any
+  future knockout label on a solid orange fill.
 
 ### Neutral
 
 - **Paper** — the page ground.
-- **Surface** — cards and raised content.
+- **Surface** — cards and raised content, and the only ground orange figures
+  sit on.
 - **Surface Sunk** — alternating section bands.
 - **Surface Soft** — the one blue-tinted band.
 - **Ink / Ink Muted** — primary and secondary copy.
 - **Border / Border Control** — hairlines, and the heavier 3:1 boundary that
   interactive controls need.
+- **Knockout** — white, on blue, orange, or ink.
 
 ### Named rules
 
-**The Two Blues Rule.** `#007FC2` is a graphic; `#005E92` is text. If a blue
-element carries words at body size, it uses Primary Ink. A test in
-`src/app/design-tokens.test.ts` enforces both halves.
+**The Role Split.** Blue is the institution, orange is the person. Navigation,
+structure, primary actions, and the mark are blue. A confirmed hour, a level
+reached, a thank-you, a number that counts what people did — orange. Anything
+that is not clearly one of those is blue. Rationing the orange is what keeps it
+meaning something.
 
-**The Single Hue Rule.** There is no secondary accent. Status and emphasis come
-from words, weight, and surface tone. Red exists as a token for urgent or
-destructive meaning and is currently unused.
+**The Graphics-and-Text Rule.** Each hue has two values. `#007FC2` and
+`#E85D30` are graphics; `#005E92` and `#B34917` are text. If an element carries
+words at body size, or a knockout label on a solid fill, it uses the `-ink`
+value.
+
+**The Hues Never Touch.** Blue and orange are 1.25:1 apart. No two-colour mark,
+no orange on blue, no blue on orange. This is why the regions band keeps white
+figures on blue even though 500+ applications is exactly the kind of number
+orange would otherwise claim.
+
+**No Red.** The palette defines none. `#B3261E` was removed because it is
+1.21:1 against Accent Ink. A destructive or deadline colour must be specified,
+not improvised.
+
+`src/app/design-tokens.test.ts` enforces every rule above, including the
+negative assertions.
 
 ## Typography
 
@@ -232,6 +261,14 @@ dot and to the step nodes. Borders are thin and quiet.
 - **Focus:** a 3px Primary Ink outline at 3px offset, everywhere, from the base
   layer.
 
+### Stat grid
+
+Figures are orange on white cards, labels stay ink muted. These numbers count
+what people did — a community joined, events staffed, applications sent — so
+they are the one place on the home page where orange is unambiguously earned.
+White is the ground because orange has real headroom there and only 3.02:1 on
+the sunk band.
+
 ### Hairline grids
 
 Groups whose length is fixed and fills the grid — the stat strip, the six things
@@ -243,8 +280,11 @@ looks like a fault.
 ### Step rail
 
 Four numbered steps on a continuous hairline, vertical on mobile and horizontal
-from the large breakpoint, with a solid blue node each. The rail is decorative;
-the ordered list carries the meaning.
+from the large breakpoint. The first three nodes are blue — the work YVC does.
+The fourth is orange, because it is the step the volunteer performs. That single
+node is the clearest statement of the role split anywhere on the site. The rail
+is decorative; the ordered list carries the meaning, and the step titles say who
+acts, so the colour reinforces rather than carries it.
 
 ### Status chip
 
@@ -280,15 +320,18 @@ typeface. See `docs/brand/BRAND_ASSETS.md`.
 ### Do
 
 - **Do** carry hierarchy with surface tone and hairlines before anything else.
-- **Do** keep `#007FC2` for graphics and large figures, `#005E92` for text.
+- **Do** keep blue for structure and orange for what a person did.
+- **Do** use the `-ink` value whenever a hue carries words at body size.
 - **Do** set every number in tabular figures.
+- **Do** put orange figures on white, never on a tinted band.
 - **Do** label anything that is planned, in preparation, or not yet published.
 - **Do** check display lines at 360px in Uzbek, Russian, and English.
 
 ### Don't
 
 - **Don't** use gradients, glassmorphism, ambient shadows, or glow.
-- **Don't** introduce a second accent hue, or use red for anything but urgency.
+- **Don't** combine blue and orange in one element, or introduce a third hue.
+- **Don't** reach for a red; the palette defines none.
 - **Don't** put a literal hex value in a component.
 - **Don't** claim live opportunities, active authentication, or partners that
   are not in `PRODUCT.md`.

@@ -45,8 +45,29 @@ receive their copy as props so no page-level translation reaches the browser:
 - `MobileNav` needs disclosure state and an Escape handler.
 
 The root layout hands `NextIntlClientProvider` only the `nav` namespace.
-Forwarding the whole catalog would add roughly 16KB of JSON to every document
-for no benefit.
+Forwarding the whole catalog embedded every page's copy in every document:
+95KB of raw HTML on the home page against 79KB, and 16.0KB gzipped against
+11.4KB. Check for a regression by grepping a rendered page for a string that
+only exists on another page.
+
+Every page calls `setRequestLocale` before reading translations. Without it the
+route opts out of static generation.
+
+## Configuration decisions
+
+| Setting | Where | Why |
+| --- | --- | --- |
+| `localePrefix: "always"` | `src/i18n/routing.ts` | One locale per URL, so a canonical URL can never render two languages |
+| `localeCookie: false` | `src/i18n/routing.ts` | The URL is the only language state; every response stays cacheable and the privacy page can truthfully say nothing is stored |
+| `alternateLinks: false` | `src/i18n/routing.ts` | Alternates are emitted by the metadata layer instead, so they live with the canonical URLs rather than in a response header |
+| `timeZone: "Asia/Tashkent"` | `src/i18n/request.ts` | Fixed, so server and client format dates identically for every visitor |
+| `experimental.globalNotFound` | `next.config.ts` | The root layout sits under `[locale]`, so a 404 for an unmatched URL cannot be composed from a layout |
+| Proxy `matcher` | `src/proxy.ts` | Skips API routes, Next internals, and anything containing a dot, so static assets never pay for a proxy hop |
+
+`global-not-found.tsx` bypasses the layout tree, which is why it re-imports the
+global stylesheet and the typeface. It sits outside `[locale]` and cannot know
+which language the visitor wanted, so it answers in all three and offers a home
+link for each.
 
 ## Dependency boundary
 

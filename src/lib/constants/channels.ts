@@ -1,11 +1,3 @@
-/**
- * Public YVC channels.
- *
- * No channel URL is proven by this repository, so none is hard-coded. Each one
- * is read from configuration and is `null` until it is supplied; the interface
- * omits a channel rather than linking somewhere unverified.
- */
-
 export type ChannelId = "telegram" | "instagram";
 
 function readUrl(value: string | undefined): string | null {
@@ -35,7 +27,6 @@ export function availableChannels(): ChannelId[] {
   );
 }
 
-/** Channel URLs suitable for `sameAs` in structured data. */
 export function verifiedSocialUrls(): string[] {
   return availableChannels()
     .map((id) => channelUrl(id))

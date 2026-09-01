@@ -8,12 +8,6 @@ import { routing } from "@/i18n/routing";
 import { marketingOrigin } from "@/lib/seo/origin";
 import "../globals.css";
 
-/**
- * One typeface for the whole site. Onest is the face the delivered logo
- * specification verified for U+02BB (the ʻ in oʻ/gʻ), and it carries Cyrillic,
- * so Uzbek, Russian, and English all render in the same voice. Keeping it to a
- * single variable family also keeps the mobile payload small.
- */
 const onest = Onest({
   subsets: ["latin", "latin-ext", "cyrillic"],
   variable: "--font-onest",
@@ -53,10 +47,6 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
 
-  // Only the namespaces a Client Component can reach are serialised into the
-  // HTML. Handing the provider the whole catalog would ship every page's copy,
-  // in every locale-specific document, for no benefit: the marketing pages are
-  // Server Components and the two client components take their labels as props.
   const messages = await getMessages();
 
   return (

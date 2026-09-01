@@ -6,11 +6,6 @@ import { Link, usePathname } from "@/i18n/navigation";
 import { localeNames, locales } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
-/**
- * Language is part of the URL, never browser storage, so switching is a plain
- * set of links to the same route in another locale. `usePathname` returns the
- * path without the locale prefix, which is what keeps the equivalent route.
- */
 export function LocaleSwitcher({
   label,
   className,
@@ -43,7 +38,7 @@ export function LocaleSwitcher({
             className={cn(
               "inline-flex min-h-9 min-w-10 items-center justify-center rounded-md px-1.5 text-xs font-bold tracking-[0.06em] uppercase transition-colors sm:min-w-11 sm:px-2",
               isActive
-                ? "bg-primary-ink text-primary-fg"
+                ? "bg-primary-ink text-knockout"
                 : "text-ink-muted hover:bg-surface-soft hover:text-primary-ink",
             )}
           >

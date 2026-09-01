@@ -21,14 +21,26 @@ Everything derives from three numbers: the arc radius, the stroke width and the 
 
 ## Colour
 
-| Use | Hex | Contrast on white |
-|---|---|---|
-| **Logo, icons, large graphics** | `#007FC2` | 4.36:1 — passes the 3:1 graphics threshold |
-| **Body text, small button labels** | `#005E92` | 6.96:1 — passes AA text |
-| Ink / wordmark | `#222B33` | 14.37:1 |
-| Knockout | `#FFFFFF` | — |
+Two brand colours, both from the UN Volunteers / International Volunteer Day brand guide.
 
-> **Important:** `#007FC2` is 4.36:1 on white, which clears the 3:1 requirement for graphics and large text but **misses the 4.5:1 floor for body text.** Use it for the mark and for headings at 24px+ or 18.66px+ bold. Anything smaller, and any white-on-blue button label, uses `#005E92`.
+| Role | Hex | On white | Use |
+|---|---|---|---|
+| **Blue — the platform** | `#007FC2` | 4.36:1 | the mark, icons, structure, navigation, large graphics |
+| Blue deep | `#005E92` | 6.96:1 | body text, small labels, white-on-blue buttons |
+| **Orange — the volunteer** | `#E85D30` | 3.48:1 | confirmations, achievement, highlights, large graphics |
+| Orange deep | `#B34917` | 5.41:1 | orange text, white-on-orange buttons |
+| Ink | `#222B33` | 14.37:1 | body copy, wordmark |
+| Knockout | `#FFFFFF` | — | on blue, orange or ink |
+
+**Role split.** Blue is the institution: navigation, structure, primary actions, the mark. Orange is the person: a confirmed hour, a level reached, a thank-you. That is Ruler 70 / Hero 30, expressed in colour. Rationing the orange is what keeps it meaning something.
+
+**60-30-10.** White dominates. Blue carries structure. Orange appears only where a person did something.
+
+### Three colour rules that are not negotiable
+
+1. **The mark is never two-colour.** `#007FC2` and `#E85D30` sit at almost identical luminance — **1.25:1 against each other**, and 1.24:1 once desaturated. In greyscale, one-colour print, embroidery, or for a viewer with colour vision deficiency, an orange dot on a blue arc merges into one flat shape. Every orange and amber from `#EA7B4E` to `#FFCE6D` was tested against the blue: none reaches 3:1, and the ones that come closest fail against white. The mark is blue, ink, or white — one colour at a time.
+2. **Never set orange text on blue, or blue text on orange.** 1.25:1. They also vibrate optically at that luminance.
+3. **`#007FC2` is 4.36:1 on white** — clears the 3:1 graphics threshold, misses the 4.5:1 text floor. Fine for the mark and headings at 24px+ (or 18.66px+ bold). Body text and small button labels use `#005E92`. Same logic for orange: `#E85D30` for graphics, `#B34917` for text.
 
 ## Sizes
 

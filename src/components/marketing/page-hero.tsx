@@ -1,7 +1,6 @@
 import { Eyebrow } from "@/components/marketing/section";
 import { cn } from "@/lib/utils";
 
-/** Standard opening block for every page below the home page. */
 export function PageHero({
   eyebrow,
   title,
@@ -12,7 +11,6 @@ export function PageHero({
   eyebrow?: string;
   title: string;
   lead?: string;
-  /** Optional label/value pairs, e.g. founded date and founders. */
   meta?: ReadonlyArray<{ label: string; value: string }>;
   className?: string;
 }) {

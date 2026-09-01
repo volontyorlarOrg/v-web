@@ -6,7 +6,6 @@ async function isMobile(page: Page) {
   return (page.viewportSize()?.width ?? 1280) < 1024;
 }
 
-/** Opens the mobile menu when the viewport needs it. */
 async function openNavigation(page: Page) {
   if (await isMobile(page)) {
     await page.getByRole("button", { name: /menu/i }).click();
@@ -19,7 +18,6 @@ test.describe("locale routing", () => {
       await page.goto(`/${locale}`);
       await expect(page.locator("html")).toHaveAttribute("lang", locale);
       await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-      // Exactly one H1 per page.
       await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
     });
   }
@@ -76,8 +74,6 @@ test.describe("navigation", () => {
 
   test("the join call to action stays on a verified destination", async ({ page }) => {
     await page.goto("/en");
-    // With no configured community URL the action must fall back to /contact
-    // rather than link to an invented host.
     const cta = page.getByRole("main").getByRole("link", { name: "Join the community" }).first();
     const href = await cta.getAttribute("href");
     expect(href).toBe("/en/contact");

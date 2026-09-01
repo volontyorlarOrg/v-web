@@ -1,34 +1,26 @@
 @import "tailwindcss";
 
-/* ---------------------------------------------------------------------------
-   YVC production design tokens
-
-   The palette is the delivered brand set: UN Blue #007FC2 for the mark and for
-   graphics or type at 24px and above, and #005E92 wherever the contrast floor
-   for body text or white-on-blue labels applies. See docs/ui/UI_SYSTEM.md.
-   Components must not introduce literal hex values.
---------------------------------------------------------------------------- */
-
 @theme {
   --color-paper: #fbfaf7;
   --color-surface: #ffffff;
   --color-surface-sunk: #f1efe9;
   --color-surface-soft: #e7f1f8;
 
-  --color-ink: #1c242b;
+  --color-ink: #222b33;
   --color-ink-muted: #566270;
 
   --color-border: #e3e0d8;
   --color-border-control: #949084;
 
+  --color-knockout: #ffffff;
+
   --color-primary: #007fc2;
   --color-primary-ink: #005e92;
   --color-primary-deep: #004a73;
-  --color-primary-fg: #ffffff;
   --color-primary-muted: #bfdcef;
 
-  /* Reserved for urgent or destructive meaning only. */
-  --color-destructive: #b3261e;
+  --color-accent: #e85d30;
+  --color-accent-ink: #b34917;
 
   --font-sans: var(--font-onest), ui-sans-serif, system-ui, sans-serif;
 
@@ -65,13 +57,12 @@
     font-synthesis-weight: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
-    /* Telegram links land on narrow phones: nothing may overflow sideways. */
     overflow-x: hidden;
   }
 
   ::selection {
     background-color: var(--color-primary-ink);
-    color: var(--color-primary-fg);
+    color: var(--color-knockout);
   }
 
   :focus-visible {
@@ -80,7 +71,6 @@
     border-radius: var(--radius-sm);
   }
 
-  /* Numbers that are compared down a column stay aligned. */
   .tabular {
     font-variant-numeric: tabular-nums;
   }
@@ -101,7 +91,6 @@
   }
 }
 
-/* Page gutters and measure. One definition, used by every section. */
 @utility container-page {
   width: 100%;
   max-width: 76rem;

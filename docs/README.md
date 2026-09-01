@@ -14,6 +14,7 @@ Use this file to route project questions to the smallest relevant source.
 | Metadata, canonical URLs, hreflang, robots, sitemap, structured data | [`web/SEO_AND_ROUTES.md`](web/SEO_AND_ROUTES.md) |
 | Security headers, CSP, secrets, trust boundaries | [`security/SECURITY.md`](security/SECURITY.md) |
 | Setup, commands, environment, CI, deployment | [`operations/DEVELOPMENT_AND_DEPLOYMENT.md`](operations/DEVELOPMENT_AND_DEPLOYMENT.md) |
+| Adding a page, copy, locale, token, component, or link | [`operations/EXTENDING.md`](operations/EXTENDING.md) |
 | Installed and intentionally omitted project skills | [`operations/AGENT_SKILLS.md`](operations/AGENT_SKILLS.md) |
 | Vocabulary owned by the separate YVC application | [`data/DATA_MODEL.md`](data/DATA_MODEL.md) |
 | Telegram plans and unknown integration contracts | [`integrations/TELEGRAM.md`](integrations/TELEGRAM.md) |

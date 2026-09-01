@@ -2,14 +2,6 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
-/**
- * Contrast guard for the token system.
- *
- * The brand specification allows `#007FC2` for graphics and text at 24px and
- * above only, and requires `#005E92` for body-size text and white-on-blue
- * labels. These assertions keep a future palette edit from quietly breaking
- * that, which is easy to do because both blues look similar.
- */
 const CSS = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
 
 function token(name: string): string {
@@ -27,59 +19,99 @@ function relativeLuminance(hex: string): number {
 }
 
 function contrast(a: string, b: string): number {
-  const [high, low] = [relativeLuminance(a), relativeLuminance(b)].sort((x, y) => y - x);
+  const [high, low] = [relativeLuminance(a), relativeLuminance(b)].sort(
+    (x, y) => y - x,
+  );
   return (high + 0.05) / (low + 0.05);
 }
 
 const AA_TEXT = 4.5;
 const AA_LARGE = 3;
 
-describe("design tokens", () => {
-  const paper = token("paper");
-  const surface = token("surface");
-  const sunk = token("surface-sunk");
-  const soft = token("surface-soft");
+const LIGHT_SURFACES = ["paper", "surface", "surface-sunk", "surface-soft"];
 
+describe("brand values match docs/brand/LOGO_SPEC.md", () => {
   it.each([
-    ["ink on paper", "ink", "paper"],
-    ["ink on surface", "ink", "surface"],
-    ["ink-muted on paper", "ink-muted", "paper"],
-    ["ink-muted on sunk surface", "ink-muted", "surface-sunk"],
-    ["ink-muted on soft surface", "ink-muted", "surface-soft"],
-    ["primary-ink on paper", "primary-ink", "paper"],
-    ["primary-ink on soft surface", "primary-ink", "surface-soft"],
-    ["destructive on paper", "destructive", "paper"],
-  ])("%s meets AA for body text", (_label, foreground, background) => {
-    expect(contrast(token(foreground), token(background))).toBeGreaterThanOrEqual(AA_TEXT);
+    ["primary", "#007fc2"],
+    ["primary-ink", "#005e92"],
+    ["accent", "#e85d30"],
+    ["accent-ink", "#b34917"],
+    ["ink", "#222b33"],
+    ["knockout", "#ffffff"],
+  ])("%s is %s", (name, value) => {
+    expect(token(name)).toBe(value);
+  });
+});
+
+describe("text tokens meet AA on every light surface", () => {
+  it.each(["ink", "ink-muted", "primary-ink", "accent-ink"])(
+    "%s",
+    (foreground) => {
+      for (const surface of LIGHT_SURFACES) {
+        expect(
+          contrast(token(foreground), token(surface)),
+          `${foreground} on ${surface}`,
+        ).toBeGreaterThanOrEqual(AA_TEXT);
+      }
+    },
+  );
+});
+
+describe("graphics tokens clear 3:1 but are not usable for body text", () => {
+  it.each(["primary", "accent"])("%s", (foreground) => {
+    for (const surface of LIGHT_SURFACES) {
+      expect(
+        contrast(token(foreground), token(surface)),
+        `${foreground} on ${surface}`,
+      ).toBeGreaterThanOrEqual(AA_LARGE);
+    }
+    expect(contrast(token(foreground), token("paper"))).toBeLessThan(AA_TEXT);
   });
 
-  it("keeps solid actions legible: white on primary-ink and on primary-deep", () => {
-    expect(contrast(token("primary-fg"), token("primary-ink"))).toBeGreaterThanOrEqual(AA_TEXT);
-    expect(contrast(token("primary-fg"), token("primary-deep"))).toBeGreaterThanOrEqual(AA_TEXT);
+  it("puts orange figures on white, where the margin is comfortable", () => {
+    expect(contrast(token("accent"), token("surface"))).toBeGreaterThan(3.4);
   });
+});
+
+describe("knockout labels on solid fills", () => {
+  it.each(["primary-ink", "primary-deep", "accent-ink", "ink"])(
+    "white on %s",
+    (background) => {
+      expect(
+        contrast(token("knockout"), token(background)),
+      ).toBeGreaterThanOrEqual(AA_TEXT);
+    },
+  );
 
   it("keeps muted copy on the blue band legible", () => {
-    expect(contrast(token("primary-muted"), token("primary-ink"))).toBeGreaterThanOrEqual(AA_TEXT);
+    expect(
+      contrast(token("primary-muted"), token("primary-ink")),
+    ).toBeGreaterThanOrEqual(AA_TEXT);
   });
+});
 
-  it("allows the brand blue for graphics and large type on every light surface", () => {
-    for (const background of [paper, surface, sunk, soft]) {
-      expect(contrast(token("primary"), background)).toBeGreaterThanOrEqual(AA_LARGE);
-    }
-  });
+describe("the two hues must never be combined", () => {
+  it.each([
+    ["primary", "accent"],
+    ["primary", "accent-ink"],
+    ["primary-ink", "accent"],
+    ["primary-deep", "accent"],
+  ])(
+    "%s and %s are too close to sit on each other",
+    (blue, orange) => {
+      expect(contrast(token(blue), token(orange))).toBeLessThan(AA_LARGE);
+    },
+  );
+});
 
-  it("documents that the brand blue is not usable for body text", () => {
-    // If this ever passes, the palette changed and the "24px and above" rule in
-    // docs/ui/UI_SYSTEM.md must be revisited rather than silently dropped.
-    expect(contrast(token("primary"), paper)).toBeLessThan(AA_TEXT);
-  });
-
+describe("structural tokens", () => {
   it("gives interactive borders a visible 3:1 boundary", () => {
-    expect(contrast(token("border-control"), paper)).toBeGreaterThanOrEqual(AA_LARGE);
+    expect(
+      contrast(token("border-control"), token("paper")),
+    ).toBeGreaterThanOrEqual(AA_LARGE);
   });
 
-  it("uses the delivered brand values", () => {
-    expect(token("primary")).toBe("#007fc2");
-    expect(token("primary-ink")).toBe("#005e92");
+  it("defines no red, which would be indistinguishable from accent-ink", () => {
+    expect(CSS).not.toMatch(/--color-destructive/);
   });
 });

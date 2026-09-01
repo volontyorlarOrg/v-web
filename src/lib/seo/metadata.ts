@@ -5,21 +5,12 @@ import { defaultLocale, type Locale } from "@/i18n/routing";
 import { alternateUrls, localeUrl, type RouteKey } from "@/lib/routing/routes";
 import { hasVerifiedMarketingOrigin, marketingOrigin } from "@/lib/seo/origin";
 
-/** Open Graph locale identifiers for the three product languages. */
 const openGraphLocales: Record<Locale, string> = {
   uz: "uz_UZ",
   ru: "ru_RU",
   en: "en_US",
 };
 
-/**
- * Every marketing page builds its metadata here so canonical URLs, `hreflang`
- * alternates, Open Graph, and indexing policy stay consistent.
- *
- * Indexing is opt-in: without a configured marketing origin the deployment has
- * no verified canonical host, so the pages are marked `noindex` rather than
- * inviting search engines onto a preview or placeholder domain.
- */
 export async function buildPageMetadata({
   locale,
   route,
@@ -28,9 +19,7 @@ export async function buildPageMetadata({
 }: {
   locale: Locale;
   route: RouteKey;
-  /** Message namespace holding `metaTitle` and `metaDescription`. */
   namespace: string;
-  /** Skip the "· YVC" suffix, for titles that already name the organisation. */
   absoluteTitle?: boolean;
 }): Promise<Metadata> {
   const t = await getTranslations({ locale, namespace });

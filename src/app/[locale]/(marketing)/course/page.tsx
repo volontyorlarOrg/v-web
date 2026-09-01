@@ -33,11 +33,6 @@ function Course({ locale }: { locale: Locale }) {
 
   return (
     <>
-      {/*
-        No `Course` structured data is emitted. Google requires a published
-        provider offering with real course details, and this page announces
-        topics only: no schedule, no enrolment, no delivery mode.
-      */}
       <JsonLd
         data={breadcrumbJsonLd({
           locale,

@@ -7,15 +7,33 @@ code, plus the localization and accessibility behaviour that goes with them.
 ## Where tokens live
 
 `src/app/globals.css` declares every semantic token in a Tailwind 4 `@theme`
-block, so `bg-paper`, `text-ink-muted`, `border-border`, and
-`bg-primary-ink` are generated utilities. Components must not contain literal
-hex values.
+block, so `bg-paper`, `text-ink-muted`, `border-border`, `bg-primary-ink`, and
+`text-accent` are generated utilities. Components must not contain literal hex
+values.
 
-`src/app/design-tokens.test.ts` parses that file and asserts the contrast
-contract on every documented pairing, including the deliberate negative: brand
-blue `#007FC2` must stay below 4.5:1 on paper, because the moment it passes, the
-"graphics and 24px and above" rule in the brand specification has changed and
-needs a real decision rather than a silent drift.
+`src/app/design-tokens.test.ts` parses that file and asserts the whole contrast
+contract, including the deliberate negatives: the two graphics hues must each
+stay *below* 4.5:1 on paper, and every blue/orange pairing must stay below 3:1.
+If one of those ever passes, the brand specification has changed and needs a
+real decision rather than a silent drift.
+
+## Where the two hues appear
+
+Blue carries the header, footer, navigation, buttons, focus ring, eyebrow rules,
+the mark, decorative arcs, and the closing callout band. Orange appears in
+exactly two places, and both are moments a person acted:
+
+| Surface | Treatment |
+| --- | --- |
+| Traction figures in `StatGrid` | `text-accent` on white cards |
+| The fourth node and number in `StepRail` | `bg-accent` / `text-accent-ink` |
+
+The regions band keeps white figures on blue even though "500+ applications" is
+the same kind of human number, because orange on blue is forbidden. That
+constraint is the rule working, not a gap.
+
+Orange figures sit on `surface` (white, 3.48:1) rather than on a tinted band,
+where the margin narrows to 3.02:1.
 
 ## Composition primitives
 
@@ -24,8 +42,8 @@ needs a real decision rather than a silent drift.
 | `Section` | Vertical rhythm, tone band, hairline boundary, container |
 | `SectionHeader` / `Eyebrow` | Rule-led label, headline, lead sentence |
 | `PageHero` | Opening block for every page below the home page |
-| `StatGrid` | Hairline grid of tabular figures |
-| `StepRail` | The four-step rail; decorative rail, semantic ordered list |
+| `StatGrid` | Hairline grid of orange tabular figures on white |
+| `StepRail` | The four-step rail; blue nodes for YVC's work, orange for the volunteer's |
 | `NameBoard` | Separated cards for partner, supporter, and source names |
 | `ProseSections` | Legal and explanatory pages at one measure |
 | `StatusChip` | Dashed label for planned or unpublished material |
@@ -79,7 +97,9 @@ lockup's wordmark renders in a different system face on every platform. See
 - The mobile disclosure sets `aria-expanded` and `aria-controls`, closes on
   Escape with focus returned to the trigger, and closes on selection. The panel
   uses the `hidden` attribute, so its contents leave the accessibility tree.
-- Status is never carried by colour alone: the "in preparation" chip says so.
+- Status is never carried by colour alone: the "in preparation" chip says so in
+  words, and the orange step node reinforces a title that already names who
+  acts.
 - Decorative marks and rails are `aria-hidden`; the ordered list carries the
   meaning of the step rail.
 - Reduced motion is honoured globally in the base layer.
