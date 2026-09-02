@@ -142,7 +142,7 @@ test.describe("mobile menu", () => {
   });
 });
 
-test.describe("the region map", () => {
+test.describe("the hero map", () => {
   test("renders a plan-view map and every region name without JavaScript", async ({
     browser,
   }) => {
@@ -150,7 +150,7 @@ test.describe("the region map", () => {
     const page = await context.newPage();
     await page.goto("/en");
 
-    const section = page.locator("#regions-map");
+    const section = page.locator("#hero-map");
     await expect(section).toHaveCount(1);
 
     await expect(section.locator("svg")).toHaveCount(1);
@@ -167,15 +167,24 @@ test.describe("the region map", () => {
   ] as const) {
     test(`names the regions in ${locale}`, async ({ page }) => {
       await page.goto(`/${locale}`);
-      await expect(page.locator("#regions-map li").filter({ hasText: name })).toHaveCount(1);
-      await expect(page.locator("#regions-map li")).toHaveCount(14);
+      await expect(page.locator("#hero-map li").filter({ hasText: name })).toHaveCount(1);
+      await expect(page.locator("#hero-map li")).toHaveCount(14);
     });
   }
 
   test("pins a panel that releases into the next section", async ({ page }) => {
     await page.goto("/en");
+    await page.waitForFunction(
+      () => {
+        const section = document.querySelector("#hero-map") as HTMLElement | null;
+        return Boolean(section) && section!.offsetHeight > window.innerHeight * 2;
+      },
+      null,
+      { timeout: 15_000 },
+    );
+
     const geometry = await page.evaluate(() => {
-      const section = document.querySelector("#regions-map") as HTMLElement;
+      const section = document.querySelector("#hero-map") as HTMLElement;
       const panel = section.firstElementChild as HTMLElement;
       return {
         sectionHeight: section.offsetHeight,
@@ -190,10 +199,18 @@ test.describe("the region map", () => {
     expect(geometry.panelHeight).toBeLessThanOrEqual(geometry.viewport);
   });
 
-  test("the heading is the section's accessible name", async ({ page }) => {
+  test("keeps the page's only h1 in the hero above the map", async ({ page }) => {
     await page.goto("/en");
-    const region = page.getByRole("region", { name: /one map/i });
-    await expect(region).toHaveCount(1);
-    await expect(region.getByRole("heading", { level: 2 })).toBeVisible();
+    const hero = page.locator("#hero-map");
+    await expect(hero.getByRole("heading", { level: 1 })).toHaveCount(1);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
+    await expect(hero.getByRole("heading", { level: 2, name: /one map/i })).toHaveCount(1);
+  });
+
+  test("the hero call to action stays reachable at rest", async ({ page }) => {
+    await page.goto("/en");
+    const cta = page.locator("#hero-map").getByRole("link", { name: "Join the community" });
+    await expect(cta).toBeVisible();
+    await expect(cta).toHaveAttribute("href", "/en/contact");
   });
 });

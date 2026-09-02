@@ -56,7 +56,7 @@ theme and motion is otherwise CSS-only. Do not add TanStack, React Hook Form,
 Zod, Zustand, auth SDKs, or dashboard packages.
 
 `three` is the single exception, and it is scoped to one surface: the home
-page's region map (`src/components/marketing/region-map/`). It is loaded
+page's hero map (`src/components/marketing/hero-map/`). It is loaded
 dynamically so it never enters the initial bundle, and the section renders a
 complete server-side SVG map without it. Adding WebGL anywhere else, or reaching
 for a React renderer such as `@react-three/fiber`, needs a fresh decision — see

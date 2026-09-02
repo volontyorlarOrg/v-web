@@ -49,7 +49,7 @@ where the margin narrows to 3.02:1.
 | `StatusChip` | Dashed label for planned or unpublished material |
 | `buttonClass` | The single action styling contract, built with CVA |
 | `ActionLink` | Chooses a locale-aware link or a safe external anchor |
-| `RegionMapSection` | The home page's scroll-driven map of the fourteen regions |
+| `HeroMapSection` | The home page hero and its scroll-driven map of the fourteen regions |
 
 `NameBoard` and the course topics use separated cards rather than the hairline
 grid used elsewhere: their length varies, and an unfilled cell in a gap-filled
@@ -103,12 +103,13 @@ lockup's wordmark renders in a different system face on every platform. See
   acts.
 - Decorative marks and rails are `aria-hidden`; the ordered list carries the
   meaning of the step rail.
-- Reduced motion is honoured globally in the base layer. The region map reads
-  the same preference in JavaScript and holds one frame instead of following
-  the scroll.
-- The region map's canvas and its plan-view fallback are both `aria-hidden`.
-  The information they carry — the names of all fourteen regions — is a real
-  list in the markup, so nothing depends on seeing the picture.
+- Reduced motion is honoured globally in the base layer. The hero map reads the
+  same preference in JavaScript, holds one frame, and does not pin.
+- The hero map's canvas and its plan-view fallback are both `aria-hidden`. The
+  information they carry — the names of all fourteen regions — is a real list in
+  the markup, so nothing depends on seeing the picture.
+- The hero copy and the map caption share one pinned panel. Whichever has faded
+  out is marked `inert`, so keyboard focus never lands on an invisible link.
 
 ## Responsive rules
 

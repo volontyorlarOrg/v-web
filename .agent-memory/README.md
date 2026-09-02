@@ -19,7 +19,7 @@ folder. Never store secrets or unverified external claims.
 - `decisions/two-brand-hues-with-a-role-split.md` — blue for the institution,
   orange for the person, and why they may never touch
 - `decisions/source-files-carry-no-comments.md` — where the explanations went
-- `decisions/three-js-scoped-to-the-region-map.md` — why WebGL is allowed on one
+- `decisions/three-js-scoped-to-the-hero-map.md` — why WebGL is allowed on one
   surface, and the three conditions it has to keep meeting
 - `gotchas/product-brief-is-not-live-state.md` — what may and may not be claimed
 - `gotchas/svg-lockup-wordmark-font.md` — why the delivered lockup is not used

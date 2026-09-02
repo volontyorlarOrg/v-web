@@ -45,7 +45,7 @@ browser:
 
 - `LocaleSwitcher` needs the active locale and pathname.
 - `MobileNav` needs disclosure state and an Escape handler.
-- `RegionMapStage` owns the home page's scroll runway and the WebGL canvas.
+- `HeroMapStage` owns the home page's hero, its scroll runway, and the canvas.
 
 The root layout hands `NextIntlClientProvider` only the `nav` namespace.
 Forwarding the whole catalog embedded every page's copy in every document:
@@ -56,10 +56,13 @@ only exists on another page.
 Every page calls `setRequestLocale` before reading translations. Without it the
 route opts out of static generation.
 
-## The region map
+## The hero map
 
-The home page carries a scroll-driven relief map of Uzbekistan's fourteen
-regions, and it is the only WebGL surface on the site. It is built directly on
+The home page opens on a scroll-driven relief map of Uzbekistan's fourteen
+regions, and it is the only WebGL surface on the site. The hero and the map are
+one pinned sequence rather than two sections: the map starts as a faint backdrop
+behind the headline, comes forward as the hero copy retires, then tips sideways
+while each region lifts out of the base plate. It is built directly on
 `three`; there is no React renderer for it, because the scene is a fixed set of
 meshes driven by one number and pinning `@react-three/fiber` would tie this
 repository's React version to that package's peer range.
@@ -70,9 +73,9 @@ repository's React version to that package's peer range.
 | `src/lib/map/region-geometry.ts` | Generated: simplified, projected rings and pin anchors |
 | `src/lib/map/regions.ts` | Joins the geometry to Uzbek, Russian and English names |
 | `src/lib/map/svg-path.ts` | Rings to SVG path data, shared with the fallback |
-| `region-map-section.tsx` | Server: resolves copy and names, composes the two below |
-| `region-map-flat.tsx` | Server: the plan-view SVG everything falls back to |
-| `region-map-stage.tsx` | Client: the sticky runway, scroll progress, label layer |
+| `hero-map-section.tsx` | Server: resolves hero copy, caption and region names |
+| `hero-map-flat.tsx` | Server: the plan-view SVG everything falls back to |
+| `hero-map-stage.tsx` | Client: the sticky runway, scroll progress, copy layers, labels |
 | `scene.ts` | The three.js scene; imported dynamically, so it is its own chunk |
 
 Three properties are load-bearing:
@@ -87,9 +90,46 @@ Three properties are load-bearing:
 - **The animation's limit is the next section.** Progress is measured from the
   section's own box against the sticky panel's height, so it reaches 1 exactly
   as the panel releases.
+- **The runway only exists once the scene does.** The section is a normal-height
+  block until `HeroMapStage` has a working canvas, so a visitor without
+  JavaScript or WebGL gets the hero, the plan-view map and the caption stacked
+  in flow rather than two viewports of dead scroll.
 
-Under `prefers-reduced-motion` the scene renders one frame at its final state
-and never couples to scroll.
+Under `prefers-reduced-motion` the section never pins. The scene renders one
+frame with the country tipped and every region lifted, and the hero copy and
+caption both stay at full opacity in normal flow.
+
+### The three phases
+
+One scroll progress value, measured from the section's own box, drives
+everything. `scene.render()` returns the two curves the component needs so the
+schedule is defined in one place:
+
+| Progress | What happens |
+| --- | --- |
+| 0 → 0.32 (`emerge`) | The map is the hero's backdrop: pushed right, barely tipped, at 42% opacity behind the headline. Hero copy fades and lifts away as this runs. |
+| 0.24 → 0.88 (`tip`) | The country tips to 62° and turns 10°, becoming the subject. The caption fades in. |
+| 0.36 → 0.96 | Regions lift off the base plate one at a time, west to east, each raising a leader line and its label. |
+
+Copy layers are absolutely positioned while pinned, so the hero occupying its
+full height cannot push the caption out of a fixed-height panel. A layer that
+has faded out is marked `inert`, because a control that cannot be seen must not
+be reachable by keyboard.
+
+### Showing the regions
+
+Regions are not marked with pins stuck into a flat map. The map is built as a
+base plate with the fourteen regions as separate tiles sitting on it, each
+inset from its neighbours by a constant *distance* — the inset is computed per
+region from its own radius, so a hairline gap reads the same on Karakalpakstan
+and on Tashkent city. As progress runs, the tiles lift off the plate and the
+gap under them opens, which is what makes the country legible as fourteen
+pieces from a raked angle. A thin leader line and a small marker carry each
+label up from the tile it belongs to.
+
+Every tile lifts to the same height and every marker is identical. Encoding
+region area or anything else in that height would read as a claim about
+activity that nothing in `src/lib/content/org.ts` supports.
 
 ### How the scene is put together
 

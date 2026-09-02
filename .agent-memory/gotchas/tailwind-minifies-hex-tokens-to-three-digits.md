@@ -19,4 +19,4 @@ time should assume the minified form, not the value written in `globals.css`.
 The failure is quiet: nothing throws, nothing warns, and a shorthand token still
 produces a plausible-looking colour. Check the rendered result, not the parse.
 
-Related: [[three-js-scoped-to-the-region-map]]
+Related: [[three-js-scoped-to-the-hero-map]]
