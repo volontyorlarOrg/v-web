@@ -1,28 +1,37 @@
 "use client";
 
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { flushSync } from "react-dom";
 
+import type { Room } from "@/components/marketing/hero-map/framing";
 import type { MapScene } from "@/components/marketing/hero-map/scene";
+import { easeOut, span } from "@/components/marketing/hero-map/timeline";
 import type { LocalisedRegion } from "@/lib/map/regions";
 import { cn } from "@/lib/utils";
 
-const SMOOTHING = 0.14;
+const SMOOTHING_MS = 90;
+const LONGEST_FRAME_MS = 64;
 const SETTLED = 0.0004;
 const MAX_PIXEL_RATIO = 2;
 const MAX_CANVAS_PIXELS = 2_600_000;
 const PRELOAD_MARGIN = "120% 0px";
-const LABEL_GAP = 10;
+const PIN_GAP = 6;
+const PIN_ROOM = 44;
+const STAGE_ROOM_TOP = 40;
+const STAGE_ROOM_BOTTOM = 32;
+const CAPTION_GAP = 20;
+const BACKDROP_GAP = 24;
 const HIDDEN = 0.04;
-const LABEL_SLOTS: Array<readonly [number, number]> = [
+const PIN_SLOTS: Array<readonly [number, number]> = [
   [0, 0],
-  [-0.62, 0],
-  [0.62, 0],
-  [0, -1.15],
-  [-0.62, -1.15],
-  [0.62, -1.15],
-  [-1.18, 0],
-  [1.18, 0],
-  [0, -2.3],
+  [-1.1, 0],
+  [1.1, 0],
+  [0, -1.1],
+  [0, 1.1],
+  [-1.1, -1.1],
+  [1.1, -1.1],
+  [-1.1, 1.1],
+  [1.1, 1.1],
 ];
 
 type Props = {
@@ -37,44 +46,71 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
   const sectionRef = useRef<HTMLElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
+  const mapWindowRef = useRef<HTMLDivElement>(null);
+  const handoffRef = useRef<HTMLSpanElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
   const captionRef = useRef<HTMLDivElement>(null);
-  const labelRefs = useRef(new Map<string, HTMLSpanElement>());
+  const pinRefs = useRef(new Map<string, HTMLSpanElement>());
   const [active, setActive] = useState(false);
   const [pinned, setPinned] = useState(false);
+
+  const westToEast = useMemo(
+    () => [...regions].sort((first, second) => first.anchor[0] - second.anchor[0]),
+    [regions],
+  );
+  const numbering = useMemo(
+    () => new Map(westToEast.map((region, position) => [region.id, position + 1])),
+    [westToEast],
+  );
 
   useEffect(() => {
     const section = sectionRef.current;
     const panel = panelRef.current;
     const stage = stageRef.current;
+    const mapWindow = mapWindowRef.current;
+    const handoff = handoffRef.current;
     const canvas = canvasRef.current;
     const heroLayer = heroRef.current;
     const captionLayer = captionRef.current;
-    if (!section || !panel || !stage || !canvas || !heroLayer || !captionLayer) return;
+    if (
+      !section ||
+      !panel ||
+      !stage ||
+      !mapWindow ||
+      !handoff ||
+      !canvas ||
+      !heroLayer ||
+      !captionLayer
+    )
+      return;
 
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const labels = labelRefs.current;
+    const pins = pinRefs.current;
 
     let scene: MapScene | null = null;
     let cancelled = false;
     let frame = 0;
     let visible = false;
+    let runway = false;
     let target = 0;
     let current = 0;
+    let lastTick = 0;
+    let room: Room = { hero: 0, top: 0, bottom: 0, side: PIN_ROOM, caption: 0 };
 
     const sizes = new Map<string, { width: number; height: number }>();
 
-    function measureLabels() {
-      for (const [id, label] of labels) {
-        if (label.offsetWidth > 0) {
-          sizes.set(id, { width: label.offsetWidth, height: label.offsetHeight });
+    function measurePins() {
+      for (const [id, pin] of pins) {
+        if (pin.offsetWidth > 0) {
+          sizes.set(id, { width: pin.offsetWidth, height: pin.offsetHeight });
         }
       }
     }
 
     function readProgress(): number {
-      if (!section || !panel || reduceMotion) return 0;
+      if (reduceMotion) return 1;
+      if (!section || !panel) return 0;
       const stickyTop = Number.parseFloat(getComputedStyle(panel).top) || 0;
       const travel = section.offsetHeight - panel.offsetHeight;
       if (travel <= 0) return 0;
@@ -82,7 +118,23 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
       return Math.min(1, Math.max(0, scrolled / travel));
     }
 
-    function positionLabels() {
+    function measureRoom() {
+      if (!runway || !heroLayer || !captionLayer) {
+        room = { hero: 0, top: 0, bottom: 0, side: PIN_ROOM, caption: 0 };
+        return;
+      }
+      const copy = heroLayer.firstElementChild as HTMLElement | null;
+      const heroBottom = copy ? heroLayer.offsetTop + copy.offsetTop + copy.offsetHeight : 0;
+      room = {
+        hero: heroBottom > 0 ? heroBottom + BACKDROP_GAP : 0,
+        top: STAGE_ROOM_TOP,
+        bottom: STAGE_ROOM_BOTTOM,
+        side: PIN_ROOM,
+        caption: captionLayer.offsetHeight + CAPTION_GAP,
+      };
+    }
+
+    function positionPins() {
       if (!scene || !stage) return;
       const width = stage.clientWidth;
       const height = stage.clientHeight;
@@ -93,20 +145,20 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
         .sort((first, second) => first.y - second.y);
 
       for (const marker of markers) {
-        const label = labels.get(marker.id);
-        if (!label) continue;
+        const pin = pins.get(marker.id);
+        if (!pin) continue;
 
         const size = sizes.get(marker.id);
         const onScreen = marker.depth > -1 && marker.depth < 1 && marker.reveal > 0.02;
-        let slot: readonly [number, number] | null = onScreen ? LABEL_SLOTS[0] : null;
+        let slot: readonly [number, number] | null = onScreen ? PIN_SLOTS[0] : null;
 
         if (onScreen && size) {
           slot = null;
-          for (const candidate of LABEL_SLOTS) {
-            const dx = candidate[0] * size.width;
-            const dy = candidate[1] * (size.height + LABEL_GAP);
+          for (const candidate of PIN_SLOTS) {
+            const dx = candidate[0] * (size.width + PIN_GAP);
+            const dy = candidate[1] * (size.height + PIN_GAP);
             const left = marker.x + dx - size.width / 2;
-            const top = marker.y + dy - size.height - LABEL_GAP;
+            const top = marker.y + dy - size.height / 2;
             const box: [number, number, number, number] = [
               left,
               top,
@@ -124,44 +176,58 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
           }
         }
 
-        label.style.opacity = slot === null ? "0" : String(Math.min(1, marker.reveal * 1.8));
+        pin.style.opacity = slot === null ? "0" : String(Math.min(1, marker.reveal * 1.8));
         if (slot !== null) {
           const x = marker.x + slot[0];
           const y = marker.y + slot[1];
-          label.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
+          pin.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
         }
       }
     }
 
-    function layer(element: HTMLDivElement, opacity: number, shift: number) {
+    function layer(element: HTMLDivElement, opacity: number, shift: number, guard: boolean) {
       element.style.opacity = String(opacity);
       element.style.transform = shift === 0 ? "" : `translate3d(0, ${shift.toFixed(1)}px, 0)`;
       const hidden = opacity < HIDDEN;
-      if (element.inert !== hidden) element.inert = hidden;
+      if (guard && element.inert !== hidden) element.inert = hidden;
       element.style.pointerEvents = hidden ? "none" : "";
     }
 
-    function draw() {
-      frame = 0;
-      if (!scene) return;
-      const distance = target - current;
-      current = Math.abs(distance) < SETTLED ? target : current + distance * SMOOTHING;
-
-      const { emerge } = scene.render(current);
+    function paint() {
+      if (!scene || !stage || !mapWindow || !handoff) return;
+      const { emerge, settle } = scene.render(current, room);
+      const handoffProgress = easeOut(span(emerge, 0, 0.82));
+      const shutterTop = (1 - handoffProgress) * 72;
+      mapWindow.style.clipPath = `inset(${shutterTop.toFixed(2)}% 0 0 0)`;
+      mapWindow.style.opacity = String(0.48 + handoffProgress * 0.52);
+      handoff.style.opacity = String(1 - span(emerge, 0.72, 1));
+      handoff.style.transform = `translate3d(0, ${(stage.clientHeight * shutterTop) / 100}px, 0) scaleX(${(0.16 + handoffProgress * 0.84).toFixed(3)})`;
       if (!reduceMotion && heroLayer && captionLayer) {
-        const heroOut = Math.min(1, emerge * 1.5);
-        layer(heroLayer, 1 - heroOut, heroOut * -28);
-        const captionIn = Math.max(0, (emerge - 0.45) / 0.55);
-        layer(captionLayer, captionIn, (1 - captionIn) * 16);
+        const heroOut = span(emerge, 0.16, 0.92);
+        layer(heroLayer, 1 - heroOut, heroOut * -24, true);
+        const captionIn = span(settle, 0.1, 0.85);
+        layer(captionLayer, captionIn, (1 - captionIn) * 20, false);
       }
-      positionLabels();
+      positionPins();
+    }
 
-      if (current !== target && visible) frame = requestAnimationFrame(draw);
+    function step(now: number) {
+      frame = 0;
+      const elapsed = lastTick ? Math.min(LONGEST_FRAME_MS, now - lastTick) : LONGEST_FRAME_MS / 4;
+      lastTick = now;
+      const distance = target - current;
+      current =
+        Math.abs(distance) < SETTLED
+          ? target
+          : current + distance * (1 - Math.exp(-elapsed / SMOOTHING_MS));
+      paint();
+      if (current !== target && visible) frame = requestAnimationFrame(step);
+      else lastTick = 0;
     }
 
     function schedule() {
       if (!scene || frame !== 0) return;
-      frame = requestAnimationFrame(draw);
+      frame = requestAnimationFrame(step);
     }
 
     function onScroll() {
@@ -178,8 +244,9 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
       const budget = Math.sqrt(MAX_CANVAS_PIXELS / (width * height));
       const ratio = Math.max(1, Math.min(window.devicePixelRatio || 1, MAX_PIXEL_RATIO, budget));
       scene.resize(width, height, ratio);
-      measureLabels();
-      draw();
+      measurePins();
+      measureRoom();
+      paint();
     }
 
     async function start() {
@@ -196,23 +263,21 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
 
       if (reduceMotion) {
         target = 1;
-        current = 1;
       } else {
-        setPinned(true);
+        flushSync(() => setPinned(true));
+        runway = true;
         target = readProgress();
-        current = target;
       }
+      current = target;
 
       applySize();
       setActive(true);
-      requestAnimationFrame(() => {
-        target = readProgress();
-        applySize();
-      });
     }
 
     const resizeObserver = new ResizeObserver(applySize);
     resizeObserver.observe(stage);
+    resizeObserver.observe(captionLayer);
+    if (heroLayer.firstElementChild) resizeObserver.observe(heroLayer.firstElementChild);
 
     const preload = new IntersectionObserver(
       (entries) => {
@@ -282,59 +347,87 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
           className={cn(pinned ? "absolute inset-0" : "relative min-h-[46svh] w-full")}
         >
           <div
-            className={cn(
-              "absolute inset-0 flex items-center justify-center px-6 opacity-40 transition-opacity duration-700",
-              active && "opacity-0",
-            )}
+            ref={mapWindowRef}
+            className="absolute inset-0"
           >
-            {fallback}
+            <div
+              className={cn(
+                "absolute inset-0 flex items-center justify-center px-6 opacity-40 transition-opacity duration-700",
+                active && "opacity-0",
+              )}
+            >
+              {fallback}
+            </div>
+
+            <div
+              className={cn(
+                "absolute inset-0 transition-opacity duration-700",
+                active ? "opacity-100" : "opacity-0",
+              )}
+            >
+              <canvas ref={canvasRef} aria-hidden="true" className="block h-full w-full" />
+            </div>
+
+            <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+              {regions.map((region) => (
+                <span
+                  key={region.id}
+                  ref={(node) => {
+                    const map = pinRefs.current;
+                    if (node) map.set(region.id, node);
+                    else map.delete(region.id);
+                  }}
+                  className="absolute top-0 left-0 grid size-6 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-primary/35 bg-surface text-xs leading-none font-semibold tabular-nums text-primary-ink opacity-0 shadow-[0_1px_3px_rgb(0_0_0/0.14)]"
+                >
+                  {numbering.get(region.id)}
+                </span>
+              ))}
+            </div>
           </div>
 
-          <div
-            className={cn(
-              "absolute inset-0 transition-opacity duration-700",
-              active ? "opacity-100" : "opacity-0",
-            )}
-          >
-            <canvas ref={canvasRef} aria-hidden="true" className="block h-full w-full" />
-          </div>
-
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-            {regions.map((region) => (
-              <span
-                key={region.id}
-                ref={(node) => {
-                  const map = labelRefs.current;
-                  if (node) map.set(region.id, node);
-                  else map.delete(region.id);
-                }}
-                className="absolute top-0 left-0 -translate-x-1/2 -translate-y-[calc(100%+0.625rem)] rounded-full border border-border bg-surface/90 px-2 py-0.5 text-xs leading-tight font-semibold whitespace-nowrap text-primary-ink opacity-0"
-              >
-                {region.name}
-              </span>
-            ))}
-          </div>
+          <span
+            ref={handoffRef}
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px origin-center bg-primary opacity-0"
+          />
         </div>
 
         <div
           ref={captionRef}
           className={cn(
             "z-10",
-            pinned
-              ? "absolute inset-x-0 bottom-0 pb-10 sm:pb-14"
-              : "relative pt-10 pb-10 sm:pb-14",
+            pinned ? "absolute inset-x-0 bottom-0 pb-10 sm:pb-14" : "relative pt-10 pb-10 sm:pb-14",
           )}
         >
-          <div className="container-page">{caption}</div>
+          <div className="container-page lg:grid lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end lg:gap-x-16">
+            {caption}
+            <div>
+              <h2 id="regions-index-heading" className="sr-only">
+                {regionsHeading}
+              </h2>
+              <ol
+                aria-labelledby="regions-index-heading"
+                className="mt-7 grid grid-flow-col grid-cols-2 [grid-template-rows:repeat(7,auto)] gap-x-5 gap-y-1.5 lg:mt-0 lg:gap-x-10"
+              >
+                {westToEast.map((region, position) => (
+                  <li
+                    key={region.id}
+                    className="flex items-baseline gap-2 text-xs leading-snug text-ink-muted"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="w-4 shrink-0 text-right font-semibold tabular-nums text-primary"
+                    >
+                      {position + 1}
+                    </span>
+                    <span className="text-pretty">{region.name}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
         </div>
       </div>
-
-      <h2 className="sr-only">{regionsHeading}</h2>
-      <ul className="sr-only">
-        {regions.map((region) => (
-          <li key={region.id}>{region.name}</li>
-        ))}
-      </ul>
     </section>
   );
 }

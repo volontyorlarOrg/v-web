@@ -8,24 +8,25 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-# Volontyor Web — Agent Guide
+# Volontyorlar Web — Agent Guide
 
-This repository is the public **Volontyor** marketing website. Read
+This repository is the public **Volontyorlar** marketing website. Read
 this file before meaningful work, then use [`docs/README.md`](docs/README.md) to
 load only the project context the task needs.
 
 ## Product identity
 
-**Volontyor** helps high school students in Uzbekistan find
-volunteering that is real and worth their time. Volontyor finds opportunities,
+**Volontyorlar** helps high school students in Uzbekistan find
+volunteering that is real and worth their time. Volontyorlar finds opportunities,
 contacts organisers, sources events, builds partnerships, supplies volunteers,
 and is building regional operations toward all 14 regions.
 
-Do not call the product "Youth Volunteer Club", "YVC", or "Youth Volunteering
-Community"; all three names are retired. The delivered logo lockup carries a
-`volontyorlar` wordmark, and the site still renders the organisation name as
-real text next to the mark rather than using the lockup, because the lockup's
-wordmark cannot fetch its webfont — see `docs/brand/BRAND_ASSETS.md`.
+Do not call the product "Youth Volunteer Club", "YVC", "Youth Volunteering
+Community", or "Volontyor"; all four names are retired. The delivered logo
+lockup carries a `volontyorlar` wordmark that now matches the product name, and
+the site still renders the organisation name as real text next to the mark
+rather than using the lockup, because the lockup's wordmark cannot fetch its
+webfont — see `docs/brand/BRAND_ASSETS.md`.
 
 The founders are named and given a role, and nothing more. There is no sourced
 biography for either of them, so `/about` lists their names beside "Co-founder"
@@ -45,7 +46,7 @@ into the separate product application.
 
 It does not own volunteer authentication, sessions, dashboards, profiles,
 applications, essays, ratings, attendance records, or admin workflows. Those
-belong to the separate Volontyor application. Do not rebuild them here.
+belong to the separate Volontyorlar application. Do not rebuild them here.
 
 ## Technology stack
 

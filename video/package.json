@@ -1,0 +1,26 @@
+{
+  "name": "volontyorlar-video",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Remotion project for the Volontyorlar introduction video. Deliberately separate from the marketing site: it shares no dependency graph with it.",
+  "scripts": {
+    "studio": "remotion studio",
+    "render": "remotion render Intro out/volontyorlar-intro.mp4",
+    "render:social": "remotion render IntroVertical out/volontyorlar-intro-vertical.mp4",
+    "still": "remotion still",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.520",
+    "@remotion/google-fonts": "4.0.520",
+    "@remotion/transitions": "4.0.520",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "remotion": "4.0.520"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5"
+  }
+}

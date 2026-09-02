@@ -1,7 +1,7 @@
 {
   "common": {
-    "organizationName": "Volontyor",
-    "organizationShortName": "Volontyor",
+    "organizationName": "Volontyorlar",
+    "organizationShortName": "Volontyorlar",
     "tagline": "Oʻzbekistondagi yoshlar uchun volontyorlik"
   },
   "nav": {
@@ -20,7 +20,7 @@
     "skipToContent": "Asosiy qismga oʻtish"
   },
   "footer": {
-    "description": "Volontyor Oʻzbekiston boʻylab haqiqiy volontyorlik imkoniyatlarini topadi, ularning ortidagi tashkilotchilar bilan ishlaydi va yoshlarni odam kerak boʻlgan tadbirlar bilan bogʻlaydi.",
+    "description": "Volontyorlar Oʻzbekiston boʻylab haqiqiy volontyorlik imkoniyatlarini topadi, ularning ortidagi tashkilotchilar bilan ishlaydi va yoshlarni odam kerak boʻlgan tadbirlar bilan bogʻlaydi.",
     "siteLabel": "Sayt",
     "legalLabel": "Huquqiy",
     "channelsLabel": "Kanallar",
@@ -31,18 +31,19 @@
     "location": "Oʻzbekiston"
   },
   "home": {
-    "metaTitle": "Volontyor — Oʻzbekistondagi yoshlar uchun volontyorlik",
-    "metaDescription": "Volontyor Oʻzbekiston boʻylab volontyorlik imkoniyatlarini topadi, tashkilotchilar bilan ishlaydi va yuqori sinf oʻquvchilarini volontyor kerak boʻlgan tadbirlar bilan bogʻlaydi.",
+    "metaTitle": "Volontyorlar — Oʻzbekistondagi yoshlar uchun volontyorlik",
+    "metaDescription": "Volontyorlar Oʻzbekiston boʻylab volontyorlik imkoniyatlarini topadi, tashkilotchilar bilan ishlaydi va yuqori sinf oʻquvchilarini volontyor kerak boʻlgan tadbirlar bilan bogʻlaydi.",
     "hero": {
-      "eyebrow": "Volontyorlik",
-      "title": "Imkoniyatni biz topamiz. Qanday yordam berishni siz tanlaysiz.",
+      "eyebrowLabel": "Oʻzbekiston boʻylab volontyorlik",
+      "eyebrow": "<region></region> volontyorlik",
+      "title": "Qilinadigan ish bor. Oʻzingiz foydali boʻladigan joyni toping.",
       "lead": "Imkoniyatni hamjamiyat bilan ulashishdan oldin tashkilotchilar bilan gaplashamiz.",
-      "primaryCta": "Hamjamiyatga qoʻshiling",
-      "secondaryCta": "Qanday ishlaydi"
+      "primaryCta": "Volontyor boʻling",
+      "loginCta": "Kirish"
     },
     "map": {
       "eyebrow": "Mamlakat boʻylab",
-      "title": "Volontyor Oʻzbekiston boʻylab kengaymoqda",
+      "title": "Volontyorlar Oʻzbekiston boʻylab kengaymoqda",
       "lead": "Maqsadimiz — barcha oʻn toʻrtta hududda mahalliy faoliyatni yoʻlga qoʻyish.",
       "regionsHeading": "Oʻzbekiston hududlari"
     },
@@ -50,7 +51,7 @@
       "eyebrow": "Bugungi holat",
       "title": "Shu paytgacha qilingan ish",
       "telegram": "Telegram hamjamiyati",
-      "events": "Volontyor bilan taʼminlangan tadbirlar",
+      "events": "Volontyorlar bilan taʼminlangan tadbirlar",
       "applications": "Hududiy lavozimlarga arizalar",
       "regions": "Biz kengayayotgan hududlar"
     },
@@ -76,7 +77,7 @@
           "description": "Tashkilot va muassasalar bilan ishchi aloqalar."
         },
         "supply": {
-          "title": "Volontyor taʼminlash",
+          "title": "Volontyorlar taʼminlash",
           "description": "Tayyor volontyorlar. Hozircha 50 dan ortiq tadbir."
         },
         "regional": {
@@ -123,22 +124,22 @@
   },
   "about": {
     "metaTitle": "Biz haqimizda",
-    "metaDescription": "Volontyor 2025-yil 4-iyunda Arslon Rajabov va Parizoda Abdurakhimova tomonidan Oʻzbekistondagi yuqori sinf oʻquvchilariga maʼnoli volontyorlik topishga yordam berish uchun tashkil etilgan.",
-    "title": "Volontyor haqida",
+    "metaDescription": "Volontyorlar 2025-yil 4-iyunda Arslon Rajabov va Parizoda Abdurakhimova tomonidan Oʻzbekistondagi yuqori sinf oʻquvchilariga maʼnoli volontyorlik topishga yordam berish uchun tashkil etilgan.",
+    "title": "Volontyorlar haqida",
     "lead": "Yaxshi imkoniyatlarning lentada koʻmilib ketishini kuzatishdan charchagan odamlar tomonidan tuzilgan, yuqori sinf oʻquvchilari uchun volontyorlik hamjamiyati.",
     "foundedLabel": "Tashkil etilgan",
     "foundersLabel": "Asoschilar",
     "founded": {
       "title": "2025-yil iyunida tashkil etilgan",
-      "body": "Volontyor 2025-yil 4-iyunda Arslon Rajabov va Parizoda Abdurakhimova tomonidan yuqori sinf oʻquvchilariga maʼnoli volontyorlik imkoniyatlarini topish va ularga ariza berishda yordam berish maqsadida tashkil etilgan."
+      "body": "Volontyorlar 2025-yil 4-iyunda Arslon Rajabov va Parizoda Abdurakhimova tomonidan yuqori sinf oʻquvchilariga maʼnoli volontyorlik imkoniyatlarini topish va ularga ariza berishda yordam berish maqsadida tashkil etilgan."
     },
     "purpose": {
       "title": "Nima uchun kerak",
-      "body": "Volontyorlikni xohlash qiyin emas. Uni topish qiyin. Imkoniyatlar turli kanallarga tarqalib ketgan, tashkilotchilar odamni qayerdan izlashni har doim ham bilmaydi, yordam bermoqchi boʻlgan oʻquvchining esa boshlash uchun aniq joyi yoʻq. Volontyor ana shu boʻshliqni toʻldirish uchun bor."
+      "body": "Volontyorlikni xohlash qiyin emas. Uni topish qiyin. Imkoniyatlar turli kanallarga tarqalib ketgan, tashkilotchilar odamni qayerdan izlashni har doim ham bilmaydi, yordam bermoqchi boʻlgan oʻquvchining esa boshlash uchun aniq joyi yoʻq. Volontyorlar ana shu boʻshliqni toʻldirish uchun bor."
     },
     "growth": {
       "title": "Qayta joylashdan tashkiliy ishga",
-      "body": "Volontyor boshqa joydan topgan imkoniyatlarini ulashishdan boshlagan. Bugun esa imkoniyat topadi, tashkilotchilar bilan bogʻlanadi, tadbirlarni jalb qiladi, hamkorlik quradi, volontyor taʼminlaydi va mamlakat boʻylab hududiy faoliyatni yoʻlga qoʻyyapti."
+      "body": "Volontyorlar boshqa joydan topgan imkoniyatlarini ulashishdan boshlagan. Bugun esa imkoniyat topadi, tashkilotchilar bilan bogʻlanadi, tadbirlarni jalb qiladi, hamkorlik quradi, volontyor taʼminlaydi va mamlakat boʻylab hududiy faoliyatni yoʻlga qoʻyyapti."
     },
     "founders": {
       "title": "Buni boshlagan ikki kishi",
@@ -156,14 +157,14 @@
     "stats": {
       "telegram": "Telegram hamjamiyati",
       "instagram": "Instagram obunachilari",
-      "events": "Volontyor bilan taʼminlangan tadbirlar",
+      "events": "Volontyorlar bilan taʼminlangan tadbirlar",
       "applications": "Hududiy lavozimlarga arizalar"
     }
   },
   "volunteering": {
     "metaTitle": "Volontyorlik",
-    "metaDescription": "Volontyor bilan volontyorlik qanday ishlaydi: imkoniyatlar qanday topiladi va tekshiriladi, sizga qanday yetib keladi va tadbirda nima boʻladi.",
-    "title": "Volontyor bilan volontyorlik qanday ishlaydi",
+    "metaDescription": "Volontyorlar bilan volontyorlik qanday ishlaydi: imkoniyatlar qanday topiladi va tekshiriladi, sizga qanday yetib keladi va tadbirda nima boʻladi.",
+    "title": "Volontyorlar bilan volontyorlik qanday ishlaydi",
     "lead": "Sizga tajriba ham, tashkilot ichidagi tanish ham, tayyor reja ham kerak emas. Yaxshi imkoniyat chiqqanda xabardor boʻlsangiz kifoya.",
     "start": {
       "title": "Nimadan boshlash kerak",
@@ -195,15 +196,15 @@
       }
     },
     "app": {
-      "title": "Volontyor ilovasi",
-      "body": "Imkoniyatlarni koʻrish, ariza berish va qatnashgan tadbirlaringiz yozuvini yuritish alohida ishlab chiqilayotgan Volontyor ilovasiga tegishli, bu saytga emas.",
+      "title": "Volontyorlar ilovasi",
+      "body": "Imkoniyatlarni koʻrish, ariza berish va qatnashgan tadbirlaringiz yozuvini yuritish alohida ishlab chiqilayotgan Volontyorlar ilovasiga tegishli, bu saytga emas.",
       "pending": "Ilova alohida ishlab chiqilmoqda. U tayyor boʻlgunicha imkoniyatlar hamjamiyat kanali orqali ulashiladi.",
-      "cta": "Volontyor ilovasini ochish"
+      "cta": "Volontyorlar ilovasini ochish"
     }
   },
   "partners": {
     "metaTitle": "Hamkorlar",
-    "metaDescription": "Volontyor ishlaydigan tashkilotlar: OʻZLIDEP partiyasi bilan hamkorlik, bizni qoʻllab-quvvatlayotgan muassasalar va imkoniyat yetkazib beruvchi manbalar.",
+    "metaDescription": "Volontyorlar ishlaydigan tashkilotlar: OʻZLIDEP partiyasi bilan hamkorlik, bizni qoʻllab-quvvatlayotgan muassasalar va imkoniyat yetkazib beruvchi manbalar.",
     "title": "Hamkorlar, qoʻllab-quvvatlovchilar va manbalar",
     "lead": "Bu sahifada faqat bugun tasdiqlay oladigan aloqalarimiz keltirilgan. Boshqa hech narsa bu yerga yozilmaydi.",
     "partnership": {
@@ -213,7 +214,7 @@
     },
     "support": {
       "title": "Qoʻllab-quvvatlash va eʼtirof",
-      "lead": "Volontyor faoliyatini qoʻllab-quvvatlaydigan yoki eʼtirof etadigan muassasalar.",
+      "lead": "Volontyorlar faoliyatini qoʻllab-quvvatlaydigan yoki eʼtirof etadigan muassasalar.",
       "note": "Qoʻllab-quvvatlash va eʼtirof"
     },
     "sources": {
@@ -222,16 +223,16 @@
       "note": "Imkoniyat manbai"
     },
     "work": {
-      "title": "Volontyor bilan ishlash",
+      "title": "Volontyorlar bilan ishlash",
       "body": "Tashkilotingiz volontyor kerak boʻladigan tadbir oʻtkazayotgan boʻlsa yoki hududda biz bilan ishlashni istasangiz, bogʻlaning.",
       "cta": "Bogʻlanish"
     }
   },
   "contact": {
     "metaTitle": "Bogʻlanish",
-    "metaDescription": "Volontyor bilan qanday bogʻlanish: volontyorlik qilmoqchi boʻlgan yoshlar hamda volontyor kerak boʻlgan tashkilotchi va hamkorlar uchun.",
+    "metaDescription": "Volontyorlar bilan qanday bogʻlanish: volontyorlik qilmoqchi boʻlgan yoshlar hamda volontyor kerak boʻlgan tashkilotchi va hamkorlar uchun.",
     "title": "Bogʻlanish",
-    "lead": "Volontyor bilan bogʻlanishning eng tez yoʻli — ochiq kanallarimiz.",
+    "lead": "Volontyorlar bilan bogʻlanishning eng tez yoʻli — ochiq kanallarimiz.",
     "channels": {
       "title": "Ochiq kanallar",
       "empty": "Kanal manzillari tasdiqlanmoqda va shu yerda koʻrsatiladi."
@@ -251,10 +252,10 @@
   },
   "privacy": {
     "metaTitle": "Maxfiylik",
-    "metaDescription": "Volontyor saytida maʼlumotlaringiz bilan nima boʻladi: hisob yozuvi, forma, kuki va analitika yoʻq.",
+    "metaDescription": "Volontyorlar saytida maʼlumotlaringiz bilan nima boʻladi: hisob yozuvi, forma, kuki va analitika yoʻq.",
     "title": "Maxfiylik",
     "updatedLabel": "Oxirgi yangilanish",
-    "lead": "Bu sahifa siz oʻqiyotgan Volontyor saytiga tegishli. U alohida Volontyor ilovasini qamrab olmaydi.",
+    "lead": "Bu sahifa siz oʻqiyotgan Volontyorlar saytiga tegishli. U alohida Volontyorlar ilovasini qamrab olmaydi.",
     "sections": {
       "collection": {
         "title": "Bu yerda shaxsiy maʼlumot yigʻmaymiz",
@@ -274,11 +275,11 @@
       },
       "links": {
         "title": "Boshqa xizmatlarga havolalar",
-        "body": "Telegram, Instagram yoki Volontyor ilovasiga havolalar oʻz maxfiylik qoidalariga ega xizmatlarga olib boradi. Bu sahifa ularni qamrab olmaydi."
+        "body": "Telegram, Instagram yoki Volontyorlar ilovasiga havolalar oʻz maxfiylik qoidalariga ega xizmatlarga olib boradi. Bu sahifa ularni qamrab olmaydi."
       },
       "app": {
-        "title": "Volontyor ilovasi",
-        "body": "Alohida Volontyor ilovasi volontyor profillari va arizalari bilan ishlaydi. Uning oʻz maxfiylik shartlari bor va bu saytdagi hech narsa unga ulanmagan."
+        "title": "Volontyorlar ilovasi",
+        "body": "Alohida Volontyorlar ilovasi volontyor profillari va arizalari bilan ishlaydi. Uning oʻz maxfiylik shartlari bor va bu saytdagi hech narsa unga ulanmagan."
       },
       "contact": {
         "title": "Savollar",
@@ -288,14 +289,14 @@
   },
   "terms": {
     "metaTitle": "Shartlar",
-    "metaDescription": "Volontyor saytidan foydalanish shartlari: sayt nima, nima emas va nimani vaʼda qilmaydi.",
+    "metaDescription": "Volontyorlar saytidan foydalanish shartlari: sayt nima, nima emas va nimani vaʼda qilmaydi.",
     "title": "Shartlar",
     "updatedLabel": "Oxirgi yangilanish",
-    "lead": "Bu shartlar shu saytga tegishli. Alohida Volontyor ilovasining oʻz shartlari bor.",
+    "lead": "Bu shartlar shu saytga tegishli. Alohida Volontyorlar ilovasining oʻz shartlari bor.",
     "sections": {
       "purpose": {
         "title": "Bu sayt nima",
-        "body": "Bu sayt axborot xarakteriga ega. U Volontyor, biz ishlaydigan tashkilotlar va biz bilan volontyorlik qanday ishlashini tavsiflaydi. Bu ariza beradigan, tizimga kiradigan yoki volontyor profilini boshqaradigan joy emas."
+        "body": "Bu sayt axborot xarakteriga ega. U Volontyorlar, biz ishlaydigan tashkilotlar va biz bilan volontyorlik qanday ishlashini tavsiflaydi. Bu ariza beradigan, tizimga kiradigan yoki volontyor profilini boshqaradigan joy emas."
       },
       "accuracy": {
         "title": "Aniqlik",
@@ -303,15 +304,15 @@
       },
       "placement": {
         "title": "Joy kafolatlanmaydi",
-        "body": "Bu saytni oʻqish sizni hech qayerga qabul qilmaydi va biror tadbirda joy kafolatlamaydi. Volontyor oʻrinlari har bir tadbir tashkilotchisi bilan birgalikda belgilanadi."
+        "body": "Bu saytni oʻqish sizni hech qayerga qabul qilmaydi va biror tadbirda joy kafolatlamaydi. Volontyorlar oʻrinlari har bir tadbir tashkilotchisi bilan birgalikda belgilanadi."
       },
       "conduct": {
         "title": "Saytdan foydalanish",
-        "body": "Sayt ishiga xalaqit berishga urinmang va undan Volontyor yoki unda nomi keltirilgan tashkilotlar haqida birovni chalgʻitish uchun foydalanmang."
+        "body": "Sayt ishiga xalaqit berishga urinmang va undan Volontyorlar yoki unda nomi keltirilgan tashkilotlar haqida birovni chalgʻitish uchun foydalanmang."
       },
       "brand": {
         "title": "Nomimiz va belgimiz",
-        "body": "Volontyor nomi va belgisi Volontyorga tegishli. Ulardan mavjud boʻlmagan hamkorlikni anglatadigan tarzda foydalanmang."
+        "body": "Volontyorlar nomi va belgisi Volontyorlarga tegishli. Ulardan mavjud boʻlmagan hamkorlikni anglatadigan tarzda foydalanmang."
       },
       "external": {
         "title": "Tashqi havolalar",

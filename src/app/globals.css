@@ -273,6 +273,12 @@
     }
   }
 
+  @keyframes work-route-flow {
+    to {
+      stroke-dashoffset: -100;
+    }
+  }
+
   @supports (animation-timeline: view()) {
     .reveal {
       animation: reveal-rise linear both;
@@ -322,6 +328,133 @@
     display: flex;
     width: 100%;
     overflow: hidden;
+  }
+
+  .work-field {
+    position: relative;
+    display: grid;
+    gap: 2.75rem;
+    padding-left: 3.5rem;
+  }
+
+  .work-field-route {
+    position: absolute;
+    inset-block: 0;
+    left: 0.75rem;
+    width: 4px;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .work-field-route-base,
+  .work-field-route-flow {
+    fill: none;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .work-field-route-base {
+    stroke: var(--color-border-control);
+    stroke-width: 1;
+  }
+
+  .work-field-route-flow {
+    stroke: var(--color-primary);
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 7 93;
+    animation: work-route-flow 7s linear -2s infinite;
+  }
+
+  .work-field-item {
+    position: relative;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--color-border-control);
+  }
+
+  .work-field-item::after {
+    position: absolute;
+    top: -1px;
+    right: 0;
+    left: 0;
+    height: 1px;
+    content: "";
+    background: var(--color-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 450ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .work-field-item:hover::after,
+  .work-field-item:focus-within::after {
+    transform: scaleX(1);
+  }
+
+  .work-field-node {
+    position: absolute;
+    top: -0.375rem;
+    left: -3.125rem;
+    width: 0.75rem;
+    height: 0.75rem;
+    border: 3px solid var(--color-surface-sunk);
+    border-radius: 9999px;
+    background: var(--color-primary);
+  }
+
+  @media (width >= 64rem) {
+    .work-field {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: 9rem;
+      row-gap: 5rem;
+      padding-left: 0;
+    }
+
+    .work-field-route {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .work-field-item:nth-of-type(odd) {
+      text-align: right;
+    }
+
+    .work-field-item:nth-of-type(odd) p {
+      margin-left: auto;
+    }
+
+    .work-field-item:nth-of-type(odd)::before,
+    .work-field-item:nth-of-type(even)::before {
+      position: absolute;
+      top: -1px;
+      width: 4.5rem;
+      height: 1px;
+      content: "";
+      background: var(--color-border-control);
+    }
+
+    .work-field-item:nth-of-type(odd)::before {
+      right: -4.5rem;
+    }
+
+    .work-field-item:nth-of-type(even)::before {
+      left: -4.5rem;
+    }
+
+    .work-field-item:nth-of-type(odd) .work-field-node {
+      right: -4.875rem;
+      left: auto;
+    }
+
+    .work-field-item:nth-of-type(even) .work-field-node {
+      left: -4.875rem;
+    }
+
+    .work-field-item:nth-of-type(even) .work-field-node {
+      display: none;
+    }
+
+    .work-field-item:nth-of-type(odd)::after {
+      transform-origin: right;
+    }
   }
 
   .marquee::before,
@@ -374,23 +507,33 @@
   .rotating-slot {
     position: relative;
     display: inline-block;
+    box-sizing: content-box;
     height: 1.35em;
     overflow: clip;
     vertical-align: bottom;
   }
 
   .rotating-slot[data-ready="true"] {
-    transition:
-      width 520ms cubic-bezier(0.22, 1, 0.36, 1),
-      padding 520ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition: width 380ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .region-rotation-chip {
     padding-inline: 0.625rem;
   }
 
-  .region-rotation-chip[data-compact="true"] {
-    padding-inline: 0.375rem;
+  .rotating-gauge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: max-content;
+    visibility: hidden;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .rotating-gauge > span {
+    display: block;
+    width: max-content;
   }
 
   .rotating-sizer {
@@ -517,48 +660,48 @@
     .brand-signature-glyph {
       animation: brand-letter-rise linear both;
       animation-timeline: --brand-signature;
-      animation-range: entry 6% entry 42%;
+      animation-range: entry 22% entry 58%;
     }
 
     .brand-signature-letter:nth-child(2) .brand-signature-glyph {
-      animation-range: entry 10.5% entry 46.5%;
+      animation-range: entry 26% entry 62%;
     }
     .brand-signature-letter:nth-child(3) .brand-signature-glyph {
-      animation-range: entry 15% entry 51%;
+      animation-range: entry 30% entry 66%;
     }
     .brand-signature-letter:nth-child(4) .brand-signature-glyph {
-      animation-range: entry 19.5% entry 55.5%;
+      animation-range: entry 34% entry 70%;
     }
     .brand-signature-letter:nth-child(5) .brand-signature-glyph {
-      animation-range: entry 24% entry 60%;
+      animation-range: entry 38% entry 74%;
     }
     .brand-signature-letter:nth-child(6) .brand-signature-glyph {
-      animation-range: entry 28.5% entry 64.5%;
+      animation-range: entry 42% entry 78%;
     }
     .brand-signature-letter:nth-child(7) .brand-signature-glyph {
-      animation-range: entry 33% entry 69%;
+      animation-range: entry 46% entry 82%;
     }
     .brand-signature-letter:nth-child(8) .brand-signature-glyph {
-      animation-range: entry 37.5% entry 73.5%;
+      animation-range: entry 50% entry 86%;
     }
     .brand-signature-letter:nth-child(9) .brand-signature-glyph {
-      animation-range: entry 42% entry 78%;
+      animation-range: entry 54% entry 90%;
     }
 
     .brand-signature-letter:nth-child(n + 10) .brand-signature-glyph {
-      animation-range: entry 42% entry 78%;
+      animation-range: entry 54% entry 90%;
     }
 
     .brand-head {
       animation: brand-head-pop linear both;
       animation-timeline: --brand-signature;
-      animation-range: entry 54% entry 80%;
+      animation-range: entry 60% entry 88%;
     }
 
     .brand-arms {
       animation: brand-arms-raise linear both;
       animation-timeline: --brand-signature;
-      animation-range: entry 68% entry 98%;
+      animation-range: entry 72% entry 100%;
     }
   }
 
@@ -570,6 +713,7 @@
     .brand-signature-glyph,
     .brand-head,
     .brand-arms,
+    .work-field-route-flow,
     .marquee-track {
       animation: none !important;
     }

@@ -1,5 +1,5 @@
-export const ORGANIZATION_NAME = "Volontyor";
-export const ORGANIZATION_SHORT_NAME = "Volontyor";
+export const ORGANIZATION_NAME = "Volontyorlar";
+export const ORGANIZATION_SHORT_NAME = "Volontyorlar";
 
 export const FOUNDED_ON = "2025-06-04";
 

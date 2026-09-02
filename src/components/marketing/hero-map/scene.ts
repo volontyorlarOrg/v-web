@@ -16,7 +16,13 @@ import {
   WebGLRenderer,
 } from "three";
 
-import { MAP_EXTENT, REGION_GEOMETRY, type RegionPolygon } from "@/lib/map/region-geometry";
+import {
+  fitCamera,
+  frameFor,
+  type Frame,
+  type Room,
+  type Viewport,
+} from "@/components/marketing/hero-map/framing";
 import {
   clamp01,
   easeOut,
@@ -25,6 +31,7 @@ import {
   provinceLift,
   type MapPhase,
 } from "@/components/marketing/hero-map/timeline";
+import { MAP_EXTENT, REGION_GEOMETRY, type RegionPolygon } from "@/lib/map/region-geometry";
 
 const PLATE_THICKNESS = 0.03;
 const TILE_THICKNESS = 0.05;
@@ -38,15 +45,7 @@ const LEADER_RADIUS = 0.0042;
 const MARKER_RADIUS = 0.017;
 
 const CAMERA_FOV = 34;
-const FRAME_PADDING = 1.16;
-
-
-const BACKDROP_ZOOM = 0.8;
-const BACKDROP_SHIFT_X = 0;
-const BACKDROP_SHIFT_Y = -1;
 const BACKDROP_OPACITY = 0.9;
-const CAPTION_CLEARANCE = 0.2;
-
 
 const UNRESOLVED_TOKEN_COLOUR = 0x8a8a8a;
 
@@ -187,7 +186,6 @@ const REVEAL_ORDER = REGION_GEOMETRY.map((region, index) => ({ index, x: region.
     return order;
   }, []);
 
-
 export type ProjectedMarker = {
   id: string;
   x: number;
@@ -199,7 +197,7 @@ export type ProjectedMarker = {
 export type Phase = MapPhase;
 
 export type MapScene = {
-  render: (progress: number) => Phase;
+  render: (progress: number, room: Room) => Phase;
   resize: (width: number, height: number, pixelRatio: number) => void;
   projectMarkers: (width: number, height: number) => ProjectedMarker[];
   dispose: () => void;
@@ -290,15 +288,14 @@ export function createMapScene(canvas: HTMLCanvasElement, palette: Palette): Map
     return { id: region.id, tile, leader, height, order: REVEAL_ORDER[index], reveal: 0 };
   });
 
-  let viewWidth = 1;
-  let viewHeight = 1;
+  const view: Viewport = { width: 1, height: 1 };
 
   const fitPoints: Vector3[] = Array.from(
     { length: COUNTRY_HULL.length * 2 + provinces.length },
     () => new Vector3(),
   );
 
-  function frameMap(topZ: number, zoom: number, shiftX: number, shiftY: number) {
+  function frameMap(topZ: number, frame: Frame) {
     let count = 0;
     for (const [x, y] of COUNTRY_HULL) {
       fitPoints[count++].set(x, y, 0).applyQuaternion(mapGroup.quaternion);
@@ -310,60 +307,29 @@ export function createMapScene(canvas: HTMLCanvasElement, palette: Palette): Map
         .applyQuaternion(mapGroup.quaternion);
     }
 
-    let minX = Infinity;
-    let maxX = -Infinity;
-    let minY = Infinity;
-    let maxY = -Infinity;
-    for (let index = 0; index < count; index += 1) {
-      const point = fitPoints[index];
-      minX = Math.min(minX, point.x);
-      maxX = Math.max(maxX, point.x);
-      minY = Math.min(minY, point.y);
-      maxY = Math.max(maxY, point.y);
-    }
-
-    const centreX = -(minX + maxX) / 2;
-    const centreY = -(minY + maxY) / 2;
-
-    const aspect = Math.max(viewWidth / viewHeight, 0.0001);
-    const tangent = Math.tan((CAMERA_FOV * Math.PI) / 360);
-
-    let distance = 0;
-    for (let index = 0; index < count; index += 1) {
-      const point = fitPoints[index];
-      const spread = Math.max(
-        Math.abs(point.x + centreX) / (tangent * aspect),
-        Math.abs(point.y + centreY) / tangent,
-      );
-      distance = Math.max(distance, point.z + spread * FRAME_PADDING);
-    }
-    distance /= zoom;
-
-    const halfHeight = distance * tangent;
-    mapGroup.position.set(centreX + shiftX * halfHeight * aspect, centreY + shiftY * halfHeight, 0);
-
-    camera.position.set(0, 0, distance);
+    const fit = fitCamera(fitPoints, frame, view, CAMERA_FOV);
+    mapGroup.position.set(fit.offsetX, fit.offsetY, 0);
+    camera.position.set(0, 0, fit.distance);
     camera.lookAt(0, 0, 0);
     camera.updateMatrixWorld();
   }
 
   function resize(width: number, height: number, pixelRatio: number) {
-    viewWidth = Math.max(1, width);
-    viewHeight = Math.max(1, height);
+    view.width = Math.max(1, width);
+    view.height = Math.max(1, height);
     renderer.setPixelRatio(pixelRatio);
-    renderer.setSize(viewWidth, viewHeight, false);
-    camera.aspect = viewWidth / viewHeight;
+    renderer.setSize(view.width, view.height, false);
+    camera.aspect = view.width / view.height;
     camera.updateProjectionMatrix();
   }
 
   const projected = new Vector3();
 
-  function render(progress: number): Phase {
+  function render(progress: number, room: Room): Phase {
     const p = clamp01(progress);
     const phase = mapPhase(p);
 
     mapGroup.rotation.x = -(phase.tipDegrees * Math.PI) / 180;
-    mapGroup.rotation.z = -((phase.turnDegrees * Math.PI) / 180);
 
     let tallest = 0;
     for (const province of provinces) {
@@ -381,12 +347,7 @@ export function createMapScene(canvas: HTMLCanvasElement, palette: Palette): Map
 
     const topZ =
       PLATE_THICKNESS + TILE_THICKNESS + (TILE_LIFT + TALLEST_LEADER + MARKER_RADIUS) * tallest;
-    frameMap(
-      topZ,
-      lerp(BACKDROP_ZOOM, 1, phase.emerge),
-      lerp(BACKDROP_SHIFT_X, 0, phase.emerge),
-      lerp(BACKDROP_SHIFT_Y, CAPTION_CLEARANCE, phase.emerge),
-    );
+    frameMap(topZ, frameFor(phase, view, room));
 
     canvas.style.opacity = String(lerp(BACKDROP_OPACITY, 1, phase.emerge));
     renderer.render(scene, camera);

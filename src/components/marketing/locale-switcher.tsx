@@ -44,7 +44,7 @@ export function LocaleSwitcher({
   }, [open]);
 
   return (
-    <div ref={rootRef} className={cn("relative", className)}>
+    <div ref={rootRef} className={cn("relative inline-block", className)}>
       <button
         ref={triggerRef}
         type="button"
