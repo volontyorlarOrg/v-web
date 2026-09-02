@@ -212,36 +212,6 @@
     }
   }
 
-  .backdrop-rules {
-    position: absolute;
-    inset: 0;
-    background-image: repeating-linear-gradient(
-      to bottom,
-      transparent 0,
-      transparent 2.25rem,
-      var(--color-primary) 2.25rem,
-      var(--color-primary) calc(2.25rem + 1px)
-    );
-    opacity: 0.08;
-  }
-
-  .backdrop-reading {
-    position: absolute;
-    inset-inline: 0;
-    height: 2.25rem;
-    background-color: var(--color-primary);
-    opacity: 0.05;
-    animation: backdrop-reading-step 24s steps(12, end) infinite;
-  }
-
-  @keyframes backdrop-reading-step {
-    from {
-      transform: translateY(0);
-    }
-    to {
-      transform: translateY(27rem);
-    }
-  }
 }
 
 @layer components {
@@ -394,11 +364,21 @@
   }
 
   .rotating-slot[data-ready="true"] {
-    transition: width 520ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition:
+      width 520ms cubic-bezier(0.22, 1, 0.36, 1),
+      padding 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .region-rotation-chip {
+    padding-inline: 0.625rem;
+  }
+
+  .region-rotation-chip[data-compact="true"] {
+    padding-inline: 0.375rem;
   }
 
   .rotating-sizer {
-    display: block;
+    display: inline-block;
     height: 1.35em;
     line-height: 1.35em;
     visibility: hidden;
@@ -410,6 +390,7 @@
     inset: 0;
     display: flex;
     align-items: center;
+    justify-content: center;
     white-space: nowrap;
   }
 
@@ -589,6 +570,10 @@
 
     .rotating-slot {
       transition: none;
+    }
+
+    .rotating-char {
+      animation: none !important;
     }
   }
 }

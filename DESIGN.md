@@ -313,14 +313,16 @@ acts, so the colour reinforces rather than carries it.
 ### Status chip
 
 A dashed-border, uppercase label for material that is planned rather than live,
-such as the course. Meaning is in the words; the dashed edge only reinforces it.
+such as the separate application. Meaning is in the words; the dashed edge only
+reinforces it.
 
 ### Navigation
 
 A 64px bar on mobile and 80px from the large breakpoint: mark plus organisation
-name, the language control at every width, and one action. Below the large
-breakpoint the page links move into a disclosure panel that closes on Escape and
-on selection.
+name, a language disclosure at every width, and one action. The disclosure shows
+the active language first and opens a native-name list without leaving the
+current route. Below the large breakpoint the page links move into their own
+panel that closes on Escape and on selection.
 
 ## Surfaces and components
 
@@ -362,16 +364,16 @@ not ship.
 ### Ambient backdrops
 
 The page's middle breathes on a two-section rhythm: flat ground, then a toned
-band carrying an ambient backdrop. Three bands have one — "what we do",
-"opportunity sources", and the course — and the rhythm is the point: a backdrop
-on every section is wallpaper, and a backdrop on one is an accident.
+band carrying an ambient backdrop. Two bands have one — "what we do" and
+"opportunity sources" — and the rhythm is the point: a backdrop on every section
+is wallpaper, and a backdrop on one is an accident.
 
 Two rules keep them honest.
 
 **A backdrop depicts the club's own object or it does not exist.** Not ambient
-shapes, not a gradient mesh: event cards rising and being checked, the channels
-opportunities arrive through, the ruled page of a course being read. A reader who
-looks straight at one should recognise what it is.
+shapes, not a gradient mesh: event cards rising and being checked, and the
+channels opportunities arrive through. A reader who looks straight at one
+should recognise what it is.
 
 **They loop, they do not arrive.** Every backdrop is an infinite CSS animation
 with a negative delay, so it is already mid-motion on the first frame and a

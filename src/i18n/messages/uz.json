@@ -9,7 +9,6 @@
     "about": "Biz haqimizda",
     "volunteering": "Volontyorlik",
     "partners": "Hamkorlar",
-    "course": "Kurs",
     "contact": "Bogʻlanish",
     "privacy": "Maxfiylik",
     "terms": "Shartlar",
@@ -36,15 +35,15 @@
     "metaDescription": "Volontyor Oʻzbekiston boʻylab volontyorlik imkoniyatlarini topadi, tashkilotchilar bilan ishlaydi va yuqori sinf oʻquvchilarini volontyor kerak boʻlgan tadbirlar bilan bogʻlaydi.",
     "hero": {
       "eyebrow": "Volontyorlik",
-      "title": "Volontyorlikni biz topamiz. Kelish sizdan.",
-      "lead": "Haqiqiy tadbirlar, haqiqiy tashkilotchilar — sizga yetib borishdan oldin tekshirilgan.",
+      "title": "Imkoniyatni biz topamiz. Qanday yordam berishni siz tanlaysiz.",
+      "lead": "Imkoniyatni hamjamiyat bilan ulashishdan oldin tashkilotchilar bilan gaplashamiz.",
       "primaryCta": "Hamjamiyatga qoʻshiling",
       "secondaryCta": "Qanday ishlaydi"
     },
     "map": {
       "eyebrow": "Mamlakat boʻylab",
-      "title": "Oʻzbekistonning oʻn toʻrtta hududi, bitta xarita",
-      "lead": "Aylantiring. Har bir hudud koʻtariladi, soʻng mamlakat buriladi.",
+      "title": "Volontyor Oʻzbekiston boʻylab kengaymoqda",
+      "lead": "Maqsadimiz — barcha oʻn toʻrtta hududda mahalliy faoliyatni yoʻlga qoʻyish.",
       "regionsHeading": "Oʻzbekiston hududlari"
     },
     "stats": {
@@ -114,12 +113,6 @@
       "sourcesLabel": "Imkoniyat manbalari",
       "partnersLabel": "Hamkorlar va qoʻllab-quvvatlovchilar",
       "cta": "Barcha hamkorlar"
-    },
-    "course": {
-      "eyebrow": "Oʻrganish",
-      "title": "Volontyorlik boʻyicha kurs tayyorlanmoqda",
-      "lead": "Volontyorlik aslida qanday ishlashi haqida qisqa amaliy material.",
-      "cta": "Nimalarni oʻz ichiga oladi"
     },
     "cta": {
       "title": "Volontyorlikni topish oson boʻlishi kerak.",
@@ -234,41 +227,6 @@
       "cta": "Bogʻlanish"
     }
   },
-  "course": {
-    "metaTitle": "Kurs",
-    "metaDescription": "Volontyor volontyorlik asoslari, ariza berish, volontyorlik esse yozish va samarali ishtirok etish boʻyicha qisqa amaliy material tayyorlamoqda.",
-    "title": "Volontyorlikni oʻrganish",
-    "lead": "Imkoniyat topish — bir masala. Unga qanday ariza berish va yetib borganingizdan keyin nima qilish — butunlay boshqa masala.",
-    "status": "Tayyorlanmoqda",
-    "topicsTitle": "Nimalarni oʻz ichiga oladi",
-    "topics": {
-      "basics": {
-        "title": "Volontyorlik asoslari",
-        "description": "Volontyorlik nima, nima emas va tadbirdan nimani kutish mumkin."
-      },
-      "applying": {
-        "title": "Qanday ariza beriladi",
-        "description": "Imkoniyatni toʻgʻri oʻqish va javob oladigan ariza yuborish."
-      },
-      "essay": {
-        "title": "Volontyorlik esse qanday yoziladi",
-        "description": "Nega qatnashmoqchi ekaningizni tushuntiruvchi qisqa va samimiy esse tuzilishi."
-      },
-      "conduct": {
-        "title": "Nima qilish va nima qilmaslik kerak",
-        "description": "Tashkilotchilar, boshqa volontyorlar va tadbir kimlar uchun oʻtkazilayotgan boʻlsa, oʻshalar bilan qanday ishlash."
-      },
-      "participation": {
-        "title": "Samarali ishtirok etish",
-        "description": "Volontyorlik nima uchun kerakligini tushunish va haqiqatan foyda keltiradigan tarzda ishtirok etish."
-      }
-    },
-    "note": {
-      "title": "Hali hech narsa chop etilmagan",
-      "body": "Kurs tayyorlanmoqda. Eʼlon qilinadigan jadval, qabul yoki toʻlov yoʻq. Ochilganda hamjamiyat kanalida eʼlon qilinadi."
-    },
-    "cta": "Ochilganda xabar bering"
-  },
   "contact": {
     "metaTitle": "Bogʻlanish",
     "metaDescription": "Volontyor bilan qanday bogʻlanish: volontyorlik qilmoqchi boʻlgan yoshlar hamda volontyor kerak boʻlgan tashkilotchi va hamkorlar uchun.",
@@ -341,7 +299,7 @@
       },
       "accuracy": {
         "title": "Aniqlik",
-        "body": "Faqat tasdiqlay oladigan maʼlumotni chop etamiz. Tadbirlar, hamkorlar va kurs tafsilotlari oʻzgarishi mumkin, sahifalar esa yangilanishlar orasida eskirgan boʻlishi mumkin."
+        "body": "Faqat tasdiqlay oladigan maʼlumotni chop etamiz. Tadbir va hamkorlik tafsilotlari oʻzgarishi mumkin, sahifalar esa yangilanishlar orasida eskirgan boʻlishi mumkin."
       },
       "placement": {
         "title": "Joy kafolatlanmaydi",

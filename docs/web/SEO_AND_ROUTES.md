@@ -12,12 +12,11 @@ registered is invisible to all four. Adding a page means adding an entry.
 | `about` | `/about` | yes | — | 0.8 |
 | `volunteering` | `/volunteering` | yes | — | 0.8 |
 | `partners` | `/partners` | yes | — | 0.7 |
-| `course` | `/course` | yes | — | 0.7 |
 | `contact` | `/contact` | yes | — | 0.6 |
 | `privacy` | `/privacy` | — | yes | 0.3 |
 | `terms` | `/terms` | — | yes | 0.3 |
 
-Each route exists in `uz`, `ru`, and `en`: 24 indexable URLs. `/` redirects to a
+Each route exists in `uz`, `ru`, and `en`: 21 indexable URLs. `/` redirects to a
 locale. The `/v1`, `/v2`, and `/v3` exploration routes and the style switcher
 were removed, and an end-to-end test asserts that none of them resolves and that
 no rendered link points at one.
@@ -60,14 +59,11 @@ versions are reported as alternates of one another.
 | `WebSite` | Home | Name, description, locale, publisher reference |
 | `BreadcrumbList` | Every page below home | Home plus the current page |
 
-No `Course` node is emitted. The course page publishes topics only — no
-schedule, enrolment, price, or delivery mode — so a `Course` entity would be a
-claim the page cannot support. Nothing anywhere emits an aggregate rating,
-review, address, or telephone.
+Nothing emits an aggregate rating, review, address, telephone, or an entity for
+a programme that is not publicly available.
 
 ## Needs verification
 
 - Production origin and canonical host
 - Whether `www` or the apex is canonical, and the redirect that enforces it
 - Public channel addresses, which would populate `sameAs`
-- Whether a `Course` node becomes justified once the course is published

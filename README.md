@@ -42,21 +42,20 @@ matching locale.
 - Tailwind CSS 4 with semantic tokens in `src/app/globals.css`
 - `next-intl` for `uz` / `ru` / `en` routing and catalogs
 - `class-variance-authority`, `clsx`, `tailwind-merge`, and Lucide icons
-- One typeface, Onest, self-hosted through `next/font`
+- Source Serif 4 and Onest, self-hosted through `next/font`
 
 Every marketing route is statically generated. The only runtime code is
 `src/proxy.ts`, which sends a prefix-less URL to the right locale.
 
 ## Routes
 
-`/` redirects to a locale. Each locale then serves the same eight pages:
+`/` redirects to a locale. Each locale then serves the same seven pages:
 
 ```
 /{uz|ru|en}
 /{uz|ru|en}/about
 /{uz|ru|en}/volunteering
 /{uz|ru|en}/partners
-/{uz|ru|en}/course
 /{uz|ru|en}/contact
 /{uz|ru|en}/privacy
 /{uz|ru|en}/terms

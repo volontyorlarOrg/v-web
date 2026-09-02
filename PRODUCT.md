@@ -35,16 +35,6 @@ around them.
 Do not add partnerships, statistics, testimonials, awards, offices, addresses,
 or integrations that are not on this list.
 
-## Near-term education initiative
-
-A short, practical course is **in preparation**: volunteering basics, how to
-apply, how to write a volunteering essay, dos and don'ts, and understanding what
-volunteering is and how to take part effectively.
-
-Nothing about it is published: there is no schedule, enrolment, price, or
-delivery mode. The site says exactly that, and emits no `Course` structured data
-until real course information exists.
-
 ## System boundary
 
 The product is intentionally split in two.
@@ -54,7 +44,7 @@ The product is intentionally split in two.
 | Brand and public positioning | Volunteer authentication and sessions |
 | Public pages and partner presentation | Opportunity browsing, filtering, applications |
 | Explanations of how Volontyor works | Reusable profiles and saved essays |
-| Course marketing | Volunteer records, hours, attendance |
+| Volunteering guidance | Volunteer records, hours, attendance |
 | SEO, metadata, structured data, legal pages | Admin and partner workflows |
 | Central links into the application | Any backend contract |
 
@@ -83,4 +73,3 @@ consistent with the eventual application, not so it can be claimed as shipped.
   product name Volontyor
 - Public channel addresses (Telegram, Instagram) and any other contact route
 - Legal entity details behind the privacy and terms pages
-- Whether the course will be free, paid, online, or in person

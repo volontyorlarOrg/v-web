@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-export type BackdropVariant = "sourcing" | "channels" | "study";
+export type BackdropVariant = "sourcing" | "channels";
 
 const CARDS = [
   { x: "8%", width: 62, duration: "38s", delay: "-7s", tilt: "-4deg", drift: "18px" },
@@ -50,12 +50,6 @@ export function SectionBackdrop({
         </span>
       ) : null}
 
-      {variant === "study" ? (
-        <>
-          <span className="backdrop-rules" />
-          <span className="backdrop-reading" />
-        </>
-      ) : null}
     </div>
   );
 }

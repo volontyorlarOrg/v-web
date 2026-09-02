@@ -12,7 +12,7 @@ flowchart LR
   Visitor --> Proxy[src/proxy.ts locale routing]
   Proxy --> Locale["/[locale] root layout"]
   Locale --> Marketing["(marketing) layout: header, main, footer"]
-  Marketing --> Pages["home · about · volunteering · partners · course · contact · privacy · terms"]
+  Marketing --> Pages["home · about · volunteering · partners · contact · privacy · terms"]
   Locale --> Meta[robots.ts · sitemap.ts · global-not-found.tsx]
   Pages --> Seo[lib/seo metadata and JSON-LD]
   Pages --> Facts[lib/content verified facts]
@@ -25,7 +25,7 @@ flowchart LR
 | `src/proxy.ts` | Sends a prefix-less URL to a locale using `Accept-Language`; the only non-static code path |
 | `src/app/[locale]/layout.tsx` | Root document, `lang`, typeface, and the client message subset |
 | `src/app/[locale]/(marketing)/layout.tsx` | Skip link, header, main landmark, footer |
-| `src/app/[locale]/(marketing)/*/page.tsx` | The eight public pages |
+| `src/app/[locale]/(marketing)/*/page.tsx` | The seven public pages |
 | `src/app/robots.ts`, `src/app/sitemap.ts` | Crawl policy and the localized sitemap |
 | `src/app/global-not-found.tsx` | 404 for unmatched URLs; required because the root layout sits under a dynamic segment |
 | `src/app/globals.css` | Tailwind import, design tokens, base layer, container utility |
@@ -39,13 +39,15 @@ flowchart LR
 
 ## Rendering rules
 
-Server Components are the default. Three components opt into the client, and all
+Server Components are the default. Five components opt into the client, and all
 of them receive their copy as props so no page-level translation reaches the
 browser:
 
 - `LocaleSwitcher` needs the active locale and pathname.
 - `MobileNav` needs disclosure state and an Escape handler.
 - `HeroMapStage` owns the home page's hero, its scroll runway, and the canvas.
+- `RollingWords` cycles the region label while respecting reduced motion.
+- `CountUp` animates verified figures when they enter the viewport.
 
 The root layout hands `NextIntlClientProvider` only the `nav` namespace.
 Forwarding the whole catalog embedded every page's copy in every document:
@@ -329,12 +331,13 @@ link for each.
 ## Dependency boundary
 
 Runtime dependencies are `next`, `react`, `react-dom`, `next-intl`,
-`class-variance-authority`, `clsx`, `tailwind-merge`, and `lucide-react`.
+`class-variance-authority`, `clsx`, `tailwind-merge`, `lucide-react`, and
+`three`, which is isolated to the hero map.
 
 Removed during the production consolidation because nothing imported them:
 `i18next`, `react-i18next`, `i18next-browser-languagedetector`, `next-themes`,
-`three`, `@types/three`, `motion`, `@radix-ui/react-accordion`, and
-`tw-animate-css`. The site ships one light theme, CSS-only motion, and no WebGL.
+`motion`, `@radix-ui/react-accordion`, and `tw-animate-css`. The site ships one
+light theme and CSS-only interface motion; WebGL stays confined to the hero map.
 
 Do not add application dependencies here: no TanStack, React Hook Form, Zod,
 Zustand, nuqs, openapi-fetch, next-safe-action, jose, drag-and-drop, chart, PDF,

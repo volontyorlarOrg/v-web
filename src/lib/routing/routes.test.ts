@@ -42,6 +42,10 @@ describe("public route registry", () => {
     expect(paths).not.toContain("/v3");
   });
 
+  it("does not publish a course route", () => {
+    expect(publicRoutes.map((route) => route.path)).not.toContain("/course");
+  });
+
   it("throws on an unknown key", () => {
     // @ts-expect-error deliberately outside the union
     expect(() => getRoute("nope")).toThrow(/Unknown public route/);

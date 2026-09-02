@@ -99,7 +99,7 @@ container-relative size fight each other, and the smaller one silently wins.
 | `NameBoard` | Hairline-ruled rows of partner, supporter, and source names |
 | `ProseSections` | Legal and explanatory pages at one measure |
 | `StatusChip` | Dashed pill for planned or unpublished material |
-| `SectionBackdrop` | The ambient layer on the toned bands; `sourcing`, `channels`, `study` |
+| `SectionBackdrop` | The ambient layer on the toned bands; `sourcing` and `channels` |
 | `buttonClass` | The single action styling contract, built with CVA |
 | `ActionLink` | Chooses a locale-aware link or a safe external anchor |
 | `HeroMapSection` | The home page hero and its scroll-driven map of the fourteen regions |
@@ -107,13 +107,13 @@ container-relative size fight each other, and the smaller one silently wins.
 | `NumberedRail` | The shared 01–NN hairline rail used for lists that read as a sequence |
 | `Reveal` | Marks a block or a sequence for the scroll-driven reveal; a server component that only adds a class |
 | `Marquee` | The continuously rolling partner and source rows |
-| `RollingWords` | The hero eyebrow's cycling region name; the only client component in the set |
+| `RollingWords` | The hero eyebrow's cycling region name |
 | `BrandSignature` | The oversized footer lockup that writes itself and raises the mark's hands |
 
-Nothing on the home page is a bordered card any more. `StatGrid`, `NameBoard`,
-the course topics and the "what we do" list all use a hairline rule above each
-item with a generous gap, so a short list and a long one look equally deliberate
-and an unfilled grid cell cannot read as a rendering fault.
+Nothing on the home page is a bordered card any more. `StatGrid`, `NameBoard`
+and the "what we do" list use a hairline rule above each item with a generous
+gap, so a short list and a long one look equally deliberate and an unfilled grid
+cell cannot read as a rendering fault.
 
 The home page shows partners and sources as two `Marquee` rows rolling in
 opposite directions rather than as a `NameBoard` grid, because nine names in a
@@ -121,12 +121,12 @@ three-column grid left two empty cells. `/partners` keeps the readable
 `NameBoard` lists: a page whose job is to be scanned should not move.
 
 No page uses a bordered card. Every list that reads as a sequence — what we do,
-the course syllabus, what to expect, the story on `/about` — is a
-`NumberedRail`, and lists that do not are hairline-ruled rows. Pages stay
-distinct through arrangement rather than through different containers: the rails
-on `/course`, `/volunteering` and the home page sit beside a heading that stays
-put while they scroll, `/about` centres its rail at one measure, and `/contact`
-gives each channel a full-width row of its own.
+what to expect, and the story on `/about` — is a `NumberedRail`, and lists that
+do not are hairline-ruled rows. Pages stay distinct through arrangement rather
+than through different containers: the rails on `/volunteering` and the home
+page sit beside a heading that stays put while they scroll, `/about` centres its
+rail at one measure, and `/contact` gives each channel a full-width row of its
+own.
 
 ## Brand usage in code
 
@@ -154,9 +154,10 @@ lockup's wordmark renders in a different system face on every platform. See
 - No locale cookie and no `localStorage`: the URL is the only language state, so
   a canonical URL can never render two different languages, and every response
   stays cacheable.
-- The language control is in the header at every width and in the footer. It
-  links to the same route in another locale, so switching never drops the reader
-  onto the home page.
+- The language disclosure is in the header at every width and in the footer. It
+  shows the active language, opens a list of native language names, and links to
+  the same route in another locale, so switching never drops the reader onto the
+  home page.
 - `html[lang]` matches the active locale on every page.
 - `src/i18n/messages.test.ts` enforces key parity across the three catalogs,
   rejects empty and placeholder strings, requires the turned comma `ʻ` in Uzbek
@@ -176,9 +177,9 @@ lockup's wordmark renders in a different system face on every platform. See
 - The mobile disclosure sets `aria-expanded` and `aria-controls`, closes on
   Escape with focus returned to the trigger, and closes on selection. The panel
   uses the `hidden` attribute, so its contents leave the accessibility tree.
-- Status is never carried by colour alone: the "in preparation" chip says so in
-  words, and the orange step node reinforces a title that already names who
-  acts.
+- Status is never carried by colour alone: the application availability chip
+  says so in words, and the orange step node reinforces a title that already
+  names who acts.
 - Decorative marks and rails are `aria-hidden`; the ordered list carries the
   meaning of the step rail.
 - Reduced motion is honoured globally in the base layer, and again by one block
@@ -207,9 +208,9 @@ lockup's wordmark renders in a different system face on every platform. See
 - The header shows page links from the large breakpoint and moves them into the
   disclosure panel below it; the language control never moves.
 - Navigation follows the reader's questions rather than the organisation chart:
-  **Volunteering** (what would I do), **Course** (can I prepare), **Partners**
-  (who is behind this), **About** (who are you), **Contact** (how do I reach
-  you). `src/lib/routing/routes.ts` is the single source of that order, so the
+  **Volunteering** (what would I do), **Partners** (who is behind this),
+  **About** (who are you), **Contact** (how do I reach you).
+  `src/lib/routing/routes.ts` is the single source of that order, so the
   header, the footer and the sitemap cannot disagree.
 - The header lockup drops to the mark alone below 360px. `Volontyor` set beside
   the mark, the language control and the menu button do not fit a 320px screen

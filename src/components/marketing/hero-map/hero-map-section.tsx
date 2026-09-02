@@ -27,9 +27,10 @@ export function HeroMapSection({ locale }: { locale: Locale }) {
         <div className="hero-copy mx-auto flex w-full flex-col items-center text-center">
           <Eyebrow>
             {t("hero.eyebrow")}
-            <span className="inline-flex items-center rounded-full bg-primary-muted/50 px-2.5 py-1 text-primary-ink">
-              <RollingWords words={regions.map((region) => region.name)} />
-            </span>
+            <RollingWords
+              words={regions.map((region) => region.name)}
+              className="region-rotation-chip rounded-full bg-primary-muted/50 py-1 text-primary-ink"
+            />
           </Eyebrow>
           <h1 className="hero-display mt-9">{t("hero.title")}</h1>
           <p className="mt-8 max-w-[46ch] text-lead text-ink-muted text-pretty">{t("hero.lead")}</p>

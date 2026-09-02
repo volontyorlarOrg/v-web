@@ -9,7 +9,6 @@
     "about": "About",
     "volunteering": "Volunteering",
     "partners": "Partners",
-    "course": "Course",
     "contact": "Contact",
     "privacy": "Privacy",
     "terms": "Terms",
@@ -36,15 +35,15 @@
     "metaDescription": "Volontyor finds volunteer opportunities across Uzbekistan, works with the organisers behind them, and connects high school students to events that need volunteers.",
     "hero": {
       "eyebrow": "Volunteering",
-      "title": "We find the volunteering. You just show up.",
-      "lead": "Real events, real organisers, checked before they reach you.",
+      "title": "We find the opportunity. You choose how to help.",
+      "lead": "We speak with organisers before sharing an opportunity with the community.",
       "primaryCta": "Join the community",
       "secondaryCta": "See how it works"
     },
     "map": {
       "eyebrow": "Across the country",
-      "title": "Fourteen regions of Uzbekistan, one map",
-      "lead": "Scroll. Every region lifts, then the country turns.",
+      "title": "Volontyor is growing across Uzbekistan",
+      "lead": "Our goal is local operations in all fourteen regions.",
       "regionsHeading": "Regions of Uzbekistan"
     },
     "stats": {
@@ -114,12 +113,6 @@
       "sourcesLabel": "Opportunity sources",
       "partnersLabel": "Partners and supporters",
       "cta": "See all partners"
-    },
-    "course": {
-      "eyebrow": "Learning",
-      "title": "A course on volunteering, in preparation",
-      "lead": "A short, practical guide to how volunteering actually works.",
-      "cta": "See what it covers"
     },
     "cta": {
       "title": "Volunteering should be easy to find.",
@@ -234,41 +227,6 @@
       "cta": "Contact us"
     }
   },
-  "course": {
-    "metaTitle": "Course",
-    "metaDescription": "Volontyor is preparing short, practical material on volunteering basics, applying, writing a volunteering essay, and taking part effectively.",
-    "title": "Learning to volunteer",
-    "lead": "Finding an opportunity is one problem. Knowing how to apply for it, and what to do once you are there, is another.",
-    "status": "In preparation",
-    "topicsTitle": "What it covers",
-    "topics": {
-      "basics": {
-        "title": "Volunteering basics",
-        "description": "What volunteering is, what it is not, and what to expect from an event."
-      },
-      "applying": {
-        "title": "How to apply",
-        "description": "Reading an opportunity properly and sending an application that gets an answer."
-      },
-      "essay": {
-        "title": "How to write a volunteering essay",
-        "description": "Structuring a short, honest essay that explains why you want to take part."
-      },
-      "conduct": {
-        "title": "Dos and don'ts",
-        "description": "How to work with organisers, other volunteers, and the people an event is for."
-      },
-      "participation": {
-        "title": "Taking part effectively",
-        "description": "Understanding what volunteering is for and how to take part in a way that helps."
-      }
-    },
-    "note": {
-      "title": "Nothing is published yet",
-      "body": "The course is being prepared. There is no schedule, no enrolment, and no fee to announce. When it opens, it will be announced in the community channel."
-    },
-    "cta": "Get told when it opens"
-  },
   "contact": {
     "metaTitle": "Contact",
     "metaDescription": "How to reach Volontyor: for young people who want to volunteer, and for organisers and partners who need volunteers.",
@@ -341,7 +299,7 @@
       },
       "accuracy": {
         "title": "Accuracy",
-        "body": "We publish only information we can confirm. Details about events, partners, and the course can still change, and pages may be out of date between updates."
+        "body": "We publish only information we can confirm. Details about events and partners can still change, and pages may be out of date between updates."
       },
       "placement": {
         "title": "No guarantee of a place",
