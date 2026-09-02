@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { joinDestination, opportunitiesDestination } from "@/lib/content/cta";
+import { joinDestination, loginDestination, opportunitiesDestination } from "@/lib/content/cta";
 
 describe("call-to-action destinations", () => {
   beforeEach(() => {
@@ -13,6 +13,18 @@ describe("call-to-action destinations", () => {
     expect(opportunitiesDestination()).toEqual({
       href: "/volunteering",
       external: false,
+    });
+  });
+
+  it("offers no sign-in until the product application has an origin", () => {
+    expect(loginDestination()).toBeNull();
+  });
+
+  it("points sign-in at the product application once its origin is known", () => {
+    vi.stubEnv("NEXT_PUBLIC_APP_ORIGIN", "https://app.example.org");
+    expect(loginDestination()).toEqual({
+      href: "https://app.example.org/login",
+      external: true,
     });
   });
 

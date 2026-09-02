@@ -1,5 +1,5 @@
 ---
-name: Volontyor Marketing
+name: Volontyorlar Marketing
 description: A civic notice board — blue for the institution, orange for the person, plainspoken and light enough for a phone on mobile data.
 colors:
   paper: "#FBFAF7"
@@ -106,7 +106,7 @@ components:
     padding: "4px 8px"
 ---
 
-# Design System: Volontyor Marketing
+# Design System: Volontyorlar Marketing
 
 ## Overview
 
@@ -116,7 +116,7 @@ The site reads like a well-set civic notice: warm paper, dark ink, hairline
 rules doing the structural work, and two brand colours with a job each. Blue is
 the institution — navigation, structure, the mark. Orange is the person, and it
 appears only where a person did something. It is confident without shouting, and
-credible enough for the schools, agencies, and partner organisations Volontyor depends
+credible enough for the schools, agencies, and partner organisations Volontyorlar depends
 on, while staying young through scale, directness, and plain language rather
 than through decoration.
 
@@ -295,8 +295,8 @@ the sunk band.
 
 ### Hairline grids
 
-Groups whose length is fixed and fills the grid — the stat strip, the six things
-Volontyor does, the three contact audiences — use a one-pixel gap over a border-toned
+Groups whose length is fixed and fills the grid — the stat strip and the three
+contact audiences — use a one-pixel gap over a border-toned
 background, which reads as a printed table. Lists whose length varies use
 separated bordered cards instead, because an empty cell in a gap-filled grid
 looks like a fault.
@@ -304,7 +304,7 @@ looks like a fault.
 ### Step rail
 
 Four numbered steps on a continuous hairline, vertical on mobile and horizontal
-from the large breakpoint. The first three nodes are blue — the work Volontyor does.
+from the large breakpoint. The first three nodes are blue — the work Volontyorlar does.
 The fourth is orange, because it is the step the volunteer performs. That single
 node is the clearest statement of the role split anywhere on the site. The rail
 is decorative; the ordered list carries the meaning, and the step titles say who
@@ -329,9 +329,10 @@ panel that closes on Escape and on selection.
 Cards do not have borders. A group of related things is separated by a hairline
 rule above each item and a generous gap, not by a box: the boxed grid reads as a
 table, and a table is the wrong register for six sentences about what an
-organisation does. `StatGrid`, `NameBoard` and the home page's "what we do" list
-all use the same rule-and-space treatment, which is why they feel like one page
-rather than three components.
+organisation does. `StatGrid` and `NameBoard` use the same rule-and-space
+treatment. The home page's "what we do" list keeps those hairlines but joins
+them to a central fieldwork route: one line connects the six responsibilities,
+with paired items facing it from either side on wide screens.
 
 Actions are full-radius pills. They shift background on hover and take a small
 scale-down on press; nothing lifts, because a shadowless page has nothing for a
@@ -354,8 +355,9 @@ The home page's region map is the one scroll-driven surface, and it is allowed
 only because it does not take that trade. Nothing is revealed by scrolling: the
 finished plan-view map is server-rendered and visible before any script runs, so
 a document that never scrolls still captures a complete section. Scrolling
-changes the map's viewing angle, it does not bring it into existence. Under
-`prefers-reduced-motion` the map holds one frame at its final state.
+opens a rule-led shutter into the map and changes its viewing angle; it does not
+bring the map into existence. Under `prefers-reduced-motion` the map holds one
+frame at its final state.
 
 Anything else that wants to animate on scroll has to clear the same bar: correct
 and complete at rest, better in motion. If it is blank until scrolled, it does
@@ -363,17 +365,16 @@ not ship.
 
 ### Ambient backdrops
 
-The page's middle breathes on a two-section rhythm: flat ground, then a toned
-band carrying an ambient backdrop. Two bands have one — "what we do" and
-"opportunity sources" — and the rhythm is the point: a backdrop on every section
-is wallpaper, and a backdrop on one is an accident.
+The page's middle breathes on a two-section rhythm: the "what we do" band carries
+the fieldwork route through its content, while "opportunity sources" carries an
+ambient channels backdrop. Repeating either device on every section would turn
+it into wallpaper.
 
 Two rules keep them honest.
 
-**A backdrop depicts the club's own object or it does not exist.** Not ambient
-shapes, not a gradient mesh: event cards rising and being checked, and the
-channels opportunities arrive through. A reader who looks straight at one
-should recognise what it is.
+**A backdrop depicts the organisation's own object or it does not exist.** Not
+ambient shapes, not a gradient mesh: the channels opportunities arrive through.
+A reader who looks straight at one should recognise what it is.
 
 **They loop, they do not arrive.** Every backdrop is an infinite CSS animation
 with a negative delay, so it is already mid-motion on the first frame and a

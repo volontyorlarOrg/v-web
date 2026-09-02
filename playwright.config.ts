@@ -22,5 +22,11 @@ export default defineConfig({
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,
+    env: {
+      NEXT_PUBLIC_SITE_URL: "",
+      NEXT_PUBLIC_APP_ORIGIN: "",
+      NEXT_PUBLIC_TELEGRAM_URL: "",
+      NEXT_PUBLIC_INSTAGRAM_URL: "",
+    },
   },
 });

@@ -6,16 +6,15 @@ import { HeroMapStage } from "@/components/marketing/hero-map/hero-map-stage";
 import { RollingWords } from "@/components/marketing/rolling-words";
 import { Eyebrow } from "@/components/marketing/section";
 import { buttonClass } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
-import { joinDestination } from "@/lib/content/cta";
+import { joinDestination, loginDestination } from "@/lib/content/cta";
 import { localisedRegions } from "@/lib/map/regions";
-import { navHref } from "@/lib/routing/routes";
 
 export function HeroMapSection({ locale }: { locale: Locale }) {
   const t = useTranslations("home");
   const map = useTranslations("home.map");
   const join = joinDestination();
+  const login = loginDestination();
   const regions = localisedRegions(locale);
 
   return (
@@ -25,12 +24,18 @@ export function HeroMapSection({ locale }: { locale: Locale }) {
       fallback={<HeroMapFlat locale={locale} />}
       hero={
         <div className="hero-copy mx-auto flex w-full flex-col items-center text-center">
-          <Eyebrow>
-            {t("hero.eyebrow")}
-            <RollingWords
-              words={regions.map((region) => region.name)}
-              className="region-rotation-chip rounded-full bg-primary-muted/50 py-1 text-primary-ink"
-            />
+          <Eyebrow className="flex-wrap justify-center">
+            <span className="sr-only">{t("hero.eyebrowLabel")}</span>
+            <span aria-hidden="true" className="contents">
+              {t.rich("hero.eyebrow", {
+                region: () => (
+                  <RollingWords
+                    words={regions.map((region) => region.locative)}
+                    className="region-rotation-chip rounded-full bg-primary-muted/50 py-1 text-primary-ink"
+                  />
+                ),
+              })}
+            </span>
           </Eyebrow>
           <h1 className="hero-display mt-9">{t("hero.title")}</h1>
           <p className="mt-8 max-w-[46ch] text-lead text-ink-muted text-pretty">{t("hero.lead")}</p>
@@ -38,9 +43,11 @@ export function HeroMapSection({ locale }: { locale: Locale }) {
             <ActionLink destination={join} className={buttonClass()}>
               {t("hero.primaryCta")}
             </ActionLink>
-            <Link href={navHref("volunteering")} className={buttonClass({ variant: "outline" })}>
-              {t("hero.secondaryCta")}
-            </Link>
+            {login ? (
+              <ActionLink destination={login} className={buttonClass({ variant: "outline" })}>
+                {t("hero.loginCta")}
+              </ActionLink>
+            ) : null}
           </div>
         </div>
       }

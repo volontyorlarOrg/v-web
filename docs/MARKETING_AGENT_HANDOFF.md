@@ -1,8 +1,8 @@
-# Volontyor Marketing Website — Final Agent Handoff
+# Volontyorlar Marketing Website — Final Agent Handoff
 
 ## Mission
 
-You are responsible for turning the existing Volontyor public website repository into the production-grade **Volontyor marketing website**.
+You are responsible for turning the existing Volontyorlar public website repository into the production-grade **Volontyorlar marketing website**.
 
 ### Target repository
 - `volontyorlarOrg/v-web`
@@ -33,13 +33,13 @@ Read these as architectural references only. Do **not** copy Dwelve product name
 
 The canonical product name is:
 
-**Volontyor**
+**Volontyorlar**
 
 Do not call it “Youth Volunteering Community” unless the maintainers explicitly change the product name later.
 
-Volontyor was founded on **June 4, 2025** by **Arslon Rajabov** and **Parizoda Abdurakhimova** to help high school students discover and apply to meaningful volunteering opportunities.
+Volontyorlar was founded on **June 4, 2025** by **Arslon Rajabov** and **Parizoda Abdurakhimova** to help high school students discover and apply to meaningful volunteering opportunities.
 
-Volontyor has expanded from simply reposting opportunities into actively:
+Volontyorlar has expanded from simply reposting opportunities into actively:
 - finding volunteer opportunities;
 - contacting organizers;
 - sourcing events;
@@ -81,11 +81,11 @@ Do not invent extra partnerships, statistics, testimonials, awards, offices, or 
 This repository is the **public marketing website**.
 
 It should own:
-- Volontyor brand and public positioning;
+- Volontyorlar brand and public positioning;
 - landing pages;
 - public organization/about information;
 - partner/social-proof presentation;
-- explanations of how Volontyor works;
+- explanations of how Volontyorlar works;
 - educational/course marketing pages;
 - public contact information when verified;
 - SEO;
@@ -109,7 +109,7 @@ It should **not** own:
 - application history;
 - attendance records.
 
-Those belong in the separate Volontyor application repository.
+Those belong in the separate Volontyorlar application repository.
 
 Do not turn the marketing website into a second copy of the application.
 
@@ -147,7 +147,7 @@ Repository code and current configuration outrank old prose if they disagree, bu
 
 # 4. Fix existing documentation drift
 
-The current Volontyor documentation contains product assumptions that are now stale.
+The current Volontyorlar documentation contains product assumptions that are now stale.
 
 At minimum, audit and update:
 - `PRODUCT.md`;
@@ -161,7 +161,7 @@ At minimum, audit and update:
 - any related agent-memory notes.
 
 Correct these concepts:
-- official product name is Volontyor;
+- official product name is Volontyorlar;
 - the site is no longer merely a set of design explorations;
 - the system is intentionally split into marketing site + product application;
 - Uzbek, Russian, and English are product languages;
@@ -238,14 +238,14 @@ Do not animate every element simply because the dependency exists.
 ## Themes
 Keep `next-themes` only if the selected production design genuinely ships light/dark themes.
 
-If the final Volontyor marketing design is deliberately one-theme, remove theme infrastructure rather than maintaining unused complexity.
+If the final Volontyorlar marketing design is deliberately one-theme, remove theme infrastructure rather than maintaining unused complexity.
 
 ## Three.js
 Treat Three.js as optional and expensive.
 
 Keep it only if:
 - a final selected hero genuinely requires it;
-- it reinforces Volontyor's product story;
+- it reinforces Volontyorlar's product story;
 - mobile performance remains good;
 - reduced motion and non-WebGL fallback behavior exist.
 
@@ -341,7 +341,7 @@ This is a target, not a command to create empty folders. Create only folders wit
 ### Page scope
 
 Home page should communicate:
-1. what Volontyor is;
+1. what Volontyorlar is;
 2. why it exists;
 3. opportunity discovery;
 4. how the volunteer journey works;
@@ -452,7 +452,7 @@ If the app origin is still unavailable, document it as **Needs verification** an
 
 # 11. Design system
 
-Do not discard the existing Volontyor design explorations without reading them.
+Do not discard the existing Volontyorlar design explorations without reading them.
 
 Audit V1/V2/V3 and extract:
 - strongest typography;
@@ -478,13 +478,13 @@ Use semantic tokens such as:
 
 Do not spread literal hex colors across components.
 
-Preserve Volontyor brand assets.
+Preserve Volontyorlar brand assets.
 
 Do not introduce fake SaaS gradients and generic purple-glass cards unless the brand actually calls for them.
 
 ### Mobile-first requirement
 
-Volontyor visitors are likely to arrive from Telegram and social links.
+Volontyorlar visitors are likely to arrive from Telegram and social links.
 
 Design from mobile upward:
 - thumb-friendly controls;
@@ -691,7 +691,7 @@ Follow this order.
 ## Phase 1 — Audit and product truth
 - inspect all current code/docs;
 - inspect Dwelve marketing/app reference architecture;
-- correct Volontyor name/product scope/documentation;
+- correct Volontyorlar name/product scope/documentation;
 - identify exploration-only code;
 - identify unused dependencies.
 
@@ -711,7 +711,7 @@ Follow this order.
 - remove style-switcher code from production if no longer needed.
 
 ## Phase 4 — Production content
-- implement current Volontyor story and traction;
+- implement current Volontyorlar story and traction;
 - implement about/partners/volunteering/course/contact/legal pages only where content is real;
 - translate to all supported locales;
 - preserve factual uncertainty instead of fabricating copy.

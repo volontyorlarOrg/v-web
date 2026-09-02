@@ -95,7 +95,7 @@ container-relative size fight each other, and the smaller one silently wins.
 | `SectionHeader` / `Eyebrow` | Rule-led label, headline, lead sentence |
 | `PageHero` | Opening block for every page below the home page |
 | `StatGrid` | The knockout figure band: display-serif numerals that count up over a drawn rule |
-| `StepRail` | The process rail; blue nodes for Volontyor's work, orange for the volunteer's, drawn step by step as it is scrolled |
+| `StepRail` | The process rail; blue nodes for Volontyorlar's work, orange for the volunteer's, drawn step by step as it is scrolled |
 | `NameBoard` | Hairline-ruled rows of partner, supporter, and source names |
 | `ProseSections` | Legal and explanatory pages at one measure |
 | `StatusChip` | Dashed pill for planned or unpublished material |
@@ -105,28 +105,29 @@ container-relative size fight each other, and the smaller one silently wins.
 | `HeroMapSection` | The home page hero and its scroll-driven map of the fourteen regions |
 | `CountUp` | Counts a figure from 1 to its real value the first time it is scrolled into view |
 | `NumberedRail` | The shared 01–NN hairline rail used for lists that read as a sequence |
+| `WorkField` | The home page's six responsibilities connected by one animated fieldwork route |
 | `Reveal` | Marks a block or a sequence for the scroll-driven reveal; a server component that only adds a class |
 | `Marquee` | The continuously rolling partner and source rows |
 | `RollingWords` | The hero eyebrow's cycling region name |
 | `BrandSignature` | The oversized footer lockup that writes itself and raises the mark's hands |
 
-Nothing on the home page is a bordered card any more. `StatGrid`, `NameBoard`
-and the "what we do" list use a hairline rule above each item with a generous
-gap, so a short list and a long one look equally deliberate and an unfilled grid
-cell cannot read as a rendering fault.
+Nothing on the home page is a bordered card. `StatGrid`, `NameBoard` and
+`WorkField` use hairline structure rather than containers. `WorkField` pairs the
+six responsibilities around a central route on wide screens and collapses them
+onto a left-hand route on mobile; the moving stroke is decorative and all copy
+is complete at rest.
 
 The home page shows partners and sources as two `Marquee` rows rolling in
 opposite directions rather than as a `NameBoard` grid, because nine names in a
 three-column grid left two empty cells. `/partners` keeps the readable
 `NameBoard` lists: a page whose job is to be scanned should not move.
 
-No page uses a bordered card. Every list that reads as a sequence — what we do,
-what to expect, and the story on `/about` — is a `NumberedRail`, and lists that
-do not are hairline-ruled rows. Pages stay distinct through arrangement rather
-than through different containers: the rails on `/volunteering` and the home
-page sit beside a heading that stays put while they scroll, `/about` centres its
-rail at one measure, and `/contact` gives each channel a full-width row of its
-own.
+No page uses a bordered card. Lists that read as a sequence — what to expect and
+the story on `/about` — use `NumberedRail`; the home page's responsibilities are
+not presented as steps and therefore use `WorkField`. Pages stay distinct
+through arrangement rather than through different containers: `/volunteering`
+places its rail beside a heading, `/about` centres its rail at one measure, and
+`/contact` gives each channel a full-width row of its own.
 
 ## Brand usage in code
 
@@ -194,11 +195,14 @@ lockup's wordmark renders in a different system face on every platform. See
   reduced motion the duplicate is removed and the row scrolls by hand.
 - The footer signature is `aria-hidden`: it repeats the organisation name that
   the lockup, the description and the copyright line already carry as text.
-- The hero map's canvas and its plan-view fallback are both `aria-hidden`. The
-  information they carry — the names of all fourteen regions — is a real list in
-  the markup, so nothing depends on seeing the picture.
-- The hero copy and the map caption share one pinned panel. Whichever has faded
-  out is marked `inert`, so keyboard focus never lands on an invisible link.
+- The hero map's canvas, its plan-view fallback and its numbered pins are all
+  `aria-hidden`. The information they carry — the names of all fourteen regions
+  — is a visible, ordered list in the markup beside the caption, so nothing
+  depends on seeing the picture.
+- The hero copy and the map caption share one pinned panel. The hero copy is
+  marked `inert` once it has faded, so keyboard focus never lands on an
+  invisible link. The caption is never made inert: it carries the region index
+  that names the map for assistive technology, and it has nothing focusable.
 
 ## Responsive rules
 
@@ -212,6 +216,6 @@ lockup's wordmark renders in a different system face on every platform. See
   **About** (who are you), **Contact** (how do I reach you).
   `src/lib/routing/routes.ts` is the single source of that order, so the
   header, the footer and the sitemap cannot disagree.
-- The header lockup drops to the mark alone below 360px. `Volontyor` set beside
+- The header lockup drops to the mark alone below 360px. `Volontyorlar` set beside
   the mark, the language control and the menu button do not fit a 320px screen
   together, and the mark is the part that still identifies the site.

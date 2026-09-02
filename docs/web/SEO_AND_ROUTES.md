@@ -27,7 +27,7 @@ no rendered link points at one.
 message namespace, so no page assembles its own object. It produces:
 
 - a localized title and description, with the home page taking an absolute title
-  and every other page the `%s · Volontyor` template;
+  and every other page the `%s · Volontyorlar` template;
 - a canonical URL on the configured origin;
 - `hreflang` alternates for `uz`, `ru`, and `en`, plus `x-default` pointing at
   the Uzbek URL;

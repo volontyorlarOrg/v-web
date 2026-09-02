@@ -98,7 +98,7 @@ Vectors in `public/logo/`:
 | `icon-white.svg` | Rounded-square app icon on light ground |
 | `lockup-horizontal.svg` | Mark plus wordmark for light surfaces |
 | `lockup-horizontal-white.svg` | **Derived.** Knockout recolour of the horizontal lockup for dark surfaces |
-| `social-card.svg` | **Derived.** Source for the 1200 × 630 social image; renamed to Volontyor and re-rendered when the product name was corrected |
+| `social-card.svg` | **Derived.** Source for the 1200 × 630 social image; renamed to Volontyorlar and re-rendered when the product name was corrected |
 
 Rasters in `public/logo/png/` cover the mark at 16–1024 px, the app icon at
 180/192/512/1024 px, and the horizontal lockup at 720 and 1440 px.
@@ -122,10 +122,10 @@ The production site does **not** use the horizontal lockup. It renders the mark
 inline from the construction geometry so it inherits `currentColor`, and sets
 the organisation name as real HTML text in Onest beside it. Two reasons:
 
-- the lockup's wordmark cannot render reliably (see below);
-- the lockup's wordmark reads `volontyorlar`, while the canonical product name
-  is Volontyor. Which of the two the brand keeps is unresolved and is
-  listed under **Needs verification**.
+- the lockup's wordmark cannot render reliably (see below).
+
+The lockup's `volontyorlar` wordmark and the canonical product name Volontyorlar
+now read the same word, so the earlier mismatch between the two is resolved.
 
 Large decorative shapes on the site use the arc alone, a derived graphic device,
 so the logo is never cropped or scaled below its 16px minimum. Section labels
@@ -175,9 +175,7 @@ See [`../../.agent-memory/gotchas/svg-lockup-wordmark-font.md`](../../.agent-mem
 
 ## Needs verification
 
-- Whether the delivered `volontyorlar` wordmark is retained alongside the
-  canonical product name Volontyor, and which of the two is the legal
-  and public name
+- Whether `Volontyorlar` is the legal name as well as the public one
 - Final wordmark typeface, licence, and letterform adjustment
 - Trademark clearance and ownership; the spec's filing checklist is not done
 - Approved print colours and partner co-branding rules

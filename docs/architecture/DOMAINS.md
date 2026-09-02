@@ -15,6 +15,11 @@ configuration through `src/lib/seo/origin.ts` and `src/lib/constants/channels.ts
 Values must be `http(s)` origins; anything else is rejected and treated as
 unset. A configured origin is normalised, so a trailing path is discarded.
 
+`loginDestination()` in `src/lib/content/cta.ts` resolves the hero sign-in
+action from `appHref('/login')` and returns `null` while the product origin is
+unset, so the button is absent rather than pointing somewhere invented. Give a
+development machine a placeholder origin in `.env.local` to render it.
+
 **Indexing is gated on the marketing origin.** While `NEXT_PUBLIC_SITE_URL` is
 empty, every page sends `noindex, nofollow`, `robots.txt` disallows all crawling,
 and the sitemap is empty. A preview or placeholder deployment therefore cannot

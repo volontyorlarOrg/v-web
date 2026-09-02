@@ -62,25 +62,29 @@ route opts out of static generation.
 
 The home page opens on a scroll-driven relief map of Uzbekistan's fourteen
 regions, and it is the only WebGL surface on the site. The hero and the map are
-one pinned sequence rather than two sections, and it runs in three acts: the map
-starts as a faint backdrop below the headline — cropped by the bottom of the
-frame — rises into a near plan view as the hero copy retires, then lifts all
-fourteen regions out of the base plate, and only once every region is up does the
-board turn sideways into its three-quarter portrait. It is built directly on
-`three`; there is no React renderer for it, because the scene is a fixed set of
-meshes driven by one number and pinning `@react-three/fiber` would tie this
-repository's React version to that package's peer range.
+one pinned sequence rather than two sections, and it runs in three acts. A blue
+survey rule expands across the frame and travels upward, opening a shutter into
+the map as the hero copy retires. The map then lifts all fourteen regions out of
+the base plate, and only once every region is up does the board settle upward
+into its final rake to make room for the caption and the region index beneath
+it. North stays up throughout: the board tips towards the reader and never
+rotates about any other axis, so the country's silhouette is recognisable in
+every frame. It is built directly on `three`; there is no React
+renderer for it, because the scene is a fixed set of meshes driven by one number
+and pinning `@react-three/fiber` would tie this repository's React version to
+that package's peer range.
 
 | File | Responsibility |
 | --- | --- |
 | `scripts/build-region-geometry.mjs` | Regenerates the geometry from Natural Earth; run by hand, not in the build |
 | `src/lib/map/region-geometry.ts` | Generated: simplified, projected rings and pin anchors |
-| `src/lib/map/regions.ts` | Joins the geometry to Uzbek, Russian and English names |
+| `src/lib/map/regions.ts` | Joins the geometry to Uzbek, Russian and English names, plus the locative form the eyebrow reads |
 | `src/lib/map/svg-path.ts` | Rings to SVG path data, shared with the fallback |
 | `hero-map-section.tsx` | Server: resolves hero copy, caption and region names |
 | `hero-map-flat.tsx` | Server: the plan-view SVG everything falls back to |
-| `hero-map-stage.tsx` | Client: the sticky runway, scroll progress, copy layers, labels |
-| `timeline.ts` | The three acts as pure functions; imported by the scene and covered by unit tests |
+| `hero-map-stage.tsx` | Client: the sticky runway, scroll progress, the room measured from the DOM, copy layers, pins, region index |
+| `timeline.ts` | The three acts as pure curves; imported by the scene and the stage, covered by unit tests |
+| `framing.ts` | The frame each act fits the map into and the exact perspective fit; pure functions covered by unit tests |
 | `scene.ts` | The three.js scene; imported dynamically, so it is its own chunk |
 
 Three properties are load-bearing:
@@ -98,7 +102,9 @@ Three properties are load-bearing:
 - **The runway only exists once the scene does.** The section is a normal-height
   block until `HeroMapStage` has a working canvas, so a visitor without
   JavaScript or WebGL gets the hero, the plan-view map and the caption stacked
-  in flow rather than two viewports of dead scroll.
+  in flow rather than two viewports of dead scroll. The switch into the runway
+  is committed with `flushSync`, so the sticky layout exists before the first
+  progress read rather than a frame later.
 
 Under `prefers-reduced-motion` the section never pins. The scene renders one
 frame with the country tipped and every region lifted, and the hero copy and
@@ -108,24 +114,37 @@ caption both stay at full opacity in normal flow.
 
 One scroll progress value, measured from the section's own box, drives
 everything. The schedule lives in `timeline.ts` as pure functions, so the acts
-can be asserted without a canvas; `scene.render()` returns the same three curves
-the component needs.
+can be asserted without a canvas; `scene.render()` returns the same curves the
+component needs.
 
 | Progress | Act | What happens |
 | --- | --- | --- |
-| 0 → 0.22 | `emerge` | The map sits at the bottom of the frame, tipped 58° and cropped by the viewport edge, so roughly its top half shows under the centred hero copy. It rises and flattens to a 9° plan view. Hero copy fades and lifts away as this runs. |
-| 0.24 → 0.66 | `reveal` | All fourteen regions lift off the base plate one at a time, west to east, each raising a leader line and its label, while the board tips to 33°. The caption fades in. |
-| 0.70 → 1 | `turn` | Only now does the board tip on to 56° and turn 12° into its three-quarter portrait. |
+| 0 → 0.30 | `emerge` | A survey rule expands and opens the map upward from the lower frame. The board rises into a near plan view as the hero copy retires behind the handoff. |
+| 0.32 → 0.70 | `reveal` | All fourteen regions lift off the base plate one at a time, west to east, each raising a leader line and its numbered pin, while the board tips to 33°. |
+| 0.76 → 0.94 | `settle` | The board tips on to 46° and rises into the settled frame — the part of the panel above the caption — while the caption and the region index rise in beneath it. The final 6% of the runway holds the finished composition, so it is at rest when the panel releases. |
 
-The gap between the acts is the point. Turning the board while regions were still
-appearing meant a reader who looked away for a second never saw the east of the
-country arrive, so the reveal finishes before the turn begins — an invariant
-`timeline.test.ts` asserts directly rather than leaving it to the constants.
+The gap between the acts is the point. Settling the board while regions were
+still appearing meant a reader who looked away for a second never saw the east
+of the country arrive, so the reveal finishes before the settle begins — an
+invariant `timeline.test.ts` asserts directly rather than leaving it to the
+constants.
+
+The closing act settles rather than turns. An earlier version rotated the board
+84° about its own normal and slid it to the right of the frame at the close. The
+country became an unrecognisable vertical sliver, the caption's side column only
+existed on wide viewports, and on a phone the board rose off the top of the
+frame. Every act now keeps north up and the board centred on the frame's
+vertical axis; the caption gets its room because the board moves up and its
+frame shrinks, which is the direction the reader is already scrolling.
+`timeline.test.ts` pins the tip as the only rotation, and `framing.test.ts`
+pins the horizontal centre through every act.
 
 Copy layers are absolutely positioned while pinned, so the hero occupying its
-full height cannot push the caption out of a fixed-height panel. A layer that
-has faded out is marked `inert`, because a control that cannot be seen must not
-be reachable by keyboard.
+full height cannot push the caption out of a fixed-height panel. The hero layer
+is marked `inert` once it has faded, because a control that cannot be seen must
+not be reachable by keyboard; the caption layer never is, because it carries the
+region index that names the map for assistive technology and has nothing
+focusable in it.
 
 ### Reading the board
 
@@ -152,7 +171,7 @@ region from its own radius, so a hairline gap reads the same on Karakalpakstan
 and on Tashkent city. As progress runs, the tiles lift off the plate and the
 gap under them opens, which is what makes the country legible as fourteen
 pieces from a raked angle. A thin leader line and a small marker carry each
-label up from the tile it belongs to.
+region's numbered pin up from the tile it belongs to.
 
 Every tile lifts to the same height and every marker is identical. Encoding
 region area or anything else in that height would read as a claim about
@@ -162,15 +181,32 @@ activity that nothing in `src/lib/content/org.ts` supports.
 
 The country lies in XY with `+x` east and `+y` north, and every region is
 extruded along `+z`. The camera stays on the `+z` axis and never orbits; the map
-tips because one group rotates about its own x axis. That is both what the design
-asks for — the map turns sideways — and the only formulation with no gimbal
+tips because one group rotates about its own x axis, and that is the only
+rotation in the scene. It is also the only formulation with no gimbal
 degeneracy at plan view, where an orbiting camera's up vector goes parallel to
 its view direction.
 
-Framing is recomputed every frame from the rotated silhouette rather than from
-fixed camera positions. The tip and the turn both change what the map occupies,
-so a fixed distance either crops the Fergana valley off the right edge at full
-tip or wastes most of the frame at plan view. Two details matter:
+Framing is a window in panel pixels, not a camera position. `framing.ts`
+defines one frame per act and `frameFor()` interpolates between them on the act
+curves, so a frame is never chosen by viewport aspect or by special-casing a
+breakpoint:
+
+| Frame | Where it is |
+| --- | --- |
+| backdrop | From the measured bottom of the hero copy plus a gap down to one panel height further, top-aligned, so the map hangs from under the buttons on every width and is cropped by the bottom edge |
+| stage | The whole panel inside the room kept for pins — 44px at the sides, 40px above, 32px below |
+| settled | The stage frame with its bottom raised by the caption layer's measured height plus a gap |
+
+`fitCamera()` solves the perspective fit exactly. For every silhouette point —
+the convex hull of the country at plate level and again at the top of the
+tallest leader, plus each leader's own position — it computes the camera
+distance that keeps that point inside the frame *at its own depth*, then the
+offset that lands the hull's centre on the frame's centre, or its topmost point
+on the frame's top edge for a top-aligned frame. The map group is what moves;
+the camera only backs off. `framing.test.ts` projects a slab through the
+returned fit and asserts it lands inside the frame and touches it.
+
+Two details of the silhouette matter:
 
 - the fit is solved against the **convex hull** of the country outline, not its
   bounding box, because the box has corners the country never reaches — at a
@@ -178,23 +214,48 @@ tip or wastes most of the frame at plan view. Two details matter:
 - each point's own depth sets its distance requirement, because the points that
   stick out sideways are not the ones nearest the camera once the map is tipped.
 
+The stage measures the room from the DOM rather than guessing it. The hero
+copy's bottom, the caption's height and the pins' boxes are read on every
+resize — a `ResizeObserver` watches the stage, the caption and the hero copy —
+so a longer Russian caption or a late font swap changes the frames instead of
+overlapping the map. Inside the frame loop nothing is read from layout except
+the projected pin heads.
+
+Progress is eased towards the scroll position with a 90ms time constant, in
+elapsed time rather than per frame, so the motion reads the same at 60Hz and
+120Hz. A resize repaints the current frame directly and leaves the animation
+loop alone; the earlier per-frame step doubled its speed after every resize
+because a repaint also queued a second loop.
+
 Every pin is identical. Region area is deliberately not encoded in pin height or
 size: a taller pin would read as a claim about activity in that region, and
 nothing in `src/lib/content/org.ts` supports one.
 
-### Labels
+### Naming the regions
 
-Region labels are DOM, not WebGL, positioned each frame from the projected pin
-heads. The canvas places them topmost pin first and tries nine slots — three
-horizontal offsets at the pin's own height, the same three a row higher, two
-wider offsets, and one two rows up — dropping a label only when all nine clash
-with one already placed. Claiming slots from the top down is what lets the
-Fergana valley, five regions inside a couple of centimetres, stack rather than
-lose labels. The canvas measures the real boxes; the fallback places labels
-largest-region-first and has to estimate their boxes from character count,
-because it is solved on the server.
+Names are not written on the map. Fourteen name chips over a board that tips
+and moves cannot all fit: on a phone they overlap at any angle, and the
+collision solver that used to place them earned its keep by *hiding* the losers,
+so the regions a reader most wanted to find were the ones that disappeared.
 
-The fallback's labels are HTML rather than SVG `<text>` for the same reason: SVG
+The map instead carries a numbered pin per region, and the names live in an
+index beside the caption — numbered west to east, so the list reads in the order
+the regions rise. A pin is a 24px disc rather than a 140px chip, which is small
+enough that collisions are rare, and when two do clash the loser moves rather
+than vanishes. The index is ordinary server-rendered `<ol>` markup, so every
+name is present without JavaScript, at any width, in all three locales; it is
+also what a screen reader reads, replacing the `sr-only` list that used to
+shadow the map.
+
+Pins are DOM, not WebGL, positioned each frame from the projected pin heads. The
+canvas places them topmost first and tries nine slots — the head itself, then
+four orthogonal and four diagonal neighbours — measuring the real boxes. The
+fallback estimates its boxes from character count, because it is solved on the
+server.
+
+The fallback names its regions on the map, because it is a still picture with
+nothing to move out of the way, and it drops any name that will not fit. Its
+labels are HTML rather than SVG `<text>` for the same reason the pins are: SVG
 text scales with the drawing, which would be unreadable on a phone and oversized
 on a desktop. Locking the fallback's box to the map's aspect ratio is what lets
 those labels be positioned in percentages.
@@ -230,6 +291,7 @@ observer to un-hide content that CSS had hidden.
 | `reveal-sequence` | The same, staggered across a grid's or list's direct children |
 | `reveal-wipe` | The closing call-to-action panel wipes up from its own bottom edge |
 | `work-row` / `work-rule` | A `NumberedRail` row un-blurs and rises while its hairline draws in from the left |
+| `work-field-*` | The home page responsibility route carries one blue signal through six fully visible items |
 | `figure-rule` | The rule above each traction figure draws in as the figure counts |
 | `process` / `rail-line` / `rail-head` / `process-node` / `process-content` | The step rail runs as a process: the connector fills, a head travels along it, and each step lights as the head reaches it |
 | `marquee` | The partner and source rows roll continuously, pausing on hover and focus |
@@ -291,7 +353,7 @@ now, and `--marquee-edge` carries the section's background colour so the fade
 still matches whatever tone the row sits on.
 
 **No permanent `will-change`.** It was on the marquee tracks and on all fourteen
-hero-map labels, which is fifteen compositor layers held for the life of the
+hero-map pins, which is fifteen compositor layers held for the life of the
 page to animate things the browser promotes on its own anyway. Nothing on the
 site sets it.
 
@@ -347,7 +409,7 @@ but only once the form is a real requirement.
 ## Presented, not implemented
 
 Opportunity browsing, Telegram sign-in, profiles, applications, essays,
-volunteer records, and administration belong to the separate Volontyor application.
+volunteer records, and administration belong to the separate Volontyorlar application.
 This repository explains them and links to them; it does not implement them, and
 it holds no illustrative sample data.
 

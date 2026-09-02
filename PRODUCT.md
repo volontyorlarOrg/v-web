@@ -1,12 +1,12 @@
-# Volontyor Product Context
+# Volontyorlar Product Context
 
-## What Volontyor is
+## What Volontyorlar is
 
-Volontyor helps high school students in Uzbekistan discover and
+Volontyorlar helps high school students in Uzbekistan discover and
 apply to meaningful volunteering. It was founded on **4 June 2025** by **Arslon
 Rajabov** and **Parizoda Abdurakhimova**.
 
-Volontyor has grown past reposting other people's opportunities. It now:
+Volontyorlar has grown past reposting other people's opportunities. It now:
 
 - finds volunteer opportunities;
 - contacts organisers;
@@ -39,11 +39,11 @@ or integrations that are not on this list.
 
 The product is intentionally split in two.
 
-| Marketing website (this repository) | Volontyor application (separate repository) |
+| Marketing website (this repository) | Volontyorlar application (separate repository) |
 | --- | --- |
 | Brand and public positioning | Volunteer authentication and sessions |
 | Public pages and partner presentation | Opportunity browsing, filtering, applications |
-| Explanations of how Volontyor works | Reusable profiles and saved essays |
+| Explanations of how Volontyorlar works | Reusable profiles and saved essays |
 | Volunteering guidance | Volunteer records, hours, attendance |
 | SEO, metadata, structured data, legal pages | Admin and partner workflows |
 | Central links into the application | Any backend contract |
@@ -70,6 +70,6 @@ consistent with the eventual application, not so it can be claimed as shipped.
 
 - Public marketing domain and the product application origin
 - Relationship between the delivered `volontyorlar` wordmark and the canonical
-  product name Volontyor
+  product name Volontyorlar
 - Public channel addresses (Telegram, Instagram) and any other contact route
 - Legal entity details behind the privacy and terms pages

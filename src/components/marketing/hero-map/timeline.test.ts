@@ -1,8 +1,12 @@
 import { describe, expect, it } from "vitest";
 
 import {
+  EMERGE_END,
+  FINAL_TIP_DEGREES,
   REVEAL_END,
-  TURN_START,
+  REVEAL_START,
+  SETTLE_END,
+  SETTLE_START,
   mapPhase,
   provinceLift,
 } from "@/components/marketing/hero-map/timeline";
@@ -16,11 +20,11 @@ describe("hero map timeline", () => {
     expect(mapPhase(1).emerge).toBe(1);
   });
 
-  it("lifts every province before the board starts to turn", () => {
+  it("lifts every province before the board starts to settle", () => {
     for (const order of orders) {
-      expect(provinceLift(order, PROVINCES, TURN_START)).toBe(1);
+      expect(provinceLift(order, PROVINCES, SETTLE_START)).toBe(1);
     }
-    expect(mapPhase(TURN_START).turn).toBe(0);
+    expect(mapPhase(SETTLE_START).settle).toBe(0);
   });
 
   it("finishes the reveal act with every province up", () => {
@@ -30,29 +34,38 @@ describe("hero map timeline", () => {
     }
   });
 
-  it("holds the board square to the reader for the whole reveal", () => {
-    for (let progress = 0; progress <= REVEAL_END; progress += 0.02) {
-      expect(mapPhase(progress).turnDegrees).toBe(0);
-    }
-  });
-
   it("lifts the provinces from west to east", () => {
-    const midway = (REVEAL_END + 0.24) / 2;
+    const midway = (REVEAL_END + REVEAL_START) / 2;
     const lifts = orders.map((order) => provinceLift(order, PROVINCES, midway));
     for (let index = 1; index < lifts.length; index += 1) {
       expect(lifts[index]).toBeLessThanOrEqual(lifts[index - 1]);
     }
   });
 
-  it("turns the board only in the closing act", () => {
-    expect(mapPhase(TURN_START).turnDegrees).toBe(0);
-    expect(mapPhase(0.85).turnDegrees).toBeGreaterThan(0);
-    expect(mapPhase(1).turnDegrees).toBeGreaterThan(mapPhase(0.85).turnDegrees);
+  it("settles only in the closing act and is at rest before the panel releases", () => {
+    expect(mapPhase(SETTLE_START).settle).toBe(0);
+    expect(mapPhase((SETTLE_START + SETTLE_END) / 2).settle).toBeGreaterThan(0);
+    expect(mapPhase(SETTLE_END).settle).toBe(1);
+    expect(mapPhase(1).settle).toBe(1);
   });
 
   it("tips further with every act", () => {
-    expect(mapPhase(0).tipDegrees).toBeGreaterThan(mapPhase(0.22).tipDegrees);
-    expect(mapPhase(REVEAL_END).tipDegrees).toBeGreaterThan(mapPhase(0.22).tipDegrees);
+    expect(mapPhase(0).tipDegrees).toBeGreaterThan(mapPhase(EMERGE_END).tipDegrees);
+    expect(mapPhase(REVEAL_END).tipDegrees).toBeGreaterThan(mapPhase(EMERGE_END).tipDegrees);
     expect(mapPhase(1).tipDegrees).toBeGreaterThan(mapPhase(REVEAL_END).tipDegrees);
+  });
+
+  it("keeps north up: the tip is the only rotation, and it never goes edge-on", () => {
+    expect(mapPhase(1)).toEqual({
+      emerge: 1,
+      reveal: 1,
+      settle: 1,
+      tipDegrees: FINAL_TIP_DEGREES,
+    });
+    for (let progress = 0; progress <= 1; progress += 0.01) {
+      const { tipDegrees } = mapPhase(progress);
+      expect(tipDegrees).toBeGreaterThanOrEqual(0);
+      expect(tipDegrees).toBeLessThan(60);
+    }
   });
 });

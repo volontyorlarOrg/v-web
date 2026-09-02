@@ -19,15 +19,25 @@ describe("region map data", () => {
     }
   });
 
+  it("gives every region a locative form in every locale", () => {
+    for (const region of REGIONS) {
+      for (const locale of locales) {
+        expect(region.locatives[locale]?.trim(), `${region.id}: ${locale}`).toBeTruthy();
+      }
+    }
+  });
+
   it("writes Uzbek region names with the turned comma, not a straight apostrophe", () => {
     for (const region of REGIONS) {
       expect(region.names.uz, `${region.id}`).not.toMatch(/[a-z]'[a-z]/i);
+      expect(region.locatives.uz, `${region.id} locative`).not.toMatch(/[a-z]'[a-z]/i);
     }
   });
 
   it("writes Russian region names in Cyrillic", () => {
     for (const region of REGIONS) {
       expect(region.names.ru, `${region.id}`).toMatch(/[Ѐ-ӿ]/);
+      expect(region.locatives.ru, `${region.id} locative`).toMatch(/[Ѐ-ӿ]/);
     }
   });
 
@@ -73,5 +83,14 @@ describe("region map data", () => {
     expect(uz).toHaveLength(TARGET_REGION_COUNT);
     expect(uz.find((region) => region.id === "fergana")?.name).toBe("Fargʻona");
     expect(localisedRegions("ru").find((region) => region.id === "fergana")?.name).toBe("Фергана");
+  });
+
+  it("resolves the locative form the hero reads out for a locale", () => {
+    expect(localisedRegions("uz").find((region) => region.id === "fergana")?.locative).toBe(
+      "Fargʻonada",
+    );
+    expect(localisedRegions("ru").find((region) => region.id === "fergana")?.locative).toBe(
+      "Фергане",
+    );
   });
 });

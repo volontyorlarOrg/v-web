@@ -39,6 +39,14 @@ variables at all. All four supported variables are optional and blank in
 for what each one changes. Add another only when executable code consumes it,
 document it there, and add a value-free placeholder.
 
+`.env.local` is untracked and is where a development machine gets working
+values for services that are not wired up yet — a local product origin so the
+sign-in action renders, or a placeholder channel address. Mark them as
+placeholders in the file and replace each one as the real address is confirmed.
+Nothing invented belongs in tracked source. `npm run test:e2e` pins all four
+variables to empty, so the smoke suite keeps testing the unconfigured
+baseline no matter what a machine has locally.
+
 Never place a Telegram bot token, session key, or database credential in a
 `NEXT_PUBLIC_*` variable. Next.js embeds those values in browser bundles.
 

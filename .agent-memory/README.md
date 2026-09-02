@@ -21,6 +21,8 @@ folder. Never store secrets or unverified external claims.
 - `decisions/source-files-carry-no-comments.md` — where the explanations went
 - `decisions/three-js-scoped-to-the-hero-map.md` — why WebGL is allowed on one
   surface, and the three conditions it has to keep meeting
+- `decisions/hero-map-keeps-north-up.md` — why the hero map's closing act
+  settles upward instead of turning sideways, and the three rules tests enforce
 - `gotchas/product-brief-is-not-live-state.md` — what may and may not be claimed
 - `gotchas/svg-lockup-wordmark-font.md` — why the delivered lockup is not used
 - `gotchas/scroll-driven-reveals-are-blank-off-screen.md` — why there are no

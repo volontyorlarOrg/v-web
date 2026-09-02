@@ -178,8 +178,8 @@ test.describe("the hero map", () => {
     await page.goto("/en");
     await page.waitForFunction(
       () => {
-        const section = document.querySelector("#hero-map") as HTMLElement | null;
-        return Boolean(section) && section!.offsetHeight > window.innerHeight * 2;
+        const panel = document.querySelector("#hero-map")?.firstElementChild;
+        return Boolean(panel) && getComputedStyle(panel!).position === "sticky";
       },
       null,
       { timeout: 15_000 },
@@ -213,8 +213,15 @@ test.describe("the hero map", () => {
 
   test("the hero call to action stays reachable at rest", async ({ page }) => {
     await page.goto("/en");
-    const cta = page.locator("#hero-map").getByRole("link", { name: "Join the community" });
+    const cta = page.locator("#hero-map").getByRole("link", { name: "Become a volunteer" });
     await expect(cta).toBeVisible();
     await expect(cta).toHaveAttribute("href", "/en/contact");
+  });
+
+  test("offers no sign-in link while the product application has no origin", async ({
+    page,
+  }) => {
+    await page.goto("/en");
+    await expect(page.locator("#hero-map").getByRole("link", { name: "Log in" })).toHaveCount(0);
   });
 });

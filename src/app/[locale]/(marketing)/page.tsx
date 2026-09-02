@@ -8,11 +8,11 @@ import { SectionBackdrop } from "@/components/marketing/section-backdrop";
 import { HeroMapSection } from "@/components/marketing/hero-map/hero-map-section";
 import { JsonLd } from "@/components/marketing/json-ld";
 import { Marquee } from "@/components/marketing/marquee";
-import { NumberedRail } from "@/components/marketing/numbered-rail";
 import { Reveal } from "@/components/marketing/reveal";
 import { Eyebrow, Section, SectionHeader } from "@/components/marketing/section";
 import { StatGrid, type Stat } from "@/components/marketing/stats";
 import { StepRail, type Step } from "@/components/marketing/steps";
+import { WorkField } from "@/components/marketing/work-field";
 import { buttonClass } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
@@ -103,26 +103,22 @@ function Home({ locale }: { locale: Locale }) {
       </Section>
 
       <Section tone="sunk">
-        <SectionBackdrop variant="sourcing" />
-        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-          <div className="lg:sticky lg:top-32 lg:self-start">
-            <Reveal>
-              <SectionHeader
-                eyebrow={t("what.eyebrow")}
-                title={t("what.title")}
-                lead={t("what.lead")}
-              />
-            </Reveal>
+        <Reveal>
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="text-headline text-balance">{t("what.eyebrow")}</h2>
+            <p className="mt-5 text-lead text-ink text-pretty">{t("what.title")}</p>
+            <p className="mt-3 text-ink-muted text-pretty">{t("what.lead")}</p>
           </div>
+        </Reveal>
 
-          <NumberedRail
-            items={WHAT_WE_DO.map((id) => ({
-              id,
-              title: t(`what.items.${id}.title`),
-              description: t(`what.items.${id}.description`),
-            }))}
-          />
-        </div>
+        <WorkField
+          className="mt-14 sm:mt-20"
+          items={WHAT_WE_DO.map((id) => ({
+            id,
+            title: t(`what.items.${id}.title`),
+            description: t(`what.items.${id}.description`),
+          }))}
+        />
       </Section>
 
       <Section>

@@ -18,6 +18,8 @@ const eslintConfig = defineConfig([
     ".impeccable/**",
     ".vscode/**",
     "*.tsbuildinfo",
+    // Standalone Remotion project with its own tsconfig and dependency graph.
+    "video/**",
   ]),
 ]);
 

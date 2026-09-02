@@ -16,6 +16,11 @@ export function joinDestination(): Destination {
   return telegram ? { href: telegram, external: true } : internal("contact");
 }
 
+export function loginDestination(): Destination | null {
+  const app = appHref("/login");
+  return app ? { href: app, external: true } : null;
+}
+
 export function opportunitiesDestination(): Destination {
   const app = appHref("/");
   if (app) return { href: app, external: true };

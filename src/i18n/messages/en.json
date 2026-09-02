@@ -1,7 +1,7 @@
 {
   "common": {
-    "organizationName": "Volontyor",
-    "organizationShortName": "Volontyor",
+    "organizationName": "Volontyorlar",
+    "organizationShortName": "Volontyorlar",
     "tagline": "Volunteering for young people in Uzbekistan"
   },
   "nav": {
@@ -20,7 +20,7 @@
     "skipToContent": "Skip to content"
   },
   "footer": {
-    "description": "Volontyor finds real volunteering across Uzbekistan, works with the organisers behind it, and connects young people to the events that need them.",
+    "description": "Volontyorlar finds real volunteering across Uzbekistan, works with the organisers behind it, and connects young people to the events that need them.",
     "siteLabel": "Site",
     "legalLabel": "Legal",
     "channelsLabel": "Channels",
@@ -31,18 +31,19 @@
     "location": "Uzbekistan"
   },
   "home": {
-    "metaTitle": "Volontyor — volunteering for young people in Uzbekistan",
-    "metaDescription": "Volontyor finds volunteer opportunities across Uzbekistan, works with the organisers behind them, and connects high school students to events that need volunteers.",
+    "metaTitle": "Volontyorlar — volunteering for young people in Uzbekistan",
+    "metaDescription": "Volontyorlar finds volunteer opportunities across Uzbekistan, works with the organisers behind them, and connects high school students to events that need volunteers.",
     "hero": {
-      "eyebrow": "Volunteering",
-      "title": "We find the opportunity. You choose how to help.",
+      "eyebrowLabel": "Volunteering across Uzbekistan",
+      "eyebrow": "Volunteering in <region></region>",
+      "title": "There’s work to be done. Find where you can make yourself useful.",
       "lead": "We speak with organisers before sharing an opportunity with the community.",
-      "primaryCta": "Join the community",
-      "secondaryCta": "See how it works"
+      "primaryCta": "Become a volunteer",
+      "loginCta": "Log in"
     },
     "map": {
       "eyebrow": "Across the country",
-      "title": "Volontyor is growing across Uzbekistan",
+      "title": "Volontyorlar is growing across Uzbekistan",
       "lead": "Our goal is local operations in all fourteen regions.",
       "regionsHeading": "Regions of Uzbekistan"
     },
@@ -123,22 +124,22 @@
   },
   "about": {
     "metaTitle": "About",
-    "metaDescription": "Volontyor was founded on 4 June 2025 by Arslon Rajabov and Parizoda Abdurakhimova to help high school students in Uzbekistan find meaningful volunteering.",
-    "title": "About Volontyor",
+    "metaDescription": "Volontyorlar was founded on 4 June 2025 by Arslon Rajabov and Parizoda Abdurakhimova to help high school students in Uzbekistan find meaningful volunteering.",
+    "title": "About Volontyorlar",
     "lead": "A volunteering community for high school students in Uzbekistan, built by people who were tired of watching good opportunities disappear into a feed.",
     "foundedLabel": "Founded",
     "foundersLabel": "Founders",
     "founded": {
       "title": "Founded in June 2025",
-      "body": "Volontyor was founded on 4 June 2025 by Arslon Rajabov and Parizoda Abdurakhimova to help high school students discover and apply to meaningful volunteering opportunities."
+      "body": "Volontyorlar was founded on 4 June 2025 by Arslon Rajabov and Parizoda Abdurakhimova to help high school students discover and apply to meaningful volunteering opportunities."
     },
     "purpose": {
       "title": "Why it exists",
-      "body": "Volunteering is not hard to want. It is hard to find. Opportunities are scattered across channels, organisers do not always know where to look for people, and a student who wants to help often has nowhere obvious to start. Volontyor exists to close that gap."
+      "body": "Volunteering is not hard to want. It is hard to find. Opportunities are scattered across channels, organisers do not always know where to look for people, and a student who wants to help often has nowhere obvious to start. Volontyorlar exists to close that gap."
     },
     "growth": {
       "title": "From reposting to running operations",
-      "body": "Volontyor began by sharing opportunities it found elsewhere. Today it finds opportunities, contacts organisers, sources events, builds partnerships, supplies volunteers, and is building regional operations across the country."
+      "body": "Volontyorlar began by sharing opportunities it found elsewhere. Today it finds opportunities, contacts organisers, sources events, builds partnerships, supplies volunteers, and is building regional operations across the country."
     },
     "founders": {
       "title": "The two who started it",
@@ -162,8 +163,8 @@
   },
   "volunteering": {
     "metaTitle": "Volunteering",
-    "metaDescription": "How volunteering with Volontyor works: how opportunities are found and checked, how they reach you, and what happens at the event.",
-    "title": "How volunteering with Volontyor works",
+    "metaDescription": "How volunteering with Volontyorlar works: how opportunities are found and checked, how they reach you, and what happens at the event.",
+    "title": "How volunteering with Volontyorlar works",
     "lead": "You do not need experience, a contact inside an organisation, or a plan. You need to be reachable when something good comes up.",
     "start": {
       "title": "Where to start",
@@ -195,15 +196,15 @@
       }
     },
     "app": {
-      "title": "The Volontyor application",
-      "body": "Browsing opportunities, applying, and keeping a record of the events you attended belong to the separate Volontyor application, not to this website.",
+      "title": "The Volontyorlar application",
+      "body": "Browsing opportunities, applying, and keeping a record of the events you attended belong to the separate Volontyorlar application, not to this website.",
       "pending": "The application is being built separately. Until it is available, opportunities are shared through our community channel.",
-      "cta": "Open the Volontyor app"
+      "cta": "Open the Volontyorlar app"
     }
   },
   "partners": {
     "metaTitle": "Partners",
-    "metaDescription": "The organisations Volontyor works with: our partnership with O‘ZLIDEP Party, the institutions that support us, and the sources supplying volunteer opportunities.",
+    "metaDescription": "The organisations Volontyorlar works with: our partnership with O‘ZLIDEP Party, the institutions that support us, and the sources supplying volunteer opportunities.",
     "title": "Partners, supporters, and sources",
     "lead": "This page lists only relationships we can confirm today. Nothing else belongs here.",
     "partnership": {
@@ -213,7 +214,7 @@
     },
     "support": {
       "title": "Support and recognition",
-      "lead": "Institutions that support or recognise the work of Volontyor.",
+      "lead": "Institutions that support or recognise the work of Volontyorlar.",
       "note": "Support and recognition"
     },
     "sources": {
@@ -222,16 +223,16 @@
       "note": "Opportunity source"
     },
     "work": {
-      "title": "Working with Volontyor",
+      "title": "Working with Volontyorlar",
       "body": "If your organisation is running an event that needs volunteers, or you want to work with us in a region, get in touch.",
       "cta": "Contact us"
     }
   },
   "contact": {
     "metaTitle": "Contact",
-    "metaDescription": "How to reach Volontyor: for young people who want to volunteer, and for organisers and partners who need volunteers.",
+    "metaDescription": "How to reach Volontyorlar: for young people who want to volunteer, and for organisers and partners who need volunteers.",
     "title": "Contact",
-    "lead": "The quickest way to reach Volontyor is through our public channels.",
+    "lead": "The quickest way to reach Volontyorlar is through our public channels.",
     "channels": {
       "title": "Public channels",
       "empty": "Channel addresses are being confirmed and will be listed here."
@@ -251,10 +252,10 @@
   },
   "privacy": {
     "metaTitle": "Privacy",
-    "metaDescription": "What happens to your information on the Volontyor website: no accounts, no forms, no cookies, and no analytics.",
+    "metaDescription": "What happens to your information on the Volontyorlar website: no accounts, no forms, no cookies, and no analytics.",
     "title": "Privacy",
     "updatedLabel": "Last updated",
-    "lead": "This page describes the Volontyor website you are reading. It does not cover the separate Volontyor application.",
+    "lead": "This page describes the Volontyorlar website you are reading. It does not cover the separate Volontyorlar application.",
     "sections": {
       "collection": {
         "title": "We do not collect personal data here",
@@ -274,11 +275,11 @@
       },
       "links": {
         "title": "Links to other services",
-        "body": "Links to Telegram, Instagram, or the Volontyor application take you to services with their own privacy practices. This page does not cover them."
+        "body": "Links to Telegram, Instagram, or the Volontyorlar application take you to services with their own privacy practices. This page does not cover them."
       },
       "app": {
-        "title": "The Volontyor application",
-        "body": "The separate Volontyor application handles volunteer profiles and applications. It has its own privacy terms, and nothing on this website is connected to it."
+        "title": "The Volontyorlar application",
+        "body": "The separate Volontyorlar application handles volunteer profiles and applications. It has its own privacy terms, and nothing on this website is connected to it."
       },
       "contact": {
         "title": "Questions",
@@ -288,14 +289,14 @@
   },
   "terms": {
     "metaTitle": "Terms",
-    "metaDescription": "Terms for using the Volontyor website: what it is, what it is not, and what it does not promise.",
+    "metaDescription": "Terms for using the Volontyorlar website: what it is, what it is not, and what it does not promise.",
     "title": "Terms",
     "updatedLabel": "Last updated",
-    "lead": "These terms cover this website. The separate Volontyor application has its own.",
+    "lead": "These terms cover this website. The separate Volontyorlar application has its own.",
     "sections": {
       "purpose": {
         "title": "What this site is",
-        "body": "This website is informational. It describes Volontyor, the organisations we work with, and how volunteering with us works. It is not a place to apply, sign in, or manage a volunteer profile."
+        "body": "This website is informational. It describes Volontyorlar, the organisations we work with, and how volunteering with us works. It is not a place to apply, sign in, or manage a volunteer profile."
       },
       "accuracy": {
         "title": "Accuracy",
@@ -307,11 +308,11 @@
       },
       "conduct": {
         "title": "Using the site",
-        "body": "Do not attempt to disrupt the site, and do not use it to mislead anyone about Volontyor or the organisations named on it."
+        "body": "Do not attempt to disrupt the site, and do not use it to mislead anyone about Volontyorlar or the organisations named on it."
       },
       "brand": {
         "title": "Our name and mark",
-        "body": "The Volontyor name and mark belong to Volontyor. Do not use them in a way that implies a partnership that does not exist."
+        "body": "The Volontyorlar name and mark belong to Volontyorlar. Do not use them in a way that implies a partnership that does not exist."
       },
       "external": {
         "title": "External links",
