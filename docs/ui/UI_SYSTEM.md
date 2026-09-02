@@ -4,6 +4,22 @@ The token values, typography scale, and named rules live in
 [`../../DESIGN.md`](../../DESIGN.md). This page records how they are applied in
 code, plus the localization and accessibility behaviour that goes with them.
 
+## The two faces in code
+
+`src/app/[locale]/layout.tsx` loads Onest and Source Serif 4 through `next/font`
+and puts both variables on `<html>`. `globals.css` maps them to `--font-sans` and
+`--font-serif`, and a base rule gives `h1`, `h2` and `.display-face` the serif at
+weight 400. Headings therefore need no font class, and `font-bold` must never be
+added to one — see [Two faces](../../DESIGN.md#two-faces).
+
+`.display-face` exists for the handful of non-heading elements that belong to the
+display voice: the large figures in `StatGrid` and the regions band.
+
+The reverse also happens. The footer's column headings and `PageHero`'s metadata
+headings are `h2` for the document outline but are 12px uppercase labels by
+voice, so they carry `font-sans` explicitly. A tag says what an element is in the
+document, not how it should read.
+
 ## Where tokens live
 
 `src/app/globals.css` declares every semantic token in a Tailwind 4 `@theme`
@@ -20,20 +36,56 @@ real decision rather than a silent drift.
 ## Where the two hues appear
 
 Blue carries the header, footer, navigation, buttons, focus ring, eyebrow rules,
-the mark, decorative arcs, and the closing callout band. Orange appears in
-exactly two places, and both are moments a person acted:
+the mark, decorative arcs, and the closing callout band.
+
+The traction figures are the loudest thing on the site, so they get their own
+colourway: a full-width `primary-ink` band with knockout numerals over a
+`primary` hairline that draws itself in. They read as one instrument wherever
+they appear — the home page and `/about` use the same band — and the closing
+call to action is distinguished from it by being a rounded panel inside a paper
+section rather than a band.
+
+That band is why orange now appears in exactly one place:
 
 | Surface | Treatment |
 | --- | --- |
-| Traction figures in `StatGrid` | `text-accent` on white cards |
 | The fourth node and number in `StepRail` | `bg-accent` / `text-accent-ink` |
 
-The regions band keeps white figures on blue even though "500+ applications" is
-the same kind of human number, because orange on blue is forbidden. That
-constraint is the rule working, not a gap.
+Orange used to carry the traction figures as well. Moving them onto blue was a
+deliberate trade: orange on blue is forbidden, so a figure cannot be both loud
+and orange. Size and inversion now carry the emphasis that hue used to, and the
+one place a person's own action is called out — the volunteer's step — keeps the
+hue. If the figures ever return to paper, `text-accent` on `surface` (white,
+3.48:1) is the pairing to use; on a tinted band the margin narrows to 3.02:1.
 
-Orange figures sit on `surface` (white, 3.48:1) rather than on a tinted band,
-where the margin narrows to 3.02:1.
+## Display type fills its column
+
+`--text-display` sizes against the viewport, which is the wrong reference for a
+headline inside a `76rem` column: past that width the column stops growing and
+the type stops with it. The home hero used to compound the problem with a
+`max-w-3xl` wrapper and a `max-w-[15ch]` measure, so its headline occupied
+**51%** of the column at every desktop width and the page read as mostly margin.
+
+Both hero headlines now size against their **container** instead. The copy block
+declares `container-type: inline-size`, and `.hero-display` /
+`.page-display` use `cqi` inside a `clamp()`:
+
+```css
+.hero-display {
+  font-size: clamp(2.75rem, 8.2cqi, 6.75rem);
+  text-wrap: balance;
+}
+```
+
+The headline therefore fills about 93% of its measure at every width from 390px
+up, and the coefficient is a design decision rather than a guess: it is set so
+the longest balanced line lands just inside the column. `text-wrap: balance`
+does the rest — for a two-sentence headline it minimises the longest line, which
+puts the break on the sentence boundary in all three locales without any markup
+saying so.
+
+Do not put a `ch` measure back on these headlines. A character count and a
+container-relative size fight each other, and the smaller one silently wins.
 
 ## Composition primitives
 
@@ -42,17 +94,39 @@ where the margin narrows to 3.02:1.
 | `Section` | Vertical rhythm, tone band, hairline boundary, container |
 | `SectionHeader` / `Eyebrow` | Rule-led label, headline, lead sentence |
 | `PageHero` | Opening block for every page below the home page |
-| `StatGrid` | Hairline grid of orange tabular figures on white |
-| `StepRail` | The four-step rail; blue nodes for YVC's work, orange for the volunteer's |
-| `NameBoard` | Separated cards for partner, supporter, and source names |
+| `StatGrid` | The knockout figure band: display-serif numerals that count up over a drawn rule |
+| `StepRail` | The process rail; blue nodes for Volontyor's work, orange for the volunteer's, drawn step by step as it is scrolled |
+| `NameBoard` | Hairline-ruled rows of partner, supporter, and source names |
 | `ProseSections` | Legal and explanatory pages at one measure |
-| `StatusChip` | Dashed label for planned or unpublished material |
+| `StatusChip` | Dashed pill for planned or unpublished material |
+| `SectionBackdrop` | The ambient layer on the toned bands; `sourcing` and `channels` |
 | `buttonClass` | The single action styling contract, built with CVA |
 | `ActionLink` | Chooses a locale-aware link or a safe external anchor |
+| `HeroMapSection` | The home page hero and its scroll-driven map of the fourteen regions |
+| `CountUp` | Counts a figure from 1 to its real value the first time it is scrolled into view |
+| `NumberedRail` | The shared 01–NN hairline rail used for lists that read as a sequence |
+| `Reveal` | Marks a block or a sequence for the scroll-driven reveal; a server component that only adds a class |
+| `Marquee` | The continuously rolling partner and source rows |
+| `RollingWords` | The hero eyebrow's cycling region name |
+| `BrandSignature` | The oversized footer lockup that writes itself and raises the mark's hands |
 
-`NameBoard` and the course topics use separated cards rather than the hairline
-grid used elsewhere: their length varies, and an unfilled cell in a gap-filled
-grid reads as a rendering fault.
+Nothing on the home page is a bordered card any more. `StatGrid`, `NameBoard`
+and the "what we do" list use a hairline rule above each item with a generous
+gap, so a short list and a long one look equally deliberate and an unfilled grid
+cell cannot read as a rendering fault.
+
+The home page shows partners and sources as two `Marquee` rows rolling in
+opposite directions rather than as a `NameBoard` grid, because nine names in a
+three-column grid left two empty cells. `/partners` keeps the readable
+`NameBoard` lists: a page whose job is to be scanned should not move.
+
+No page uses a bordered card. Every list that reads as a sequence — what we do,
+what to expect, and the story on `/about` — is a `NumberedRail`, and lists that
+do not are hairline-ruled rows. Pages stay distinct through arrangement rather
+than through different containers: the rails on `/volunteering` and the home
+page sit beside a heading that stays put while they scroll, `/about` centres its
+rail at one measure, and `/contact` gives each channel a full-width row of its
+own.
 
 ## Brand usage in code
 
@@ -62,6 +136,11 @@ always above the documented 16px minimum.
 
 `BrandArc` is the arc alone. Large decorative shapes use it so the logo is never
 cropped, tinted, or scaled below its minimum.
+
+`BrandMarkRaise` is the same geometry split into its two moving parts — the head
+and the arc drawn with `pathLength="100"` — so the footer signature can pop the
+head and then draw the arc outward from its centre, which reads as the two hands
+going up. It is used only there.
 
 The organisation name is HTML text in Onest beside the mark, not the delivered
 SVG lockup: an SVG loaded through `<img>` cannot fetch its webfont, so that
@@ -75,9 +154,10 @@ lockup's wordmark renders in a different system face on every platform. See
 - No locale cookie and no `localStorage`: the URL is the only language state, so
   a canonical URL can never render two different languages, and every response
   stays cacheable.
-- The language control is in the header at every width and in the footer. It
-  links to the same route in another locale, so switching never drops the reader
-  onto the home page.
+- The language disclosure is in the header at every width and in the footer. It
+  shows the active language, opens a list of native language names, and links to
+  the same route in another locale, so switching never drops the reader onto the
+  home page.
 - `html[lang]` matches the active locale on every page.
 - `src/i18n/messages.test.ts` enforces key parity across the three catalogs,
   rejects empty and placeholder strings, requires the turned comma `ʻ` in Uzbek
@@ -97,12 +177,28 @@ lockup's wordmark renders in a different system face on every platform. See
 - The mobile disclosure sets `aria-expanded` and `aria-controls`, closes on
   Escape with focus returned to the trigger, and closes on selection. The panel
   uses the `hidden` attribute, so its contents leave the accessibility tree.
-- Status is never carried by colour alone: the "in preparation" chip says so in
-  words, and the orange step node reinforces a title that already names who
-  acts.
+- Status is never carried by colour alone: the application availability chip
+  says so in words, and the orange step node reinforces a title that already
+  names who acts.
 - Decorative marks and rails are `aria-hidden`; the ordered list carries the
   meaning of the step rail.
-- Reduced motion is honoured globally in the base layer.
+- Reduced motion is honoured globally in the base layer, and again by one block
+  that switches off every scroll-driven reveal, the marquees, the rolling
+  eyebrow and the footer signature. The hero map reads the same preference in
+  JavaScript, holds one frame, and does not pin.
+- The rolling region name in the hero eyebrow is `aria-hidden`; the eyebrow's
+  accessible text is the static label beside it, and the `h1` under it carries
+  the message. Under reduced motion it stops on the first name.
+- Each marquee is a labelled group of real list items. The second copy of the
+  track is `aria-hidden`, the rows pause on hover and on focus within, and under
+  reduced motion the duplicate is removed and the row scrolls by hand.
+- The footer signature is `aria-hidden`: it repeats the organisation name that
+  the lockup, the description and the copyright line already carry as text.
+- The hero map's canvas and its plan-view fallback are both `aria-hidden`. The
+  information they carry — the names of all fourteen regions — is a real list in
+  the markup, so nothing depends on seeing the picture.
+- The hero copy and the map caption share one pinned panel. Whichever has faded
+  out is marked `inert`, so keyboard focus never lands on an invisible link.
 
 ## Responsive rules
 
@@ -111,3 +207,11 @@ lockup's wordmark renders in a different system face on every platform. See
 - Two-column compositions collapse in reading order below the large breakpoint.
 - The header shows page links from the large breakpoint and moves them into the
   disclosure panel below it; the language control never moves.
+- Navigation follows the reader's questions rather than the organisation chart:
+  **Volunteering** (what would I do), **Partners** (who is behind this),
+  **About** (who are you), **Contact** (how do I reach you).
+  `src/lib/routing/routes.ts` is the single source of that order, so the
+  header, the footer and the sitemap cannot disagree.
+- The header lockup drops to the mark alone below 360px. `Volontyor` set beside
+  the mark, the language control and the menu button do not fit a 320px screen
+  together, and the mark is the part that still identifies the site.

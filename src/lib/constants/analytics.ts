@@ -1,7 +1,6 @@
 export const MARKETING_EVENTS = {
   primaryCta: "marketing.primary_cta_clicked",
   opportunitiesCta: "marketing.opportunities_cta_clicked",
-  courseInterestCta: "marketing.course_interest_cta_clicked",
   contactCta: "marketing.contact_cta_clicked",
   partnerCta: "marketing.partner_cta_clicked",
   languageSwitched: "marketing.language_switched",

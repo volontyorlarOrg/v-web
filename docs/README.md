@@ -1,4 +1,4 @@
-# YVC Web Documentation
+# Volontyor Web Documentation
 
 Use this file to route project questions to the smallest relevant source.
 
@@ -16,13 +16,13 @@ Use this file to route project questions to the smallest relevant source.
 | Setup, commands, environment, CI, deployment | [`operations/DEVELOPMENT_AND_DEPLOYMENT.md`](operations/DEVELOPMENT_AND_DEPLOYMENT.md) |
 | Adding a page, copy, locale, token, component, or link | [`operations/EXTENDING.md`](operations/EXTENDING.md) |
 | Installed and intentionally omitted project skills | [`operations/AGENT_SKILLS.md`](operations/AGENT_SKILLS.md) |
-| Vocabulary owned by the separate YVC application | [`data/DATA_MODEL.md`](data/DATA_MODEL.md) |
+| Vocabulary owned by the separate Volontyor application | [`data/DATA_MODEL.md`](data/DATA_MODEL.md) |
 | Telegram plans and unknown integration contracts | [`integrations/TELEGRAM.md`](integrations/TELEGRAM.md) |
 | A non-obvious decision, discovery, or gotcha | [`../.agent-memory/README.md`](../.agent-memory/README.md) |
 
 ## Reference material
 
-[`YVC_MARKETING_AGENT_HANDOFF.md`](YVC_MARKETING_AGENT_HANDOFF.md) is the
+[`MARKETING_AGENT_HANDOFF.md`](MARKETING_AGENT_HANDOFF.md) is the
 maintainer brief that produced the current production site. It is a historical
 input, not a live specification: where it and the code disagree, the code and
 this folder win. Its durable content has been absorbed into `PRODUCT.md`,

@@ -26,7 +26,7 @@ export function Section({
     <section
       id={id}
       className={cn(
-        "scroll-mt-20 border-b border-border py-20 sm:py-28",
+        "relative isolate scroll-mt-20 border-b border-border py-24 sm:py-28 lg:py-32",
         toneClass[tone],
         className,
       )}
@@ -48,7 +48,7 @@ export function Eyebrow({
   return (
     <p
       className={cn(
-        "flex items-center gap-2 text-xs font-bold tracking-[0.14em] uppercase",
+        "flex items-center gap-2 text-xs font-semibold tracking-[0.14em] uppercase",
         tone === "primary" ? "text-primary-ink" : "text-primary-muted",
         className,
       )}
@@ -83,7 +83,7 @@ export function SectionHeader({
   return (
     <div
       className={cn(
-        "max-w-3xl",
+        "max-w-2xl",
         align === "center" && "mx-auto text-center",
         className,
       )}
@@ -95,7 +95,7 @@ export function SectionHeader({
       ) : null}
       <h2
         className={cn(
-          "mt-4 text-headline font-bold text-balance",
+          "mt-5 text-headline text-balance",
           tone === "inverse" && "text-knockout",
         )}
       >
@@ -104,7 +104,7 @@ export function SectionHeader({
       {lead ? (
         <p
           className={cn(
-            "mt-5 text-lead text-pretty",
+            "mt-6 text-lead text-pretty",
             tone === "primary" ? "text-ink-muted" : "text-primary-muted",
           )}
         >
@@ -125,7 +125,7 @@ export function StatusChip({
   return (
     <span
       className={cn(
-        "inline-flex items-center rounded-sm border border-dashed border-border-control px-2 py-1 text-[0.6875rem] font-bold tracking-[0.1em] text-ink-muted uppercase",
+        "inline-flex items-center rounded-full border border-dashed border-border-control px-3 py-1.5 text-xs font-semibold tracking-[0.1em] text-ink-muted uppercase",
         className,
       )}
     >

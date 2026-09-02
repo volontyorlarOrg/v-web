@@ -4,7 +4,7 @@ import { marketingUrl } from "@/lib/seo/origin";
 import { FOUNDED_ON, FOUNDERS } from "@/lib/content/org";
 import { verifiedSocialUrls } from "@/lib/constants/channels";
 
-type JsonLd = Record<string, unknown>;
+export type JsonLd = Record<string, unknown>;
 
 export function organizationJsonLd({
   locale,
@@ -22,12 +22,11 @@ export function organizationJsonLd({
     "@type": "Organization",
     "@id": `${localeUrl(locale, "home")}#organization`,
     name,
-    alternateName: "YVC",
     description,
     url: localeUrl(locale, "home"),
     logo: marketingUrl("/logo/png/mark-blue-512.png"),
     foundingDate: FOUNDED_ON,
-    founder: FOUNDERS.map((founder) => ({ "@type": "Person", name: founder })),
+    founder: FOUNDERS.map((founder) => ({ "@type": "Person", name: founder.name })),
     areaServed: { "@type": "Country", name: "Uzbekistan" },
     ...(sameAs.length > 0 ? { sameAs } : {}),
   };

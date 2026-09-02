@@ -1,7 +1,7 @@
 {
   "common": {
-    "organizationName": "Youth Volunteer Club",
-    "organizationShortName": "YVC",
+    "organizationName": "Volontyor",
+    "organizationShortName": "Volontyor",
     "tagline": "Oʻzbekistondagi yoshlar uchun volontyorlik"
   },
   "nav": {
@@ -9,7 +9,6 @@
     "about": "Biz haqimizda",
     "volunteering": "Volontyorlik",
     "partners": "Hamkorlar",
-    "course": "Kurs",
     "contact": "Bogʻlanish",
     "privacy": "Maxfiylik",
     "terms": "Shartlar",
@@ -21,7 +20,7 @@
     "skipToContent": "Asosiy qismga oʻtish"
   },
   "footer": {
-    "description": "Youth Volunteer Club Oʻzbekiston boʻylab haqiqiy volontyorlik imkoniyatlarini topadi, ularning ortidagi tashkilotchilar bilan ishlaydi va yoshlarni odam kerak boʻlgan tadbirlar bilan bogʻlaydi.",
+    "description": "Volontyor Oʻzbekiston boʻylab haqiqiy volontyorlik imkoniyatlarini topadi, ularning ortidagi tashkilotchilar bilan ishlaydi va yoshlarni odam kerak boʻlgan tadbirlar bilan bogʻlaydi.",
     "siteLabel": "Sayt",
     "legalLabel": "Huquqiy",
     "channelsLabel": "Kanallar",
@@ -32,15 +31,20 @@
     "location": "Oʻzbekiston"
   },
   "home": {
-    "metaTitle": "Youth Volunteer Club — Oʻzbekistondagi yoshlar uchun volontyorlik",
-    "metaDescription": "Youth Volunteer Club Oʻzbekiston boʻylab volontyorlik imkoniyatlarini topadi, tashkilotchilar bilan ishlaydi va yuqori sinf oʻquvchilarini volontyor kerak boʻlgan tadbirlar bilan bogʻlaydi.",
+    "metaTitle": "Volontyor — Oʻzbekistondagi yoshlar uchun volontyorlik",
+    "metaDescription": "Volontyor Oʻzbekiston boʻylab volontyorlik imkoniyatlarini topadi, tashkilotchilar bilan ishlaydi va yuqori sinf oʻquvchilarini volontyor kerak boʻlgan tadbirlar bilan bogʻlaydi.",
     "hero": {
-      "eyebrow": "Oʻzbekistonda volontyorlik",
-      "title": "Volontyorlikni biz topamiz. Kelish sizdan.",
-      "lead": "Youth Volunteer Club Oʻzbekiston boʻylab volontyorlik imkoniyatlarini qidiradi, ularning ortidagi tashkilotchilar bilan bevosita gaplashadi va yuqori sinf oʻquvchilarini haqiqatan ham odam kerak boʻlgan tadbirlar bilan bogʻlaydi.",
+      "eyebrow": "Volontyorlik",
+      "title": "Imkoniyatni biz topamiz. Qanday yordam berishni siz tanlaysiz.",
+      "lead": "Imkoniyatni hamjamiyat bilan ulashishdan oldin tashkilotchilar bilan gaplashamiz.",
       "primaryCta": "Hamjamiyatga qoʻshiling",
-      "secondaryCta": "Qanday ishlaydi",
-      "note": "Mamlakat boʻylab yuqori sinf oʻquvchilari uchun ochiq."
+      "secondaryCta": "Qanday ishlaydi"
+    },
+    "map": {
+      "eyebrow": "Mamlakat boʻylab",
+      "title": "Volontyor Oʻzbekiston boʻylab kengaymoqda",
+      "lead": "Maqsadimiz — barcha oʻn toʻrtta hududda mahalliy faoliyatni yoʻlga qoʻyish.",
+      "regionsHeading": "Oʻzbekiston hududlari"
     },
     "stats": {
       "eyebrow": "Bugungi holat",
@@ -53,101 +57,97 @@
     "what": {
       "eyebrow": "Nima qilamiz",
       "title": "Imkoniyatlarni qayta joylashdan koʻra koʻproq",
-      "lead": "YVC boshqa joydan topilgan imkoniyatlarni ulashishdan boshlagan edi. Bugun esa ularning ortidagi ishni ham bajaradi.",
+      "lead": "Tadbirlar ortidagi ishni biz bajaramiz.",
       "items": {
         "find": {
           "title": "Imkoniyat topish",
-          "description": "Imkoniyat oʻzi paydo boʻlishini kutmay, mamlakat boʻylab volontyorlik izlaymiz."
+          "description": "Paydo boʻlishini kutmaymiz, oʻzimiz qidiramiz."
         },
         "contact": {
           "title": "Tashkilotchilar bilan aloqa",
-          "description": "Tadbir hamjamiyatga yetib borishidan oldin uni oʻtkazayotgan odamlar bilan gaplashamiz."
+          "description": "Tadbirni oʻtkazayotgan odam bilan gaplashamiz."
         },
         "source": {
           "title": "Tadbirlarni jalb qilish",
-          "description": "Volontyor kerak boʻlgan tadbirlarni, jumladan hech qayerda eʼlon qilinmaganlarini ham olib kelamiz."
+          "description": "Shu jumladan hech qayerda eʼlon qilinmaganlari."
         },
         "partnerships": {
           "title": "Hamkorlik qurish",
-          "description": "Tashkilotlar va muassasalar bilan doimiy ish aloqalarini oʻrnatamiz."
+          "description": "Tashkilot va muassasalar bilan ishchi aloqalar."
         },
         "supply": {
           "title": "Volontyor taʼminlash",
-          "description": "Tayyor volontyorlarni yuboramiz va buni 50 dan ortiq tadbirda amalga oshirdik."
+          "description": "Tayyor volontyorlar. Hozircha 50 dan ortiq tadbir."
         },
         "regional": {
           "title": "Hududiy faoliyat",
-          "description": "Imkoniyatlar yoshlarga qayerda yashashidan qatʼi nazar yetib borishi uchun hududlarda jamoalar tuzyapmiz."
+          "description": "Faqat poytaxtda emas, hududlarda ham jamoalar."
         }
       }
     },
     "how": {
       "eyebrow": "Qanday ishlaydi",
       "title": "Tadbir bilan volontyor orasidagi toʻrt qadam",
-      "lead": "Tadbirga aslida nima kerakligini bilmagunimizcha, hech narsa hamjamiyatga chiqmaydi.",
       "steps": {
         "find": {
           "title": "Topamiz",
-          "description": "Volontyorlik imkoniyatlarini qidiramiz va odam kerak boʻlgan tadbirlarni jalb qilamiz."
+          "description": "Imkoniyatlarni qidiramiz va tadbirlarni jalb qilamiz."
         },
         "check": {
           "title": "Tekshiramiz",
-          "description": "Tashkilotchilar bilan bevosita bogʻlanib, tadbirga aslida nima kerakligini aniqlaymiz."
+          "description": "Tashkilotchidan tadbirga nima kerakligini aniqlaymiz."
         },
         "share": {
           "title": "Ulashamiz",
-          "description": "Imkoniyat YVC hamjamiyatiga eʼlon qilinadi."
+          "description": "Imkoniyat hamjamiyatga eʼlon qilinadi."
         },
         "volunteer": {
           "title": "Siz qatnashasiz",
-          "description": "Tashkilotchiga volontyorlarni taqdim etamiz, siz esa tadbirda ishtirok etasiz."
+          "description": "Siz tadbirda ishtirok etasiz."
         }
       }
     },
     "sources": {
       "eyebrow": "Imkoniyat manbalari",
       "title": "Imkoniyatlar qayerdan keladi",
-      "lead": "Quyidagilar hozirda hamjamiyatga imkoniyat yetkazib berayotgan hamkor va manbalar.",
+      "sourcesLabel": "Imkoniyat manbalari",
+      "partnersLabel": "Hamkorlar va qoʻllab-quvvatlovchilar",
       "cta": "Barcha hamkorlar"
-    },
-    "regions": {
-      "eyebrow": "Oʻzbekiston boʻylab",
-      "title": "Barcha 14 ta hududga kengaymoqdamiz",
-      "lead": "Volontyorlik poytaxtdan tashqaridagi yoshlarga ham yetib borishi uchun hududiy jamoalar tuzyapmiz va javob kutganimizdan ham kattaroq boʻldi.",
-      "regionsLabel": "Biz kengayayotgan hududlar",
-      "applicationsLabel": "Hududiy loyiha menejeri va koordinator lavozimlariga arizalar"
-    },
-    "course": {
-      "eyebrow": "Oʻrganish",
-      "title": "Volontyorlik boʻyicha kurs tayyorlanmoqda",
-      "lead": "Qayerda volontyorlik qilishni bilishning oʻzi kifoya emas. Volontyorlik aslida qanday ishlashi haqida qisqa va amaliy material tayyorlayapmiz.",
-      "cta": "Nimalarni oʻz ichiga oladi"
     },
     "cta": {
       "title": "Volontyorlikni topish oson boʻlishi kerak.",
-      "lead": "Hamjamiyatga qoʻshiling va imkoniyatlarni biz topgan zahoti oling.",
+      "lead": "Imkoniyatlarni biz topgan zahoti oling.",
       "primary": "Hamjamiyatga qoʻshiling",
       "secondary": "Biz bilan gaplashing"
     }
   },
   "about": {
     "metaTitle": "Biz haqimizda",
-    "metaDescription": "Youth Volunteer Club 2025-yil 4-iyunda Arslon Rajabov va Parizoda Abdurakhimova tomonidan Oʻzbekistondagi yuqori sinf oʻquvchilariga maʼnoli volontyorlik topishga yordam berish uchun tashkil etilgan.",
-    "title": "Youth Volunteer Club haqida",
+    "metaDescription": "Volontyor 2025-yil 4-iyunda Arslon Rajabov va Parizoda Abdurakhimova tomonidan Oʻzbekistondagi yuqori sinf oʻquvchilariga maʼnoli volontyorlik topishga yordam berish uchun tashkil etilgan.",
+    "title": "Volontyor haqida",
     "lead": "Yaxshi imkoniyatlarning lentada koʻmilib ketishini kuzatishdan charchagan odamlar tomonidan tuzilgan, yuqori sinf oʻquvchilari uchun volontyorlik hamjamiyati.",
     "foundedLabel": "Tashkil etilgan",
     "foundersLabel": "Asoschilar",
     "founded": {
       "title": "2025-yil iyunida tashkil etilgan",
-      "body": "Youth Volunteer Club 2025-yil 4-iyunda Arslon Rajabov va Parizoda Abdurakhimova tomonidan yuqori sinf oʻquvchilariga maʼnoli volontyorlik imkoniyatlarini topish va ularga ariza berishda yordam berish maqsadida tashkil etilgan."
+      "body": "Volontyor 2025-yil 4-iyunda Arslon Rajabov va Parizoda Abdurakhimova tomonidan yuqori sinf oʻquvchilariga maʼnoli volontyorlik imkoniyatlarini topish va ularga ariza berishda yordam berish maqsadida tashkil etilgan."
     },
     "purpose": {
       "title": "Nima uchun kerak",
-      "body": "Volontyorlikni xohlash qiyin emas. Uni topish qiyin. Imkoniyatlar turli kanallarga tarqalib ketgan, tashkilotchilar odamni qayerdan izlashni har doim ham bilmaydi, yordam bermoqchi boʻlgan oʻquvchining esa boshlash uchun aniq joyi yoʻq. YVC ana shu boʻshliqni toʻldirish uchun bor."
+      "body": "Volontyorlikni xohlash qiyin emas. Uni topish qiyin. Imkoniyatlar turli kanallarga tarqalib ketgan, tashkilotchilar odamni qayerdan izlashni har doim ham bilmaydi, yordam bermoqchi boʻlgan oʻquvchining esa boshlash uchun aniq joyi yoʻq. Volontyor ana shu boʻshliqni toʻldirish uchun bor."
     },
     "growth": {
       "title": "Qayta joylashdan tashkiliy ishga",
-      "body": "YVC boshqa joydan topgan imkoniyatlarini ulashishdan boshlagan. Bugun esa imkoniyat topadi, tashkilotchilar bilan bogʻlanadi, tadbirlarni jalb qiladi, hamkorlik quradi, volontyor taʼminlaydi va mamlakat boʻylab hududiy faoliyatni yoʻlga qoʻyyapti."
+      "body": "Volontyor boshqa joydan topgan imkoniyatlarini ulashishdan boshlagan. Bugun esa imkoniyat topadi, tashkilotchilar bilan bogʻlanadi, tadbirlarni jalb qiladi, hamkorlik quradi, volontyor taʼminlaydi va mamlakat boʻylab hududiy faoliyatni yoʻlga qoʻyyapti."
+    },
+    "founders": {
+      "title": "Buni boshlagan ikki kishi",
+      "arslon": {
+        "role": "Hammuassis"
+      },
+      "parizoda": {
+        "role": "Hammuassis"
+      }
     },
     "numbers": {
       "title": "Bugungi holat",
@@ -162,8 +162,8 @@
   },
   "volunteering": {
     "metaTitle": "Volontyorlik",
-    "metaDescription": "YVC bilan volontyorlik qanday ishlaydi: imkoniyatlar qanday topiladi va tekshiriladi, sizga qanday yetib keladi va tadbirda nima boʻladi.",
-    "title": "YVC bilan volontyorlik qanday ishlaydi",
+    "metaDescription": "Volontyor bilan volontyorlik qanday ishlaydi: imkoniyatlar qanday topiladi va tekshiriladi, sizga qanday yetib keladi va tadbirda nima boʻladi.",
+    "title": "Volontyor bilan volontyorlik qanday ishlaydi",
     "lead": "Sizga tajriba ham, tashkilot ichidagi tanish ham, tayyor reja ham kerak emas. Yaxshi imkoniyat chiqqanda xabardor boʻlsangiz kifoya.",
     "start": {
       "title": "Nimadan boshlash kerak",
@@ -195,15 +195,15 @@
       }
     },
     "app": {
-      "title": "YVC ilovasi",
-      "body": "Imkoniyatlarni koʻrish, ariza berish va qatnashgan tadbirlaringiz yozuvini yuritish alohida ishlab chiqilayotgan Youth Volunteer Club ilovasiga tegishli, bu saytga emas.",
+      "title": "Volontyor ilovasi",
+      "body": "Imkoniyatlarni koʻrish, ariza berish va qatnashgan tadbirlaringiz yozuvini yuritish alohida ishlab chiqilayotgan Volontyor ilovasiga tegishli, bu saytga emas.",
       "pending": "Ilova alohida ishlab chiqilmoqda. U tayyor boʻlgunicha imkoniyatlar hamjamiyat kanali orqali ulashiladi.",
-      "cta": "YVC ilovasini ochish"
+      "cta": "Volontyor ilovasini ochish"
     }
   },
   "partners": {
     "metaTitle": "Hamkorlar",
-    "metaDescription": "Youth Volunteer Club ishlaydigan tashkilotlar: OʻZLIDEP partiyasi bilan hamkorlik, bizni qoʻllab-quvvatlayotgan muassasalar va imkoniyat yetkazib beruvchi manbalar.",
+    "metaDescription": "Volontyor ishlaydigan tashkilotlar: OʻZLIDEP partiyasi bilan hamkorlik, bizni qoʻllab-quvvatlayotgan muassasalar va imkoniyat yetkazib beruvchi manbalar.",
     "title": "Hamkorlar, qoʻllab-quvvatlovchilar va manbalar",
     "lead": "Bu sahifada faqat bugun tasdiqlay oladigan aloqalarimiz keltirilgan. Boshqa hech narsa bu yerga yozilmaydi.",
     "partnership": {
@@ -213,7 +213,7 @@
     },
     "support": {
       "title": "Qoʻllab-quvvatlash va eʼtirof",
-      "lead": "Youth Volunteer Club faoliyatini qoʻllab-quvvatlaydigan yoki eʼtirof etadigan muassasalar.",
+      "lead": "Volontyor faoliyatini qoʻllab-quvvatlaydigan yoki eʼtirof etadigan muassasalar.",
       "note": "Qoʻllab-quvvatlash va eʼtirof"
     },
     "sources": {
@@ -222,51 +222,16 @@
       "note": "Imkoniyat manbai"
     },
     "work": {
-      "title": "YVC bilan ishlash",
+      "title": "Volontyor bilan ishlash",
       "body": "Tashkilotingiz volontyor kerak boʻladigan tadbir oʻtkazayotgan boʻlsa yoki hududda biz bilan ishlashni istasangiz, bogʻlaning.",
       "cta": "Bogʻlanish"
     }
   },
-  "course": {
-    "metaTitle": "Kurs",
-    "metaDescription": "Youth Volunteer Club volontyorlik asoslari, ariza berish, volontyorlik esse yozish va samarali ishtirok etish boʻyicha qisqa amaliy material tayyorlamoqda.",
-    "title": "Volontyorlikni oʻrganish",
-    "lead": "Imkoniyat topish — bir masala. Unga qanday ariza berish va yetib borganingizdan keyin nima qilish — butunlay boshqa masala.",
-    "status": "Tayyorlanmoqda",
-    "topicsTitle": "Nimalarni oʻz ichiga oladi",
-    "topics": {
-      "basics": {
-        "title": "Volontyorlik asoslari",
-        "description": "Volontyorlik nima, nima emas va tadbirdan nimani kutish mumkin."
-      },
-      "applying": {
-        "title": "Qanday ariza beriladi",
-        "description": "Imkoniyatni toʻgʻri oʻqish va javob oladigan ariza yuborish."
-      },
-      "essay": {
-        "title": "Volontyorlik esse qanday yoziladi",
-        "description": "Nega qatnashmoqchi ekaningizni tushuntiruvchi qisqa va samimiy esse tuzilishi."
-      },
-      "conduct": {
-        "title": "Nima qilish va nima qilmaslik kerak",
-        "description": "Tashkilotchilar, boshqa volontyorlar va tadbir kimlar uchun oʻtkazilayotgan boʻlsa, oʻshalar bilan qanday ishlash."
-      },
-      "participation": {
-        "title": "Samarali ishtirok etish",
-        "description": "Volontyorlik nima uchun kerakligini tushunish va haqiqatan foyda keltiradigan tarzda ishtirok etish."
-      }
-    },
-    "note": {
-      "title": "Hali hech narsa chop etilmagan",
-      "body": "Kurs tayyorlanmoqda. Eʼlon qilinadigan jadval, qabul yoki toʻlov yoʻq. Ochilganda hamjamiyat kanalida eʼlon qilinadi."
-    },
-    "cta": "Ochilganda xabar bering"
-  },
   "contact": {
     "metaTitle": "Bogʻlanish",
-    "metaDescription": "Youth Volunteer Club bilan qanday bogʻlanish: volontyorlik qilmoqchi boʻlgan yoshlar hamda volontyor kerak boʻlgan tashkilotchi va hamkorlar uchun.",
+    "metaDescription": "Volontyor bilan qanday bogʻlanish: volontyorlik qilmoqchi boʻlgan yoshlar hamda volontyor kerak boʻlgan tashkilotchi va hamkorlar uchun.",
     "title": "Bogʻlanish",
-    "lead": "Youth Volunteer Club bilan bogʻlanishning eng tez yoʻli — ochiq kanallarimiz.",
+    "lead": "Volontyor bilan bogʻlanishning eng tez yoʻli — ochiq kanallarimiz.",
     "channels": {
       "title": "Ochiq kanallar",
       "empty": "Kanal manzillari tasdiqlanmoqda va shu yerda koʻrsatiladi."
@@ -286,10 +251,10 @@
   },
   "privacy": {
     "metaTitle": "Maxfiylik",
-    "metaDescription": "Youth Volunteer Club saytida maʼlumotlaringiz bilan nima boʻladi: hisob yozuvi, forma, kuki va analitika yoʻq.",
+    "metaDescription": "Volontyor saytida maʼlumotlaringiz bilan nima boʻladi: hisob yozuvi, forma, kuki va analitika yoʻq.",
     "title": "Maxfiylik",
     "updatedLabel": "Oxirgi yangilanish",
-    "lead": "Bu sahifa siz oʻqiyotgan Youth Volunteer Club saytiga tegishli. U alohida Youth Volunteer Club ilovasini qamrab olmaydi.",
+    "lead": "Bu sahifa siz oʻqiyotgan Volontyor saytiga tegishli. U alohida Volontyor ilovasini qamrab olmaydi.",
     "sections": {
       "collection": {
         "title": "Bu yerda shaxsiy maʼlumot yigʻmaymiz",
@@ -309,11 +274,11 @@
       },
       "links": {
         "title": "Boshqa xizmatlarga havolalar",
-        "body": "Telegram, Instagram yoki Youth Volunteer Club ilovasiga havolalar oʻz maxfiylik qoidalariga ega xizmatlarga olib boradi. Bu sahifa ularni qamrab olmaydi."
+        "body": "Telegram, Instagram yoki Volontyor ilovasiga havolalar oʻz maxfiylik qoidalariga ega xizmatlarga olib boradi. Bu sahifa ularni qamrab olmaydi."
       },
       "app": {
-        "title": "YVC ilovasi",
-        "body": "Alohida Youth Volunteer Club ilovasi volontyor profillari va arizalari bilan ishlaydi. Uning oʻz maxfiylik shartlari bor va bu saytdagi hech narsa unga ulanmagan."
+        "title": "Volontyor ilovasi",
+        "body": "Alohida Volontyor ilovasi volontyor profillari va arizalari bilan ishlaydi. Uning oʻz maxfiylik shartlari bor va bu saytdagi hech narsa unga ulanmagan."
       },
       "contact": {
         "title": "Savollar",
@@ -323,18 +288,18 @@
   },
   "terms": {
     "metaTitle": "Shartlar",
-    "metaDescription": "Youth Volunteer Club saytidan foydalanish shartlari: sayt nima, nima emas va nimani vaʼda qilmaydi.",
+    "metaDescription": "Volontyor saytidan foydalanish shartlari: sayt nima, nima emas va nimani vaʼda qilmaydi.",
     "title": "Shartlar",
     "updatedLabel": "Oxirgi yangilanish",
-    "lead": "Bu shartlar shu saytga tegishli. Alohida Youth Volunteer Club ilovasining oʻz shartlari bor.",
+    "lead": "Bu shartlar shu saytga tegishli. Alohida Volontyor ilovasining oʻz shartlari bor.",
     "sections": {
       "purpose": {
         "title": "Bu sayt nima",
-        "body": "Bu sayt axborot xarakteriga ega. U Youth Volunteer Club, biz ishlaydigan tashkilotlar va biz bilan volontyorlik qanday ishlashini tavsiflaydi. Bu ariza beradigan, tizimga kiradigan yoki volontyor profilini boshqaradigan joy emas."
+        "body": "Bu sayt axborot xarakteriga ega. U Volontyor, biz ishlaydigan tashkilotlar va biz bilan volontyorlik qanday ishlashini tavsiflaydi. Bu ariza beradigan, tizimga kiradigan yoki volontyor profilini boshqaradigan joy emas."
       },
       "accuracy": {
         "title": "Aniqlik",
-        "body": "Faqat tasdiqlay oladigan maʼlumotni chop etamiz. Tadbirlar, hamkorlar va kurs tafsilotlari oʻzgarishi mumkin, sahifalar esa yangilanishlar orasida eskirgan boʻlishi mumkin."
+        "body": "Faqat tasdiqlay oladigan maʼlumotni chop etamiz. Tadbir va hamkorlik tafsilotlari oʻzgarishi mumkin, sahifalar esa yangilanishlar orasida eskirgan boʻlishi mumkin."
       },
       "placement": {
         "title": "Joy kafolatlanmaydi",
@@ -342,11 +307,11 @@
       },
       "conduct": {
         "title": "Saytdan foydalanish",
-        "body": "Sayt ishiga xalaqit berishga urinmang va undan Youth Volunteer Club yoki unda nomi keltirilgan tashkilotlar haqida birovni chalgʻitish uchun foydalanmang."
+        "body": "Sayt ishiga xalaqit berishga urinmang va undan Volontyor yoki unda nomi keltirilgan tashkilotlar haqida birovni chalgʻitish uchun foydalanmang."
       },
       "brand": {
         "title": "Nomimiz va belgimiz",
-        "body": "Youth Volunteer Club nomi va belgisi Youth Volunteer Clubga tegishli. Ulardan mavjud boʻlmagan hamkorlikni anglatadigan tarzda foydalanmang."
+        "body": "Volontyor nomi va belgisi Volontyorga tegishli. Ulardan mavjud boʻlmagan hamkorlikni anglatadigan tarzda foydalanmang."
       },
       "external": {
         "title": "Tashqi havolalar",
