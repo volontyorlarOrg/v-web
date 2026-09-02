@@ -1,7 +1,9 @@
+import type { CSSProperties } from "react";
+
 import { BrandMarkRaise } from "@/components/brand/logo";
 import { cn } from "@/lib/utils";
 
-const NON_BREAKING_SPACE = " ";
+const NON_BREAKING_SPACE = " ";
 
 export function BrandSignature({
   name,
@@ -15,7 +17,11 @@ export function BrandSignature({
       <BrandMarkRaise className="w-[clamp(2.75rem,9vw,7rem)] shrink-0 text-primary" />
       <span className="brand-signature-word display-face text-primary-muted">
         {[...name].map((letter, index) => (
-          <span key={`${letter}-${index}`} className="brand-signature-letter">
+          <span
+            key={`${letter}-${index}`}
+            className="brand-signature-letter"
+            style={{ "--i": index } as CSSProperties}
+          >
             <span className="brand-signature-glyph">
               {letter === " " ? NON_BREAKING_SPACE : letter}
             </span>

@@ -1,3 +1,4 @@
+import { Scene } from "@/components/marketing/scene";
 import { cn } from "@/lib/utils";
 
 export type BoardEntry = { id: string; name: string; note?: string };
@@ -10,7 +11,11 @@ export function NameBoard({
   className?: string;
 }) {
   return (
-    <ul className={cn("grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3", className)}>
+    <Scene
+      as="ul"
+      variant="stagger"
+      className={cn("grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3", className)}
+    >
       {entries.map((entry) => (
         <li
           key={entry.id}
@@ -24,6 +29,6 @@ export function NameBoard({
           ) : null}
         </li>
       ))}
-    </ul>
+    </Scene>
   );
 }

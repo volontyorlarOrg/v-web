@@ -89,6 +89,7 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
     const pins = pinRefs.current;
 
     let scene: MapScene | null = null;
+    let themeObserver: MutationObserver | null = null;
     let cancelled = false;
     let frame = 0;
     let visible = false;
@@ -257,6 +258,14 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
         );
         if (cancelled) return;
         scene = createMapScene(canvas, readPalette(document.documentElement));
+        themeObserver = new MutationObserver(() => {
+          scene?.setPalette(readPalette(document.documentElement));
+          paint();
+        });
+        themeObserver.observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ["data-theme"],
+        });
       } catch {
         return;
       }
@@ -307,6 +316,7 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
       if (frame) cancelAnimationFrame(frame);
+      themeObserver?.disconnect();
       scene?.dispose();
       scene = null;
     };
@@ -317,7 +327,7 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
       ref={sectionRef}
       id="hero-map"
       className={cn(
-        "relative border-b border-border bg-paper",
+        "relative border-b border-border",
         pinned && "h-[280svh] sm:h-[300svh] lg:h-[340svh]",
       )}
     >

@@ -4,6 +4,7 @@ import { ActionLink } from "@/components/marketing/action-link";
 import { HeroMapFlat } from "@/components/marketing/hero-map/hero-map-flat";
 import { HeroMapStage } from "@/components/marketing/hero-map/hero-map-stage";
 import { RollingWords } from "@/components/marketing/rolling-words";
+import { SplitWords } from "@/components/marketing/scene";
 import { Eyebrow } from "@/components/marketing/section";
 import { buttonClass } from "@/components/ui/button";
 import type { Locale } from "@/i18n/routing";
@@ -24,22 +25,26 @@ export function HeroMapSection({ locale }: { locale: Locale }) {
       fallback={<HeroMapFlat locale={locale} />}
       hero={
         <div className="hero-copy mx-auto flex w-full flex-col items-center text-center">
-          <Eyebrow className="flex-wrap justify-center">
+          <Eyebrow className="enter-rise flex-wrap justify-center">
             <span className="sr-only">{t("hero.eyebrowLabel")}</span>
             <span aria-hidden="true" className="contents">
               {t.rich("hero.eyebrow", {
                 region: () => (
                   <RollingWords
                     words={regions.map((region) => region.locative)}
-                    className="region-rotation-chip rounded-full bg-primary-muted/50 py-1 text-primary-ink"
+                    className="region-rotation-chip rounded-full bg-surface-soft py-1 text-primary-ink"
                   />
                 ),
               })}
             </span>
           </Eyebrow>
-          <h1 className="hero-display mt-9">{t("hero.title")}</h1>
-          <p className="mt-8 max-w-[46ch] text-lead text-ink-muted text-pretty">{t("hero.lead")}</p>
-          <div className="mt-10 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row sm:items-center">
+          <h1 className="hero-display enter-words mt-9 [--enter-delay:180ms]">
+            <SplitWords text={t("hero.title")} />
+          </h1>
+          <p className="enter-rise mt-8 max-w-[46ch] text-lead text-ink-muted text-pretty [--enter-delay:780ms]">
+            {t("hero.lead")}
+          </p>
+          <div className="enter-rise mt-10 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row sm:items-center [--enter-delay:920ms]">
             <ActionLink destination={join} className={buttonClass()}>
               {t("hero.primaryCta")}
             </ActionLink>

@@ -1,7 +1,9 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
+import { SceneObserver } from "@/components/marketing/scene-observer";
 import { SiteFooter } from "@/components/marketing/site-footer";
 import { SiteHeader } from "@/components/marketing/site-header";
+import { SmoothScroll } from "@/components/marketing/smooth-scroll";
 
 export default async function MarketingLayout({
   children,
@@ -16,7 +18,7 @@ export default async function MarketingLayout({
     <>
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:rounded-lg focus:bg-primary-ink focus:px-4 focus:py-3 focus:text-sm focus:font-semibold focus:text-knockout"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:rounded-lg focus:bg-action focus:px-4 focus:py-3 focus:text-sm focus:font-semibold focus:text-knockout"
       >
         {t("skipToContent")}
       </a>
@@ -25,6 +27,8 @@ export default async function MarketingLayout({
         {children}
       </main>
       <SiteFooter />
+      <SmoothScroll />
+      <SceneObserver />
     </>
   );
 }

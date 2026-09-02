@@ -3,20 +3,23 @@ import { useTranslations } from "next-intl";
 import { BrandLockup } from "@/components/brand/logo";
 import { ActionLink } from "@/components/marketing/action-link";
 import { LocaleSwitcher } from "@/components/marketing/locale-switcher";
-import { MobileNav, type NavItem } from "@/components/marketing/mobile-nav";
+import { MobileNav } from "@/components/marketing/mobile-nav";
+import { NavTabs, type NavTabItem } from "@/components/marketing/nav-tabs";
+import { ThemeToggle } from "@/components/marketing/theme-toggle";
 import { buttonClass } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { joinDestination } from "@/lib/content/cta";
+import { NAV_TABS_MOCK, navTabHref, navTabPath } from "@/lib/content/nav-tabs";
 import { ORGANIZATION_NAME, ORGANIZATION_SHORT_NAME } from "@/lib/content/org";
-import { mainNavRoutes, navHref } from "@/lib/routing/routes";
 
 export function SiteHeader() {
   const t = useTranslations("nav");
   const join = joinDestination();
 
-  const items: NavItem[] = mainNavRoutes.map((route) => ({
-    href: navHref(route.key),
-    label: t(route.key),
+  const items: NavTabItem[] = NAV_TABS_MOCK.map((tab) => ({
+    href: navTabHref(tab),
+    path: navTabPath(tab),
+    label: t(tab.id),
   }));
 
   return (
@@ -33,23 +36,11 @@ export function SiteHeader() {
           />
         </Link>
 
-        <nav
-          aria-label={t("primaryLabel")}
-          className="hidden items-center gap-1 lg:flex"
-        >
-          {items.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="rounded-md px-3 py-2 text-sm font-semibold text-ink-muted transition-colors hover:bg-surface-soft hover:text-primary-ink"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
+        <NavTabs items={items} label={t("primaryLabel")} className="hidden lg:flex" />
 
         <div className="flex items-center gap-2">
           <LocaleSwitcher label={t("languageLabel")} />
+          <ThemeToggle label={t("themeLabel")} />
           <ActionLink
             destination={join}
             className={buttonClass({ size: "sm", className: "hidden lg:inline-flex" })}

@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { JsonLd } from "@/components/marketing/json-ld";
 import { NumberedRail } from "@/components/marketing/numbered-rail";
 import { PageHero } from "@/components/marketing/page-hero";
-import { Reveal } from "@/components/marketing/reveal";
+import { Scene } from "@/components/marketing/scene";
 import { Section, SectionHeader } from "@/components/marketing/section";
 import { StatGrid, type Stat } from "@/components/marketing/stats";
 import type { Locale } from "@/i18n/routing";
@@ -95,10 +95,8 @@ function About({ locale }: { locale: Locale }) {
       </Section>
 
       <Section tone="sunk">
-        <Reveal>
-          <SectionHeader title={t("founders.title")} />
-        </Reveal>
-        <ul className="reveal-sequence mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-2">
+        <SectionHeader title={t("founders.title")} />
+        <Scene as="ul" variant="stagger" className="mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-2">
           {FOUNDERS.map((founder) => (
             <li key={founder.id} className="border-t border-border pt-6">
               <p className="text-title font-semibold tracking-[-0.015em]">{founder.name}</p>
@@ -107,13 +105,11 @@ function About({ locale }: { locale: Locale }) {
               </p>
             </li>
           ))}
-        </ul>
+        </Scene>
       </Section>
 
       <Section tone="ink">
-        <Reveal>
-          <SectionHeader tone="inverse" title={t("numbers.title")} lead={t("numbers.lead")} />
-        </Reveal>
+        <SectionHeader tone="inverse" title={t("numbers.title")} lead={t("numbers.lead")} />
         <StatGrid stats={stats} className="mt-14" />
       </Section>
     </>

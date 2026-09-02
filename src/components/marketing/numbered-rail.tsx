@@ -1,3 +1,5 @@
+import { Scene } from "@/components/marketing/scene";
+
 export type RailItem = {
   id: string;
   title: string;
@@ -12,15 +14,15 @@ export function NumberedRail({
   className?: string;
 }) {
   return (
-    <ol className={className}>
+    <Scene as="ol" variant="stagger" className={className}>
       {items.map((item, index) => (
         <li
           key={item.id}
-          className="work-row relative grid grid-cols-[2.75rem_1fr] gap-x-4 py-7 sm:grid-cols-[3.5rem_1fr] sm:gap-x-6"
+          className="relative grid grid-cols-[2.75rem_1fr] gap-x-4 py-7 sm:grid-cols-[3.5rem_1fr] sm:gap-x-6"
         >
           <span
             aria-hidden="true"
-            className="work-rule absolute inset-x-0 top-0 h-px bg-border-control/70"
+            className="scene-rule absolute inset-x-0 top-0 h-px bg-border-control/70"
           />
           <p className="tabular pt-1 text-xs font-semibold tracking-[0.14em] text-primary-ink uppercase">
             {String(index + 1).padStart(2, "0")}
@@ -35,6 +37,6 @@ export function NumberedRail({
           </div>
         </li>
       ))}
-    </ol>
+    </Scene>
   );
 }

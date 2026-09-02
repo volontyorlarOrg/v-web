@@ -1,14 +1,15 @@
 import type { ReactNode } from "react";
 
+import { Scene, SplitWords } from "@/components/marketing/scene";
 import { cn } from "@/lib/utils";
 
 type Tone = "paper" | "sunk" | "soft" | "ink";
 
 const toneClass: Record<Tone, string> = {
-  paper: "bg-paper text-ink",
+  paper: "bg-transparent text-ink",
   sunk: "bg-surface-sunk text-ink",
   soft: "bg-surface-soft text-ink",
-  ink: "bg-primary-ink text-knockout",
+  ink: "bg-band text-knockout",
 };
 
 export function Section({
@@ -49,7 +50,7 @@ export function Eyebrow({
     <p
       className={cn(
         "flex items-center gap-2 text-xs font-semibold tracking-[0.14em] uppercase",
-        tone === "primary" ? "text-primary-ink" : "text-primary-muted",
+        tone === "primary" ? "text-primary-ink" : "text-band-copy",
         className,
       )}
     >
@@ -57,7 +58,7 @@ export function Eyebrow({
         aria-hidden="true"
         className={cn(
           "h-px w-6",
-          tone === "primary" ? "bg-primary" : "bg-primary-muted",
+          tone === "primary" ? "bg-primary" : "bg-band-copy",
         )}
       />
       {children}
@@ -81,7 +82,8 @@ export function SectionHeader({
   className?: string;
 }) {
   return (
-    <div
+    <Scene
+      variant="group"
       className={cn(
         "max-w-2xl",
         align === "center" && "mx-auto text-center",
@@ -89,29 +91,32 @@ export function SectionHeader({
       )}
     >
       {eyebrow ? (
-        <Eyebrow tone={tone} className={cn(align === "center" && "justify-center")}>
+        <Eyebrow
+          tone={tone}
+          className={cn("scene-rise", align === "center" && "justify-center")}
+        >
           {eyebrow}
         </Eyebrow>
       ) : null}
       <h2
         className={cn(
-          "mt-5 text-headline text-balance",
+          "mt-5 text-headline text-balance [--scene-delay:100ms]",
           tone === "inverse" && "text-knockout",
         )}
       >
-        {title}
+        <SplitWords text={title} />
       </h2>
       {lead ? (
         <p
           className={cn(
-            "mt-6 text-lead text-pretty",
-            tone === "primary" ? "text-ink-muted" : "text-primary-muted",
+            "scene-rise mt-6 text-lead text-pretty [--scene-delay:340ms]",
+            tone === "primary" ? "text-ink-muted" : "text-band-copy",
           )}
         >
           {lead}
         </p>
       ) : null}
-    </div>
+    </Scene>
   );
 }
 

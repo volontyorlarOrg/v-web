@@ -58,8 +58,11 @@ belong to the separate Volontyorlar application. Do not rebuild them here.
 - Vitest + Testing Library for units and components, Playwright for smoke paths
 - npm with a committed lockfile
 
-There is no theme library and no animation library: the design ships one light
-theme and motion is otherwise CSS-only. Do not add TanStack, React Hook Form,
+There is no theme library and no animation library. Light and dark are one
+token set switched by `data-theme` on `<html>` (`src/lib/theme.ts`), entry
+motion is CSS transitions released by a single `IntersectionObserver`
+(`src/components/marketing/scene.tsx`), and `lenis` is the one motion
+dependency, scoped to smooth scrolling. Do not add TanStack, React Hook Form,
 Zod, Zustand, auth SDKs, or dashboard packages.
 
 `three` is the single exception, and it is scoped to one surface: the home
@@ -82,8 +85,9 @@ src/app/global-not-found.tsx   -> 404 for unmatched URLs (root layout is dynamic
 src/i18n/                      -> routing, navigation, request config, catalogs
 src/lib/seo/                   -> origin helpers, metadata builder, JSON-LD
 src/lib/routing/routes.ts      -> the public route registry
-src/lib/content/               -> verified facts and call-to-action resolution
+src/lib/content/               -> verified facts, call-to-action resolution, mock nav tabs
 src/lib/constants/             -> external channels and analytics event names
+src/lib/theme.ts               -> theme preference, the boot script, the motion flag
 src/components/{ui,brand,marketing}/
 e2e/                           -> Playwright smoke suite
 docs/                          -> stable project documentation
@@ -109,7 +113,9 @@ docs/                          -> stable project documentation
   1.25:1 apart and must never be combined — no two-colour mark, no orange on
   blue, no blue on orange. Each hue has a graphics value (`#007FC2`, `#E85D30`,
   24px and above) and a text value (`#005E92`, `#B34917`). The palette defines
-  no red. Use semantic tokens, never a literal hex.
+  no red. Use semantic tokens, never a literal hex. Solid fills use `action`
+  and `band`, never `primary-ink`, so the dark theme can keep the blue that
+  carries text apart from the blue that carries a white label.
 - Preserve reduced-motion behaviour, keyboard access, visible focus states, one
   logical `h1` per page, and responsive behaviour.
 - Update `/docs` when stable environment or architecture behaviour changes.
@@ -139,8 +145,8 @@ git diff --check
 
 Add `npm run build` for build or deployment work, and `npm run test:e2e` when
 routing, navigation, or the information architecture changes. For UI work also
-inspect the affected routes at mobile and desktop widths and with reduced
-motion.
+inspect the affected routes at mobile and desktop widths, in both themes, and
+with reduced motion.
 
 To add anything — a page, copy, a locale, a token, a component, an external
 link — follow [`docs/operations/EXTENDING.md`](docs/operations/EXTENDING.md).

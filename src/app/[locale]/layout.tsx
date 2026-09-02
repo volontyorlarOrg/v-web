@@ -4,6 +4,7 @@ import { Onest, Source_Serif_4 } from "next/font/google";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
+import { ThemeScript } from "@/components/marketing/theme-script";
 import { routing } from "@/i18n/routing";
 import { marketingOrigin } from "@/lib/seo/origin";
 import "../globals.css";
@@ -56,7 +57,15 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale} className={`${onest.variable} ${sourceSerif.variable} h-full`}>
+    <html
+      lang={locale}
+      data-theme="light"
+      suppressHydrationWarning
+      className={`${onest.variable} ${sourceSerif.variable} h-full`}
+    >
+      <head>
+        <ThemeScript />
+      </head>
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider messages={{ nav: messages.nav }}>
           {children}

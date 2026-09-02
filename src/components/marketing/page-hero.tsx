@@ -1,3 +1,4 @@
+import { SplitWords } from "@/components/marketing/scene";
 import { Eyebrow } from "@/components/marketing/section";
 import { cn } from "@/lib/utils";
 
@@ -17,13 +18,17 @@ export function PageHero({
   return (
     <section className={cn("border-b border-border", className)}>
       <div className="hero-copy container-page py-14 sm:py-20">
-        {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
-        <h1 className="page-display mt-6 max-w-[24ch]">{title}</h1>
+        {eyebrow ? <Eyebrow className="enter-rise">{eyebrow}</Eyebrow> : null}
+        <h1 className="page-display enter-words mt-6 max-w-[24ch] [--enter-delay:120ms]">
+          <SplitWords text={title} />
+        </h1>
         {lead ? (
-          <p className="mt-7 max-w-[58ch] text-lead text-ink-muted text-pretty">{lead}</p>
+          <p className="enter-rise mt-7 max-w-[58ch] text-lead text-ink-muted text-pretty [--enter-delay:560ms]">
+            {lead}
+          </p>
         ) : null}
         {meta && meta.length > 0 ? (
-          <dl className="mt-9 flex flex-wrap gap-x-12 gap-y-5">
+          <dl className="enter-rise mt-9 flex flex-wrap gap-x-12 gap-y-5 [--enter-delay:720ms]">
             {meta.map((item) => (
               <div key={item.label}>
                 <dt className="text-xs font-semibold tracking-[0.14em] text-ink-muted uppercase">
