@@ -3,11 +3,22 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const CSS = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
+const DARK_START = CSS.indexOf(':root[data-theme="dark"]');
+const DARK_CSS = CSS.slice(DARK_START, CSS.indexOf("}", DARK_START));
+
+function tokenIn(source: string, name: string): string | null {
+  const match = source.match(new RegExp(`--color-${name}:\\s*(#[0-9a-fA-F]{6});`));
+  return match ? match[1] : null;
+}
 
 function token(name: string): string {
-  const match = CSS.match(new RegExp(`--color-${name}:\\s*(#[0-9a-fA-F]{6});`));
-  if (!match) throw new Error(`Missing design token --color-${name}`);
-  return match[1];
+  const value = tokenIn(CSS, name);
+  if (!value) throw new Error(`Missing design token --color-${name}`);
+  return value;
+}
+
+function darkToken(name: string): string {
+  return tokenIn(DARK_CSS, name) ?? token(name);
 }
 
 function relativeLuminance(hex: string): number {
@@ -28,7 +39,21 @@ function contrast(a: string, b: string): number {
 const AA_TEXT = 4.5;
 const AA_LARGE = 3;
 
-const LIGHT_SURFACES = ["paper", "surface", "surface-sunk", "surface-soft"];
+const SURFACES = ["paper", "surface", "surface-sunk", "surface-soft"];
+const TEXT_TOKENS = ["ink", "ink-muted", "primary-ink", "accent-ink"];
+const GRAPHICS_TOKENS = ["primary", "accent"];
+const SOLID_FILLS = ["action", "action-hover", "band", "primary-deep", "accent-ink", "ink"];
+const HUE_PAIRS: ReadonlyArray<readonly [string, string]> = [
+  ["primary", "accent"],
+  ["primary", "accent-ink"],
+  ["primary-ink", "accent"],
+  ["primary-ink", "accent-ink"],
+  ["action", "accent"],
+];
+const LIGHT_HUE_PAIRS: ReadonlyArray<readonly [string, string]> = [
+  ...HUE_PAIRS,
+  ["primary-deep", "accent"],
+];
 
 describe("brand values match docs/brand/LOGO_SPEC.md", () => {
   it.each([
@@ -41,25 +66,27 @@ describe("brand values match docs/brand/LOGO_SPEC.md", () => {
   ])("%s is %s", (name, value) => {
     expect(token(name)).toBe(value);
   });
+
+  it("fills actions and the band with the text-safe blue in the light theme", () => {
+    expect(token("action")).toBe(token("primary-ink"));
+    expect(token("band")).toBe(token("primary-ink"));
+  });
 });
 
 describe("text tokens meet AA on every light surface", () => {
-  it.each(["ink", "ink-muted", "primary-ink", "accent-ink"])(
-    "%s",
-    (foreground) => {
-      for (const surface of LIGHT_SURFACES) {
-        expect(
-          contrast(token(foreground), token(surface)),
-          `${foreground} on ${surface}`,
-        ).toBeGreaterThanOrEqual(AA_TEXT);
-      }
-    },
-  );
+  it.each(TEXT_TOKENS)("%s", (foreground) => {
+    for (const surface of SURFACES) {
+      expect(
+        contrast(token(foreground), token(surface)),
+        `${foreground} on ${surface}`,
+      ).toBeGreaterThanOrEqual(AA_TEXT);
+    }
+  });
 });
 
 describe("graphics tokens clear 3:1 but are not usable for body text", () => {
-  it.each(["primary", "accent"])("%s", (foreground) => {
-    for (const surface of LIGHT_SURFACES) {
+  it.each(GRAPHICS_TOKENS)("%s", (foreground) => {
+    for (const surface of SURFACES) {
       expect(
         contrast(token(foreground), token(surface)),
         `${foreground} on ${surface}`,
@@ -74,29 +101,24 @@ describe("graphics tokens clear 3:1 but are not usable for body text", () => {
 });
 
 describe("knockout labels on solid fills", () => {
-  it.each(["primary-ink", "primary-deep", "accent-ink", "ink"])(
-    "white on %s",
-    (background) => {
-      expect(
-        contrast(token("knockout"), token(background)),
-      ).toBeGreaterThanOrEqual(AA_TEXT);
-    },
-  );
+  it.each(SOLID_FILLS)("white on %s", (background) => {
+    expect(contrast(token("knockout"), token(background))).toBeGreaterThanOrEqual(AA_TEXT);
+  });
 
-  it("keeps muted copy on the blue band legible", () => {
+  it("keeps secondary copy on the band legible", () => {
+    expect(contrast(token("band-copy"), token("band"))).toBeGreaterThanOrEqual(AA_TEXT);
+  });
+
+  it("keeps the inverse button legible at rest and on hover", () => {
+    expect(contrast(token("action"), token("knockout"))).toBeGreaterThanOrEqual(AA_TEXT);
     expect(
-      contrast(token("primary-muted"), token("primary-ink")),
+      contrast(token("primary-deep"), token("primary-muted")),
     ).toBeGreaterThanOrEqual(AA_TEXT);
   });
 });
 
 describe("the two hues must never be combined", () => {
-  it.each([
-    ["primary", "accent"],
-    ["primary", "accent-ink"],
-    ["primary-ink", "accent"],
-    ["primary-deep", "accent"],
-  ])(
+  it.each(LIGHT_HUE_PAIRS)(
     "%s and %s are too close to sit on each other",
     (blue, orange) => {
       expect(contrast(token(blue), token(orange))).toBeLessThan(AA_LARGE);
@@ -113,5 +135,54 @@ describe("structural tokens", () => {
 
   it("defines no red, which would be indistinguishable from accent-ink", () => {
     expect(CSS).not.toMatch(/--color-destructive/);
+  });
+});
+
+describe("the dark theme", () => {
+  it("is switched by a data attribute, so the same tokens carry both themes", () => {
+    expect(DARK_START).toBeGreaterThan(0);
+    expect(DARK_CSS).toMatch(/color-scheme:\s*dark/);
+  });
+
+  it("turns the page ground near-black rather than blue", () => {
+    expect(relativeLuminance(darkToken("paper"))).toBeLessThan(0.01);
+    expect(relativeLuminance(darkToken("band"))).toBeLessThan(0.03);
+  });
+
+  it.each(TEXT_TOKENS)("%s meets AA on every dark surface", (foreground) => {
+    for (const surface of SURFACES) {
+      expect(
+        contrast(darkToken(foreground), darkToken(surface)),
+        `${foreground} on ${surface}`,
+      ).toBeGreaterThanOrEqual(AA_TEXT);
+    }
+  });
+
+  it.each(GRAPHICS_TOKENS)("%s clears 3:1 on every dark surface", (foreground) => {
+    for (const surface of SURFACES) {
+      expect(
+        contrast(darkToken(foreground), darkToken(surface)),
+        `${foreground} on ${surface}`,
+      ).toBeGreaterThanOrEqual(AA_LARGE);
+    }
+  });
+
+  it.each(["action", "action-hover", "band"])("keeps white labels legible on %s", (fill) => {
+    expect(contrast(darkToken("knockout"), darkToken(fill))).toBeGreaterThanOrEqual(AA_TEXT);
+  });
+
+  it("keeps band copy, the inverse button and control borders legible", () => {
+    expect(contrast(darkToken("band-copy"), darkToken("band"))).toBeGreaterThanOrEqual(AA_TEXT);
+    expect(contrast(darkToken("action"), darkToken("knockout"))).toBeGreaterThanOrEqual(AA_TEXT);
+    expect(
+      contrast(darkToken("primary-deep"), darkToken("primary-muted")),
+    ).toBeGreaterThanOrEqual(AA_TEXT);
+    expect(
+      contrast(darkToken("border-control"), darkToken("paper")),
+    ).toBeGreaterThanOrEqual(AA_LARGE);
+  });
+
+  it.each(HUE_PAIRS)("keeps %s and %s too close to combine", (blue, orange) => {
+    expect(contrast(darkToken(blue), darkToken(orange))).toBeLessThan(AA_LARGE);
   });
 });

@@ -23,9 +23,22 @@ document, not how it should read.
 ## Where tokens live
 
 `src/app/globals.css` declares every semantic token in a Tailwind 4 `@theme`
-block, so `bg-paper`, `text-ink-muted`, `border-border`, `bg-primary-ink`, and
+block, so `bg-paper`, `text-ink-muted`, `border-border`, `bg-action`, and
 `text-accent` are generated utilities. Components must not contain literal hex
 values.
+
+The dark theme is the same token names with different values, declared under
+`:root[data-theme="dark"]` in the base layer. Because the utilities reference
+the variables rather than inlining them, a component that uses `bg-paper` is
+already themed. `src/lib/theme.ts` owns the attribute: a boot script in
+`<head>` sets `data-theme` from the stored choice or the system preference
+before first paint, `ThemeToggle` writes it, and the hero map re-reads its
+palette when it changes. The choice is the one thing the site keeps in the
+browser, in `localStorage`, and the privacy page says so.
+
+Fills have their own tokens — `action`, `action-hover`, `band`, `band-copy` —
+because the dark theme needs a text blue that is light and a fill blue that is
+dark, and one token cannot be both.
 
 `src/app/design-tokens.test.ts` parses that file and asserts the whole contrast
 contract, including the deliberate negatives: the two graphics hues must each
@@ -39,8 +52,8 @@ Blue carries the header, footer, navigation, buttons, focus ring, eyebrow rules,
 the mark, decorative arcs, and the closing callout band.
 
 The traction figures are the loudest thing on the site, so they get their own
-colourway: a full-width `primary-ink` band with knockout numerals over a
-`primary` hairline that draws itself in. They read as one instrument wherever
+colourway: a full-width `band` with knockout numerals over a `primary` hairline
+that draws itself in. They read as one instrument wherever
 they appear — the home page and `/about` use the same band — and the closing
 call to action is distinguished from it by being a rounded panel inside a paper
 section rather than a band.
@@ -106,10 +119,14 @@ container-relative size fight each other, and the smaller one silently wins.
 | `CountUp` | Counts a figure from 1 to its real value the first time it is scrolled into view |
 | `NumberedRail` | The shared 01–NN hairline rail used for lists that read as a sequence |
 | `WorkField` | The home page's six responsibilities connected by one animated fieldwork route |
-| `Reveal` | Marks a block or a sequence for the scroll-driven reveal; a server component that only adds a class |
+| `Scene` / `SplitWords` | The entry-scene boundary and the word-by-word heading mask; server components that only add markup and classes |
+| `SceneObserver` | The one `IntersectionObserver` that marks scenes entered; mounted once in the marketing layout |
+| `SmoothScroll` | Mounts `lenis` when motion is allowed |
+| `ThemeToggle` | The labelled switch that flips `data-theme` and stores the choice |
+| `NavTabs` | The header tabs, rendered from the mock tab set with the active tab marked |
 | `Marquee` | The continuously rolling partner and source rows |
 | `RollingWords` | The hero eyebrow's cycling region name |
-| `BrandSignature` | The oversized footer lockup that writes itself and raises the mark's hands |
+| `BrandSignature` | The oversized footer lockup that writes itself and raises the mark's hands once the reader reaches the bottom of the page |
 
 Nothing on the home page is a bordered card. `StatGrid`, `NameBoard` and
 `WorkField` use hairline structure rather than containers. `WorkField` pairs the
@@ -152,13 +169,14 @@ lockup's wordmark renders in a different system face on every platform. See
 
 - Three locales, `uz` (default), `ru`, `en`, one per URL, prefix always present.
 - `src/proxy.ts` sends a prefix-less URL to the best `Accept-Language` match.
-- No locale cookie and no `localStorage`: the URL is the only language state, so
-  a canonical URL can never render two different languages, and every response
-  stays cacheable.
+- No locale cookie and no language in `localStorage`: the URL is the only
+  language state, so a canonical URL can never render two different languages,
+  and every response stays cacheable. The theme choice is the only thing stored
+  in the browser, and it never affects what a URL renders on the server.
 - The language disclosure is in the header at every width and in the footer. It
-  shows the active language, opens a list of native language names, and links to
-  the same route in another locale, so switching never drops the reader onto the
-  home page.
+  is a 40px pill showing the language code, opens a list of native language
+  names, and links to the same route in another locale, so switching never drops
+  the reader onto the home page.
 - `html[lang]` matches the active locale on every page.
 - `src/i18n/messages.test.ts` enforces key parity across the three catalogs,
   rejects empty and placeholder strings, requires the turned comma `ʻ` in Uzbek
@@ -184,9 +202,12 @@ lockup's wordmark renders in a different system face on every platform. See
 - Decorative marks and rails are `aria-hidden`; the ordered list carries the
   meaning of the step rail.
 - Reduced motion is honoured globally in the base layer, and again by one block
-  that switches off every scroll-driven reveal, the marquees, the rolling
-  eyebrow and the footer signature. The hero map reads the same preference in
-  JavaScript, holds one frame, and does not pin.
+  that switches off the marquees and the rolling eyebrow.
+  The boot script leaves `data-motion` off the document for those visitors, so
+  no entry scene ever hides anything and `lenis` is never mounted. The hero map
+  reads the same preference in JavaScript, holds one frame, and does not pin.
+- The theme switch is a `switch` with an accessible name and `aria-checked`, so
+  its state is announced; it sits beside the language control at every width.
 - The rolling region name in the hero eyebrow is `aria-hidden`; the eyebrow's
   accessible text is the static label beside it, and the `h1` under it carries
   the message. Under reduced motion it stops on the first name.
@@ -209,13 +230,15 @@ lockup's wordmark renders in a different system face on every platform. See
 - Mobile is the primary composition. `body` clips horizontal overflow and an
   end-to-end test asserts `scrollWidth === clientWidth` at 390px.
 - Two-column compositions collapse in reading order below the large breakpoint.
-- The header shows page links from the large breakpoint and moves them into the
-  disclosure panel below it; the language control never moves.
-- Navigation follows the reader's questions rather than the organisation chart:
-  **Volunteering** (what would I do), **Partners** (who is behind this),
-  **About** (who are you), **Contact** (how do I reach you).
-  `src/lib/routing/routes.ts` is the single source of that order, so the
-  header, the footer and the sitemap cannot disagree.
+- The header shows the tabs from the large breakpoint and moves them into the
+  disclosure panel below it; the language and theme controls never move.
+- The header tabs are a placeholder set, `NAV_TABS_MOCK` in
+  `src/lib/content/nav-tabs.ts`: Volunteering, Events (an anchor into the home
+  page's sources band), Partners, About, Contact. Each points at a registered
+  route, a test checks that and that every tab has a label in all three
+  catalogs, and the footer and sitemap still read `src/lib/routing/routes.ts`.
+  When the real information architecture lands, replace the mock set rather
+  than growing it.
 - The header lockup drops to the mark alone below 360px. `Volontyorlar` set beside
   the mark, the language control and the menu button do not fit a 320px screen
   together, and the mark is the part that still identifies the site.

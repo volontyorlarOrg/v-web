@@ -104,15 +104,45 @@ Tokens live in the `@theme` block of `src/app/globals.css` and nowhere else.
 Components use the generated utilities — `bg-surface`, `text-accent-ink` — and
 never a literal hex value.
 
+Every token has a light value in `@theme` and, where it differs, a dark value in
+the `:root[data-theme="dark"]` block directly below it. A token that is not
+overridden there keeps its light value in both themes, which is how `knockout`
+and `accent` work. Add the dark value in the same commit as the light one; the
+token test reads both blocks.
+
 Adding a colour means updating `docs/brand/BRAND_ASSETS.md` and adding
 assertions to `src/app/design-tokens.test.ts`. That test encodes the brand's
 non-negotiable rules as executable checks, including the negative ones: brand
 blue and brand orange must each stay *below* the body-text threshold, and every
 blue/orange pairing must stay below 3:1. A new hue needs the same treatment
-against both existing ones.
+against both existing ones, in both themes.
+
+Fills are their own tokens. `action` and `action-hover` fill solid buttons,
+`band` fills the solid band and the closing panel, and `band-copy` is the
+secondary copy on it. `primary-ink` is text-sized blue only. In the light theme
+`action` and `band` equal `primary-ink`; in the dark theme they diverge, because
+a blue light enough to read on near-black is too light to carry a white label.
 
 Before reaching for a colour, check the role split in `../../DESIGN.md`. Blue is
 the institution; orange is the person; there is no third hue and no red.
+
+## Add motion to a section
+
+Wrap the block in `Scene` from `src/components/marketing/scene.tsx` and mark the
+actors inside it: `scene-rise` on a block, `scene-stagger` on a list whose
+direct children should follow one another, `scene-rule` on a hairline that
+should draw in, `SplitWords` inside a heading that should rise word by word.
+Delays are custom properties (`[--scene-delay:340ms]`), so a component never
+needs a style object. `SectionHeader`, `StatGrid`, `NumberedRail`, `NameBoard`
+and `WorkField` are already scenes; do not nest one scene inside another,
+because the outer boundary would hide the inner actors until both have entered.
+
+Anything above the fold on load — the two heroes — uses the `enter-rise` and
+`enter-words` keyframes instead, so it plays without waiting for hydration.
+
+Every scene is complete at rest: without JavaScript, under reduced motion, and
+in print nothing is hidden. Keep it that way; the hidden state exists only under
+`html[data-motion]`, and only until the observer marks the scene `data-in`.
 
 ## Add a component
 
@@ -163,7 +193,9 @@ connection at all.
 The default answer is no. `docs/architecture/ARCHITECTURE.md` lists what was
 removed and why, and `AGENTS.md` lists the categories that do not belong in a
 marketing repository. A dependency needs a concrete, implemented requirement,
-not an anticipated one.
+not an anticipated one. `lenis` is the one motion dependency and it does one
+thing, smooth scrolling; entry motion is deliberately CSS plus one observer
+rather than an animation library.
 
 Known constraint: `@vitejs/plugin-react` cannot be installed. Its current major
 peers `@babel/core@^8` while the `shadcn` CLI pins `^7`. Vitest transforms TSX

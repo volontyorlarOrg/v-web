@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 
 import { BrandMark } from "@/components/brand/logo";
+import { ThemeScript } from "@/components/marketing/theme-script";
 import { defaultLocale, localeNames, locales } from "@/i18n/routing";
 import { ORGANIZATION_NAME } from "@/lib/content/org";
 import { localePath } from "@/lib/routing/routes";
@@ -31,7 +32,15 @@ export default async function GlobalNotFound() {
   );
 
   return (
-    <html lang={defaultLocale} className={`${onest.variable} h-full`}>
+    <html
+      lang={defaultLocale}
+      data-theme="light"
+      suppressHydrationWarning
+      className={`${onest.variable} h-full`}
+    >
+      <head>
+        <ThemeScript />
+      </head>
       <body className="flex min-h-full flex-col">
         <main className="container-page flex flex-1 flex-col justify-center py-20">
           <BrandMark className="size-12 text-primary" />

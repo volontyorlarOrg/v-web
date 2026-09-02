@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 import { JsonLd } from "@/components/marketing/json-ld";
 import { PageHero } from "@/components/marketing/page-hero";
-import { Reveal } from "@/components/marketing/reveal";
+import { Scene } from "@/components/marketing/scene";
 import { Section, SectionHeader } from "@/components/marketing/section";
 import type { Locale } from "@/i18n/routing";
 import { availableChannels, channelUrl } from "@/lib/constants/channels";
@@ -47,11 +47,9 @@ function Contact({ locale }: { locale: Locale }) {
       <PageHero title={t("title")} lead={t("lead")} />
 
       <Section>
-        <Reveal>
-          <SectionHeader title={t("channels.title")} />
-        </Reveal>
+        <SectionHeader title={t("channels.title")} />
         {channels.length > 0 ? (
-          <ul className="reveal-sequence mt-12 border-b border-border">
+          <Scene as="ul" variant="stagger" className="mt-12 border-b border-border">
             {channels.map((id) => (
               <li key={id} className="border-t border-border">
                 <a
@@ -70,16 +68,19 @@ function Contact({ locale }: { locale: Locale }) {
                 </a>
               </li>
             ))}
-          </ul>
+          </Scene>
         ) : (
-          <p className="mt-10 max-w-2xl border-t border-dashed border-border-control pt-6 leading-relaxed text-ink-muted">
+          <Scene
+            as="p"
+            className="mt-10 max-w-2xl border-t border-dashed border-border-control pt-6 leading-relaxed text-ink-muted"
+          >
             {t("channels.empty")}
-          </p>
+          </Scene>
         )}
       </Section>
 
       <Section tone="sunk">
-        <div className="reveal-sequence grid gap-x-12 gap-y-10 lg:grid-cols-3">
+        <Scene variant="stagger" className="grid gap-x-12 gap-y-10 lg:grid-cols-3">
           {AUDIENCES.map((id) => (
             <section key={id} className="border-t border-border-control/60 pt-6">
               <h2 className="text-title font-semibold text-balance">{t(`${id}.title`)}</h2>
@@ -88,7 +89,7 @@ function Contact({ locale }: { locale: Locale }) {
               </p>
             </section>
           ))}
-        </div>
+        </Scene>
       </Section>
     </>
   );

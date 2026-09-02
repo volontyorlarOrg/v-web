@@ -1,3 +1,4 @@
+import { Scene } from "@/components/marketing/scene";
 import { cn } from "@/lib/utils";
 
 export type WorkFieldItem = {
@@ -14,7 +15,7 @@ export function WorkField({
   className?: string;
 }) {
   return (
-    <div className={cn("work-field", className)} role="list">
+    <Scene variant="stagger" className={cn("work-field", className)} role="list">
       <svg
         aria-hidden="true"
         className="work-field-route"
@@ -34,6 +35,6 @@ export function WorkField({
           </p>
         </article>
       ))}
-    </div>
+    </Scene>
   );
 }

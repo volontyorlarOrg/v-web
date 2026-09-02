@@ -10,11 +10,13 @@
     "volunteering": "Volunteering",
     "partners": "Partners",
     "contact": "Contact",
+    "events": "Events",
     "privacy": "Privacy",
     "terms": "Terms",
     "join": "Join us",
     "primaryLabel": "Main navigation",
     "languageLabel": "Language",
+    "themeLabel": "Dark theme",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "skipToContent": "Skip to content"
@@ -263,7 +265,7 @@
       },
       "cookies": {
         "title": "No cookies",
-        "body": "The site sets no cookies and writes nothing to your browser's storage. Your language is part of the address of the page you are reading, not something we remember about you."
+        "body": "The site sets no cookies. The only thing it keeps in your browser is your choice of light or dark theme, which stays on your device and is never sent to us. Your language is part of the address of the page you are reading, not something we remember about you."
       },
       "analytics": {
         "title": "No analytics or tracking",

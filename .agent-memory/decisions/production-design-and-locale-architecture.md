@@ -28,3 +28,9 @@ where disclosure is needed.
 
 See also [[indexing-gated-on-verified-origin]] and
 [[scroll-driven-reveals-are-blank-off-screen]].
+
+**Revisited, September 2026.** "One light theme" and "no `localStorage`" no
+longer hold in full: a dark theme now switches on `data-theme`, and the
+visitor's choice is the one value kept in the browser. The language rule is
+unchanged — the URL is still the only language state. See
+[[entry-scenes-smooth-scroll-and-dark-theme]].

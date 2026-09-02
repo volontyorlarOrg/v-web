@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import { BrandLockup } from "@/components/brand/logo";
 import { BrandSignature } from "@/components/brand/signature";
 import { LocaleSwitcher } from "@/components/marketing/locale-switcher";
+import { Scene } from "@/components/marketing/scene";
 import { Link } from "@/i18n/navigation";
 import { availableChannels, channelUrl } from "@/lib/constants/channels";
 import { ORGANIZATION_NAME, ORGANIZATION_SHORT_NAME } from "@/lib/content/org";
@@ -14,8 +15,11 @@ export function SiteFooter() {
   const channels = availableChannels();
 
   return (
-    <footer className="bg-paper">
-      <div className="container-page grid gap-10 py-14 lg:grid-cols-[1.2fr_1fr_1fr] lg:gap-12">
+    <footer>
+      <Scene
+        variant="stagger"
+        className="container-page grid gap-10 py-14 lg:grid-cols-[1.2fr_1fr_1fr] lg:gap-12"
+      >
         <div className="max-w-sm">
           <BrandLockup
             name={ORGANIZATION_NAME}
@@ -84,13 +88,17 @@ export function SiteFooter() {
             ))}
           </ul>
         </div>
-      </div>
+      </Scene>
 
-      <div className="brand-signature-scene overflow-x-clip border-t border-border pt-14 pb-16 sm:pt-20 sm:pb-24">
+      <Scene
+        variant="group"
+        trigger="full"
+        className="overflow-x-clip border-t border-border pt-14 pb-16 sm:pt-20 sm:pb-24"
+      >
         <div className="container-page">
           <BrandSignature name={ORGANIZATION_NAME} />
         </div>
-      </div>
+      </Scene>
 
       <div className="border-t border-border">
         <div className="container-page flex flex-col gap-2 py-6 text-sm text-ink-muted sm:flex-row sm:items-center sm:justify-between">

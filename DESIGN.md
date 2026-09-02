@@ -1,19 +1,23 @@
 ---
 name: Volontyorlar Marketing
-description: A civic notice board — blue for the institution, orange for the person, plainspoken and light enough for a phone on mobile data.
+description: A civic whiteboard — blue for the institution, orange for the person, plainspoken, light enough for a phone on mobile data, and the same board after dark.
 colors:
-  paper: "#FBFAF7"
+  paper: "#F5F8FB"
   surface: "#FFFFFF"
-  surface-sunk: "#F1EFE9"
-  surface-soft: "#E7F1F8"
+  surface-sunk: "#ECF1F5"
+  surface-soft: "#E7F1F9"
   ink: "#222B33"
   ink-muted: "#566270"
-  border: "#E3E0D8"
-  border-control: "#949084"
+  border: "#DBE3EA"
+  border-control: "#85909A"
   primary: "#007FC2"
   primary-ink: "#005E92"
   primary-deep: "#004A73"
   primary-muted: "#BFDCEF"
+  action: "#005E92"
+  action-hover: "#004A73"
+  band: "#005E92"
+  band-copy: "#BFDCEF"
   accent: "#E85D30"
   accent-ink: "#B34917"
   knockout: "#FFFFFF"
@@ -69,13 +73,13 @@ spacing:
   container: "76rem"
 components:
   button-primary:
-    backgroundColor: "{colors.primary-ink}"
+    backgroundColor: "{colors.action}"
     textColor: "{colors.knockout}"
     rounded: "{rounded.full}"
     padding: "0 28px"
     height: "52px"
   button-primary-hover:
-    backgroundColor: "{colors.primary-deep}"
+    backgroundColor: "{colors.action-hover}"
     textColor: "{colors.knockout}"
     rounded: "{rounded.full}"
     padding: "0 28px"
@@ -89,7 +93,7 @@ components:
     height: "52px"
   button-inverse:
     backgroundColor: "{colors.knockout}"
-    textColor: "{colors.primary-ink}"
+    textColor: "{colors.action}"
     rounded: "{rounded.full}"
     padding: "0 28px"
     height: "52px"
@@ -110,15 +114,20 @@ components:
 
 ## Overview
 
-**Creative North Star: "Public notice board"**
+**Creative North Star: "Public whiteboard"**
 
-The site reads like a well-set civic notice: warm paper, dark ink, hairline
-rules doing the structural work, and two brand colours with a job each. Blue is
-the institution — navigation, structure, the mark. Orange is the person, and it
-appears only where a person did something. It is confident without shouting, and
-credible enough for the schools, agencies, and partner organisations Volontyorlar depends
+The site reads like a well-set civic notice pinned to a whiteboard: cool
+blue-white paper with a faint dot grid, dark ink, hairline rules doing the
+structural work, and two brand colours with a job each. Blue is the institution
+— navigation, structure, the mark. Orange is the person, and it appears only
+where a person did something. It is confident without shouting, and credible
+enough for the schools, agencies, and partner organisations Volontyorlar depends
 on, while staying young through scale, directness, and plain language rather
 than through decoration.
+
+After dark the board turns near-black. The dark theme is the same page with the
+lights off, not a second design: blue and white carry the actions, the grid
+stays, and nothing gains a glow.
 
 This direction consolidates the three retired explorations: V1's poster
 confidence in typographic scale and solid bands, V2's evidence discipline —
@@ -129,10 +138,13 @@ none of which survive contact with the delivered UN Blue brand set.
 
 **Key characteristics**
 
-- Warm paper ground, dark ink type, two brand hues that never touch.
+- A cool whiteboard ground with a faint blue dot grid, dark ink type, two brand
+  hues that never touch, and a near-black board for the dark theme.
 - A serif display face set at regular weight with tight negative tracking, over a
   humanist sans for everything a reader has to work through.
 - Hairline rules and tone bands instead of shadows, gradients and card borders.
+- Entry scenes: headings rise out of a mask word by word, blocks follow, once,
+  as a section comes into view.
 - Oversized tabular numerals in orange carrying the human evidence.
 - A rule-led label system that never uses the logo below its minimum size.
 - Provisional material labelled in words, never by colour alone.
@@ -179,9 +191,20 @@ reach for.
 - **Accent Ink `#B34917`** — the label attached to an orange moment, and any
   future knockout label on a solid orange fill.
 
+### Fills
+
+- **Action / Action Hover** — the solid button and its hover. Light: the same
+  values as Primary Ink and Primary Deep. Dark: a mid blue that still holds a
+  white label at 4.5:1, because the blue that reads as text on near-black is far
+  too light to carry one.
+- **Band / Band Copy** — the solid band under the traction figures and the
+  closing panel, and the secondary copy on it. Light: Primary Ink and Primary
+  Muted. Dark: a navy a step above the page ground, with light-blue copy.
+
 ### Neutral
 
-- **Paper** — the page ground.
+- **Paper** — the page ground: a cool blue-white in the light theme, near-black
+  in the dark. The whiteboard grid is painted over it.
 - **Surface** — cards and raised content, and the only ground orange figures
   sit on.
 - **Surface Sunk** — alternating section bands.
@@ -190,6 +213,31 @@ reach for.
 - **Border / Border Control** — hairlines, and the heavier 3:1 boundary that
   interactive controls need.
 - **Knockout** — white, on blue, orange, or ink.
+
+### Dark theme
+
+One token set, two values. `src/app/globals.css` declares the light value of
+every token in `@theme` and overrides the ones that change under
+`:root[data-theme="dark"]`. The attribute is set before first paint by a boot
+script that reads the stored choice, or the system preference when there is
+none; the switch in the header writes it and stores it.
+
+| Token | Dark value | Why |
+| --- | --- | --- |
+| paper | `#0A0E13` | Near-black with a cool cast; "dark black", not navy |
+| surface / surface-sunk / surface-soft | `#131920` / `#0E1319` / `#0F1B28` | Raised, sunk, and blue-tinted, a step apart |
+| ink / ink-muted | `#EDF1F5` / `#A6B1BD` | 17:1 and 9:1 on paper |
+| border / border-control | `#1F2833` / `#5B6774` | Hairline, and 3.3:1 for controls |
+| primary / primary-ink | `#3AA0E4` / `#6FBFF2` | Graphics blue and text blue, both legible on black |
+| primary-deep / primary-muted | `#0B3D63` / `#9ECDEC` | Inverse-button hover pairing, 6.7:1 |
+| action / action-hover | `#0E6FB2` / `#1178BF` | White labels at 5.3:1 and 4.7:1 |
+| band / band-copy | `#0D1E31` / `#A9CFEA` | Navy band, 10:1 copy |
+| accent-ink | `#F08A55` | 7.8:1 on paper; `accent` itself is unchanged |
+
+`src/app/design-tokens.test.ts` runs the same contrast contract against both
+blocks. The one rule it does not repeat in the dark is the negative one on the
+graphics hues, which exists to keep the delivered brand values from being used
+as text; on a black ground those values happen to pass, and that is fine.
 
 ### Named rules
 
@@ -201,8 +249,10 @@ meaning something.
 
 **The Graphics-and-Text Rule.** Each hue has two values. `#007FC2` and
 `#E85D30` are graphics; `#005E92` and `#B34917` are text. If an element carries
-words at body size, or a knockout label on a solid fill, it uses the `-ink`
-value.
+words at body size it uses the `-ink` value. A knockout label sits on `action`
+or `band`, never on `primary-ink` directly: in the light theme they are the same
+colour, in the dark theme they are not, and a component that reaches for
+`primary-ink` as a fill breaks the moment the lights go off.
 
 **The Hues Never Touch.** Blue and orange are 1.25:1 apart. No two-colour mark,
 no orange on blue, no blue on orange. This is why the regions band keeps white
@@ -266,6 +316,13 @@ Flat. Hierarchy comes from surface tone and one-pixel borders. There is one
 shadow in the system, under the open mobile navigation panel, because it floats
 over content. No card, button, or band carries a shadow.
 
+The ground itself is the whiteboard: `body` paints a 28px dot grid in blue at
+16% (22% in the dark) and one soft blue wash at the top of the document. Paper
+sections are transparent so the board shows through; sunk, soft and band
+sections are solid tone changes over it. The header stays solid paper so it
+reads as a bar. This is the one gradient in the system and it depicts the
+board, not a mood.
+
 ## Shapes
 
 Actions and chips are full-radius pills. Everything else grows with scale: 10px
@@ -279,9 +336,10 @@ and quiet, and most groupings use a hairline rule instead of a border.
 
 - **Shape:** full radius, 44px minimum height in navigation and 52px for page
   actions.
-- **Primary:** solid Primary Ink with white label, darkening on hover.
+- **Primary:** solid Action with white label, shifting to Action Hover.
 - **Outline:** transparent with a Border Control edge that turns blue on hover.
-- **Inverse:** white on the blue callout.
+- **Inverse:** white with an Action label, on the band; hovers to Primary Muted
+  with Primary Deep text, which holds in both themes.
 - **Focus:** a 3px Primary Ink outline at 3px offset, everywhere, from the base
   layer.
 
@@ -319,10 +377,14 @@ reinforces it.
 ### Navigation
 
 A 64px bar on mobile and 80px from the large breakpoint: mark plus organisation
-name, a language disclosure at every width, and one action. The disclosure shows
-the active language first and opens a native-name list without leaving the
-current route. Below the large breakpoint the page links move into their own
-panel that closes on Escape and on selection.
+name, the tabs, a compact utility cluster, and one action. The tabs come from
+`NAV_TABS_MOCK` in `src/lib/content/nav-tabs.ts`, a placeholder set that points
+at registered routes and home-page anchors until the real information
+architecture lands; the active tab is marked with `aria-current`. The utility
+cluster is two 40px pills: the language code, which opens a native-name list
+without leaving the current route, and the theme switch, a labelled `switch`
+that toggles `data-theme` and remembers the choice. Below the large breakpoint
+the tabs move into their own panel that closes on Escape and on selection.
 
 ## Surfaces and components
 
@@ -345,11 +407,30 @@ also frees them to be orange where they are a human number.
 
 ## Motion
 
-Transitions on hover and focus, and nothing else. There are no scroll reveals:
-a scroll-driven reveal leaves sections blank in any context that does not
-scroll, including full-page screenshots and print, which is a poor trade for a
-site whose pages get screenshotted and shared. The global reduced-motion rule
-still neutralises transitions for users who ask for it.
+Every section has an entry scene, and it plays once. As a block reaches the
+lower 88% of the viewport, its heading rises out of a mask word by word, its
+eyebrow and lead follow, list items arrive one after another, and hairlines
+draw in from the left. The two heroes do the same on load without waiting for
+JavaScript. The curve is one ease (`--ease-scene`), the durations sit around a
+second, and a word stagger is 45ms. Nothing scrubs with the scroll position
+except the devices named below; an entry is time-based, like a curtain going
+up, not a slider.
+
+The footer signature is the one scene that waits for the reader to arrive: the
+wordmark writes itself, the head pops and the two hands go up only once the
+whole band is on screen, which for the last band on the page means the bottom.
+
+Scrolling itself is smoothed by `lenis`, so the scenes and the map play against
+an eased scroll rather than a stepped one. Touch keeps native momentum.
+
+The scenes clear the bar the site has always set: correct and complete at rest.
+The hidden state exists only under `html[data-motion]`, which the boot script
+sets when the visitor has not asked for reduced motion, and only until the
+scene is marked entered. Without JavaScript, under reduced motion, and in print
+every word, block and rule is simply there. The trade the old scroll reveals
+made — blank sections in a full-page capture — is now confined to captures
+taken with motion on and no scrolling, which is the same trade the reference
+sites make.
 
 The home page's region map is the one scroll-driven surface, and it is allowed
 only because it does not take that trade. Nothing is revealed by scrolling: the
@@ -405,10 +486,15 @@ typeface. See `docs/brand/BRAND_ASSETS.md`.
 - **Do** put orange figures on white, never on a tinted band.
 - **Do** label anything that is planned, in preparation, or not yet published.
 - **Do** check display lines at 360px in Uzbek, Russian, and English.
+- **Do** check every surface in both themes; a token that only has a light value
+  is a decision, not an oversight, and should read as one.
 
 ### Don't
 
-- **Don't** use gradients, glassmorphism, ambient shadows, or glow.
+- **Don't** use gradients, glassmorphism, ambient shadows, or glow; the
+  whiteboard wash is the one gradient and it is the ground, not an effect.
+- **Don't** fill a button or a band with `primary-ink`; use `action` or `band`.
+- **Don't** hide anything that is not visible again without JavaScript.
 - **Don't** combine blue and orange in one element, or introduce a third hue.
 - **Don't** reach for a red; the palette defines none.
 - **Don't** put a literal hex value in a component.

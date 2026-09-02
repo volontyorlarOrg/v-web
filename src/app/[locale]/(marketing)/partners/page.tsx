@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { JsonLd } from "@/components/marketing/json-ld";
 import { NameBoard } from "@/components/marketing/name-board";
 import { PageHero } from "@/components/marketing/page-hero";
-import { Reveal } from "@/components/marketing/reveal";
+import { Scene, SplitWords } from "@/components/marketing/scene";
 import { Section, SectionHeader } from "@/components/marketing/section";
 import { buttonClass } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
@@ -51,11 +51,9 @@ function Partners({ locale }: { locale: Locale }) {
       <PageHero title={t("title")} lead={t("lead")} />
 
       <Section>
-        <Reveal>
-          <SectionHeader title={t("partnership.title")} lead={t("partnership.lead")} />
-        </Reveal>
+        <SectionHeader title={t("partnership.title")} lead={t("partnership.lead")} />
         <NameBoard
-          className="reveal-sequence mt-10"
+          className="mt-10"
           entries={PARTNERS.map((partner) => ({
             id: partner.id,
             name: partner.name,
@@ -65,11 +63,9 @@ function Partners({ locale }: { locale: Locale }) {
       </Section>
 
       <Section tone="sunk">
-        <Reveal>
-          <SectionHeader title={t("support.title")} lead={t("support.lead")} />
-        </Reveal>
+        <SectionHeader title={t("support.title")} lead={t("support.lead")} />
         <NameBoard
-          className="reveal-sequence mt-10"
+          className="mt-10"
           entries={SUPPORTERS.map((supporter) => ({
             id: supporter.id,
             name: supporter.name,
@@ -79,11 +75,9 @@ function Partners({ locale }: { locale: Locale }) {
       </Section>
 
       <Section>
-        <Reveal>
-          <SectionHeader title={t("sources.title")} lead={t("sources.lead")} />
-        </Reveal>
+        <SectionHeader title={t("sources.title")} lead={t("sources.lead")} />
         <NameBoard
-          className="reveal-sequence mt-10"
+          className="mt-10"
           entries={OPPORTUNITY_SOURCES.map((source) => ({
             id: source.id,
             name: source.name,
@@ -93,16 +87,23 @@ function Partners({ locale }: { locale: Locale }) {
       </Section>
 
       <Section tone="ink">
-        <Reveal className="max-w-2xl">
-          <h2 className="text-headline text-knockout text-balance">{t("work.title")}</h2>
-          <p className="mt-6 text-lead text-primary-muted text-pretty">{t("work.body")}</p>
+        <Scene variant="group" className="max-w-2xl">
+          <h2 className="text-headline text-knockout text-balance">
+            <SplitWords text={t("work.title")} />
+          </h2>
+          <p className="scene-rise mt-6 text-lead text-band-copy text-pretty [--scene-delay:340ms]">
+            {t("work.body")}
+          </p>
           <Link
             href={navHref("contact")}
-            className={buttonClass({ variant: "inverse", className: "mt-9" })}
+            className={buttonClass({
+              variant: "inverse",
+              className: "scene-rise mt-9 [--scene-delay:460ms]",
+            })}
           >
             {t("work.cta")}
           </Link>
-        </Reveal>
+        </Scene>
       </Section>
     </>
   );

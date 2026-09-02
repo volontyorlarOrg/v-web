@@ -32,22 +32,27 @@ flowchart LR
 | `src/i18n/` | Locale definition, navigation helpers, request config, message catalogs |
 | `src/lib/routing/routes.ts` | The single registry of public routes |
 | `src/lib/seo/` | Origin helpers, the metadata builder, JSON-LD builders |
-| `src/lib/content/` | Verified organisation facts and call-to-action resolution |
+| `src/lib/content/` | Verified organisation facts, call-to-action resolution, and the mock navigation tabs |
+| `src/lib/theme.ts` | Theme preference, the inline boot script, and the `data-motion` flag |
 | `src/lib/map/` | Generated region geometry, localised region names, SVG path helpers |
 | `src/lib/constants/` | External channel resolution and analytics event names |
 | `src/components/{ui,brand,marketing}/` | Action styling, brand marks, page composition |
 
 ## Rendering rules
 
-Server Components are the default. Five components opt into the client, and all
+Server Components are the default. Nine components opt into the client, and all
 of them receive their copy as props so no page-level translation reaches the
 browser:
 
 - `LocaleSwitcher` needs the active locale and pathname.
+- `NavTabs` needs the pathname to mark the active tab.
+- `ThemeToggle` needs the document's theme and a click handler.
 - `MobileNav` needs disclosure state and an Escape handler.
 - `HeroMapStage` owns the home page's hero, its scroll runway, and the canvas.
 - `RollingWords` cycles the region label while respecting reduced motion.
 - `CountUp` animates verified figures when they enter the viewport.
+- `SceneObserver` and `SmoothScroll` render nothing and own one browser API
+  each: the entry observer and `lenis`.
 
 The root layout hands `NextIntlClientProvider` only the `nav` namespace.
 Forwarding the whole catalog embedded every page's copy in every document:
@@ -152,7 +157,11 @@ The relief reads as white province faces on a solid blue board. `readPalette()`
 takes the plate top from `--color-primary` and its wall from `--color-primary-deep`,
 the tiles from `--color-surface-soft` with `--color-primary-muted` walls, so the
 constant inset between tiles shows as a blue seam and the exposed plate under a
-lifted tile shows as blue depth. Nothing in the scene is a literal colour.
+lifted tile shows as blue depth. Nothing in the scene is a literal colour, which
+is also why the dark theme costs the scene nothing: the stage watches
+`data-theme` on `<html>`, calls `setPalette()` with a fresh `readPalette()`, and
+repaints. In the dark the same geometry reads as navy faces with lit blue
+edges.
 
 `MeshLambertMaterial` divides irradiance by π, so light intensities that look
 reasonable as fractions of one render the whole map as flat grey. The four
@@ -276,49 +285,85 @@ To regenerate after changing a constant in the script:
 node scripts/build-region-geometry.mjs path/to/ne_10m_admin_1_states_provinces.geojson
 ```
 
-## Scroll-driven motion outside the hero
+## Entry scenes
 
-Everything below the hero animates from CSS scroll-driven timelines, not from
-JavaScript. `globals.css` declares the whole system inside
-`@supports (animation-timeline: view())`, and the hidden state of every reveal
-lives only in a keyframe's `from`. A browser without support therefore applies
-no rule at all and renders the finished state, rather than needing a fallback
-observer to un-hide content that CSS had hidden.
+Every section below the hero enters once, on time, as it comes into view. The
+system is three small parts and one attribute.
+
+**The boot script.** `THEME_BOOT_SCRIPT` in `src/lib/theme.ts` runs inline in
+`<head>` before first paint. It sets `data-theme` and, unless the visitor asked
+for reduced motion, `data-motion` on `<html>`. Every hidden state in the
+stylesheet is scoped under `html[data-motion]`, so a document without
+JavaScript, a visitor with reduced motion, and a print render all see the page
+complete with no rule applying at all.
+
+**The markup.** `Scene` (`src/components/marketing/scene.tsx`) is a server
+component that renders `data-scene` and a variant class: `scene-rise` for a
+block, `scene-stagger` for a list whose direct children follow one another at
+80ms, `scene-wipe` for the closing panel, and `scene-group` for a boundary whose
+actors set their own classes. `SplitWords` wraps each word of a heading in a
+clipped `scene-word` slot carrying its index in `--i`; the accessible name is
+untouched because the spaces stay as text nodes. `scene-rule` marks a hairline
+that draws in. Delays are custom properties (`[--scene-delay:340ms]`), never
+style objects.
+
+**The observer.** `SceneObserver` mounts once in the marketing layout, creates
+one `IntersectionObserver` with a `-12%` bottom margin (jamals.uz's "top 88%"),
+and marks each `[data-scene]` with `data-in` the first time it intersects. It
+rescans on every pathname change, and any scene already above the viewport at
+scan time is marked entered immediately, so a reload half-way down a page never
+leaves the top half hidden.
+
+**The CSS.** The transitions animate `opacity`, the individual `translate` and
+`scale` properties, and `clip-path`, on one curve (`--ease-scene`) at around a
+second. Using `translate` rather than `transform` matters: the work-field route
+already carries `transform: translateX(-50%)`, and an entry that wrote
+`transform` would have moved it. The two heroes cannot wait for hydration, so
+they use the `enter-rise` and `enter-words` keyframes instead, which play on
+load with the same curve and delays.
+
+What still scrubs with the scroll position is deliberate, and unchanged:
 
 | Class | Used for |
 | --- | --- |
-| `reveal` | A section header rises and fades in as its section enters |
-| `reveal-sequence` | The same, staggered across a grid's or list's direct children |
-| `reveal-wipe` | The closing call-to-action panel wipes up from its own bottom edge |
-| `work-row` / `work-rule` | A `NumberedRail` row un-blurs and rises while its hairline draws in from the left |
 | `work-field-*` | The home page responsibility route carries one blue signal through six fully visible items |
-| `figure-rule` | The rule above each traction figure draws in as the figure counts |
 | `process` / `rail-line` / `rail-head` / `process-node` / `process-content` | The step rail runs as a process: the connector fills, a head travels along it, and each step lights as the head reaches it |
 | `marquee` | The partner and source rows roll continuously, pausing on hover and focus |
-| `brand-signature-*` | The footer signature: the wordmark rises letter by letter, the head pops, and the mark's two hands sweep up from the centre |
 
 Only two things below the hero are not CSS. `CountUp` needs a formatted number
 on every frame, and `RollingWords` needs to mount a new word and retire the old
 one, so both are small client components; everything they animate is still a CSS
 transition or keyframe.
 
-Two rules govern where they go. Reveals punctuate rather than saturate — a
-pronounced one every second or third section, so the page has a rhythm instead
-of a twitch on every element. And `overflow: hidden` is never used on an
-ancestor of a scroll-driven element: `hidden` makes an element a scroll
-container, so `view()` resolves against that box instead of the viewport and the
-animation is finished before it is ever seen. Where clipping is needed above one
-of these — the footer signature's band, and the mask each letter rises out of —
-it is `overflow: clip`, which clips without becoming a scroll container.
+Two rules govern where scenes go. Do not nest one `Scene` inside another: the
+outer boundary's hidden state matches the inner actors too, so they would wait
+for both. And `overflow: hidden` is never used on an ancestor of a
+scroll-driven element: `hidden` makes an element a scroll container, so
+`view()` resolves against that box instead of the viewport and the animation is
+finished before it is ever seen. Where clipping is needed above one of these —
+the footer signature's band, and the mask each letter or word rises out of — it
+is `overflow: clip`, which clips without becoming a scroll container.
 
-Two places do not animate against their own box, and they name a timeline on an
+## Smooth scrolling
+
+`SmoothScroll` mounts `lenis` with `autoRaf` and anchor handling offset by the
+header height, and only when `data-motion` is set. Lenis drives the native
+scroll position, so `scroll` events, `IntersectionObserver`, the hero map's
+progress read and every CSS scroll timeline keep working unchanged; touch keeps
+native momentum. The base layer carries the four Lenis rules (natural height,
+no native smooth scrolling while Lenis is active, contained overscroll in
+`[data-lenis-prevent]`, clipped overflow while stopped).
+
+The footer signature is the one scene that waits for the reader to arrive
+rather than approach. `Scene` takes `trigger="full"`, and the observer watches
+that band with `threshold: 1`, so the wordmark writes itself letter by letter,
+the head pops and the two hands sweep up only once the whole band is on screen
+— which, for the last band on the page, means the reader has reached the
+bottom, as on wisprflow.ai. A band taller than the viewport falls back to the
+ordinary entry trigger so it can never wait forever.
+
+One place does not animate against its own box, and it names a timeline on an
 ancestor instead.
-
-The footer signature's letters, head and hands are far too short for a legible
-scrub, so the band carries `view-timeline-name: --brand-signature` and every part
-of the signature reads from it. The band's own padding therefore sets how long
-the sequence takes, and because the band is taller than the copyright bar below
-it, the hands always finish raising before the page bottom is reached.
 
 The step rail has a sharper reason. From the large breakpoint its four steps sit
 side by side, so their own view timelines are identical and `view()` would light
@@ -329,9 +374,10 @@ counts the `li` elements and ignores the rail spans in front of them. One
 timeline, five staggered readers, and the sequence survives the layout changing
 from a column to a row.
 
-Reduced motion is handled once, in a single block that sets `animation: none` on
-every one of these classes, hides the marquee's duplicate track and lets the row
-scroll by hand instead.
+Reduced motion is handled twice, on purpose: the boot script withholds
+`data-motion`, which keeps every scene visible and Lenis unmounted, and a single
+CSS block sets `animation: none` on the scrubbed classes, hides the marquee's
+duplicate track and lets the row scroll by hand instead.
 
 ## Keeping motion off the GPU's back
 
@@ -384,6 +430,7 @@ the map is flat-shaded enough that the difference is invisible.
 | `timeZone: "Asia/Tashkent"` | `src/i18n/request.ts` | Fixed, so server and client format dates identically for every visitor |
 | `experimental.globalNotFound` | `next.config.ts` | The root layout sits under `[locale]`, so a 404 for an unmatched URL cannot be composed from a layout |
 | Proxy `matcher` | `src/proxy.ts` | Skips API routes, Next internals, and anything containing a dot, so static assets never pay for a proxy hop |
+| Theme in `localStorage`, not a cookie | `src/lib/theme.ts` | A cookie would reach the server and tempt a per-request render; the inline boot script applies the stored value before paint and every page stays static |
 
 `global-not-found.tsx` bypasses the layout tree, which is why it re-imports the
 global stylesheet and the typeface. It sits outside `[locale]` and cannot know
@@ -393,13 +440,18 @@ link for each.
 ## Dependency boundary
 
 Runtime dependencies are `next`, `react`, `react-dom`, `next-intl`,
-`class-variance-authority`, `clsx`, `tailwind-merge`, `lucide-react`, and
-`three`, which is isolated to the hero map.
+`class-variance-authority`, `clsx`, `tailwind-merge`, `lucide-react`, `lenis`,
+which does smooth scrolling and nothing else, and `three`, which is isolated to
+the hero map.
 
 Removed during the production consolidation because nothing imported them:
 `i18next`, `react-i18next`, `i18next-browser-languagedetector`, `next-themes`,
-`motion`, `@radix-ui/react-accordion`, and `tw-animate-css`. The site ships one
-light theme and CSS-only interface motion; WebGL stays confined to the hero map.
+`motion`, `@radix-ui/react-accordion`, and `tw-animate-css`. Two of those were
+considered again when the entry scenes and the dark theme were built and
+declined again: `next-themes` is forty lines of `src/lib/theme.ts`, and an
+animation library would have cost more than every scene on the site put
+together. Themes are a data attribute, interface motion is CSS plus one
+observer, and WebGL stays confined to the hero map.
 
 Do not add application dependencies here: no TanStack, React Hook Form, Zod,
 Zustand, nuqs, openapi-fetch, next-safe-action, jose, drag-and-drop, chart, PDF,

@@ -8,7 +8,7 @@ import { SectionBackdrop } from "@/components/marketing/section-backdrop";
 import { HeroMapSection } from "@/components/marketing/hero-map/hero-map-section";
 import { JsonLd } from "@/components/marketing/json-ld";
 import { Marquee } from "@/components/marketing/marquee";
-import { Reveal } from "@/components/marketing/reveal";
+import { Scene, SplitWords } from "@/components/marketing/scene";
 import { Eyebrow, Section, SectionHeader } from "@/components/marketing/section";
 import { StatGrid, type Stat } from "@/components/marketing/stats";
 import { StepRail, type Step } from "@/components/marketing/steps";
@@ -98,18 +98,26 @@ function Home({ locale }: { locale: Locale }) {
       <HeroMapSection locale={locale} />
 
       <Section tone="ink">
-        <Eyebrow tone="inverse">{t("stats.eyebrow")}</Eyebrow>
+        <Scene variant="group">
+          <Eyebrow tone="inverse" className="scene-rise">
+            {t("stats.eyebrow")}
+          </Eyebrow>
+        </Scene>
         <StatGrid stats={stats} className="mt-14" />
       </Section>
 
       <Section tone="sunk">
-        <Reveal>
-          <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-headline text-balance">{t("what.eyebrow")}</h2>
-            <p className="mt-5 text-lead text-ink text-pretty">{t("what.title")}</p>
-            <p className="mt-3 text-ink-muted text-pretty">{t("what.lead")}</p>
-          </div>
-        </Reveal>
+        <Scene variant="group" className="mx-auto max-w-3xl text-center">
+          <h2 className="text-headline text-balance">
+            <SplitWords text={t("what.eyebrow")} />
+          </h2>
+          <p className="scene-rise mt-5 text-lead text-ink text-pretty [--scene-delay:280ms]">
+            {t("what.title")}
+          </p>
+          <p className="scene-rise mt-3 text-ink-muted text-pretty [--scene-delay:380ms]">
+            {t("what.lead")}
+          </p>
+        </Scene>
 
         <WorkField
           className="mt-14 sm:mt-20"
@@ -122,18 +130,14 @@ function Home({ locale }: { locale: Locale }) {
       </Section>
 
       <Section>
-        <Reveal>
-          <SectionHeader eyebrow={t("how.eyebrow")} title={t("how.title")} />
-        </Reveal>
+        <SectionHeader eyebrow={t("how.eyebrow")} title={t("how.title")} />
         <StepRail steps={steps} className="mt-14" />
       </Section>
 
-      <Section tone="soft">
+      <Section id="sources" tone="soft">
         <SectionBackdrop variant="channels" />
-        <Reveal>
-          <SectionHeader eyebrow={t("sources.eyebrow")} title={t("sources.title")} />
-        </Reveal>
-        <div className="mt-12 -mx-5 flex flex-col gap-3 border-y border-border sm:-mx-8">
+        <SectionHeader eyebrow={t("sources.eyebrow")} title={t("sources.title")} />
+        <Scene className="mt-12 -mx-5 flex flex-col gap-3 border-y border-border sm:-mx-8">
           <Marquee
             label={t("sources.sourcesLabel")}
             seconds={44}
@@ -161,7 +165,7 @@ function Home({ locale }: { locale: Locale }) {
               })),
             ]}
           />
-        </div>
+        </Scene>
         <Link
           href={navHref("partners")}
           className={buttonClass({ variant: "ghost", size: "sm", className: "mt-8 -ml-4" })}
@@ -171,15 +175,18 @@ function Home({ locale }: { locale: Locale }) {
       </Section>
 
       <Section>
-        <div className="reveal-wipe relative isolate overflow-hidden rounded-2xl bg-primary-ink px-7 py-16 sm:px-14 sm:py-20">
+        <Scene
+          variant="wipe"
+          className="relative isolate overflow-hidden rounded-2xl bg-band px-7 py-16 sm:px-14 sm:py-20"
+        >
           <BrandArc className="pointer-events-none absolute -right-16 -bottom-40 -z-10 size-96 text-knockout/12" />
-          <h2 className="max-w-[18ch] text-headline text-knockout text-balance">
-            {t("cta.title")}
+          <h2 className="max-w-[18ch] text-headline text-knockout text-balance [--scene-delay:260ms]">
+            <SplitWords text={t("cta.title")} />
           </h2>
-          <p className="mt-6 max-w-xl text-lead text-primary-muted text-pretty">
+          <p className="scene-rise mt-6 max-w-xl text-lead text-band-copy text-pretty [--scene-delay:520ms]">
             {t("cta.lead")}
           </p>
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="scene-rise mt-10 flex flex-col gap-3 sm:flex-row sm:items-center [--scene-delay:640ms]">
             <ActionLink destination={join} className={buttonClass({ variant: "inverse" })}>
               {t("cta.primary")}
             </ActionLink>
@@ -193,7 +200,7 @@ function Home({ locale }: { locale: Locale }) {
               {t("cta.secondary")}
             </Link>
           </div>
-        </div>
+        </Scene>
       </Section>
     </>
   );

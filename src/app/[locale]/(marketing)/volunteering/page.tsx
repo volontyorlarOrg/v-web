@@ -6,7 +6,7 @@ import { ActionLink } from "@/components/marketing/action-link";
 import { JsonLd } from "@/components/marketing/json-ld";
 import { NumberedRail } from "@/components/marketing/numbered-rail";
 import { PageHero } from "@/components/marketing/page-hero";
-import { Reveal } from "@/components/marketing/reveal";
+import { Scene, SplitWords } from "@/components/marketing/scene";
 import { Section, SectionHeader, StatusChip } from "@/components/marketing/section";
 import { StepRail, type Step } from "@/components/marketing/steps";
 import { buttonClass } from "@/components/ui/button";
@@ -69,18 +69,14 @@ function Volunteering({ locale }: { locale: Locale }) {
       <PageHero title={t("title")} lead={t("lead")} />
 
       <Section>
-        <Reveal>
-          <SectionHeader eyebrow={home("how.eyebrow")} title={home("how.title")} />
-        </Reveal>
+        <SectionHeader eyebrow={home("how.eyebrow")} title={home("how.title")} />
         <StepRail steps={steps} className="mt-14" />
       </Section>
 
       <Section tone="sunk">
         <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
           <div className="lg:sticky lg:top-32 lg:self-start">
-            <Reveal>
-              <SectionHeader title={t("expect.title")} />
-            </Reveal>
+            <SectionHeader title={t("expect.title")} />
           </div>
           <NumberedRail
             items={EXPECTATIONS.map((id) => ({
@@ -95,10 +91,8 @@ function Volunteering({ locale }: { locale: Locale }) {
       <Section>
         <div className="grid gap-14 lg:grid-cols-2 lg:gap-20">
           <div>
-            <Reveal>
-              <SectionHeader title={t("responsibilities.title")} />
-            </Reveal>
-            <ul className="reveal-sequence mt-10">
+            <SectionHeader title={t("responsibilities.title")} />
+            <Scene as="ul" variant="stagger" className="mt-10">
               {RESPONSIBILITIES.map((id) => (
                 <li
                   key={id}
@@ -107,36 +101,45 @@ function Volunteering({ locale }: { locale: Locale }) {
                   {t(`responsibilities.items.${id}`)}
                 </li>
               ))}
-            </ul>
+            </Scene>
           </div>
 
-          <Reveal className="lg:pt-2">
+          <div className="lg:pt-2">
             <SectionHeader title={t("app.title")} lead={t("app.body")} />
             {hasApp ? (
-              <ActionLink destination={opportunities} className={buttonClass({ className: "mt-9" })}>
-                {t("app.cta")}
-              </ActionLink>
+              <Scene className="mt-9">
+                <ActionLink destination={opportunities} className={buttonClass()}>
+                  {t("app.cta")}
+                </ActionLink>
+              </Scene>
             ) : (
-              <div className="mt-9 flex flex-wrap items-center gap-3">
+              <Scene className="mt-9 flex flex-wrap items-center gap-3">
                 <StatusChip>{t("app.title")}</StatusChip>
                 <p className="text-sm text-ink-muted">{t("app.pending")}</p>
-              </div>
+              </Scene>
             )}
-          </Reveal>
+          </div>
         </div>
       </Section>
 
       <Section tone="ink">
-        <Reveal className="max-w-2xl">
-          <h2 className="text-headline text-knockout text-balance">{t("start.title")}</h2>
-          <p className="mt-6 text-lead text-primary-muted text-pretty">{t("start.body")}</p>
+        <Scene variant="group" className="max-w-2xl">
+          <h2 className="text-headline text-knockout text-balance">
+            <SplitWords text={t("start.title")} />
+          </h2>
+          <p className="scene-rise mt-6 text-lead text-band-copy text-pretty [--scene-delay:340ms]">
+            {t("start.body")}
+          </p>
           <ActionLink
             destination={join}
-            className={buttonClass({ variant: "inverse", className: "mt-9" })}
+            className={buttonClass({
+              variant: "inverse",
+              className: "scene-rise mt-9 [--scene-delay:460ms]",
+            })}
           >
             {home("hero.primaryCta")}
           </ActionLink>
-        </Reveal>
+        </Scene>
       </Section>
     </>
   );

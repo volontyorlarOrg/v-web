@@ -23,10 +23,13 @@ folder. Never store secrets or unverified external claims.
   surface, and the three conditions it has to keep meeting
 - `decisions/hero-map-keeps-north-up.md` — why the hero map's closing act
   settles upward instead of turning sideways, and the three rules tests enforce
+- `decisions/entry-scenes-smooth-scroll-and-dark-theme.md` — why the entry
+  scenes are CSS plus one observer rather than GSAP, why fills got their own
+  tokens, why the theme lives in `localStorage`, and what the nav tabs are
 - `gotchas/product-brief-is-not-live-state.md` — what may and may not be claimed
 - `gotchas/svg-lockup-wordmark-font.md` — why the delivered lockup is not used
-- `gotchas/scroll-driven-reveals-are-blank-off-screen.md` — why there are no
-  scroll reveals
+- `gotchas/scroll-driven-reveals-are-blank-off-screen.md` — why the old
+  scroll reveals went, and the bar the entry scenes had to clear
 - `gotchas/next-intl-provider-ships-every-message.md` — how to avoid shipping
   every locale string to the browser
 - `gotchas/next-typegen-before-typecheck.md` — why `typecheck` runs typegen

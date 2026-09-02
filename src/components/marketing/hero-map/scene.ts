@@ -200,6 +200,7 @@ export type MapScene = {
   render: (progress: number, room: Room) => Phase;
   resize: (width: number, height: number, pixelRatio: number) => void;
   projectMarkers: (width: number, height: number) => ProjectedMarker[];
+  setPalette: (palette: Palette) => void;
   dispose: () => void;
 };
 
@@ -224,7 +225,8 @@ export function createMapScene(canvas: HTMLCanvasElement, palette: Palette): Map
   const sky = new HemisphereLight(palette.key, palette.tileSide, 1.3);
   sky.position.set(0, 0.5, 1);
   scene.add(sky);
-  scene.add(new AmbientLight(palette.ambient, 0.88));
+  const ambient = new AmbientLight(palette.ambient, 0.88);
+  scene.add(ambient);
   const key = new DirectionalLight(palette.key, 2.18);
   key.position.set(-1.2, 1.4, 2.2);
   scene.add(key);
@@ -371,6 +373,20 @@ export function createMapScene(canvas: HTMLCanvasElement, palette: Palette): Map
     });
   }
 
+  function setPalette(next: Palette) {
+    sky.color.copy(next.key);
+    sky.groundColor.copy(next.tileSide);
+    ambient.color.copy(next.ambient);
+    key.color.copy(next.key);
+    fill.color.copy(next.tileSide);
+    plateMaterialTop.color.copy(next.plateTop);
+    plateMaterialSide.color.copy(next.plateSide);
+    tileMaterialTop.color.copy(next.tileTop);
+    tileMaterialSide.color.copy(next.tileSide);
+    leaderMaterial.color.copy(next.leader);
+    markerMaterial.color.copy(next.marker);
+  }
+
   function dispose() {
     scene.clear();
     for (const item of disposables) item.dispose();
@@ -378,7 +394,7 @@ export function createMapScene(canvas: HTMLCanvasElement, palette: Palette): Map
     renderer.forceContextLoss();
   }
 
-  return { render, resize, projectMarkers, dispose };
+  return { render, resize, projectMarkers, setPalette, dispose };
 }
 
 export { MAP_EXTENT };

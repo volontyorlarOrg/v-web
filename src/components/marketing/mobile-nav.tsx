@@ -47,7 +47,7 @@ export function MobileNav({
         onClick={() => setOpen((value) => !value)}
         aria-expanded={open}
         aria-controls={panelId}
-        className="inline-flex size-11 items-center justify-center rounded-lg border border-border text-ink lg:hidden"
+        className="inline-flex size-10 items-center justify-center rounded-full border border-border bg-surface text-ink transition-colors hover:border-border-control lg:hidden"
       >
         {open ? (
           <X aria-hidden="true" className="size-5" />

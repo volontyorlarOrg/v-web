@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, ChevronDown, Languages } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import { useLocale } from "next-intl";
 import { useEffect, useId, useRef, useState } from "react";
 
@@ -52,16 +52,12 @@ export function LocaleSwitcher({
         aria-controls={panelId}
         aria-label={`${label}: ${localeNames[active]}`}
         onClick={() => setOpen((value) => !value)}
-        className="inline-flex min-h-11 w-[4.75rem] items-center justify-center gap-1.5 rounded-lg border border-border bg-surface px-2 text-sm font-semibold text-ink transition-colors hover:border-border-control hover:text-primary-ink sm:w-36 sm:justify-start sm:px-3"
+        className="inline-flex h-10 items-center gap-1 rounded-full border border-border bg-surface pr-2 pl-3 text-xs font-semibold tracking-[0.08em] text-ink uppercase transition-colors hover:border-border-control hover:text-primary-ink"
       >
-        <Languages aria-hidden="true" className="size-4 shrink-0 text-primary-ink" />
-        <span className="uppercase sm:hidden">{active}</span>
-        <span className="hidden min-w-0 flex-1 truncate text-left sm:block">
-          {localeNames[active]}
-        </span>
+        <span>{active}</span>
         <ChevronDown
           aria-hidden="true"
-          className={cn("size-4 shrink-0 transition-transform", open && "rotate-180")}
+          className={cn("size-3.5 shrink-0 transition-transform", open && "rotate-180")}
         />
       </button>
 
