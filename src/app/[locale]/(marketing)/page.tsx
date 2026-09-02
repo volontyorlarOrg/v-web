@@ -6,6 +6,7 @@ import { BrandArc } from "@/components/brand/logo";
 import { ActionLink } from "@/components/marketing/action-link";
 import { SectionBackdrop } from "@/components/marketing/section-backdrop";
 import { HeroMapSection } from "@/components/marketing/hero-map/hero-map-section";
+import { JsonLd } from "@/components/marketing/json-ld";
 import { Marquee } from "@/components/marketing/marquee";
 import { NumberedRail } from "@/components/marketing/numbered-rail";
 import { Reveal } from "@/components/marketing/reveal";
@@ -78,25 +79,21 @@ function Home({ locale }: { locale: Locale }) {
     actor: id === "volunteer" ? "volunteer" : "organisation",
   }));
 
-  const structuredData = [
-    organizationJsonLd({
-      locale,
-      name: common("organizationName"),
-      description: t("metaDescription"),
-    }),
-    webSiteJsonLd({
-      locale,
-      name: common("organizationName"),
-      description: t("metaDescription"),
-    }),
-  ];
+  const organizationStructuredData = organizationJsonLd({
+    locale,
+    name: common("organizationName"),
+    description: t("metaDescription"),
+  });
+  const websiteStructuredData = webSiteJsonLd({
+    locale,
+    name: common("organizationName"),
+    description: t("metaDescription"),
+  });
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      <JsonLd data={organizationStructuredData} />
+      <JsonLd data={websiteStructuredData} />
 
       <HeroMapSection locale={locale} />
 

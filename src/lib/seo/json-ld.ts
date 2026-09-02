@@ -4,7 +4,7 @@ import { marketingUrl } from "@/lib/seo/origin";
 import { FOUNDED_ON, FOUNDERS } from "@/lib/content/org";
 import { verifiedSocialUrls } from "@/lib/constants/channels";
 
-type JsonLd = Record<string, unknown>;
+export type JsonLd = Record<string, unknown>;
 
 export function organizationJsonLd({
   locale,

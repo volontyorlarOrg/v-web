@@ -1,6 +1,14 @@
 export type SecurityHeader = { key: string; value: string };
 
-export function contentSecurityPolicy({ secureTransport }: { secureTransport: boolean }): string {
+export type SecurityEnvironment = {
+  development: boolean;
+  secureTransport: boolean;
+};
+
+export function contentSecurityPolicy({
+  development,
+  secureTransport,
+}: SecurityEnvironment): string {
   return [
     "default-src 'self'",
     "base-uri 'self'",
@@ -10,18 +18,17 @@ export function contentSecurityPolicy({ secureTransport }: { secureTransport: bo
     "img-src 'self' data:",
     "font-src 'self'",
     "style-src 'self' 'unsafe-inline'",
-    "script-src 'self' 'unsafe-inline'",
-    "connect-src 'self'",
+    `script-src 'self' 'unsafe-inline'${development ? " 'unsafe-eval'" : ""}`,
+    `connect-src 'self'${development ? " ws:" : ""}`,
     "manifest-src 'self'",
     ...(secureTransport ? ["upgrade-insecure-requests"] : []),
   ].join("; ");
 }
 
 export function securityHeaders({
+  development,
   secureTransport,
-}: {
-  secureTransport: boolean;
-}): SecurityHeader[] {
+}: SecurityEnvironment): SecurityHeader[] {
   return [
     { key: "X-Frame-Options", value: "DENY" },
     { key: "X-Content-Type-Options", value: "nosniff" },
@@ -39,6 +46,9 @@ export function securityHeaders({
           },
         ]
       : []),
-    { key: "Content-Security-Policy", value: contentSecurityPolicy({ secureTransport }) },
+    {
+      key: "Content-Security-Policy",
+      value: contentSecurityPolicy({ development, secureTransport }),
+    },
   ];
 }
