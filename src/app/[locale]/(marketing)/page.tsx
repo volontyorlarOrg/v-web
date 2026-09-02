@@ -1,11 +1,16 @@
-import { useFormatter, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
 import { BrandArc } from "@/components/brand/logo";
 import { ActionLink } from "@/components/marketing/action-link";
-import { NameBoard } from "@/components/marketing/name-board";
-import { Eyebrow, Section, SectionHeader, StatusChip } from "@/components/marketing/section";
+import { SectionBackdrop } from "@/components/marketing/section-backdrop";
+import { HeroMapSection } from "@/components/marketing/hero-map/hero-map-section";
+import { JsonLd } from "@/components/marketing/json-ld";
+import { Marquee } from "@/components/marketing/marquee";
+import { NumberedRail } from "@/components/marketing/numbered-rail";
+import { Reveal } from "@/components/marketing/reveal";
+import { Eyebrow, Section, SectionHeader } from "@/components/marketing/section";
 import { StatGrid, type Stat } from "@/components/marketing/stats";
 import { StepRail, type Step } from "@/components/marketing/steps";
 import { buttonClass } from "@/components/ui/button";
@@ -13,7 +18,6 @@ import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { joinDestination } from "@/lib/content/cta";
 import {
-  COURSE_TOPIC_IDS,
   OPPORTUNITY_SOURCES,
   PARTNERS,
   SUPPORTERS,
@@ -48,26 +52,24 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
 function Home({ locale }: { locale: Locale }) {
   const t = useTranslations("home");
   const partnersCopy = useTranslations("partners");
-  const courseCopy = useTranslations("course");
   const common = useTranslations("common");
-  const format = useFormatter();
   const join = joinDestination();
 
-  const plus = (value: number) => `${format.number(value)}+`;
-
   const stats: Stat[] = [
-    { id: "telegram", value: plus(TRACTION.telegramFollowers), label: t("stats.telegram") },
-    { id: "events", value: plus(TRACTION.eventsSupplied), label: t("stats.events") },
+    {
+      id: "telegram",
+      amount: TRACTION.telegramFollowers,
+      suffix: "+",
+      label: t("stats.telegram"),
+    },
+    { id: "events", amount: TRACTION.eventsSupplied, suffix: "+", label: t("stats.events") },
     {
       id: "applications",
-      value: plus(TRACTION.regionalRoleApplications),
+      amount: TRACTION.regionalRoleApplications,
+      suffix: "+",
       label: t("stats.applications"),
     },
-    {
-      id: "regions",
-      value: format.number(TARGET_REGION_COUNT),
-      label: t("stats.regions"),
-    },
+    { id: "regions", amount: TARGET_REGION_COUNT, label: t("stats.regions") },
   ];
 
   const steps: Step[] = HOW_STEPS.map((id) => ({
@@ -77,188 +79,111 @@ function Home({ locale }: { locale: Locale }) {
     actor: id === "volunteer" ? "volunteer" : "organisation",
   }));
 
-  const structuredData = [
-    organizationJsonLd({
-      locale,
-      name: common("organizationName"),
-      description: t("metaDescription"),
-    }),
-    webSiteJsonLd({
-      locale,
-      name: common("organizationName"),
-      description: t("metaDescription"),
-    }),
-  ];
+  const organizationStructuredData = organizationJsonLd({
+    locale,
+    name: common("organizationName"),
+    description: t("metaDescription"),
+  });
+  const websiteStructuredData = webSiteJsonLd({
+    locale,
+    name: common("organizationName"),
+    description: t("metaDescription"),
+  });
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+      <JsonLd data={organizationStructuredData} />
+      <JsonLd data={websiteStructuredData} />
 
-      <section className="relative isolate overflow-hidden border-b border-border">
-        <BrandArc className="pointer-events-none absolute -top-16 -right-24 -z-10 size-[24rem] text-primary/[0.07] sm:-top-24 sm:-right-16 sm:size-[34rem]" />
-        <div className="container-page py-16 sm:py-24">
-          <Eyebrow>{t("hero.eyebrow")}</Eyebrow>
-          <h1 className="mt-6 max-w-[16ch] text-display font-bold text-balance">
-            {t("hero.title")}
-          </h1>
-          <p className="mt-7 max-w-2xl text-lead text-ink-muted text-pretty">
-            {t("hero.lead")}
-          </p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <ActionLink destination={join} className={buttonClass()}>
-              {t("hero.primaryCta")}
-            </ActionLink>
-            <Link
-              href={navHref("volunteering")}
-              className={buttonClass({ variant: "outline" })}
-            >
-              {t("hero.secondaryCta")}
-            </Link>
-          </div>
-          <p className="mt-5 text-sm text-ink-muted">{t("hero.note")}</p>
+      <HeroMapSection locale={locale} />
 
-          <div className="mt-14 border-t border-border pt-10">
-            <Eyebrow>{t("stats.eyebrow")}</Eyebrow>
-            <StatGrid stats={stats} className="mt-5" />
-          </div>
-        </div>
-      </section>
+      <Section tone="ink">
+        <Eyebrow tone="inverse">{t("stats.eyebrow")}</Eyebrow>
+        <StatGrid stats={stats} className="mt-14" />
+      </Section>
 
       <Section tone="sunk">
-        <SectionHeader
-          eyebrow={t("what.eyebrow")}
-          title={t("what.title")}
-          lead={t("what.lead")}
-        />
-        <ul className="mt-12 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {WHAT_WE_DO.map((id) => (
-            <li key={id} className="bg-surface p-6">
-              <h3 className="text-lg font-bold tracking-[-0.015em]">
-                {t(`what.items.${id}.title`)}
-              </h3>
-              <p className="mt-2 leading-relaxed text-ink-muted">
-                {t(`what.items.${id}.description`)}
-              </p>
-            </li>
-          ))}
-        </ul>
+        <SectionBackdrop variant="sourcing" />
+        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <div className="lg:sticky lg:top-32 lg:self-start">
+            <Reveal>
+              <SectionHeader
+                eyebrow={t("what.eyebrow")}
+                title={t("what.title")}
+                lead={t("what.lead")}
+              />
+            </Reveal>
+          </div>
+
+          <NumberedRail
+            items={WHAT_WE_DO.map((id) => ({
+              id,
+              title: t(`what.items.${id}.title`),
+              description: t(`what.items.${id}.description`),
+            }))}
+          />
+        </div>
       </Section>
 
       <Section>
-        <SectionHeader
-          eyebrow={t("how.eyebrow")}
-          title={t("how.title")}
-          lead={t("how.lead")}
-        />
+        <Reveal>
+          <SectionHeader eyebrow={t("how.eyebrow")} title={t("how.title")} />
+        </Reveal>
         <StepRail steps={steps} className="mt-14" />
       </Section>
 
       <Section tone="soft">
-        <SectionHeader
-          eyebrow={t("sources.eyebrow")}
-          title={t("sources.title")}
-          lead={t("sources.lead")}
-        />
-        <NameBoard
-          className="mt-10"
-          entries={OPPORTUNITY_SOURCES.map((source) => ({
-            id: source.id,
-            name: source.name,
-            note: partnersCopy("sources.note"),
-          }))}
-        />
-        <NameBoard
-          className="mt-4"
-          entries={[
-            ...PARTNERS.map((partner) => ({
-              id: partner.id,
-              name: partner.name,
-              note: partnersCopy("partnership.note"),
-            })),
-            ...SUPPORTERS.map((supporter) => ({
-              id: supporter.id,
-              name: supporter.name,
-              note: partnersCopy("support.note"),
-            })),
-          ]}
-        />
+        <SectionBackdrop variant="channels" />
+        <Reveal>
+          <SectionHeader eyebrow={t("sources.eyebrow")} title={t("sources.title")} />
+        </Reveal>
+        <div className="mt-12 -mx-5 flex flex-col gap-3 border-y border-border sm:-mx-8">
+          <Marquee
+            label={t("sources.sourcesLabel")}
+            seconds={44}
+            entries={OPPORTUNITY_SOURCES.map((source) => ({
+              id: source.id,
+              name: source.name,
+              note: partnersCopy("sources.note"),
+            }))}
+          />
+          <Marquee
+            label={t("sources.partnersLabel")}
+            reverse
+            seconds={52}
+            className="border-t border-border"
+            entries={[
+              ...PARTNERS.map((partner) => ({
+                id: partner.id,
+                name: partner.name,
+                note: partnersCopy("partnership.note"),
+              })),
+              ...SUPPORTERS.map((supporter) => ({
+                id: supporter.id,
+                name: supporter.name,
+                note: partnersCopy("support.note"),
+              })),
+            ]}
+          />
+        </div>
         <Link
           href={navHref("partners")}
-          className={buttonClass({ variant: "ghost", size: "sm", className: "mt-6 -ml-4" })}
+          className={buttonClass({ variant: "ghost", size: "sm", className: "mt-8 -ml-4" })}
         >
           {t("sources.cta")}
         </Link>
       </Section>
 
       <Section>
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
-          <SectionHeader
-            eyebrow={t("regions.eyebrow")}
-            title={t("regions.title")}
-            lead={t("regions.lead")}
-          />
-          <dl className="grid gap-px overflow-hidden rounded-xl border border-primary-ink bg-primary-ink sm:grid-cols-2">
-            <div className="bg-primary-ink p-7">
-              <dd className="tabular text-[clamp(2.75rem,8vw,4rem)] leading-none font-bold text-knockout">
-                {format.number(TARGET_REGION_COUNT)}
-              </dd>
-              <dt className="mt-3 text-sm leading-snug text-primary-muted">
-                {t("regions.regionsLabel")}
-              </dt>
-            </div>
-            <div className="bg-primary-ink p-7 sm:border-l sm:border-knockout/25">
-              <dd className="tabular text-[clamp(2.75rem,8vw,4rem)] leading-none font-bold text-knockout">
-                {plus(TRACTION.regionalRoleApplications)}
-              </dd>
-              <dt className="mt-3 text-sm leading-snug text-primary-muted">
-                {t("regions.applicationsLabel")}
-              </dt>
-            </div>
-          </dl>
-        </div>
-      </Section>
-
-      <Section tone="sunk">
-        <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
-          <div>
-            <SectionHeader
-              eyebrow={t("course.eyebrow")}
-              title={t("course.title")}
-              lead={t("course.lead")}
-            />
-            <div className="mt-7 flex flex-wrap items-center gap-4">
-              <StatusChip>{courseCopy("status")}</StatusChip>
-              <Link
-                href={navHref("course")}
-                className={buttonClass({ variant: "outline", size: "sm" })}
-              >
-                {t("course.cta")}
-              </Link>
-            </div>
-          </div>
-          <ul className="divide-y divide-border self-start rounded-xl border border-border bg-surface">
-            {COURSE_TOPIC_IDS.map((id) => (
-              <li key={id} className="px-6 py-4 text-base font-semibold">
-                {courseCopy(`topics.${id}.title`)}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Section>
-
-      <Section>
-        <div className="relative isolate overflow-hidden rounded-2xl bg-primary-ink px-6 py-14 sm:px-12 sm:py-16">
+        <div className="reveal-wipe relative isolate overflow-hidden rounded-2xl bg-primary-ink px-7 py-16 sm:px-14 sm:py-20">
           <BrandArc className="pointer-events-none absolute -right-16 -bottom-40 -z-10 size-96 text-knockout/12" />
-          <h2 className="max-w-[18ch] text-headline font-bold text-knockout text-balance">
+          <h2 className="max-w-[18ch] text-headline text-knockout text-balance">
             {t("cta.title")}
           </h2>
-          <p className="mt-5 max-w-xl text-lead text-primary-muted text-pretty">
+          <p className="mt-6 max-w-xl text-lead text-primary-muted text-pretty">
             {t("cta.lead")}
           </p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
             <ActionLink destination={join} className={buttonClass({ variant: "inverse" })}>
               {t("cta.primary")}
             </ActionLink>
@@ -266,7 +191,7 @@ function Home({ locale }: { locale: Locale }) {
               href={navHref("contact")}
               className={buttonClass({
                 variant: "outline",
-                className: "border-knockout/40 text-knockout hover:border-knockout hover:bg-primary-deep hover:text-knockout",
+                className: "border-knockout/55 text-knockout hover:border-knockout hover:bg-primary-deep hover:text-knockout",
               })}
             >
               {t("cta.secondary")}

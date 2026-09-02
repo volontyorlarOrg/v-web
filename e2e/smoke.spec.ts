@@ -30,11 +30,13 @@ test.describe("locale routing", () => {
   test("switching language keeps the same page", async ({ page }) => {
     await page.goto("/uz/partners");
     const footer = page.getByRole("contentinfo");
-    await footer.getByRole("link", { name: "ru", exact: true }).click();
+    await footer.getByRole("button", { name: /Til: O‘zbekcha/ }).click();
+    await footer.getByRole("link", { name: "Русский", exact: true }).click();
     await expect(page).toHaveURL(/\/ru\/partners$/);
     await expect(page.locator("html")).toHaveAttribute("lang", "ru");
 
-    await footer.getByRole("link", { name: "en", exact: true }).click();
+    await footer.getByRole("button", { name: /Язык: Русский/ }).click();
+    await footer.getByRole("link", { name: "English", exact: true }).click();
     await expect(page).toHaveURL(/\/en\/partners$/);
   });
 
@@ -81,7 +83,7 @@ test.describe("navigation", () => {
 });
 
 test.describe("production information architecture", () => {
-  for (const path of ["/v1", "/v2", "/v3", "/uz/v3"]) {
+  for (const path of ["/v1", "/v2", "/v3", "/uz/v3", "/en/course"]) {
     test(`${path} is not a public route`, async ({ page }) => {
       const response = await page.goto(path);
       expect(response?.status()).toBe(404);
@@ -139,5 +141,80 @@ test.describe("mobile menu", () => {
     await page.keyboard.press("Escape");
     await expect(trigger).toHaveAttribute("aria-expanded", "false");
     await expect(trigger).toBeFocused();
+  });
+});
+
+test.describe("the hero map", () => {
+  test("renders a plan-view map and every region name without JavaScript", async ({
+    browser,
+  }) => {
+    const context = await browser.newContext({ javaScriptEnabled: false });
+    const page = await context.newPage();
+    await page.goto("/en");
+
+    const section = page.locator("#hero-map");
+    await expect(section).toHaveCount(1);
+
+    await expect(section.locator("svg")).toHaveCount(1);
+    await expect(section.locator("svg path")).toHaveCount(14);
+    await expect(section.locator("li")).toHaveCount(14);
+
+    await context.close();
+  });
+
+  for (const [locale, name] of [
+    ["uz", "Qoraqalpogʻiston"],
+    ["ru", "Каракалпакстан"],
+    ["en", "Karakalpakstan"],
+  ] as const) {
+    test(`names the regions in ${locale}`, async ({ page }) => {
+      await page.goto(`/${locale}`);
+      await expect(page.locator("#hero-map li").filter({ hasText: name })).toHaveCount(1);
+      await expect(page.locator("#hero-map li")).toHaveCount(14);
+    });
+  }
+
+  test("pins a panel that releases into the next section", async ({ page }) => {
+    await page.goto("/en");
+    await page.waitForFunction(
+      () => {
+        const section = document.querySelector("#hero-map") as HTMLElement | null;
+        return Boolean(section) && section!.offsetHeight > window.innerHeight * 2;
+      },
+      null,
+      { timeout: 15_000 },
+    );
+
+    const geometry = await page.evaluate(() => {
+      const section = document.querySelector("#hero-map") as HTMLElement;
+      const panel = section.firstElementChild as HTMLElement;
+      return {
+        sectionHeight: section.offsetHeight,
+        panelHeight: panel.offsetHeight,
+        panelPosition: getComputedStyle(panel).position,
+        viewport: window.innerHeight,
+      };
+    });
+
+    expect(geometry.panelPosition).toBe("sticky");
+    expect(geometry.sectionHeight).toBeGreaterThan(geometry.panelHeight);
+    expect(geometry.panelHeight).toBeLessThanOrEqual(geometry.viewport);
+  });
+
+  test("keeps the page's only h1 in the hero above the map", async ({ page }) => {
+    await page.goto("/en");
+    const hero = page.locator("#hero-map");
+    await expect(hero.getByRole("heading", { level: 1 })).toHaveCount(1);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
+    await expect(
+      hero.getByRole("heading", { level: 2, name: /growing across Uzbekistan/i }),
+    ).toHaveCount(1);
+  });
+
+  test("the hero call to action stays reachable at rest", async ({ page }) => {
+    await page.goto("/en");
+    const cta = page.locator("#hero-map").getByRole("link", { name: "Join the community" });
+    await expect(cta).toBeVisible();
+    await expect(cta).toHaveAttribute("href", "/en/contact");
   });
 });

@@ -8,23 +8,29 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- END:nextjs-agent-rules -->
 
-# YVC Web — Agent Guide
+# Volontyor Web — Agent Guide
 
-This repository is the public **Youth Volunteer Club** marketing website. Read
+This repository is the public **Volontyor** marketing website. Read
 this file before meaningful work, then use [`docs/README.md`](docs/README.md) to
 load only the project context the task needs.
 
 ## Product identity
 
-**Youth Volunteer Club (YVC)** helps high school students in Uzbekistan find
-volunteering that is real and worth their time. YVC finds opportunities,
+**Volontyor** helps high school students in Uzbekistan find
+volunteering that is real and worth their time. Volontyor finds opportunities,
 contacts organisers, sources events, builds partnerships, supplies volunteers,
 and is building regional operations toward all 14 regions.
 
-Do not call the product "Youth Volunteering Community"; that name is retired.
-The delivered logo lockup still carries a `volontyorlar` wordmark, which is why
-the site renders the organisation name as real text next to the mark instead of
-using the lockup — see `docs/brand/BRAND_ASSETS.md`.
+Do not call the product "Youth Volunteer Club", "YVC", or "Youth Volunteering
+Community"; all three names are retired. The delivered logo lockup carries a
+`volontyorlar` wordmark, and the site still renders the organisation name as
+real text next to the mark rather than using the lockup, because the lockup's
+wordmark cannot fetch its webfont — see `docs/brand/BRAND_ASSETS.md`.
+
+The founders are named and given a role, and nothing more. There is no sourced
+biography for either of them, so `/about` lists their names beside "Co-founder"
+and stops there; a longer description has to come from them before it can be
+written.
 
 Verified facts live in `src/lib/content/org.ts` and in
 [`PRODUCT.md`](PRODUCT.md). Nothing outside those sources may be presented as
@@ -39,7 +45,7 @@ into the separate product application.
 
 It does not own volunteer authentication, sessions, dashboards, profiles,
 applications, essays, ratings, attendance records, or admin workflows. Those
-belong to the separate YVC application. Do not rebuild them here.
+belong to the separate Volontyor application. Do not rebuild them here.
 
 ## Technology stack
 
@@ -51,9 +57,16 @@ belong to the separate YVC application. Do not rebuild them here.
 - Vitest + Testing Library for units and components, Playwright for smoke paths
 - npm with a committed lockfile
 
-There is no theme library, animation library, or 3D library: the design ships
-one light theme, motion is CSS-only, and no surface justifies WebGL. Do not add
-TanStack, React Hook Form, Zod, Zustand, auth SDKs, or dashboard packages.
+There is no theme library and no animation library: the design ships one light
+theme and motion is otherwise CSS-only. Do not add TanStack, React Hook Form,
+Zod, Zustand, auth SDKs, or dashboard packages.
+
+`three` is the single exception, and it is scoped to one surface: the home
+page's hero map (`src/components/marketing/hero-map/`). It is loaded
+dynamically so it never enters the initial bundle, and the section renders a
+complete server-side SVG map without it. Adding WebGL anywhere else, or reaching
+for a React renderer such as `@react-three/fiber`, needs a fresh decision — see
+`docs/architecture/ARCHITECTURE.md`.
 
 For framework behaviour, read `node_modules/next/dist/docs/` before relying on
 older Next.js knowledge. Middleware is called Proxy in Next.js 16
@@ -91,7 +104,7 @@ docs/                          -> stable project documentation
   else is invisible to the navigation and the sitemap.
 - Two brand colours with a role each. **Blue is the institution**: navigation,
   structure, primary actions, the mark. **Orange is the person**: a confirmed
-  hour, a level reached, a number counting what people did. Blue and orange sit
+  hour, a level reached, the volunteer's own step. Blue and orange sit
   1.25:1 apart and must never be combined — no two-colour mark, no orange on
   blue, no blue on orange. Each hue has a graphics value (`#007FC2`, `#E85D30`,
   24px and above) and a text value (`#005E92`, `#B34917`). The palette defines

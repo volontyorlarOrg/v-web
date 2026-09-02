@@ -8,7 +8,6 @@ export type RouteKey =
   | "about"
   | "partners"
   | "volunteering"
-  | "course"
   | "contact"
   | "privacy"
   | "terms";
@@ -26,10 +25,9 @@ export type PublicRoute = {
 
 export const publicRoutes: readonly PublicRoute[] = [
   { key: "home", path: "", inMainNav: false, inLegalNav: false, priority: 1, changeFrequency: "monthly" },
-  { key: "about", path: "/about", inMainNav: true, inLegalNav: false, priority: 0.8, changeFrequency: "monthly" },
-  { key: "volunteering", path: "/volunteering", inMainNav: true, inLegalNav: false, priority: 0.8, changeFrequency: "monthly" },
+  { key: "volunteering", path: "/volunteering", inMainNav: true, inLegalNav: false, priority: 0.9, changeFrequency: "monthly" },
   { key: "partners", path: "/partners", inMainNav: true, inLegalNav: false, priority: 0.7, changeFrequency: "monthly" },
-  { key: "course", path: "/course", inMainNav: true, inLegalNav: false, priority: 0.7, changeFrequency: "monthly" },
+  { key: "about", path: "/about", inMainNav: true, inLegalNav: false, priority: 0.7, changeFrequency: "monthly" },
   { key: "contact", path: "/contact", inMainNav: true, inLegalNav: false, priority: 0.6, changeFrequency: "yearly" },
   { key: "privacy", path: "/privacy", inMainNav: false, inLegalNav: true, priority: 0.3, changeFrequency: "yearly" },
   { key: "terms", path: "/terms", inMainNav: false, inLegalNav: true, priority: 0.3, changeFrequency: "yearly" },

@@ -1,9 +1,12 @@
-export const ORGANIZATION_NAME = "Youth Volunteer Club";
-export const ORGANIZATION_SHORT_NAME = "YVC";
+export const ORGANIZATION_NAME = "Volontyor";
+export const ORGANIZATION_SHORT_NAME = "Volontyor";
 
 export const FOUNDED_ON = "2025-06-04";
 
-export const FOUNDERS = ["Arslon Rajabov", "Parizoda Abdurakhimova"] as const;
+export const FOUNDERS = [
+  { id: "arslon", name: "Arslon Rajabov" },
+  { id: "parizoda", name: "Parizoda Abdurakhimova" },
+] as const;
 
 export const TRACTION = {
   telegramFollowers: 3600,
@@ -29,15 +32,5 @@ export const OPPORTUNITY_SOURCES = [
   { id: "youth-grants", name: "Youth Grants" },
   { id: "relay-fellowship", name: "Relay Fellowship" },
 ] as const;
-
-export const COURSE_TOPIC_IDS = [
-  "basics",
-  "applying",
-  "essay",
-  "conduct",
-  "participation",
-] as const;
-
-export type CourseTopicId = (typeof COURSE_TOPIC_IDS)[number];
 
 export const LEGAL_UPDATED_ON = "2026-09-02";
