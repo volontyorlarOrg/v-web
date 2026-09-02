@@ -7,7 +7,7 @@ from Telegram links. A functioning notification bot is listed as a launch input.
 
 ## Implemented
 
-Nothing, and nothing will be. Telegram sign-in belongs to the separate YVC
+Nothing, and nothing will be. Telegram sign-in belongs to the separate Volontyor
 application; this repository contains no bot token, widget script, OAuth
 callback, Login Widget configuration, Mini App SDK, bot username, webhook, or
 verification route.

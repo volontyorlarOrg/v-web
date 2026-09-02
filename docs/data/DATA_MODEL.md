@@ -1,6 +1,6 @@
 # Product Data Concepts
 
-Vocabulary owned by the **separate YVC application**, kept here so marketing
+Vocabulary owned by the **separate Volontyor application**, kept here so marketing
 copy stays consistent with the product it points at. It is not a database
 schema, it does not authorize implementation choices, and none of it is
 implemented in this repository.

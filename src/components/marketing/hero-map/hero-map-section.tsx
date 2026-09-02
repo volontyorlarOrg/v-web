@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import { ActionLink } from "@/components/marketing/action-link";
 import { HeroMapFlat } from "@/components/marketing/hero-map/hero-map-flat";
 import { HeroMapStage } from "@/components/marketing/hero-map/hero-map-stage";
+import { RollingWords } from "@/components/marketing/rolling-words";
 import { Eyebrow } from "@/components/marketing/section";
 import { buttonClass } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
@@ -15,17 +16,23 @@ export function HeroMapSection({ locale }: { locale: Locale }) {
   const t = useTranslations("home");
   const map = useTranslations("home.map");
   const join = joinDestination();
+  const regions = localisedRegions(locale);
 
   return (
     <HeroMapStage
-      regions={localisedRegions(locale)}
+      regions={regions}
       regionsHeading={map("regionsHeading")}
       fallback={<HeroMapFlat locale={locale} />}
       hero={
-        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
-          <Eyebrow>{t("hero.eyebrow")}</Eyebrow>
-          <h1 className="mt-7 max-w-[15ch] text-display text-balance">{t("hero.title")}</h1>
-          <p className="mt-6 max-w-lg text-lead text-ink-muted text-pretty">{t("hero.lead")}</p>
+        <div className="hero-copy mx-auto flex w-full flex-col items-center text-center">
+          <Eyebrow>
+            {t("hero.eyebrow")}
+            <span className="inline-flex items-center rounded-full bg-primary-muted/50 px-2.5 py-1 text-primary-ink">
+              <RollingWords words={regions.map((region) => region.name)} />
+            </span>
+          </Eyebrow>
+          <h1 className="hero-display mt-9">{t("hero.title")}</h1>
+          <p className="mt-8 max-w-[46ch] text-lead text-ink-muted text-pretty">{t("hero.lead")}</p>
           <div className="mt-10 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row sm:items-center">
             <ActionLink destination={join} className={buttonClass()}>
               {t("hero.primaryCta")}

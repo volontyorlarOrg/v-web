@@ -20,7 +20,7 @@ export function SiteHeader() {
   }));
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-paper/95 backdrop-blur-sm">
+    <header className="sticky top-0 z-40 border-b border-border bg-paper">
       <div className="container-page flex min-h-16 items-center justify-between gap-4 lg:min-h-20">
         <Link
           href="/"

@@ -16,13 +16,11 @@ export function PageHero({
 }) {
   return (
     <section className={cn("border-b border-border", className)}>
-      <div className="container-page py-14 sm:py-20">
+      <div className="hero-copy container-page py-14 sm:py-20">
         {eyebrow ? <Eyebrow>{eyebrow}</Eyebrow> : null}
-        <h1 className="mt-5 max-w-[20ch] text-headline text-balance">
-          {title}
-        </h1>
+        <h1 className="page-display mt-6 max-w-[24ch]">{title}</h1>
         {lead ? (
-          <p className="mt-6 max-w-2xl text-lead text-ink-muted text-pretty">{lead}</p>
+          <p className="mt-7 max-w-[58ch] text-lead text-ink-muted text-pretty">{lead}</p>
         ) : null}
         {meta && meta.length > 0 ? (
           <dl className="mt-9 flex flex-wrap gap-x-12 gap-y-5">

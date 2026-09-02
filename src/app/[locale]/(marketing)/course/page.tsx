@@ -4,7 +4,9 @@ import type { Metadata } from "next";
 
 import { ActionLink } from "@/components/marketing/action-link";
 import { JsonLd } from "@/components/marketing/json-ld";
+import { NumberedRail } from "@/components/marketing/numbered-rail";
 import { PageHero } from "@/components/marketing/page-hero";
+import { Reveal } from "@/components/marketing/reveal";
 import { Section, SectionHeader, StatusChip } from "@/components/marketing/section";
 import { buttonClass } from "@/components/ui/button";
 import type { Locale } from "@/i18n/routing";
@@ -46,35 +48,34 @@ function Course({ locale }: { locale: Locale }) {
       <PageHero title={t("title")} lead={t("lead")} />
 
       <Section>
-        <div className="flex flex-wrap items-center gap-4">
-          <StatusChip>{t("status")}</StatusChip>
+        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <div className="lg:sticky lg:top-32 lg:self-start">
+            <Reveal>
+              <StatusChip>{t("status")}</StatusChip>
+              <SectionHeader title={t("topicsTitle")} className="mt-7" />
+            </Reveal>
+          </div>
+          <NumberedRail
+            items={COURSE_TOPIC_IDS.map((id) => ({
+              id,
+              title: t(`topics.${id}.title`),
+              description: t(`topics.${id}.description`),
+            }))}
+          />
         </div>
-        <SectionHeader title={t("topicsTitle")} className="mt-8" />
-        <ol className="mt-10 grid gap-3 sm:grid-cols-2">
-          {COURSE_TOPIC_IDS.map((id, index) => (
-            <li key={id} className="rounded-lg border border-border bg-surface p-6">
-              <p className="tabular text-xs font-bold tracking-[0.14em] text-primary-ink uppercase">
-                {String(index + 1).padStart(2, "0")}
-              </p>
-              <h3 className="mt-2 text-lg font-bold tracking-[-0.015em]">
-                {t(`topics.${id}.title`)}
-              </h3>
-              <p className="mt-2 leading-relaxed text-ink-muted">
-                {t(`topics.${id}.description`)}
-              </p>
-            </li>
-          ))}
-        </ol>
       </Section>
 
-      <Section tone="sunk">
-        <div className="max-w-2xl">
-          <h2 className="text-2xl font-bold tracking-[-0.025em]">{t("note.title")}</h2>
-          <p className="mt-4 leading-relaxed text-ink-muted">{t("note.body")}</p>
-          <ActionLink destination={join} className={buttonClass({ className: "mt-7" })}>
+      <Section tone="ink">
+        <Reveal className="max-w-2xl">
+          <h2 className="text-headline text-knockout text-balance">{t("note.title")}</h2>
+          <p className="mt-6 text-lead text-primary-muted text-pretty">{t("note.body")}</p>
+          <ActionLink
+            destination={join}
+            className={buttonClass({ variant: "inverse", className: "mt-9" })}
+          >
             {t("cta")}
           </ActionLink>
-        </div>
+        </Reveal>
       </Section>
     </>
   );

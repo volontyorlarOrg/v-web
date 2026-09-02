@@ -17,36 +17,36 @@ import {
 } from "three";
 
 import { MAP_EXTENT, REGION_GEOMETRY, type RegionPolygon } from "@/lib/map/region-geometry";
+import {
+  clamp01,
+  easeOut,
+  lerp,
+  mapPhase,
+  provinceLift,
+  type MapPhase,
+} from "@/components/marketing/hero-map/timeline";
 
-const PLATE_THICKNESS = 0.028;
-const TILE_THICKNESS = 0.042;
-const TILE_LIFT = 0.17;
-const TILE_GAP = 0.009;
-const LEADER_BASE = 0.12;
-const LEADER_STEP = 0.082;
+const PLATE_THICKNESS = 0.03;
+const TILE_THICKNESS = 0.05;
+const TILE_LIFT = 0.155;
+const TILE_GAP = 0.013;
+const LEADER_BASE = 0.105;
+const LEADER_STEP = 0.072;
 const LEADER_TIERS = 5;
 const CLUSTER_RADIUS = 0.3;
-const LEADER_RADIUS = 0.0032;
-const MARKER_RADIUS = 0.016;
+const LEADER_RADIUS = 0.0042;
+const MARKER_RADIUS = 0.017;
 
-const MAX_TIP_DEGREES = 62;
-const MAX_TURN_DEGREES = 10;
 const CAMERA_FOV = 34;
-const FRAME_PADDING = 1.08;
+const FRAME_PADDING = 1.16;
 
-const BACKDROP_ZOOM = 0.92;
+
+const BACKDROP_ZOOM = 0.8;
 const BACKDROP_SHIFT_X = 0;
-const BACKDROP_SHIFT_Y = -0.9;
-const BACKDROP_OPACITY = 0.95;
-const BACKDROP_TIP_DEGREES = 46;
-const TIP_RISE = 0.13;
+const BACKDROP_SHIFT_Y = -1;
+const BACKDROP_OPACITY = 0.9;
+const CAPTION_CLEARANCE = 0.2;
 
-const EMERGE_END = 0.32;
-const TIP_START = 0.24;
-const TIP_END = 0.88;
-const LIFT_START = 0.36;
-const LIFT_END = 0.96;
-const LIFT_DURATION = 0.24;
 
 const UNRESOLVED_TOKEN_COLOUR = 0x8a8a8a;
 
@@ -76,14 +76,14 @@ export function readPalette(element: HTMLElement): Palette {
   };
 
   return {
-    plateTop: token("--color-surface-sunk"),
-    plateSide: token("--color-border"),
+    plateTop: token("--color-primary"),
+    plateSide: token("--color-primary-deep"),
     tileTop: token("--color-surface-soft"),
     tileSide: token("--color-primary-muted"),
     leader: token("--color-primary"),
     marker: token("--color-primary-ink"),
     key: token("--color-knockout"),
-    ambient: token("--color-surface-soft"),
+    ambient: token("--color-primary-muted"),
   };
 }
 
@@ -170,8 +170,8 @@ function buildLeaderTiers(): number[] {
       if (Math.hypot(x - otherX, y - otherY) < CLUSTER_RADIUS) taken.add(tiers[other]);
     }
     let tier = 0;
-    while (tier < LEADER_TIERS - 1 && taken.has(tier)) tier += 1;
-    tiers[index] = tier;
+    while (tier < LEADER_TIERS && taken.has(tier)) tier += 1;
+    tiers[index] = tier % LEADER_TIERS;
   });
   return tiers;
 }
@@ -180,12 +180,13 @@ const LEADER_TIER = buildLeaderTiers();
 const leaderHeight = (index: number) => LEADER_BASE + LEADER_TIER[index] * LEADER_STEP;
 const TALLEST_LEADER = Math.max(...REGION_GEOMETRY.map((_, index) => leaderHeight(index)));
 
-const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
-const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
-const lerp = (from: number, to: number, t: number) => from + (to - from) * t;
-const span = (value: number, start: number, end: number) =>
-  clamp01((value - start) / (end - start));
+const REVEAL_ORDER = REGION_GEOMETRY.map((region, index) => ({ index, x: region.anchor[0] }))
+  .sort((a, b) => a.x - b.x)
+  .reduce<number[]>((order, entry, position) => {
+    order[entry.index] = position;
+    return order;
+  }, []);
+
 
 export type ProjectedMarker = {
   id: string;
@@ -195,12 +196,7 @@ export type ProjectedMarker = {
   reveal: number;
 };
 
-export type Phase = {
-  /** 0 while the map is the hero's backdrop, 1 once it is the subject. */
-  emerge: number;
-  /** 0 in plan view, 1 fully tipped. */
-  tip: number;
-};
+export type Phase = MapPhase;
 
 export type MapScene = {
   render: (progress: number) => Phase;
@@ -227,13 +223,15 @@ export function createMapScene(canvas: HTMLCanvasElement, palette: Palette): Map
     return value;
   };
 
-  scene.add(new HemisphereLight(palette.key, palette.ambient, 2));
-  scene.add(new AmbientLight(palette.ambient, 0.6));
-  const key = new DirectionalLight(palette.key, 1.45);
-  key.position.set(-1.3, 1.2, 2.5);
+  const sky = new HemisphereLight(palette.key, palette.tileSide, 1.3);
+  sky.position.set(0, 0.5, 1);
+  scene.add(sky);
+  scene.add(new AmbientLight(palette.ambient, 0.88));
+  const key = new DirectionalLight(palette.key, 2.18);
+  key.position.set(-1.2, 1.4, 2.2);
   scene.add(key);
-  const fill = new DirectionalLight(palette.tileSide, 0.65);
-  fill.position.set(1.8, -1.5, 1.1);
+  const fill = new DirectionalLight(palette.tileSide, 0.75);
+  fill.position.set(1.6, -1.2, 0.8);
   scene.add(fill);
 
   const mapGroup = new Group();
@@ -289,11 +287,8 @@ export function createMapScene(canvas: HTMLCanvasElement, palette: Palette): Map
     leader.add(new Mesh(markerGeometry, markerMaterial));
     mapGroup.add(leader);
 
-    return { id: region.id, tile, leader, height, reveal: 0 };
+    return { id: region.id, tile, leader, height, order: REVEAL_ORDER[index], reveal: 0 };
   });
-
-  const stagger =
-    provinces.length > 1 ? (LIFT_END - LIFT_START - LIFT_DURATION) / (provinces.length - 1) : 0;
 
   let viewWidth = 1;
   let viewHeight = 1;
@@ -365,16 +360,14 @@ export function createMapScene(canvas: HTMLCanvasElement, palette: Palette): Map
 
   function render(progress: number): Phase {
     const p = clamp01(progress);
-    const emerge = easeInOut(span(p, 0, EMERGE_END));
-    const tip = easeInOut(span(p, TIP_START, TIP_END));
+    const phase = mapPhase(p);
 
-    const tipDegrees = lerp(BACKDROP_TIP_DEGREES, 0, emerge) + MAX_TIP_DEGREES * tip;
-    mapGroup.rotation.x = -(tipDegrees * Math.PI) / 180;
-    mapGroup.rotation.z = -((MAX_TURN_DEGREES * Math.PI) / 180) * tip;
+    mapGroup.rotation.x = -(phase.tipDegrees * Math.PI) / 180;
+    mapGroup.rotation.z = -((phase.turnDegrees * Math.PI) / 180);
 
     let tallest = 0;
-    provinces.forEach((province, index) => {
-      const local = span(p, LIFT_START + index * stagger, LIFT_START + index * stagger + LIFT_DURATION);
+    for (const province of provinces) {
+      const local = provinceLift(province.order, provinces.length, p);
       const eased = easeOut(local);
       province.reveal = local;
 
@@ -384,21 +377,21 @@ export function createMapScene(canvas: HTMLCanvasElement, palette: Palette): Map
       province.leader.scale.setScalar(Math.max(eased, 0.0001));
       province.leader.visible = local > 0;
       tallest = Math.max(tallest, eased);
-    });
+    }
 
     const topZ =
       PLATE_THICKNESS + TILE_THICKNESS + (TILE_LIFT + TALLEST_LEADER + MARKER_RADIUS) * tallest;
     frameMap(
       topZ,
-      lerp(BACKDROP_ZOOM, 1, emerge),
-      lerp(BACKDROP_SHIFT_X, 0, emerge),
-      lerp(BACKDROP_SHIFT_Y, 0, emerge) + TIP_RISE * tip,
+      lerp(BACKDROP_ZOOM, 1, phase.emerge),
+      lerp(BACKDROP_SHIFT_X, 0, phase.emerge),
+      lerp(BACKDROP_SHIFT_Y, CAPTION_CLEARANCE, phase.emerge),
     );
 
-    canvas.style.opacity = String(lerp(BACKDROP_OPACITY, 1, emerge));
+    canvas.style.opacity = String(lerp(BACKDROP_OPACITY, 1, phase.emerge));
     renderer.render(scene, camera);
 
-    return { emerge, tip };
+    return phase;
   }
 
   function projectMarkers(width: number, height: number): ProjectedMarker[] {

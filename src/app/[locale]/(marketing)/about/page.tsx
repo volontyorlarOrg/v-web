@@ -3,7 +3,9 @@ import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
 import { JsonLd } from "@/components/marketing/json-ld";
+import { NumberedRail } from "@/components/marketing/numbered-rail";
 import { PageHero } from "@/components/marketing/page-hero";
+import { Reveal } from "@/components/marketing/reveal";
 import { Section, SectionHeader } from "@/components/marketing/section";
 import { StatGrid, type Stat } from "@/components/marketing/stats";
 import type { Locale } from "@/i18n/routing";
@@ -31,15 +33,24 @@ function About({ locale }: { locale: Locale }) {
   const nav = useTranslations("nav");
   const format = useFormatter();
 
-  const plus = (value: number) => `${format.number(value)}+`;
-
   const stats: Stat[] = [
-    { id: "telegram", value: plus(TRACTION.telegramFollowers), label: t("stats.telegram") },
-    { id: "instagram", value: plus(TRACTION.instagramFollowers), label: t("stats.instagram") },
-    { id: "events", value: plus(TRACTION.eventsSupplied), label: t("stats.events") },
+    {
+      id: "telegram",
+      amount: TRACTION.telegramFollowers,
+      suffix: "+",
+      label: t("stats.telegram"),
+    },
+    {
+      id: "instagram",
+      amount: TRACTION.instagramFollowers,
+      suffix: "+",
+      label: t("stats.instagram"),
+    },
+    { id: "events", amount: TRACTION.eventsSupplied, suffix: "+", label: t("stats.events") },
     {
       id: "applications",
-      value: plus(TRACTION.regionalRoleApplications),
+      amount: TRACTION.regionalRoleApplications,
+      suffix: "+",
       label: t("stats.applications"),
     },
   ];
@@ -68,28 +79,42 @@ function About({ locale }: { locale: Locale }) {
               year: "numeric",
             }),
           },
-          { label: t("foundersLabel"), value: FOUNDERS.join(" · ") },
+          { label: t("foundersLabel"), value: FOUNDERS.map((founder) => founder.name).join(" · ") },
         ]}
       />
 
       <Section>
-        <div className="grid gap-10 lg:grid-cols-3 lg:gap-12">
-          {STORY.map((id) => (
-            <section key={id} >
-              <h2 className="text-xl font-bold tracking-[-0.02em] text-balance">
-                {t(`${id}.title`)}
-              </h2>
-              <p className="mt-3 leading-relaxed text-ink-muted text-pretty">
-                {t(`${id}.body`)}
-              </p>
-            </section>
-          ))}
-        </div>
+        <NumberedRail
+          className="max-w-4xl"
+          items={STORY.map((id) => ({
+            id,
+            title: t(`${id}.title`),
+            description: t(`${id}.body`),
+          }))}
+        />
       </Section>
 
       <Section tone="sunk">
-        <SectionHeader title={t("numbers.title")} lead={t("numbers.lead")} />
-        <StatGrid stats={stats} className="mt-10" />
+        <Reveal>
+          <SectionHeader title={t("founders.title")} />
+        </Reveal>
+        <ul className="reveal-sequence mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-2">
+          {FOUNDERS.map((founder) => (
+            <li key={founder.id} className="border-t border-border pt-6">
+              <p className="text-title font-semibold tracking-[-0.015em]">{founder.name}</p>
+              <p className="mt-2 text-sm tracking-[0.08em] text-primary-ink uppercase">
+                {t(`founders.${founder.id}.role`)}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </Section>
+
+      <Section tone="ink">
+        <Reveal>
+          <SectionHeader tone="inverse" title={t("numbers.title")} lead={t("numbers.lead")} />
+        </Reveal>
+        <StatGrid stats={stats} className="mt-14" />
       </Section>
     </>
   );

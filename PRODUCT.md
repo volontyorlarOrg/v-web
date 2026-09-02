@@ -1,12 +1,12 @@
-# YVC Product Context
+# Volontyor Product Context
 
-## What Youth Volunteer Club is
+## What Volontyor is
 
-Youth Volunteer Club (YVC) helps high school students in Uzbekistan discover and
+Volontyor helps high school students in Uzbekistan discover and
 apply to meaningful volunteering. It was founded on **4 June 2025** by **Arslon
 Rajabov** and **Parizoda Abdurakhimova**.
 
-YVC has grown past reposting other people's opportunities. It now:
+Volontyor has grown past reposting other people's opportunities. It now:
 
 - finds volunteer opportunities;
 - contacts organisers;
@@ -49,11 +49,11 @@ until real course information exists.
 
 The product is intentionally split in two.
 
-| Marketing website (this repository) | YVC application (separate repository) |
+| Marketing website (this repository) | Volontyor application (separate repository) |
 | --- | --- |
 | Brand and public positioning | Volunteer authentication and sessions |
 | Public pages and partner presentation | Opportunity browsing, filtering, applications |
-| Explanations of how YVC works | Reusable profiles and saved essays |
+| Explanations of how Volontyor works | Reusable profiles and saved essays |
 | Course marketing | Volunteer records, hours, attendance |
 | SEO, metadata, structured data, legal pages | Admin and partner workflows |
 | Central links into the application | Any backend contract |
@@ -80,7 +80,7 @@ consistent with the eventual application, not so it can be claimed as shipped.
 
 - Public marketing domain and the product application origin
 - Relationship between the delivered `volontyorlar` wordmark and the canonical
-  product name Youth Volunteer Club
+  product name Volontyor
 - Public channel addresses (Telegram, Instagram) and any other contact route
 - Legal entity details behind the privacy and terms pages
 - Whether the course will be free, paid, online, or in person

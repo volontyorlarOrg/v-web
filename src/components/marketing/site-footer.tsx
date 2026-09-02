@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 
 import { BrandLockup } from "@/components/brand/logo";
+import { BrandSignature } from "@/components/brand/signature";
 import { LocaleSwitcher } from "@/components/marketing/locale-switcher";
 import { Link } from "@/i18n/navigation";
 import { availableChannels, channelUrl } from "@/lib/constants/channels";
@@ -82,6 +83,12 @@ export function SiteFooter() {
               </li>
             ))}
           </ul>
+        </div>
+      </div>
+
+      <div className="brand-signature-scene overflow-x-clip border-t border-border pt-14 pb-16 sm:pt-20 sm:pb-24">
+        <div className="container-page">
+          <BrandSignature name={ORGANIZATION_NAME} />
         </div>
       </div>
 

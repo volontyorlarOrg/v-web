@@ -1,5 +1,5 @@
 ---
-name: YVC Marketing
+name: Volontyor Marketing
 description: A civic notice board — blue for the institution, orange for the person, plainspoken and light enough for a phone on mobile data.
 colors:
   paper: "#FBFAF7"
@@ -106,7 +106,7 @@ components:
     padding: "4px 8px"
 ---
 
-# Design System: YVC Marketing
+# Design System: Volontyor Marketing
 
 ## Overview
 
@@ -116,7 +116,7 @@ The site reads like a well-set civic notice: warm paper, dark ink, hairline
 rules doing the structural work, and two brand colours with a job each. Blue is
 the institution — navigation, structure, the mark. Orange is the person, and it
 appears only where a person did something. It is confident without shouting, and
-credible enough for the schools, agencies, and partner organisations YVC depends
+credible enough for the schools, agencies, and partner organisations Volontyor depends
 on, while staying young through scale, directness, and plain language rather
 than through decoration.
 
@@ -296,7 +296,7 @@ the sunk band.
 ### Hairline grids
 
 Groups whose length is fixed and fills the grid — the stat strip, the six things
-YVC does, the three contact audiences — use a one-pixel gap over a border-toned
+Volontyor does, the three contact audiences — use a one-pixel gap over a border-toned
 background, which reads as a printed table. Lists whose length varies use
 separated bordered cards instead, because an empty cell in a gap-filled grid
 looks like a fault.
@@ -304,7 +304,7 @@ looks like a fault.
 ### Step rail
 
 Four numbered steps on a continuous hairline, vertical on mobile and horizontal
-from the large breakpoint. The first three nodes are blue — the work YVC does.
+from the large breakpoint. The first three nodes are blue — the work Volontyor does.
 The fourth is orange, because it is the step the volunteer performs. That single
 node is the clearest statement of the role split anywhere on the site. The rail
 is decorative; the ordered list carries the meaning, and the step titles say who
