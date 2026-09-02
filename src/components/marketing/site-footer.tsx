@@ -27,7 +27,7 @@ export function SiteFooter() {
         </div>
 
         <nav aria-label={t("siteLabel")}>
-          <h2 className="text-xs font-bold tracking-[0.14em] text-ink-muted uppercase">
+          <h2 className="font-sans text-xs font-semibold tracking-[0.14em] text-ink-muted uppercase">
             {t("siteLabel")}
           </h2>
           <ul className="mt-4 space-y-1">
@@ -47,7 +47,7 @@ export function SiteFooter() {
         <div>
           {channels.length > 0 ? (
             <>
-              <h2 className="text-xs font-bold tracking-[0.14em] text-ink-muted uppercase">
+              <h2 className="font-sans text-xs font-semibold tracking-[0.14em] text-ink-muted uppercase">
                 {t("channelsLabel")}
               </h2>
               <ul className="mt-4 space-y-1">
@@ -67,7 +67,7 @@ export function SiteFooter() {
             </>
           ) : null}
 
-          <h2 className="mt-8 text-xs font-bold tracking-[0.14em] text-ink-muted uppercase first:mt-0">
+          <h2 className="mt-8 font-sans text-xs font-semibold tracking-[0.14em] text-ink-muted uppercase first:mt-0">
             {t("legalLabel")}
           </h2>
           <ul className="mt-4 space-y-1">

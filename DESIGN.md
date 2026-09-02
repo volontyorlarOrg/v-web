@@ -19,29 +19,29 @@ colors:
   knockout: "#FFFFFF"
 typography:
   display:
-    fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(2.5rem, 7.4vw, 4.5rem)"
-    fontWeight: 700
-    lineHeight: 0.98
-    letterSpacing: "-0.035em"
+    fontFamily: "Source Serif 4, ui-serif, Georgia, serif"
+    fontSize: "clamp(2.75rem, 6.6vw, 5rem)"
+    fontWeight: 400
+    lineHeight: 1.02
+    letterSpacing: "-0.028em"
   headline:
-    fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(1.875rem, 4.2vw, 2.75rem)"
-    fontWeight: 700
-    lineHeight: 1.08
-    letterSpacing: "-0.03em"
+    fontFamily: "Source Serif 4, ui-serif, Georgia, serif"
+    fontSize: "clamp(2rem, 4.4vw, 3.25rem)"
+    fontWeight: 400
+    lineHeight: 1.1
+    letterSpacing: "-0.024em"
   title:
     fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "1.25rem"
-    fontWeight: 700
-    lineHeight: 1.3
-    letterSpacing: "-0.02em"
+    fontSize: "1.375rem"
+    fontWeight: 600
+    lineHeight: 1.32
+    letterSpacing: "-0.015em"
   lead:
     fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
-    fontSize: "clamp(1.0625rem, 1.4vw, 1.25rem)"
+    fontSize: "clamp(1.125rem, 1.5vw, 1.375rem)"
     fontWeight: 400
-    lineHeight: 1.6
-    letterSpacing: "normal"
+    lineHeight: 1.55
+    letterSpacing: "-0.008em"
   body:
     fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
     fontSize: "1rem"
@@ -64,34 +64,34 @@ rounded:
 spacing:
   gutter-mobile: "20px"
   gutter-wide: "32px"
-  section-mobile: "80px"
-  section-wide: "112px"
+  section-mobile: "96px"
+  section-wide: "128px"
   container: "76rem"
 components:
   button-primary:
     backgroundColor: "{colors.primary-ink}"
     textColor: "{colors.knockout}"
-    rounded: "{rounded.lg}"
-    padding: "0 24px"
+    rounded: "{rounded.full}"
+    padding: "0 28px"
     height: "52px"
   button-primary-hover:
     backgroundColor: "{colors.primary-deep}"
     textColor: "{colors.knockout}"
-    rounded: "{rounded.lg}"
-    padding: "0 24px"
+    rounded: "{rounded.full}"
+    padding: "0 28px"
     height: "52px"
   button-outline:
     backgroundColor: "transparent"
     textColor: "{colors.ink}"
     borderColor: "{colors.border-control}"
-    rounded: "{rounded.lg}"
-    padding: "0 24px"
+    rounded: "{rounded.full}"
+    padding: "0 28px"
     height: "52px"
   button-inverse:
     backgroundColor: "{colors.knockout}"
     textColor: "{colors.primary-ink}"
-    rounded: "{rounded.lg}"
-    padding: "0 24px"
+    rounded: "{rounded.full}"
+    padding: "0 28px"
     height: "52px"
   card:
     backgroundColor: "{colors.surface}"
@@ -130,10 +130,31 @@ none of which survive contact with the delivered UN Blue brand set.
 **Key characteristics**
 
 - Warm paper ground, dark ink type, two brand hues that never touch.
-- Hairline grids and tone bands instead of shadows and gradients.
+- A serif display face set at regular weight with tight negative tracking, over a
+  humanist sans for everything a reader has to work through.
+- Hairline rules and tone bands instead of shadows, gradients and card borders.
 - Oversized tabular numerals in orange carrying the human evidence.
 - A rule-led label system that never uses the logo below its minimum size.
 - Provisional material labelled in words, never by colour alone.
+
+## Two faces
+
+The display face is a serif — **Source Serif 4**, set at weight **400**, never
+bold. Weight is not how a heading earns its presence here; size, tight tracking
+and the space around it are. Setting it bold undoes the whole register and is the
+single easiest way to make this page look like something else.
+
+`h1` and `h2` take the serif from the base layer, so a heading is serif by
+default and nothing has to remember. Everything else — leads, body, labels,
+navigation, buttons, step titles, card titles — stays in Onest. A serif used
+below about 1.25rem in this pairing reads as a mistake rather than a choice.
+
+The serif carries Cyrillic and the Uzbek turned comma `ʻ` (U+02BB), which is not
+optional: a display face that cannot set `Fargʻona` or `Волонтёрство` is
+unusable here whatever it looks like in English.
+
+Numbers keep `font-variant-numeric: tabular-nums`, and the large ones are set in
+the serif too, which is what makes a figure read as evidence rather than as UI.
 
 ## Colors
 
@@ -197,25 +218,27 @@ negative assertions.
 
 ## Typography
 
-**One family:** Onest, self-hosted through `next/font`, Latin, Latin Extended,
-and Cyrillic subsets.
+**Two families,** both self-hosted through `next/font` with Latin, Latin
+Extended, and Cyrillic subsets: **Source Serif 4** for display, **Onest** for
+everything else. See [Two faces](#two-faces) for why, and for the rule that the
+serif is never set bold.
 
-**Character:** Onest is the face the delivered logo specification verified for
-U+02BB, the turned comma Uzbek needs in *oʻ* and *gʻ*, and it carries Russian
-Cyrillic. One family in five weights keeps the three languages in one voice and
-keeps the mobile font payload to a single variable file.
+**Character:** both faces carry Russian Cyrillic and U+02BB, the turned comma
+Uzbek needs in *oʻ* and *gʻ*. Onest is the face the delivered logo specification
+verified; the serif was checked against the same two requirements before it was
+adopted, because a display face that cannot set `Fargʻona` is unusable here.
 
 ### Hierarchy
 
-- **Display** (700, fluid to 4.5rem, 0.98 line-height): one direct human idea
+- **Display** (serif 400, fluid to 5rem, 1.02 line-height): one direct human idea
   per page, never a feature list.
-- **Headline** (700, fluid to 2.75rem): section ideas.
-- **Title** (700, 1.25rem): cards, steps, and legal sections.
-- **Lead** (400, fluid to 1.25rem): the sentence under a headline.
-- **Body** (400, 1rem, 1.65 line-height): explanation; measure stays under
+- **Headline** (serif 400, fluid to 3.25rem): section ideas.
+- **Title** (sans 600, 1.375rem): cards, steps, and legal sections.
+- **Lead** (sans 400, fluid to 1.375rem): the sentence under a headline.
+- **Body** (sans 400, 1rem, 1.65 line-height): explanation; measure stays under
   about 42rem.
-- **Label** (700, 0.75rem, 0.14em, uppercase): eyebrows and metadata, preceded
-  by a 24px rule.
+- **Label** (sans 600, 0.75rem, 0.14em, uppercase): eyebrows and metadata,
+  preceded by a 24px rule.
 
 ### Named rule
 
@@ -245,17 +268,18 @@ over content. No card, button, or band carries a shadow.
 
 ## Shapes
 
-Radii grow with scale: 6px chips, 10px small controls, 14px buttons and cards,
-20px larger panels, 28px on the closing callout. Circles belong to the mark's
-dot and to the step nodes. Borders are thin and quiet.
+Actions and chips are full-radius pills. Everything else grows with scale: 10px
+small controls, 14px inner surfaces, 20px larger panels, 28px on the closing
+callout. Circles belong to the mark's dot and to the step nodes. Borders are thin
+and quiet, and most groupings use a hairline rule instead of a border.
 
 ## Components
 
 ### Buttons
 
-- **Shape:** 14px radius, 44px minimum height in navigation and 52px for page
+- **Shape:** full radius, 44px minimum height in navigation and 52px for page
   actions.
-- **Primary:** solid Primary Ink with white label, lifting 2px on hover.
+- **Primary:** solid Primary Ink with white label, darkening on hover.
 - **Outline:** transparent with a Border Control edge that turns blue on hover.
 - **Inverse:** white on the blue callout.
 - **Focus:** a 3px Primary Ink outline at 3px offset, everywhere, from the base
@@ -297,6 +321,24 @@ A 64px bar on mobile and 80px from the large breakpoint: mark plus organisation
 name, the language control at every width, and one action. Below the large
 breakpoint the page links move into a disclosure panel that closes on Escape and
 on selection.
+
+## Surfaces and components
+
+Cards do not have borders. A group of related things is separated by a hairline
+rule above each item and a generous gap, not by a box: the boxed grid reads as a
+table, and a table is the wrong register for six sentences about what an
+organisation does. `StatGrid`, `NameBoard` and the home page's "what we do" list
+all use the same rule-and-space treatment, which is why they feel like one page
+rather than three components.
+
+Actions are full-radius pills. They shift background on hover and take a small
+scale-down on press; nothing lifts, because a shadowless page has nothing for a
+lifted element to cast onto.
+
+The one solid band is the closing call to action, and it is deliberate: it is the
+last thing on the page and the only place that needs to stop a reader. Figures
+that would once have sat on a blue block now sit on paper under a hairline, which
+also frees them to be orange where they are a human number.
 
 ## Motion
 

@@ -34,3 +34,5 @@ folder. Never store secrets or unverified external claims.
   production build breaks a live `next dev`, and how to recognise it
 - `gotchas/upgrade-insecure-requests-breaks-safari-on-localhost.md` — why the
   site rendered unstyled in Safari and perfectly in Chrome
+- `gotchas/a-base-rule-on-headings-catches-label-headings.md` — why the footer's
+  column headings had to opt back into the sans

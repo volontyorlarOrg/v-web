@@ -14,18 +14,13 @@ export function StatGrid({
   className?: string;
 }) {
   return (
-    <dl
-      className={cn(
-        "grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border lg:grid-cols-4",
-        className,
-      )}
-    >
+    <dl className={cn("grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4", className)}>
       {stats.map((stat) => (
-        <div key={stat.id} className="flex flex-col gap-1 bg-surface p-5 sm:p-6">
-          <dd className="tabular text-[clamp(1.875rem,5vw,2.5rem)] leading-none font-bold tracking-[-0.03em] text-accent">
+        <div key={stat.id} className="border-t border-border pt-5">
+          <dd className="tabular display-face text-[clamp(2.5rem,5.5vw,3.5rem)] leading-none tracking-[-0.03em] text-accent">
             {stat.value}
           </dd>
-          <dt className="text-sm leading-snug font-medium text-ink-muted">
+          <dt className="mt-3 max-w-[22ch] text-sm leading-snug text-ink-muted">
             {stat.label}
           </dt>
         </div>

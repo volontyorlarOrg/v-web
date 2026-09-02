@@ -35,16 +35,16 @@ export function StepRail({
             />
             <p
               className={cn(
-                "tabular text-xs font-bold tracking-[0.14em] uppercase",
+                "tabular text-xs font-semibold tracking-[0.14em] uppercase",
                 byVolunteer ? "text-accent-ink" : "text-primary-ink",
               )}
             >
               {String(index + 1).padStart(2, "0")}
             </p>
-            <h3 className="mt-2 text-xl font-bold tracking-[-0.02em] text-balance">
+            <h3 className="mt-3 text-title font-semibold text-balance">
               {step.title}
             </h3>
-            <p className="mt-2 leading-relaxed text-ink-muted text-pretty">
+            <p className="mt-3 leading-relaxed text-ink-muted text-pretty">
               {step.description}
             </p>
           </li>

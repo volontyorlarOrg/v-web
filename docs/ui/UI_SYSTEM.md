@@ -4,6 +4,22 @@ The token values, typography scale, and named rules live in
 [`../../DESIGN.md`](../../DESIGN.md). This page records how they are applied in
 code, plus the localization and accessibility behaviour that goes with them.
 
+## The two faces in code
+
+`src/app/[locale]/layout.tsx` loads Onest and Source Serif 4 through `next/font`
+and puts both variables on `<html>`. `globals.css` maps them to `--font-sans` and
+`--font-serif`, and a base rule gives `h1`, `h2` and `.display-face` the serif at
+weight 400. Headings therefore need no font class, and `font-bold` must never be
+added to one — see [Two faces](../../DESIGN.md#two-faces).
+
+`.display-face` exists for the handful of non-heading elements that belong to the
+display voice: the large figures in `StatGrid` and the regions band.
+
+The reverse also happens. The footer's column headings and `PageHero`'s metadata
+headings are `h2` for the document outline but are 12px uppercase labels by
+voice, so they carry `font-sans` explicitly. A tag says what an element is in the
+document, not how it should read.
+
 ## Where tokens live
 
 `src/app/globals.css` declares every semantic token in a Tailwind 4 `@theme`
@@ -42,18 +58,19 @@ where the margin narrows to 3.02:1.
 | `Section` | Vertical rhythm, tone band, hairline boundary, container |
 | `SectionHeader` / `Eyebrow` | Rule-led label, headline, lead sentence |
 | `PageHero` | Opening block for every page below the home page |
-| `StatGrid` | Hairline grid of orange tabular figures on white |
+| `StatGrid` | Orange tabular figures in the display serif under hairline rules |
 | `StepRail` | The four-step rail; blue nodes for YVC's work, orange for the volunteer's |
-| `NameBoard` | Separated cards for partner, supporter, and source names |
+| `NameBoard` | Hairline-ruled rows of partner, supporter, and source names |
 | `ProseSections` | Legal and explanatory pages at one measure |
 | `StatusChip` | Dashed label for planned or unpublished material |
 | `buttonClass` | The single action styling contract, built with CVA |
 | `ActionLink` | Chooses a locale-aware link or a safe external anchor |
 | `HeroMapSection` | The home page hero and its scroll-driven map of the fourteen regions |
 
-`NameBoard` and the course topics use separated cards rather than the hairline
-grid used elsewhere: their length varies, and an unfilled cell in a gap-filled
-grid reads as a rendering fault.
+Nothing on the home page is a bordered card any more. `StatGrid`, `NameBoard`,
+the course topics and the "what we do" list all use a hairline rule above each
+item with a generous gap, so a short list and a long one look equally deliberate
+and an unfilled grid cell cannot read as a rendering fault.
 
 ## Brand usage in code
 

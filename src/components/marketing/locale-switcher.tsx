@@ -36,7 +36,7 @@ export function LocaleSwitcher({
             aria-current={isActive ? "true" : undefined}
             title={localeNames[locale]}
             className={cn(
-              "inline-flex min-h-9 min-w-10 items-center justify-center rounded-md px-1.5 text-xs font-bold tracking-[0.06em] uppercase transition-colors sm:min-w-11 sm:px-2",
+              "inline-flex min-h-9 min-w-10 items-center justify-center rounded-md px-1.5 text-xs font-semibold tracking-[0.06em] uppercase transition-colors sm:min-w-11 sm:px-2",
               isActive
                 ? "bg-primary-ink text-knockout"
                 : "text-ink-muted hover:bg-surface-soft hover:text-primary-ink",
