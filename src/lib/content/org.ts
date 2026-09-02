@@ -33,14 +33,4 @@ export const OPPORTUNITY_SOURCES = [
   { id: "relay-fellowship", name: "Relay Fellowship" },
 ] as const;
 
-export const COURSE_TOPIC_IDS = [
-  "basics",
-  "applying",
-  "essay",
-  "conduct",
-  "participation",
-] as const;
-
-export type CourseTopicId = (typeof COURSE_TOPIC_IDS)[number];
-
 export const LEGAL_UPDATED_ON = "2026-09-02";

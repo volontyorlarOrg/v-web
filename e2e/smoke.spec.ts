@@ -30,11 +30,13 @@ test.describe("locale routing", () => {
   test("switching language keeps the same page", async ({ page }) => {
     await page.goto("/uz/partners");
     const footer = page.getByRole("contentinfo");
-    await footer.getByRole("link", { name: "ru", exact: true }).click();
+    await footer.getByRole("button", { name: /Til: O‘zbekcha/ }).click();
+    await footer.getByRole("link", { name: "Русский", exact: true }).click();
     await expect(page).toHaveURL(/\/ru\/partners$/);
     await expect(page.locator("html")).toHaveAttribute("lang", "ru");
 
-    await footer.getByRole("link", { name: "en", exact: true }).click();
+    await footer.getByRole("button", { name: /Язык: Русский/ }).click();
+    await footer.getByRole("link", { name: "English", exact: true }).click();
     await expect(page).toHaveURL(/\/en\/partners$/);
   });
 
@@ -81,7 +83,7 @@ test.describe("navigation", () => {
 });
 
 test.describe("production information architecture", () => {
-  for (const path of ["/v1", "/v2", "/v3", "/uz/v3"]) {
+  for (const path of ["/v1", "/v2", "/v3", "/uz/v3", "/en/course"]) {
     test(`${path} is not a public route`, async ({ page }) => {
       const response = await page.goto(path);
       expect(response?.status()).toBe(404);
@@ -204,7 +206,9 @@ test.describe("the hero map", () => {
     const hero = page.locator("#hero-map");
     await expect(hero.getByRole("heading", { level: 1 })).toHaveCount(1);
     await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
-    await expect(hero.getByRole("heading", { level: 2, name: /one map/i })).toHaveCount(1);
+    await expect(
+      hero.getByRole("heading", { level: 2, name: /growing across Uzbekistan/i }),
+    ).toHaveCount(1);
   });
 
   test("the hero call to action stays reachable at rest", async ({ page }) => {

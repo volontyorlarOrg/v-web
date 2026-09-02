@@ -9,7 +9,7 @@ import { HeroMapSection } from "@/components/marketing/hero-map/hero-map-section
 import { Marquee } from "@/components/marketing/marquee";
 import { NumberedRail } from "@/components/marketing/numbered-rail";
 import { Reveal } from "@/components/marketing/reveal";
-import { Eyebrow, Section, SectionHeader, StatusChip } from "@/components/marketing/section";
+import { Eyebrow, Section, SectionHeader } from "@/components/marketing/section";
 import { StatGrid, type Stat } from "@/components/marketing/stats";
 import { StepRail, type Step } from "@/components/marketing/steps";
 import { buttonClass } from "@/components/ui/button";
@@ -17,7 +17,6 @@ import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { joinDestination } from "@/lib/content/cta";
 import {
-  COURSE_TOPIC_IDS,
   OPPORTUNITY_SOURCES,
   PARTNERS,
   SUPPORTERS,
@@ -52,7 +51,6 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
 function Home({ locale }: { locale: Locale }) {
   const t = useTranslations("home");
   const partnersCopy = useTranslations("partners");
-  const courseCopy = useTranslations("course");
   const common = useTranslations("common");
   const join = joinDestination();
 
@@ -177,37 +175,6 @@ function Home({ locale }: { locale: Locale }) {
         >
           {t("sources.cta")}
         </Link>
-      </Section>
-
-      <Section tone="sunk">
-        <SectionBackdrop variant="study" />
-        <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
-          <div>
-            <Reveal>
-              <SectionHeader
-                eyebrow={t("course.eyebrow")}
-                title={t("course.title")}
-                lead={t("course.lead")}
-              />
-            </Reveal>
-            <div className="mt-7 flex flex-wrap items-center gap-4">
-              <StatusChip>{courseCopy("status")}</StatusChip>
-              <Link
-                href={navHref("course")}
-                className={buttonClass({ variant: "outline", size: "sm" })}
-              >
-                {t("course.cta")}
-              </Link>
-            </div>
-          </div>
-          <ul className="reveal-sequence self-start divide-y divide-border border-t border-border">
-            {COURSE_TOPIC_IDS.map((id) => (
-              <li key={id} className="py-4 text-base font-medium">
-                {courseCopy(`topics.${id}.title`)}
-              </li>
-            ))}
-          </ul>
-        </div>
       </Section>
 
       <Section>

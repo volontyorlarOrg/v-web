@@ -19,6 +19,7 @@ export function RollingWords({
   const [turn, setTurn] = useState<Turn>({ index: 0, previous: -1, tick: 0 });
   const [ready, setReady] = useState(false);
   const [width, setWidth] = useState<number>();
+  const compact = words[turn.index]?.trim().length <= 7;
 
   useEffect(() => {
     if (words.length < 2) return;
@@ -51,6 +52,7 @@ export function RollingWords({
     <span
       aria-hidden="true"
       className={cn("rotating-slot", className)}
+      data-compact={compact ? "true" : undefined}
       data-ready={ready ? "true" : undefined}
       style={width === undefined ? undefined : { width: `${width}px` }}
     >

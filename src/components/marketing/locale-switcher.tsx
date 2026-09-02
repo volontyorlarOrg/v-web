@@ -1,9 +1,11 @@
 "use client";
 
+import { Check, ChevronDown, Languages } from "lucide-react";
 import { useLocale } from "next-intl";
+import { useEffect, useId, useRef, useState } from "react";
 
 import { Link, usePathname } from "@/i18n/navigation";
-import { localeNames, locales } from "@/i18n/routing";
+import { localeNames, locales, type Locale } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 export function LocaleSwitcher({
@@ -13,39 +15,95 @@ export function LocaleSwitcher({
   label: string;
   className?: string;
 }) {
-  const active = useLocale();
+  const active = useLocale() as Locale;
   const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const panelId = useId();
+  const rootRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+
+    function onPointerDown(event: PointerEvent) {
+      if (!rootRef.current?.contains(event.target as Node)) setOpen(false);
+    }
+
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key !== "Escape") return;
+      setOpen(false);
+      triggerRef.current?.focus();
+    }
+
+    document.addEventListener("pointerdown", onPointerDown);
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+      document.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
 
   return (
-    <nav
-      aria-label={label}
-      className={cn(
-        "inline-flex items-center rounded-lg border border-border bg-surface p-0.5",
-        className,
-      )}
-    >
-      {locales.map((locale) => {
-        const isActive = locale === active;
-        return (
-          <Link
-            key={locale}
-            href={pathname}
-            locale={locale}
-            hrefLang={locale}
-            lang={locale}
-            aria-current={isActive ? "true" : undefined}
-            title={localeNames[locale]}
-            className={cn(
-              "inline-flex min-h-9 min-w-10 items-center justify-center rounded-md px-1.5 text-xs font-semibold tracking-[0.06em] uppercase transition-colors sm:min-w-11 sm:px-2",
-              isActive
-                ? "bg-primary-ink text-knockout"
-                : "text-ink-muted hover:bg-surface-soft hover:text-primary-ink",
-            )}
-          >
-            {locale}
-          </Link>
-        );
-      })}
-    </nav>
+    <div ref={rootRef} className={cn("relative", className)}>
+      <button
+        ref={triggerRef}
+        type="button"
+        aria-expanded={open}
+        aria-controls={panelId}
+        aria-label={`${label}: ${localeNames[active]}`}
+        onClick={() => setOpen((value) => !value)}
+        className="inline-flex min-h-11 w-[4.75rem] items-center justify-center gap-1.5 rounded-lg border border-border bg-surface px-2 text-sm font-semibold text-ink transition-colors hover:border-border-control hover:text-primary-ink sm:w-36 sm:justify-start sm:px-3"
+      >
+        <Languages aria-hidden="true" className="size-4 shrink-0 text-primary-ink" />
+        <span className="uppercase sm:hidden">{active}</span>
+        <span className="hidden min-w-0 flex-1 truncate text-left sm:block">
+          {localeNames[active]}
+        </span>
+        <ChevronDown
+          aria-hidden="true"
+          className={cn("size-4 shrink-0 transition-transform", open && "rotate-180")}
+        />
+      </button>
+
+      <nav
+        id={panelId}
+        aria-label={label}
+        hidden={!open}
+        className="absolute right-0 z-50 mt-2 w-48 overflow-hidden rounded-lg border border-border bg-surface p-1 shadow-[0_18px_40px_-32px_rgb(28_36_43/0.45)]"
+      >
+        {locales.map((locale) => {
+          const isActive = locale === active;
+          return (
+            <Link
+              key={locale}
+              href={pathname}
+              locale={locale}
+              hrefLang={locale}
+              lang={locale}
+              aria-current={isActive ? "page" : undefined}
+              onClick={() => setOpen(false)}
+              className={cn(
+                "flex min-h-11 items-center gap-3 rounded-md px-3 text-sm font-semibold transition-colors",
+                isActive
+                  ? "bg-surface-soft text-primary-ink"
+                  : "text-ink hover:bg-surface-sunk hover:text-primary-ink",
+              )}
+            >
+              <span className="flex-1">{localeNames[locale]}</span>
+              {isActive ? (
+                <Check aria-hidden="true" className="size-4 text-primary-ink" />
+              ) : (
+                <span
+                  aria-hidden="true"
+                  className="text-xs tracking-[0.08em] text-ink-muted uppercase"
+                >
+                  {locale}
+                </span>
+              )}
+            </Link>
+          );
+        })}
+      </nav>
+    </div>
   );
 }
