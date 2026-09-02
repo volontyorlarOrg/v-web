@@ -251,7 +251,7 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
           className={cn(
             "z-10",
             pinned
-              ? "pointer-events-none absolute inset-0 flex items-center"
+              ? "pointer-events-none absolute inset-x-0 top-0 flex h-[68%] items-center"
               : "relative pt-14 sm:pt-20",
           )}
         >

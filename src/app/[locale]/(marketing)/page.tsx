@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { BrandArc } from "@/components/brand/logo";
 import { ActionLink } from "@/components/marketing/action-link";
 import { NameBoard } from "@/components/marketing/name-board";
+import { SectionBackdrop } from "@/components/marketing/section-backdrop";
 import { HeroMapSection } from "@/components/marketing/hero-map/hero-map-section";
 import { Eyebrow, Section, SectionHeader, StatusChip } from "@/components/marketing/section";
 import { StatGrid, type Stat } from "@/components/marketing/stats";
@@ -106,6 +107,7 @@ function Home({ locale }: { locale: Locale }) {
       </Section>
 
       <Section tone="sunk">
+        <SectionBackdrop variant="sourcing" />
         <SectionHeader
           eyebrow={t("what.eyebrow")}
           title={t("what.title")}
@@ -124,20 +126,13 @@ function Home({ locale }: { locale: Locale }) {
       </Section>
 
       <Section>
-        <SectionHeader
-          eyebrow={t("how.eyebrow")}
-          title={t("how.title")}
-          lead={t("how.lead")}
-        />
+        <SectionHeader eyebrow={t("how.eyebrow")} title={t("how.title")} />
         <StepRail steps={steps} className="mt-14" />
       </Section>
 
       <Section tone="soft">
-        <SectionHeader
-          eyebrow={t("sources.eyebrow")}
-          title={t("sources.title")}
-          lead={t("sources.lead")}
-        />
+        <SectionBackdrop variant="channels" />
+        <SectionHeader eyebrow={t("sources.eyebrow")} title={t("sources.title")} />
         <NameBoard
           className="mt-10"
           entries={OPPORTUNITY_SOURCES.map((source) => ({
@@ -198,6 +193,7 @@ function Home({ locale }: { locale: Locale }) {
       </Section>
 
       <Section tone="sunk">
+        <SectionBackdrop variant="study" />
         <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
           <div>
             <SectionHeader

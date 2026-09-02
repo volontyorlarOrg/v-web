@@ -114,3 +114,120 @@
     padding-inline: 2rem;
   }
 }
+
+@layer components {
+  .section-backdrop {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    color: var(--color-primary);
+  }
+
+  .backdrop-cards,
+  .backdrop-channels {
+    position: absolute;
+    inset: 0;
+    display: block;
+  }
+
+  .backdrop-cards svg {
+    position: absolute;
+    top: var(--card-top, 100%);
+    left: var(--card-x);
+    width: var(--card-width);
+    color: var(--color-primary);
+    opacity: 0.16;
+    animation: backdrop-card-rise var(--card-duration) linear var(--card-delay) infinite;
+  }
+
+  .backdrop-cards .card-check {
+    stroke: var(--color-accent);
+    stroke-dasharray: 40;
+    stroke-dashoffset: 40;
+    animation: backdrop-card-check var(--card-duration) linear var(--card-delay) infinite;
+  }
+
+  @keyframes backdrop-card-rise {
+    from {
+      transform: translate3d(-50%, 0, 0) rotate(var(--card-tilt));
+    }
+    to {
+      transform: translate3d(calc(-50% + var(--card-drift)), -110svh, 0)
+        rotate(calc(var(--card-tilt) * -1));
+    }
+  }
+
+  @keyframes backdrop-card-check {
+    0%,
+    38% {
+      stroke-dashoffset: 40;
+    }
+    56%,
+    100% {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .backdrop-channel {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--channel-from);
+    width: 1px;
+    background-color: var(--color-primary);
+    opacity: 0.055;
+  }
+
+  .backdrop-channel::after {
+    content: "";
+    position: absolute;
+    left: -1px;
+    width: 3px;
+    height: 4rem;
+    border-radius: 9999px;
+    background-color: var(--color-primary);
+    opacity: 0.5;
+    animation: backdrop-channel-pulse var(--channel-duration) linear var(--channel-delay) infinite;
+  }
+
+  @keyframes backdrop-channel-pulse {
+    from {
+      top: -4rem;
+    }
+    to {
+      top: 100%;
+    }
+  }
+
+  .backdrop-rules {
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 2.25rem,
+      var(--color-primary) 2.25rem,
+      var(--color-primary) calc(2.25rem + 1px)
+    );
+    opacity: 0.08;
+  }
+
+  .backdrop-reading {
+    position: absolute;
+    inset-inline: 0;
+    height: 2.25rem;
+    background-color: var(--color-primary);
+    opacity: 0.05;
+    animation: backdrop-reading-step 24s steps(12, end) infinite;
+  }
+
+  @keyframes backdrop-reading-step {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(27rem);
+    }
+  }
+}
