@@ -1,8 +1,10 @@
+import { CountUp } from "@/components/marketing/count-up";
 import { cn } from "@/lib/utils";
 
 export type Stat = {
   id: string;
-  value: string;
+  amount: number;
+  suffix?: string;
   label: string;
 };
 
@@ -14,13 +16,22 @@ export function StatGrid({
   className?: string;
 }) {
   return (
-    <dl className={cn("grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4", className)}>
+    <dl
+      className={cn(
+        "reveal-sequence grid gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-4",
+        className,
+      )}
+    >
       {stats.map((stat) => (
-        <div key={stat.id} className="border-t border-border pt-5">
-          <dd className="tabular display-face text-[clamp(2.5rem,5.5vw,3.5rem)] leading-none tracking-[-0.03em] text-accent">
-            {stat.value}
+        <div key={stat.id} className="relative pt-8">
+          <span
+            aria-hidden="true"
+            className="figure-rule absolute inset-x-0 top-0 h-px bg-primary"
+          />
+          <dd className="display-face text-[clamp(3rem,7.5vw,5.25rem)] leading-[0.92] tracking-[-0.04em] text-knockout">
+            <CountUp to={stat.amount} suffix={stat.suffix} />
           </dd>
-          <dt className="mt-3 max-w-[22ch] text-sm leading-snug text-ink-muted">
+          <dt className="mt-5 max-w-[20ch] text-sm leading-snug text-primary-muted">
             {stat.label}
           </dt>
         </div>

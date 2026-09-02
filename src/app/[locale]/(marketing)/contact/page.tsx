@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 
 import { JsonLd } from "@/components/marketing/json-ld";
 import { PageHero } from "@/components/marketing/page-hero";
+import { Reveal } from "@/components/marketing/reveal";
 import { Section, SectionHeader } from "@/components/marketing/section";
 import type { Locale } from "@/i18n/routing";
 import { availableChannels, channelUrl } from "@/lib/constants/channels";
@@ -46,19 +47,24 @@ function Contact({ locale }: { locale: Locale }) {
       <PageHero title={t("title")} lead={t("lead")} />
 
       <Section>
-        <SectionHeader title={t("channels.title")} />
+        <Reveal>
+          <SectionHeader title={t("channels.title")} />
+        </Reveal>
         {channels.length > 0 ? (
-          <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+          <ul className="reveal-sequence mt-12 border-b border-border">
             {channels.map((id) => (
-              <li key={id} className="rounded-lg border border-border bg-surface">
+              <li key={id} className="border-t border-border">
                 <a
                   href={channelUrl(id) ?? undefined}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex min-h-20 items-center justify-between gap-4 p-6 text-lg font-bold hover:text-primary-ink"
+                  className="group flex min-h-20 items-center justify-between gap-6 py-6 text-headline hover:text-primary-ink"
                 >
                   {footer(`channels.${id}`)}
-                  <span aria-hidden="true" className="text-primary">
+                  <span
+                    aria-hidden="true"
+                    className="text-title text-primary transition-transform group-hover:translate-x-1"
+                  >
                     &rarr;
                   </span>
                 </a>
@@ -66,20 +72,20 @@ function Contact({ locale }: { locale: Locale }) {
             ))}
           </ul>
         ) : (
-          <p className="mt-8 max-w-2xl rounded-xl border border-dashed border-border-control p-6 leading-relaxed text-ink-muted">
+          <p className="mt-10 max-w-2xl border-t border-dashed border-border-control pt-6 leading-relaxed text-ink-muted">
             {t("channels.empty")}
           </p>
         )}
       </Section>
 
       <Section tone="sunk">
-        <div className="grid gap-px overflow-hidden rounded-xl border border-border bg-border lg:grid-cols-3">
+        <div className="reveal-sequence grid gap-x-12 gap-y-10 lg:grid-cols-3">
           {AUDIENCES.map((id) => (
-            <section key={id} className="bg-surface p-6 sm:p-8">
-              <h2 className="text-xl font-bold tracking-[-0.02em] text-balance">
-                {t(`${id}.title`)}
-              </h2>
-              <p className="mt-3 leading-relaxed text-ink-muted">{t(`${id}.body`)}</p>
+            <section key={id} className="border-t border-border-control/60 pt-6">
+              <h2 className="text-title font-semibold text-balance">{t(`${id}.title`)}</h2>
+              <p className="mt-3 leading-relaxed text-ink-muted text-pretty">
+                {t(`${id}.body`)}
+              </p>
             </section>
           ))}
         </div>

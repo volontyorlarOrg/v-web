@@ -1,12 +1,14 @@
-import { useFormatter, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
 import { BrandArc } from "@/components/brand/logo";
 import { ActionLink } from "@/components/marketing/action-link";
-import { NameBoard } from "@/components/marketing/name-board";
 import { SectionBackdrop } from "@/components/marketing/section-backdrop";
 import { HeroMapSection } from "@/components/marketing/hero-map/hero-map-section";
+import { Marquee } from "@/components/marketing/marquee";
+import { NumberedRail } from "@/components/marketing/numbered-rail";
+import { Reveal } from "@/components/marketing/reveal";
 import { Eyebrow, Section, SectionHeader, StatusChip } from "@/components/marketing/section";
 import { StatGrid, type Stat } from "@/components/marketing/stats";
 import { StepRail, type Step } from "@/components/marketing/steps";
@@ -52,24 +54,23 @@ function Home({ locale }: { locale: Locale }) {
   const partnersCopy = useTranslations("partners");
   const courseCopy = useTranslations("course");
   const common = useTranslations("common");
-  const format = useFormatter();
   const join = joinDestination();
 
-  const plus = (value: number) => `${format.number(value)}+`;
-
   const stats: Stat[] = [
-    { id: "telegram", value: plus(TRACTION.telegramFollowers), label: t("stats.telegram") },
-    { id: "events", value: plus(TRACTION.eventsSupplied), label: t("stats.events") },
+    {
+      id: "telegram",
+      amount: TRACTION.telegramFollowers,
+      suffix: "+",
+      label: t("stats.telegram"),
+    },
+    { id: "events", amount: TRACTION.eventsSupplied, suffix: "+", label: t("stats.events") },
     {
       id: "applications",
-      value: plus(TRACTION.regionalRoleApplications),
+      amount: TRACTION.regionalRoleApplications,
+      suffix: "+",
       label: t("stats.applications"),
     },
-    {
-      id: "regions",
-      value: format.number(TARGET_REGION_COUNT),
-      label: t("stats.regions"),
-    },
+    { id: "regions", amount: TARGET_REGION_COUNT, label: t("stats.regions") },
   ];
 
   const steps: Step[] = HOW_STEPS.map((id) => ({
@@ -101,106 +102,94 @@ function Home({ locale }: { locale: Locale }) {
 
       <HeroMapSection locale={locale} />
 
-      <Section>
-        <Eyebrow>{t("stats.eyebrow")}</Eyebrow>
-        <StatGrid stats={stats} className="mt-6" />
+      <Section tone="ink">
+        <Eyebrow tone="inverse">{t("stats.eyebrow")}</Eyebrow>
+        <StatGrid stats={stats} className="mt-14" />
       </Section>
 
       <Section tone="sunk">
         <SectionBackdrop variant="sourcing" />
-        <SectionHeader
-          eyebrow={t("what.eyebrow")}
-          title={t("what.title")}
-          lead={t("what.lead")}
-        />
-        <ul className="mt-16 grid gap-x-12 sm:grid-cols-2 lg:grid-cols-3">
-          {WHAT_WE_DO.map((id) => (
-            <li key={id} className="border-t border-border py-7">
-              <h3 className="text-title font-semibold">{t(`what.items.${id}.title`)}</h3>
-              <p className="mt-3 leading-relaxed text-ink-muted text-pretty">
-                {t(`what.items.${id}.description`)}
-              </p>
-            </li>
-          ))}
-        </ul>
+        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <div className="lg:sticky lg:top-32 lg:self-start">
+            <Reveal>
+              <SectionHeader
+                eyebrow={t("what.eyebrow")}
+                title={t("what.title")}
+                lead={t("what.lead")}
+              />
+            </Reveal>
+          </div>
+
+          <NumberedRail
+            items={WHAT_WE_DO.map((id) => ({
+              id,
+              title: t(`what.items.${id}.title`),
+              description: t(`what.items.${id}.description`),
+            }))}
+          />
+        </div>
       </Section>
 
       <Section>
-        <SectionHeader eyebrow={t("how.eyebrow")} title={t("how.title")} />
+        <Reveal>
+          <SectionHeader eyebrow={t("how.eyebrow")} title={t("how.title")} />
+        </Reveal>
         <StepRail steps={steps} className="mt-14" />
       </Section>
 
       <Section tone="soft">
         <SectionBackdrop variant="channels" />
-        <SectionHeader eyebrow={t("sources.eyebrow")} title={t("sources.title")} />
-        <NameBoard
-          className="mt-10"
-          entries={OPPORTUNITY_SOURCES.map((source) => ({
-            id: source.id,
-            name: source.name,
-            note: partnersCopy("sources.note"),
-          }))}
-        />
-        <NameBoard
-          className="mt-4"
-          entries={[
-            ...PARTNERS.map((partner) => ({
-              id: partner.id,
-              name: partner.name,
-              note: partnersCopy("partnership.note"),
-            })),
-            ...SUPPORTERS.map((supporter) => ({
-              id: supporter.id,
-              name: supporter.name,
-              note: partnersCopy("support.note"),
-            })),
-          ]}
-        />
+        <Reveal>
+          <SectionHeader eyebrow={t("sources.eyebrow")} title={t("sources.title")} />
+        </Reveal>
+        <div className="mt-12 -mx-5 flex flex-col gap-3 border-y border-border sm:-mx-8">
+          <Marquee
+            label={t("sources.sourcesLabel")}
+            seconds={44}
+            entries={OPPORTUNITY_SOURCES.map((source) => ({
+              id: source.id,
+              name: source.name,
+              note: partnersCopy("sources.note"),
+            }))}
+          />
+          <Marquee
+            label={t("sources.partnersLabel")}
+            reverse
+            seconds={52}
+            className="border-t border-border"
+            entries={[
+              ...PARTNERS.map((partner) => ({
+                id: partner.id,
+                name: partner.name,
+                note: partnersCopy("partnership.note"),
+              })),
+              ...SUPPORTERS.map((supporter) => ({
+                id: supporter.id,
+                name: supporter.name,
+                note: partnersCopy("support.note"),
+              })),
+            ]}
+          />
+        </div>
         <Link
           href={navHref("partners")}
-          className={buttonClass({ variant: "ghost", size: "sm", className: "mt-6 -ml-4" })}
+          className={buttonClass({ variant: "ghost", size: "sm", className: "mt-8 -ml-4" })}
         >
           {t("sources.cta")}
         </Link>
-      </Section>
-
-      <Section>
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:gap-16">
-          <SectionHeader
-            eyebrow={t("regions.eyebrow")}
-            title={t("regions.title")}
-            lead={t("regions.lead")}
-          />
-          <dl className="grid gap-x-10 gap-y-10 sm:grid-cols-2">
-            <div className="border-t border-primary-muted pt-6">
-              <dd className="tabular display-face text-[clamp(3rem,7vw,4.5rem)] leading-none tracking-[-0.03em] text-primary-ink">
-                {format.number(TARGET_REGION_COUNT)}
-              </dd>
-              <dt className="mt-4 text-sm leading-snug text-ink-muted">
-                {t("regions.regionsLabel")}
-              </dt>
-            </div>
-            <div className="border-t border-primary-muted pt-6">
-              <dd className="tabular display-face text-[clamp(3rem,7vw,4.5rem)] leading-none tracking-[-0.03em] text-primary-ink">
-                {plus(TRACTION.regionalRoleApplications)}
-              </dd>
-              <dt className="mt-4 text-sm leading-snug text-ink-muted">
-                {t("regions.applicationsLabel")}
-              </dt>
-            </div>
-          </dl>
-        </div>
       </Section>
 
       <Section tone="sunk">
         <SectionBackdrop variant="study" />
         <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:gap-16">
           <div>
-            <SectionHeader
-              eyebrow={t("course.eyebrow")}
-              title={t("course.title")}
-              lead={t("course.lead")}
-            />
+            <Reveal>
+              <SectionHeader
+                eyebrow={t("course.eyebrow")}
+                title={t("course.title")}
+                lead={t("course.lead")}
+              />
+            </Reveal>
             <div className="mt-7 flex flex-wrap items-center gap-4">
               <StatusChip>{courseCopy("status")}</StatusChip>
               <Link
@@ -211,7 +200,7 @@ function Home({ locale }: { locale: Locale }) {
               </Link>
             </div>
           </div>
-          <ul className="self-start divide-y divide-border border-t border-border">
+          <ul className="reveal-sequence self-start divide-y divide-border border-t border-border">
             {COURSE_TOPIC_IDS.map((id) => (
               <li key={id} className="py-4 text-base font-medium">
                 {courseCopy(`topics.${id}.title`)}
@@ -222,7 +211,7 @@ function Home({ locale }: { locale: Locale }) {
       </Section>
 
       <Section>
-        <div className="relative isolate overflow-hidden rounded-2xl bg-primary-ink px-7 py-16 sm:px-14 sm:py-20">
+        <div className="reveal-wipe relative isolate overflow-hidden rounded-2xl bg-primary-ink px-7 py-16 sm:px-14 sm:py-20">
           <BrandArc className="pointer-events-none absolute -right-16 -bottom-40 -z-10 size-96 text-knockout/12" />
           <h2 className="max-w-[18ch] text-headline text-knockout text-balance">
             {t("cta.title")}

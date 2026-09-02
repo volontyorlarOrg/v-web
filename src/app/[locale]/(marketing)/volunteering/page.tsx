@@ -4,7 +4,9 @@ import type { Metadata } from "next";
 
 import { ActionLink } from "@/components/marketing/action-link";
 import { JsonLd } from "@/components/marketing/json-ld";
+import { NumberedRail } from "@/components/marketing/numbered-rail";
 import { PageHero } from "@/components/marketing/page-hero";
+import { Reveal } from "@/components/marketing/reveal";
 import { Section, SectionHeader, StatusChip } from "@/components/marketing/section";
 import { StepRail, type Step } from "@/components/marketing/steps";
 import { buttonClass } from "@/components/ui/button";
@@ -67,80 +69,74 @@ function Volunteering({ locale }: { locale: Locale }) {
       <PageHero title={t("title")} lead={t("lead")} />
 
       <Section>
-        <SectionHeader
-          eyebrow={home("how.eyebrow")}
-          title={home("how.title")}
-          lead={home("how.lead")}
-        />
+        <Reveal>
+          <SectionHeader eyebrow={home("how.eyebrow")} title={home("how.title")} />
+        </Reveal>
         <StepRail steps={steps} className="mt-14" />
       </Section>
 
       <Section tone="sunk">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          <div >
-            <h2 className="text-2xl font-bold tracking-[-0.025em]">{t("start.title")}</h2>
-            <p className="mt-4 leading-relaxed text-ink-muted">{t("start.body")}</p>
-            <ActionLink
-              destination={join}
-              className={buttonClass({ size: "sm", className: "mt-7" })}
-            >
-              {home("hero.primaryCta")}
-            </ActionLink>
+        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+          <div className="lg:sticky lg:top-32 lg:self-start">
+            <Reveal>
+              <SectionHeader title={t("expect.title")} />
+            </Reveal>
           </div>
-
-          <div >
-            <h2 className="text-2xl font-bold tracking-[-0.025em]">{t("expect.title")}</h2>
-            <ul className="mt-6 divide-y divide-border rounded-xl border border-border bg-surface">
-              {EXPECTATIONS.map((id) => (
-                <li key={id} className="p-5">
-                  <h3 className="font-bold">{t(`expect.items.${id}.title`)}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-ink-muted">
-                    {t(`expect.items.${id}.description`)}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <NumberedRail
+            items={EXPECTATIONS.map((id) => ({
+              id,
+              title: t(`expect.items.${id}.title`),
+              description: t(`expect.items.${id}.description`),
+            }))}
+          />
         </div>
       </Section>
 
       <Section>
-        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-          <div >
-            <h2 className="text-2xl font-bold tracking-[-0.025em]">
-              {t("responsibilities.title")}
-            </h2>
-            <ul className="mt-6 space-y-4">
+        <div className="grid gap-14 lg:grid-cols-2 lg:gap-20">
+          <div>
+            <Reveal>
+              <SectionHeader title={t("responsibilities.title")} />
+            </Reveal>
+            <ul className="reveal-sequence mt-10">
               {RESPONSIBILITIES.map((id) => (
-                <li key={id} className="flex gap-3 leading-relaxed">
-                  <span
-                    aria-hidden="true"
-                    className="mt-2.5 size-2 shrink-0 rounded-full bg-primary"
-                  />
+                <li
+                  key={id}
+                  className="border-t border-border py-5 leading-relaxed text-pretty"
+                >
                   {t(`responsibilities.items.${id}`)}
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="rounded-xl border border-border bg-surface p-7 sm:p-9">
-            <h2 className="text-2xl font-bold tracking-[-0.025em]">{t("app.title")}</h2>
-            <p className="mt-4 leading-relaxed text-ink-muted">{t("app.body")}</p>
+          <Reveal className="lg:pt-2">
+            <SectionHeader title={t("app.title")} lead={t("app.body")} />
             {hasApp ? (
-              <ActionLink
-                destination={opportunities}
-                className={buttonClass({ size: "sm", className: "mt-7" })}
-              >
+              <ActionLink destination={opportunities} className={buttonClass({ className: "mt-9" })}>
                 {t("app.cta")}
               </ActionLink>
             ) : (
-              <div className="mt-7 flex flex-wrap items-center gap-3">
+              <div className="mt-9 flex flex-wrap items-center gap-3">
                 <StatusChip>{t("app.title")}</StatusChip>
                 <p className="text-sm text-ink-muted">{t("app.pending")}</p>
               </div>
             )}
-          </div>
+          </Reveal>
         </div>
+      </Section>
+
+      <Section tone="ink">
+        <Reveal className="max-w-2xl">
+          <h2 className="text-headline text-knockout text-balance">{t("start.title")}</h2>
+          <p className="mt-6 text-lead text-primary-muted text-pretty">{t("start.body")}</p>
+          <ActionLink
+            destination={join}
+            className={buttonClass({ variant: "inverse", className: "mt-9" })}
+          >
+            {home("hero.primaryCta")}
+          </ActionLink>
+        </Reveal>
       </Section>
     </>
   );

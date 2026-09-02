@@ -9,10 +9,21 @@ import { cn } from "@/lib/utils";
 const SMOOTHING = 0.14;
 const SETTLED = 0.0004;
 const MAX_PIXEL_RATIO = 2;
+const MAX_CANVAS_PIXELS = 2_600_000;
 const PRELOAD_MARGIN = "120% 0px";
 const LABEL_GAP = 10;
 const HIDDEN = 0.04;
-const LABEL_OFFSETS = [0, -0.62, 0.62, -1.15, 1.15];
+const LABEL_SLOTS: Array<readonly [number, number]> = [
+  [0, 0],
+  [-0.62, 0],
+  [0.62, 0],
+  [0, -1.15],
+  [-0.62, -1.15],
+  [0.62, -1.15],
+  [-1.18, 0],
+  [1.18, 0],
+  [0, -2.3],
+];
 
 type Props = {
   regions: readonly LocalisedRegion[];
@@ -77,20 +88,25 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
       const height = stage.clientHeight;
       const placed: Array<[number, number, number, number]> = [];
 
-      for (const marker of scene.projectMarkers(width, height)) {
+      const markers = scene
+        .projectMarkers(width, height)
+        .sort((first, second) => first.y - second.y);
+
+      for (const marker of markers) {
         const label = labels.get(marker.id);
         if (!label) continue;
 
         const size = sizes.get(marker.id);
         const onScreen = marker.depth > -1 && marker.depth < 1 && marker.reveal > 0.02;
-        let offset: number | null = onScreen ? 0 : null;
+        let slot: readonly [number, number] | null = onScreen ? LABEL_SLOTS[0] : null;
 
         if (onScreen && size) {
-          offset = null;
-          for (const candidate of LABEL_OFFSETS) {
-            const dx = candidate * size.width;
+          slot = null;
+          for (const candidate of LABEL_SLOTS) {
+            const dx = candidate[0] * size.width;
+            const dy = candidate[1] * (size.height + LABEL_GAP);
             const left = marker.x + dx - size.width / 2;
-            const top = marker.y - size.height - LABEL_GAP;
+            const top = marker.y + dy - size.height - LABEL_GAP;
             const box: [number, number, number, number] = [
               left,
               top,
@@ -102,16 +118,17 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
             );
             if (!clash) {
               placed.push(box);
-              offset = dx;
+              slot = [dx, dy];
               break;
             }
           }
         }
 
-        label.style.opacity = offset === null ? "0" : String(Math.min(1, marker.reveal * 1.8));
-        if (offset !== null) {
-          const x = marker.x + offset;
-          label.style.transform = `translate3d(${x.toFixed(1)}px, ${marker.y.toFixed(1)}px, 0)`;
+        label.style.opacity = slot === null ? "0" : String(Math.min(1, marker.reveal * 1.8));
+        if (slot !== null) {
+          const x = marker.x + slot[0];
+          const y = marker.y + slot[1];
+          label.style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
         }
       }
     }
@@ -158,7 +175,9 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
       const width = stage.clientWidth;
       const height = stage.clientHeight;
       if (width === 0 || height === 0) return;
-      scene.resize(width, height, Math.min(window.devicePixelRatio || 1, MAX_PIXEL_RATIO));
+      const budget = Math.sqrt(MAX_CANVAS_PIXELS / (width * height));
+      const ratio = Math.max(1, Math.min(window.devicePixelRatio || 1, MAX_PIXEL_RATIO, budget));
+      scene.resize(width, height, ratio);
       measureLabels();
       draw();
     }
@@ -251,7 +270,7 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
           className={cn(
             "z-10",
             pinned
-              ? "pointer-events-none absolute inset-x-0 top-0 flex h-[68%] items-center"
+              ? "pointer-events-none absolute inset-x-0 top-0 flex h-[84%] items-center"
               : "relative pt-14 sm:pt-20",
           )}
         >
@@ -290,7 +309,6 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
                   else map.delete(region.id);
                 }}
                 className="absolute top-0 left-0 -translate-x-1/2 -translate-y-[calc(100%+0.625rem)] rounded-full border border-border bg-surface/90 px-2 py-0.5 text-xs leading-tight font-semibold whitespace-nowrap text-primary-ink opacity-0"
-                style={{ willChange: "transform, opacity" }}
               >
                 {region.name}
               </span>

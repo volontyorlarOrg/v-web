@@ -1,10 +1,10 @@
-# YVC Web
+# Volontyor Web
 
-The public, mobile-first marketing website for **Youth Volunteer Club (YVC)**,
+The public, mobile-first marketing website for **Volontyor**,
 a volunteering community for high school students in Uzbekistan.
 
 This repository is the marketing site only. Volunteer accounts, opportunity
-browsing, applications, and records belong to the separate YVC application.
+browsing, applications, and records belong to the separate Volontyor application.
 
 ## Requirements
 
@@ -72,7 +72,7 @@ no domain or channel address is verified yet:
 | Variable | Effect while unset |
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Pages send `noindex`, `robots.txt` disallows crawling, and the sitemap is empty |
-| `NEXT_PUBLIC_APP_ORIGIN` | Links into the YVC application are not rendered |
+| `NEXT_PUBLIC_APP_ORIGIN` | Links into the Volontyor application are not rendered |
 | `NEXT_PUBLIC_TELEGRAM_URL` | The join action falls back to the contact page |
 | `NEXT_PUBLIC_INSTAGRAM_URL` | The channel is omitted from the footer and contact page |
 
