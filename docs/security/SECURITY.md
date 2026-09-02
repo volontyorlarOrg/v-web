@@ -15,7 +15,7 @@ every response:
 - a Content Security Policy
 
 They are built by `src/lib/security/headers.ts`, which `next.config.ts` calls
-with `secureTransport: process.env.NODE_ENV === "production"`.
+with explicit development and secure-transport flags derived from `NODE_ENV`.
 
 The policy is first-party only, which the site can afford because it loads no
 third-party script, style, frame, font, or image:
@@ -27,6 +27,10 @@ style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';
 connect-src 'self'; manifest-src 'self'; upgrade-insecure-requests
 ```
 
+Development adds `'unsafe-eval'` to `script-src` because React uses it for
+debugging, and `ws:` to `connect-src` for hot reload. These exceptions are
+excluded from production headers.
+
 **`upgrade-insecure-requests` and `Strict-Transport-Security` are sent only in
 production.** Both describe a site reached over TLS, and development serves
 plain HTTP on `localhost`. Chromium exempts `localhost` from the upgrade;
@@ -34,8 +38,9 @@ WebKit does not, so sending it in development rewrote every stylesheet, script,
 and font request to `https://localhost:3000` and Safari failed all of them
 against a port with no TLS. The page still returned 200 and rendered completely
 unstyled. `src/lib/security/headers.test.ts` holds both halves of this: the
-origin lock is identical either way, and the two TLS directives appear only
-under `secureTransport`.
+production origin lock remains first-party, development-only runtime
+permissions are removed from the production policy, and the two TLS directives
+appear only under `secureTransport`.
 
 **Known weakness:** `script-src` and `style-src` allow `'unsafe-inline'`.
 Next.js App Router emits inline bootstrap scripts and inlines critical CSS, and

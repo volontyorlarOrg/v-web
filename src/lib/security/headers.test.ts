@@ -3,12 +3,14 @@ import { describe, expect, it } from "vitest";
 import { contentSecurityPolicy, securityHeaders } from "@/lib/security/headers";
 
 const find = (secureTransport: boolean, key: string) =>
-  securityHeaders({ secureTransport }).find((header) => header.key === key);
+  securityHeaders({ development: !secureTransport, secureTransport }).find(
+    (header) => header.key === key,
+  );
 
 describe("security headers", () => {
-  it("locks the same origins down however the site is served", () => {
+  it("keeps the core document and resource restrictions in every environment", () => {
     for (const secureTransport of [true, false]) {
-      const policy = contentSecurityPolicy({ secureTransport });
+      const policy = contentSecurityPolicy({ development: !secureTransport, secureTransport });
       expect(policy).toContain("default-src 'self'");
       expect(policy).toContain("object-src 'none'");
       expect(policy).toContain("frame-ancestors 'none'");
@@ -20,12 +22,29 @@ describe("security headers", () => {
   });
 
   it("upgrades insecure requests only where there is TLS to upgrade to", () => {
-    expect(contentSecurityPolicy({ secureTransport: true })).toContain(
+    expect(contentSecurityPolicy({ development: false, secureTransport: true })).toContain(
       "upgrade-insecure-requests",
     );
-    expect(contentSecurityPolicy({ secureTransport: false })).not.toContain(
+    expect(contentSecurityPolicy({ development: true, secureTransport: false })).not.toContain(
       "upgrade-insecure-requests",
     );
+  });
+
+  it("allows React diagnostics and hot reload connections only in development", () => {
+    const developmentPolicy = contentSecurityPolicy({
+      development: true,
+      secureTransport: false,
+    });
+    const productionPolicy = contentSecurityPolicy({
+      development: false,
+      secureTransport: true,
+    });
+
+    expect(developmentPolicy).toContain("script-src 'self' 'unsafe-inline' 'unsafe-eval'");
+    expect(developmentPolicy).toContain("connect-src 'self' ws:");
+    expect(productionPolicy).toContain("script-src 'self' 'unsafe-inline'");
+    expect(productionPolicy).toContain("connect-src 'self'");
+    expect(productionPolicy).not.toMatch(/unsafe-eval|connect-src[^;]*ws:/);
   });
 
   it("sends HSTS only over a secure transport", () => {
@@ -34,7 +53,7 @@ describe("security headers", () => {
   });
 
   it("never sends a directive that would break a plain-HTTP origin", () => {
-    const policy = contentSecurityPolicy({ secureTransport: false });
+    const policy = contentSecurityPolicy({ development: true, secureTransport: false });
     expect(policy).not.toMatch(/upgrade-insecure-requests|block-all-mixed-content/);
   });
 });

@@ -21,6 +21,7 @@
 
   --color-accent: #e85d30;
   --color-accent-ink: #b34917;
+  --color-mask-opaque: #000000;
 
   --font-sans: var(--font-onest), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-source-serif), ui-serif, Georgia, serif;
@@ -32,6 +33,9 @@
   --radius-2xl: 1.75rem;
 
   --text-display: clamp(2.75rem, 6.6vw, 5rem);
+  --text-brand-signature: clamp(2.75rem, 15.5vw, 12.5rem);
+  --text-hero: clamp(2.75rem, 8.2cqi, 6.75rem);
+  --text-page: clamp(2.25rem, 6.4cqi, 4.75rem);
   --text-display--line-height: 1.02;
   --text-display--letter-spacing: -0.028em;
   --text-headline: clamp(2rem, 4.4vw, 3.25rem);
@@ -132,8 +136,20 @@
   }
 
   .backdrop-channels {
-    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent);
-    mask-image: linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent);
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      var(--color-mask-opaque) 22%,
+      var(--color-mask-opaque) 78%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent,
+      var(--color-mask-opaque) 22%,
+      var(--color-mask-opaque) 78%,
+      transparent
+    );
   }
 
   .backdrop-cards svg {
@@ -440,7 +456,7 @@
   .brand-signature-word {
     display: flex;
     align-items: flex-end;
-    font-size: clamp(2.75rem, 15.5vw, 12.5rem);
+    font-size: var(--text-brand-signature);
     line-height: 0.88;
     letter-spacing: -0.045em;
   }
@@ -788,14 +804,14 @@
   }
 
   .hero-display {
-    font-size: clamp(2.75rem, 8.2cqi, 6.75rem);
+    font-size: var(--text-hero);
     line-height: 0.98;
     letter-spacing: -0.032em;
     text-wrap: balance;
   }
 
   .page-display {
-    font-size: clamp(2.25rem, 6.4cqi, 4.75rem);
+    font-size: var(--text-page);
     line-height: 1.04;
     letter-spacing: -0.028em;
     text-wrap: balance;

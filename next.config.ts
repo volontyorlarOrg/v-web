@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 
 import { securityHeaders } from "./src/lib/security/headers";
 
+const development = process.env.NODE_ENV === "development";
 const secureTransport = process.env.NODE_ENV === "production";
 
 const nextConfig: NextConfig = {
@@ -17,7 +18,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/:path*",
-        headers: securityHeaders({ secureTransport }),
+        headers: securityHeaders({ development, secureTransport }),
       },
     ];
   },
