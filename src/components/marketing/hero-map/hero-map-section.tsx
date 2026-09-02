@@ -25,7 +25,7 @@ export function HeroMapSection({ locale }: { locale: Locale }) {
         <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <Eyebrow>{t("hero.eyebrow")}</Eyebrow>
           <h1 className="mt-7 max-w-[15ch] text-display text-balance">{t("hero.title")}</h1>
-          <p className="mt-7 max-w-xl text-lead text-ink-muted text-pretty">{t("hero.lead")}</p>
+          <p className="mt-6 max-w-lg text-lead text-ink-muted text-pretty">{t("hero.lead")}</p>
           <div className="mt-10 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row sm:items-center">
             <ActionLink destination={join} className={buttonClass()}>
               {t("hero.primaryCta")}
@@ -34,7 +34,6 @@ export function HeroMapSection({ locale }: { locale: Locale }) {
               {t("hero.secondaryCta")}
             </Link>
           </div>
-          <p className="mt-6 text-sm text-ink-muted">{t("hero.note")}</p>
         </div>
       }
       caption={

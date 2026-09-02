@@ -37,15 +37,14 @@
     "hero": {
       "eyebrow": "Oʻzbekistonda volontyorlik",
       "title": "Volontyorlikni biz topamiz. Kelish sizdan.",
-      "lead": "Youth Volunteer Club Oʻzbekiston boʻylab volontyorlik imkoniyatlarini qidiradi, ularning ortidagi tashkilotchilar bilan bevosita gaplashadi va yuqori sinf oʻquvchilarini haqiqatan ham odam kerak boʻlgan tadbirlar bilan bogʻlaydi.",
+      "lead": "Haqiqiy tadbirlar, haqiqiy tashkilotchilar — sizga yetib borishdan oldin tekshirilgan.",
       "primaryCta": "Hamjamiyatga qoʻshiling",
-      "secondaryCta": "Qanday ishlaydi",
-      "note": "Mamlakat boʻylab yuqori sinf oʻquvchilari uchun ochiq."
+      "secondaryCta": "Qanday ishlaydi"
     },
     "map": {
       "eyebrow": "Mamlakat boʻylab",
       "title": "Oʻzbekistonning oʻn toʻrtta hududi, bitta xarita",
-      "lead": "Sahifani pastga suring: mamlakat qiyshayadi va har bir hudud xaritadan koʻtariladi.",
+      "lead": "Suring. Mamlakat qiyshayadi, hududlar koʻtariladi.",
       "regionsHeading": "Oʻzbekiston hududlari"
     },
     "stats": {
@@ -59,79 +58,77 @@
     "what": {
       "eyebrow": "Nima qilamiz",
       "title": "Imkoniyatlarni qayta joylashdan koʻra koʻproq",
-      "lead": "YVC boshqa joydan topilgan imkoniyatlarni ulashishdan boshlagan edi. Bugun esa ularning ortidagi ishni ham bajaradi.",
+      "lead": "Tadbirlar ortidagi ishni biz bajaramiz.",
       "items": {
         "find": {
           "title": "Imkoniyat topish",
-          "description": "Imkoniyat oʻzi paydo boʻlishini kutmay, mamlakat boʻylab volontyorlik izlaymiz."
+          "description": "Paydo boʻlishini kutmaymiz, oʻzimiz qidiramiz."
         },
         "contact": {
           "title": "Tashkilotchilar bilan aloqa",
-          "description": "Tadbir hamjamiyatga yetib borishidan oldin uni oʻtkazayotgan odamlar bilan gaplashamiz."
+          "description": "Tadbirni oʻtkazayotgan odam bilan gaplashamiz."
         },
         "source": {
           "title": "Tadbirlarni jalb qilish",
-          "description": "Volontyor kerak boʻlgan tadbirlarni, jumladan hech qayerda eʼlon qilinmaganlarini ham olib kelamiz."
+          "description": "Shu jumladan hech qayerda eʼlon qilinmaganlari."
         },
         "partnerships": {
           "title": "Hamkorlik qurish",
-          "description": "Tashkilotlar va muassasalar bilan doimiy ish aloqalarini oʻrnatamiz."
+          "description": "Tashkilot va muassasalar bilan ishchi aloqalar."
         },
         "supply": {
           "title": "Volontyor taʼminlash",
-          "description": "Tayyor volontyorlarni yuboramiz va buni 50 dan ortiq tadbirda amalga oshirdik."
+          "description": "Tayyor volontyorlar. Hozircha 50 dan ortiq tadbir."
         },
         "regional": {
           "title": "Hududiy faoliyat",
-          "description": "Imkoniyatlar yoshlarga qayerda yashashidan qatʼi nazar yetib borishi uchun hududlarda jamoalar tuzyapmiz."
+          "description": "Faqat poytaxtda emas, hududlarda ham jamoalar."
         }
       }
     },
     "how": {
       "eyebrow": "Qanday ishlaydi",
       "title": "Tadbir bilan volontyor orasidagi toʻrt qadam",
-      "lead": "Tadbirga aslida nima kerakligini bilmagunimizcha, hech narsa hamjamiyatga chiqmaydi.",
       "steps": {
         "find": {
           "title": "Topamiz",
-          "description": "Volontyorlik imkoniyatlarini qidiramiz va odam kerak boʻlgan tadbirlarni jalb qilamiz."
+          "description": "Imkoniyatlarni qidiramiz va tadbirlarni jalb qilamiz."
         },
         "check": {
           "title": "Tekshiramiz",
-          "description": "Tashkilotchilar bilan bevosita bogʻlanib, tadbirga aslida nima kerakligini aniqlaymiz."
+          "description": "Tashkilotchidan tadbirga nima kerakligini aniqlaymiz."
         },
         "share": {
           "title": "Ulashamiz",
-          "description": "Imkoniyat YVC hamjamiyatiga eʼlon qilinadi."
+          "description": "Imkoniyat hamjamiyatga eʼlon qilinadi."
         },
         "volunteer": {
           "title": "Siz qatnashasiz",
-          "description": "Tashkilotchiga volontyorlarni taqdim etamiz, siz esa tadbirda ishtirok etasiz."
+          "description": "Siz tadbirda ishtirok etasiz."
         }
       }
     },
     "sources": {
       "eyebrow": "Imkoniyat manbalari",
       "title": "Imkoniyatlar qayerdan keladi",
-      "lead": "Quyidagilar hozirda hamjamiyatga imkoniyat yetkazib berayotgan hamkor va manbalar.",
       "cta": "Barcha hamkorlar"
     },
     "regions": {
       "eyebrow": "Oʻzbekiston boʻylab",
       "title": "Barcha 14 ta hududga kengaymoqdamiz",
-      "lead": "Volontyorlik poytaxtdan tashqaridagi yoshlarga ham yetib borishi uchun hududiy jamoalar tuzyapmiz va javob kutganimizdan ham kattaroq boʻldi.",
+      "lead": "Volontyorlik faqat poytaxt ishi boʻlib qolmasligi uchun.",
       "regionsLabel": "Biz kengayayotgan hududlar",
       "applicationsLabel": "Hududiy loyiha menejeri va koordinator lavozimlariga arizalar"
     },
     "course": {
       "eyebrow": "Oʻrganish",
       "title": "Volontyorlik boʻyicha kurs tayyorlanmoqda",
-      "lead": "Qayerda volontyorlik qilishni bilishning oʻzi kifoya emas. Volontyorlik aslida qanday ishlashi haqida qisqa va amaliy material tayyorlayapmiz.",
+      "lead": "Volontyorlik aslida qanday ishlashi haqida qisqa amaliy material.",
       "cta": "Nimalarni oʻz ichiga oladi"
     },
     "cta": {
       "title": "Volontyorlikni topish oson boʻlishi kerak.",
-      "lead": "Hamjamiyatga qoʻshiling va imkoniyatlarni biz topgan zahoti oling.",
+      "lead": "Imkoniyatlarni biz topgan zahoti oling.",
       "primary": "Hamjamiyatga qoʻshiling",
       "secondary": "Biz bilan gaplashing"
     }

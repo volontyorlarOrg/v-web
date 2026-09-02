@@ -61,7 +61,8 @@ route opts out of static generation.
 The home page opens on a scroll-driven relief map of Uzbekistan's fourteen
 regions, and it is the only WebGL surface on the site. The hero and the map are
 one pinned sequence rather than two sections: the map starts as a faint backdrop
-behind the headline, comes forward as the hero copy retires, then tips sideways
+below the headline — cropped by the bottom of the frame, about half of it
+showing — rises and comes forward as the hero copy retires, then tips sideways
 while each region lifts out of the base plate. It is built directly on
 `three`; there is no React renderer for it, because the scene is a fixed set of
 meshes driven by one number and pinning `@react-three/fiber` would tie this
@@ -107,7 +108,7 @@ schedule is defined in one place:
 
 | Progress | What happens |
 | --- | --- |
-| 0 → 0.32 (`emerge`) | The map is the hero's backdrop: pushed right, barely tipped, at 42% opacity behind the headline. Hero copy fades and lifts away as this runs. |
+| 0 → 0.32 (`emerge`) | The map sits at the bottom of the frame, tipped 46° and cropped by the viewport edge, so roughly its top half shows under the centred hero copy. Hero copy fades and lifts away as this runs. |
 | 0.24 → 0.88 (`tip`) | The country tips to 62° and turns 10°, becoming the subject. The caption fades in. |
 | 0.36 → 0.96 | Regions lift off the base plate one at a time, west to east, each raising a leader line and its label. |
 

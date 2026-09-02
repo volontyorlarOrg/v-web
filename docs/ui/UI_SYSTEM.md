@@ -62,7 +62,8 @@ where the margin narrows to 3.02:1.
 | `StepRail` | The four-step rail; blue nodes for YVC's work, orange for the volunteer's |
 | `NameBoard` | Hairline-ruled rows of partner, supporter, and source names |
 | `ProseSections` | Legal and explanatory pages at one measure |
-| `StatusChip` | Dashed label for planned or unpublished material |
+| `StatusChip` | Dashed pill for planned or unpublished material |
+| `SectionBackdrop` | The ambient layer on the toned bands; `sourcing`, `channels`, `study` |
 | `buttonClass` | The single action styling contract, built with CVA |
 | `ActionLink` | Chooses a locale-aware link or a safe external anchor |
 | `HeroMapSection` | The home page hero and its scroll-driven map of the fourteen regions |

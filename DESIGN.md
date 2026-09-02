@@ -359,6 +359,29 @@ Anything else that wants to animate on scroll has to clear the same bar: correct
 and complete at rest, better in motion. If it is blank until scrolled, it does
 not ship.
 
+### Ambient backdrops
+
+The page's middle breathes on a two-section rhythm: flat ground, then a toned
+band carrying an ambient backdrop. Three bands have one — "what we do",
+"opportunity sources", and the course — and the rhythm is the point: a backdrop
+on every section is wallpaper, and a backdrop on one is an accident.
+
+Two rules keep them honest.
+
+**A backdrop depicts the club's own object or it does not exist.** Not ambient
+shapes, not a gradient mesh: event cards rising and being checked, the channels
+opportunities arrive through, the ruled page of a course being read. A reader who
+looks straight at one should recognise what it is.
+
+**They loop, they do not arrive.** Every backdrop is an infinite CSS animation
+with a negative delay, so it is already mid-motion on the first frame and a
+document that never scrolls still captures it. Nothing about them is a reveal.
+They are `aria-hidden`, sit at `-z-10`, and carry no information that is not also
+in the text above them.
+
+Ceiling: 16% ink at the strongest, and the moving part is never the loudest
+thing in the band.
+
 ## Brand usage
 
 The mark is used at 32px in the header and 48px on the 404 page, always above
