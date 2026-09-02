@@ -15,7 +15,7 @@ export function ProseSections({
       <div className="mt-10 space-y-10">
         {sections.map((section) => (
           <section key={section.id} >
-            <h2 className="text-xl font-bold tracking-[-0.02em]">{section.title}</h2>
+            <h2 className="font-sans text-title font-semibold">{section.title}</h2>
             <p className="mt-3 leading-relaxed text-ink-muted">{section.body}</p>
           </section>
         ))}

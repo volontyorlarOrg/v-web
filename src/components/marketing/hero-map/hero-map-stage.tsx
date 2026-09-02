@@ -12,6 +12,7 @@ const MAX_PIXEL_RATIO = 2;
 const PRELOAD_MARGIN = "120% 0px";
 const LABEL_GAP = 10;
 const HIDDEN = 0.04;
+const LABEL_OFFSETS = [0, -0.62, 0.62, -1.15, 1.15];
 
 type Props = {
   regions: readonly LocalisedRegion[];
@@ -82,27 +83,35 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
 
         const size = sizes.get(marker.id);
         const onScreen = marker.depth > -1 && marker.depth < 1 && marker.reveal > 0.02;
-        let show = onScreen;
+        let offset: number | null = onScreen ? 0 : null;
 
         if (onScreen && size) {
-          const left = marker.x - size.width / 2;
-          const top = marker.y - size.height - LABEL_GAP;
-          const box: [number, number, number, number] = [
-            left,
-            top,
-            left + size.width,
-            top + size.height,
-          ];
-          if (placed.some(([l, t, r, b]) => box[0] < r && box[2] > l && box[1] < b && box[3] > t)) {
-            show = false;
-          } else {
-            placed.push(box);
+          offset = null;
+          for (const candidate of LABEL_OFFSETS) {
+            const dx = candidate * size.width;
+            const left = marker.x + dx - size.width / 2;
+            const top = marker.y - size.height - LABEL_GAP;
+            const box: [number, number, number, number] = [
+              left,
+              top,
+              left + size.width,
+              top + size.height,
+            ];
+            const clash = placed.some(
+              ([l, t, r, b]) => box[0] < r && box[2] > l && box[1] < b && box[3] > t,
+            );
+            if (!clash) {
+              placed.push(box);
+              offset = dx;
+              break;
+            }
           }
         }
 
-        label.style.opacity = show ? String(Math.min(1, marker.reveal * 1.8)) : "0";
-        if (show) {
-          label.style.transform = `translate3d(${marker.x.toFixed(1)}px, ${marker.y.toFixed(1)}px, 0)`;
+        label.style.opacity = offset === null ? "0" : String(Math.min(1, marker.reveal * 1.8));
+        if (offset !== null) {
+          const x = marker.x + offset;
+          label.style.transform = `translate3d(${x.toFixed(1)}px, ${marker.y.toFixed(1)}px, 0)`;
         }
       }
     }
@@ -242,11 +251,11 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
           className={cn(
             "z-10",
             pinned
-              ? "absolute inset-x-0 top-0 pt-10 sm:pt-14"
-              : "relative pt-10 sm:pt-14",
+              ? "pointer-events-none absolute inset-0 flex items-center"
+              : "relative pt-14 sm:pt-20",
           )}
         >
-          <div className="container-page">{hero}</div>
+          <div className="pointer-events-auto container-page w-full">{hero}</div>
         </div>
 
         <div

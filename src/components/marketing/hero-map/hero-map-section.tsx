@@ -22,13 +22,11 @@ export function HeroMapSection({ locale }: { locale: Locale }) {
       regionsHeading={map("regionsHeading")}
       fallback={<HeroMapFlat locale={locale} />}
       hero={
-        <div className="max-w-3xl">
+        <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
           <Eyebrow>{t("hero.eyebrow")}</Eyebrow>
-          <h1 className="mt-6 max-w-[16ch] text-display font-bold text-balance">
-            {t("hero.title")}
-          </h1>
-          <p className="mt-7 max-w-2xl text-lead text-ink-muted text-pretty">{t("hero.lead")}</p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <h1 className="mt-7 max-w-[15ch] text-display text-balance">{t("hero.title")}</h1>
+          <p className="mt-7 max-w-xl text-lead text-ink-muted text-pretty">{t("hero.lead")}</p>
+          <div className="mt-10 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row sm:items-center">
             <ActionLink destination={join} className={buttonClass()}>
               {t("hero.primaryCta")}
             </ActionLink>
@@ -36,13 +34,13 @@ export function HeroMapSection({ locale }: { locale: Locale }) {
               {t("hero.secondaryCta")}
             </Link>
           </div>
-          <p className="mt-5 text-sm text-ink-muted">{t("hero.note")}</p>
+          <p className="mt-6 text-sm text-ink-muted">{t("hero.note")}</p>
         </div>
       }
       caption={
         <div className="max-w-xl">
           <Eyebrow>{map("eyebrow")}</Eyebrow>
-          <h2 id="regions-map-heading" className="mt-4 text-headline font-bold text-balance">
+          <h2 id="regions-map-heading" className="mt-4 text-headline text-balance">
             {map("title")}
           </h2>
           <p className="mt-4 text-pretty text-ink-muted">{map("lead")}</p>

@@ -22,7 +22,10 @@ const PLATE_THICKNESS = 0.028;
 const TILE_THICKNESS = 0.042;
 const TILE_LIFT = 0.17;
 const TILE_GAP = 0.009;
-const LEADER_HEIGHT = 0.17;
+const LEADER_BASE = 0.12;
+const LEADER_STEP = 0.082;
+const LEADER_TIERS = 5;
+const CLUSTER_RADIUS = 0.3;
 const LEADER_RADIUS = 0.0032;
 const MARKER_RADIUS = 0.016;
 
@@ -32,9 +35,9 @@ const CAMERA_FOV = 34;
 const FRAME_PADDING = 1.08;
 
 const BACKDROP_ZOOM = 1.05;
-const BACKDROP_SHIFT_X = 0.2;
+const BACKDROP_SHIFT_X = 0;
 const BACKDROP_SHIFT_Y = -0.02;
-const BACKDROP_OPACITY = 0.42;
+const BACKDROP_OPACITY = 0.38;
 const BACKDROP_TIP_DEGREES = 16;
 const TIP_RISE = 0.13;
 
@@ -157,6 +160,26 @@ function buildHull(): Array<readonly [number, number]> {
 
 const COUNTRY_HULL = buildHull();
 
+function buildLeaderTiers(): number[] {
+  const tiers: number[] = [];
+  REGION_GEOMETRY.forEach((region, index) => {
+    const [x, y] = region.anchor;
+    const taken = new Set<number>();
+    for (let other = 0; other < index; other += 1) {
+      const [otherX, otherY] = REGION_GEOMETRY[other].anchor;
+      if (Math.hypot(x - otherX, y - otherY) < CLUSTER_RADIUS) taken.add(tiers[other]);
+    }
+    let tier = 0;
+    while (tier < LEADER_TIERS - 1 && taken.has(tier)) tier += 1;
+    tiers[index] = tier;
+  });
+  return tiers;
+}
+
+const LEADER_TIER = buildLeaderTiers();
+const leaderHeight = (index: number) => LEADER_BASE + LEADER_TIER[index] * LEADER_STEP;
+const TALLEST_LEADER = Math.max(...REGION_GEOMETRY.map((_, index) => leaderHeight(index)));
+
 const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
@@ -232,11 +255,9 @@ export function createMapScene(canvas: HTMLCanvasElement, palette: Palette): Map
 
   const tileMaterialTop = track(new MeshLambertMaterial({ color: palette.tileTop }));
   const tileMaterialSide = track(new MeshLambertMaterial({ color: palette.tileSide }));
-  const leaderGeometry = track(
-    new CylinderGeometry(LEADER_RADIUS, LEADER_RADIUS, LEADER_HEIGHT, 6),
-  );
+  const leaderGeometry = track(new CylinderGeometry(LEADER_RADIUS, LEADER_RADIUS, 1, 6));
   leaderGeometry.rotateX(Math.PI / 2);
-  leaderGeometry.translate(0, 0, LEADER_HEIGHT / 2);
+  leaderGeometry.translate(0, 0, 0.5);
   const markerGeometry = track(new SphereGeometry(MARKER_RADIUS, 14, 10));
   const leaderMaterial = track(new MeshLambertMaterial({ color: palette.leader }));
   const markerMaterial = track(new MeshLambertMaterial({ color: palette.marker }));
@@ -259,14 +280,16 @@ export function createMapScene(canvas: HTMLCanvasElement, palette: Palette): Map
     tile.add(new Mesh(geometry, [tileMaterialTop, tileMaterialSide]));
     mapGroup.add(tile);
 
+    const height = leaderHeight(index);
     const leader = new Group();
     leader.position.set(anchorX, anchorY, PLATE_THICKNESS + TILE_THICKNESS);
-    leader.add(new Mesh(leaderGeometry, leaderMaterial));
-    const marker = new Mesh(markerGeometry, markerMaterial);
-    leader.add(marker);
+    const stem = new Mesh(leaderGeometry, leaderMaterial);
+    stem.scale.z = height;
+    leader.add(stem);
+    leader.add(new Mesh(markerGeometry, markerMaterial));
     mapGroup.add(leader);
 
-    return { id: region.id, tile, leader, reveal: 0 };
+    return { id: region.id, tile, leader, height, reveal: 0 };
   });
 
   const stagger =
@@ -364,7 +387,7 @@ export function createMapScene(canvas: HTMLCanvasElement, palette: Palette): Map
     });
 
     const topZ =
-      PLATE_THICKNESS + TILE_THICKNESS + (TILE_LIFT + LEADER_HEIGHT + MARKER_RADIUS) * tallest;
+      PLATE_THICKNESS + TILE_THICKNESS + (TILE_LIFT + TALLEST_LEADER + MARKER_RADIUS) * tallest;
     frameMap(
       topZ,
       lerp(BACKDROP_ZOOM, 1, emerge),
@@ -381,7 +404,7 @@ export function createMapScene(canvas: HTMLCanvasElement, palette: Palette): Map
   function projectMarkers(width: number, height: number): ProjectedMarker[] {
     return provinces.map((province) => {
       projected
-        .set(0, 0, LEADER_HEIGHT)
+        .set(0, 0, province.height)
         .applyMatrix4(province.leader.matrixWorld)
         .project(camera);
       return {

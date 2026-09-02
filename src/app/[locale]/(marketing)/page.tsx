@@ -111,13 +111,11 @@ function Home({ locale }: { locale: Locale }) {
           title={t("what.title")}
           lead={t("what.lead")}
         />
-        <ul className="mt-12 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-16 grid gap-x-12 sm:grid-cols-2 lg:grid-cols-3">
           {WHAT_WE_DO.map((id) => (
-            <li key={id} className="bg-surface p-6">
-              <h3 className="text-lg font-bold tracking-[-0.015em]">
-                {t(`what.items.${id}.title`)}
-              </h3>
-              <p className="mt-2 leading-relaxed text-ink-muted">
+            <li key={id} className="border-t border-border py-7">
+              <h3 className="text-title font-semibold">{t(`what.items.${id}.title`)}</h3>
+              <p className="mt-3 leading-relaxed text-ink-muted text-pretty">
                 {t(`what.items.${id}.description`)}
               </p>
             </li>
@@ -178,20 +176,20 @@ function Home({ locale }: { locale: Locale }) {
             title={t("regions.title")}
             lead={t("regions.lead")}
           />
-          <dl className="grid gap-px overflow-hidden rounded-xl border border-primary-ink bg-primary-ink sm:grid-cols-2">
-            <div className="bg-primary-ink p-7">
-              <dd className="tabular text-[clamp(2.75rem,8vw,4rem)] leading-none font-bold text-knockout">
+          <dl className="grid gap-x-10 gap-y-10 sm:grid-cols-2">
+            <div className="border-t border-primary-muted pt-6">
+              <dd className="tabular display-face text-[clamp(3rem,7vw,4.5rem)] leading-none tracking-[-0.03em] text-primary-ink">
                 {format.number(TARGET_REGION_COUNT)}
               </dd>
-              <dt className="mt-3 text-sm leading-snug text-primary-muted">
+              <dt className="mt-4 text-sm leading-snug text-ink-muted">
                 {t("regions.regionsLabel")}
               </dt>
             </div>
-            <div className="bg-primary-ink p-7 sm:border-l sm:border-knockout/25">
-              <dd className="tabular text-[clamp(2.75rem,8vw,4rem)] leading-none font-bold text-knockout">
+            <div className="border-t border-primary-muted pt-6">
+              <dd className="tabular display-face text-[clamp(3rem,7vw,4.5rem)] leading-none tracking-[-0.03em] text-primary-ink">
                 {plus(TRACTION.regionalRoleApplications)}
               </dd>
-              <dt className="mt-3 text-sm leading-snug text-primary-muted">
+              <dt className="mt-4 text-sm leading-snug text-ink-muted">
                 {t("regions.applicationsLabel")}
               </dt>
             </div>
@@ -217,9 +215,9 @@ function Home({ locale }: { locale: Locale }) {
               </Link>
             </div>
           </div>
-          <ul className="divide-y divide-border self-start rounded-xl border border-border bg-surface">
+          <ul className="self-start divide-y divide-border border-t border-border">
             {COURSE_TOPIC_IDS.map((id) => (
-              <li key={id} className="px-6 py-4 text-base font-semibold">
+              <li key={id} className="py-4 text-base font-medium">
                 {courseCopy(`topics.${id}.title`)}
               </li>
             ))}
@@ -228,15 +226,15 @@ function Home({ locale }: { locale: Locale }) {
       </Section>
 
       <Section>
-        <div className="relative isolate overflow-hidden rounded-2xl bg-primary-ink px-6 py-14 sm:px-12 sm:py-16">
+        <div className="relative isolate overflow-hidden rounded-2xl bg-primary-ink px-7 py-16 sm:px-14 sm:py-20">
           <BrandArc className="pointer-events-none absolute -right-16 -bottom-40 -z-10 size-96 text-knockout/12" />
-          <h2 className="max-w-[18ch] text-headline font-bold text-knockout text-balance">
+          <h2 className="max-w-[18ch] text-headline text-knockout text-balance">
             {t("cta.title")}
           </h2>
-          <p className="mt-5 max-w-xl text-lead text-primary-muted text-pretty">
+          <p className="mt-6 max-w-xl text-lead text-primary-muted text-pretty">
             {t("cta.lead")}
           </p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
             <ActionLink destination={join} className={buttonClass({ variant: "inverse" })}>
               {t("cta.primary")}
             </ActionLink>
@@ -244,7 +242,7 @@ function Home({ locale }: { locale: Locale }) {
               href={navHref("contact")}
               className={buttonClass({
                 variant: "outline",
-                className: "border-knockout/40 text-knockout hover:border-knockout hover:bg-primary-deep hover:text-knockout",
+                className: "border-knockout/55 text-knockout hover:border-knockout hover:bg-primary-deep hover:text-knockout",
               })}
             >
               {t("cta.secondary")}
