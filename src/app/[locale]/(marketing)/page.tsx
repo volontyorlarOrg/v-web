@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import { BrandArc } from "@/components/brand/logo";
 import { ActionLink } from "@/components/marketing/action-link";
 import { NameBoard } from "@/components/marketing/name-board";
-import { RegionMapSection } from "@/components/marketing/region-map/region-map-section";
+import { HeroMapSection } from "@/components/marketing/hero-map/hero-map-section";
 import { Eyebrow, Section, SectionHeader, StatusChip } from "@/components/marketing/section";
 import { StatGrid, type Stat } from "@/components/marketing/stats";
 import { StepRail, type Step } from "@/components/marketing/steps";
@@ -98,37 +98,12 @@ function Home({ locale }: { locale: Locale }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
 
-      <section className="relative isolate overflow-hidden border-b border-border">
-        <BrandArc className="pointer-events-none absolute -top-16 -right-24 -z-10 size-[24rem] text-primary/[0.07] sm:-top-24 sm:-right-16 sm:size-[34rem]" />
-        <div className="container-page py-16 sm:py-24">
-          <Eyebrow>{t("hero.eyebrow")}</Eyebrow>
-          <h1 className="mt-6 max-w-[16ch] text-display font-bold text-balance">
-            {t("hero.title")}
-          </h1>
-          <p className="mt-7 max-w-2xl text-lead text-ink-muted text-pretty">
-            {t("hero.lead")}
-          </p>
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <ActionLink destination={join} className={buttonClass()}>
-              {t("hero.primaryCta")}
-            </ActionLink>
-            <Link
-              href={navHref("volunteering")}
-              className={buttonClass({ variant: "outline" })}
-            >
-              {t("hero.secondaryCta")}
-            </Link>
-          </div>
-          <p className="mt-5 text-sm text-ink-muted">{t("hero.note")}</p>
+      <HeroMapSection locale={locale} />
 
-          <div className="mt-14 border-t border-border pt-10">
-            <Eyebrow>{t("stats.eyebrow")}</Eyebrow>
-            <StatGrid stats={stats} className="mt-5" />
-          </div>
-        </div>
-      </section>
-
-      <RegionMapSection locale={locale} />
+      <Section>
+        <Eyebrow>{t("stats.eyebrow")}</Eyebrow>
+        <StatGrid stats={stats} className="mt-6" />
+      </Section>
 
       <Section tone="sunk">
         <SectionHeader

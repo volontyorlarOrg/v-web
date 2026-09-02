@@ -34,7 +34,7 @@ function labelsThatFit(locale: Locale) {
   });
 }
 
-export function RegionMapFlat({ locale }: { locale: Locale }) {
+export function HeroMapFlat({ locale }: { locale: Locale }) {
   const labelled = labelsThatFit(locale);
 
   return (
