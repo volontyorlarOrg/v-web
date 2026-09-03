@@ -25,7 +25,7 @@ export function HeroMapSection({ locale }: { locale: Locale }) {
       fallback={<HeroMapFlat locale={locale} />}
       hero={
         <div className="hero-copy mx-auto flex w-full flex-col items-center text-center">
-          <Eyebrow className="enter-rise flex-wrap justify-center">
+          <Eyebrow rule="flank" className="enter-rise flex-wrap justify-center">
             <span className="sr-only">{t("hero.eyebrowLabel")}</span>
             <span aria-hidden="true" className="contents">
               {t.rich("hero.eyebrow", {

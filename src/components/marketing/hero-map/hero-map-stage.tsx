@@ -21,6 +21,9 @@ const STAGE_ROOM_TOP = 40;
 const STAGE_ROOM_BOTTOM = 32;
 const CAPTION_GAP = 20;
 const BACKDROP_GAP = 24;
+const SHUTTER_REST = 72;
+const SHUTTER_MAX = 88;
+const SHUTTER_MIN = 46;
 const HIDDEN = 0.04;
 const PIN_SLOTS: Array<readonly [number, number]> = [
   [0, 0],
@@ -47,7 +50,6 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
   const panelRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const mapWindowRef = useRef<HTMLDivElement>(null);
-  const handoffRef = useRef<HTMLSpanElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
   const captionRef = useRef<HTMLDivElement>(null);
@@ -69,7 +71,6 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
     const panel = panelRef.current;
     const stage = stageRef.current;
     const mapWindow = mapWindowRef.current;
-    const handoff = handoffRef.current;
     const canvas = canvasRef.current;
     const heroLayer = heroRef.current;
     const captionLayer = captionRef.current;
@@ -78,7 +79,6 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
       !panel ||
       !stage ||
       !mapWindow ||
-      !handoff ||
       !canvas ||
       !heroLayer ||
       !captionLayer
@@ -133,6 +133,12 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
         side: PIN_ROOM,
         caption: captionLayer.offsetHeight + CAPTION_GAP,
       };
+    }
+
+    function restingShutter(): number {
+      if (!stage || room.hero <= 0 || stage.clientHeight <= 0) return SHUTTER_REST;
+      const measured = (room.hero / stage.clientHeight) * 100;
+      return Math.min(SHUTTER_MAX, Math.max(SHUTTER_MIN, measured));
     }
 
     function positionPins() {
@@ -195,14 +201,12 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
     }
 
     function paint() {
-      if (!scene || !stage || !mapWindow || !handoff) return;
+      if (!scene || !stage || !mapWindow) return;
       const { emerge, settle } = scene.render(current, room);
-      const handoffProgress = easeOut(span(emerge, 0, 0.82));
-      const shutterTop = (1 - handoffProgress) * 72;
+      const shutterProgress = easeOut(span(emerge, 0, 0.82));
+      const shutterTop = (1 - shutterProgress) * restingShutter();
       mapWindow.style.clipPath = `inset(${shutterTop.toFixed(2)}% 0 0 0)`;
-      mapWindow.style.opacity = String(0.48 + handoffProgress * 0.52);
-      handoff.style.opacity = String(1 - span(emerge, 0.72, 1));
-      handoff.style.transform = `translate3d(0, ${(stage.clientHeight * shutterTop) / 100}px, 0) scaleX(${(0.16 + handoffProgress * 0.84).toFixed(3)})`;
+      mapWindow.style.opacity = String(0.48 + shutterProgress * 0.52);
       if (!reduceMotion && heroLayer && captionLayer) {
         const heroOut = span(emerge, 0.16, 0.92);
         layer(heroLayer, 1 - heroOut, heroOut * -24, true);
@@ -394,12 +398,6 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
               ))}
             </div>
           </div>
-
-          <span
-            ref={handoffRef}
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-x-0 top-0 z-10 h-px origin-center bg-primary opacity-0"
-          />
         </div>
 
         <div

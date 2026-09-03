@@ -38,8 +38,8 @@
     "hero": {
       "eyebrowLabel": "Oʻzbekiston boʻylab volontyorlik",
       "eyebrow": "<region></region> volontyorlik",
-      "title": "Qilinadigan ish bor. Oʻzingiz foydali boʻladigan joyni toping.",
-      "lead": "Imkoniyatni hamjamiyat bilan ulashishdan oldin tashkilotchilar bilan gaplashamiz.",
+      "title": "Qilinadigan ish bor.",
+      "lead": "Oʻzingiz foydali boʻladigan joyni toping. Imkoniyatni hamjamiyat bilan ulashishdan oldin tashkilotchilar bilan gaplashamiz.",
       "primaryCta": "Volontyor boʻling",
       "loginCta": "Kirish"
     },

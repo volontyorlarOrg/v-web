@@ -38,8 +38,8 @@
     "hero": {
       "eyebrowLabel": "Volunteering across Uzbekistan",
       "eyebrow": "Volunteering in <region></region>",
-      "title": "There’s work to be done. Find where you can make yourself useful.",
-      "lead": "We speak with organisers before sharing an opportunity with the community.",
+      "title": "There’s work to be done.",
+      "lead": "Find where you can make yourself useful. We speak with organisers before sharing an opportunity with the community.",
       "primaryCta": "Become a volunteer",
       "loginCta": "Log in"
     },
