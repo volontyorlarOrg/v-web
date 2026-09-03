@@ -2,8 +2,8 @@ import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
-import { JsonLd } from "@/components/marketing/json-ld";
 import { NameBoard } from "@/components/marketing/name-board";
+import { PageBreadcrumbJsonLd } from "@/components/marketing/page-breadcrumb-json-ld";
 import { PageHero } from "@/components/marketing/page-hero";
 import { Scene, SplitWords } from "@/components/marketing/scene";
 import { Section, SectionHeader } from "@/components/marketing/section";
@@ -12,7 +12,6 @@ import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { OPPORTUNITY_SOURCES, PARTNERS, SUPPORTERS } from "@/lib/content/org";
 import { navHref } from "@/lib/routing/routes";
-import { breadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 export async function generateMetadata({
@@ -34,19 +33,10 @@ export default async function PartnersPage({ params }: PageProps<"/[locale]/part
 
 function Partners({ locale }: { locale: Locale }) {
   const t = useTranslations("partners");
-  const nav = useTranslations("nav");
 
   return (
     <>
-      <JsonLd
-        data={breadcrumbJsonLd({
-          locale,
-          trail: [
-            { name: nav("home"), route: "home" },
-            { name: nav("partners"), route: "partners" },
-          ],
-        })}
-      />
+      <PageBreadcrumbJsonLd locale={locale} route="partners" />
 
       <PageHero title={t("title")} lead={t("lead")} />
 

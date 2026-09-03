@@ -7,6 +7,7 @@ Use this file to route project questions to the smallest relevant source.
 | Product truth, verified facts, audience, or the marketing/app boundary | [`../PRODUCT.md`](../PRODUCT.md) |
 | Production design system, tokens, typography, motion policy | [`../DESIGN.md`](../DESIGN.md) |
 | Routes, rendering, module ownership, dependency boundary | [`architecture/ARCHITECTURE.md`](architecture/ARCHITECTURE.md) |
+| File-by-file ownership and generated/local exclusions | [`architecture/REPOSITORY_INVENTORY.md`](architecture/REPOSITORY_INVENTORY.md) |
 | Domains, origins, hosting topology | [`architecture/DOMAINS.md`](architecture/DOMAINS.md) |
 | Brand assets, logo variants, and usage on the web | [`brand/BRAND_ASSETS.md`](brand/BRAND_ASSETS.md) |
 | Logo geometry, colour values, clear space, minimum size | [`brand/LOGO_SPEC.md`](brand/LOGO_SPEC.md) |

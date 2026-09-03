@@ -10,10 +10,7 @@ describe("call-to-action destinations", () => {
 
   it("falls back to internal pages instead of inventing a host", () => {
     expect(joinDestination()).toEqual({ href: "/contact", external: false });
-    expect(opportunitiesDestination()).toEqual({
-      href: "/volunteering",
-      external: false,
-    });
+    expect(opportunitiesDestination()).toBeNull();
   });
 
   it("offers no sign-in until the product application has an origin", () => {
@@ -28,13 +25,13 @@ describe("call-to-action destinations", () => {
     });
   });
 
-  it("prefers the community channel once it is verified", () => {
+  it("uses the community channel only for joining", () => {
     vi.stubEnv("NEXT_PUBLIC_TELEGRAM_URL", "https://t.me/example");
     expect(joinDestination()).toEqual({
       href: "https://t.me/example",
       external: true,
     });
-    expect(opportunitiesDestination().href).toBe("https://t.me/example");
+    expect(opportunitiesDestination()).toBeNull();
   });
 
   it("sends opportunity traffic to the product app when it exists", () => {

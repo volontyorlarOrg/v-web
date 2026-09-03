@@ -57,9 +57,10 @@ combine them.
 
 Orange clears 3:1 on every light surface in the system, but only just on the
 tinted bands: 3.48:1 on white, 3.33:1 on paper, 3.02:1 on the sunk band, and
-3.04:1 on the soft blue band. Orange figures therefore belong on white cards.
-The test asserts all four so a future change to a band tone fails loudly instead
-of silently dropping below the threshold.
+3.04:1 on the soft blue band. If orange ever carries a large figure, it belongs
+on white. The production evidence strip instead uses knockout figures on blue,
+leaving orange to the volunteer's step. The test asserts all four light
+surfaces so a future use cannot silently drop below the threshold.
 
 ### No red
 
@@ -111,7 +112,7 @@ tree, not from `public/`:
 | `src/app/favicon.ico` | **Rebuilt.** The delivered `favicon.ico` held a single 16 px frame despite the spec calling for 16–256 px, so it was repacked from `png/mark-blue-{16,32,48,64,128,256}.png` |
 | `src/app/icon.svg` | Copy of `icon-blue.svg` |
 | `src/app/apple-icon.png` | Copy of `png/icon-blue-180.png` |
-| `src/app/opengraph-image.png` | Rendered from `public/logo/social-card.svg` |
+| `public/opengraph-image.png` | Rendered from `public/logo/social-card.svg`; referenced explicitly by localized page metadata |
 
 Because those file conventions are in place, `app/layout.tsx` deliberately does
 not set `metadata.icons`; an explicit entry there would override them.
@@ -159,8 +160,9 @@ See [`../../.agent-memory/gotchas/svg-lockup-wordmark-font.md`](../../.agent-mem
 - **Second brand colour.** The specification now defines orange `#E85D30` /
   `#B34917` alongside the blues, with an explicit role split. The token system,
   the design system, and the contrast test were updated to match; the site
-  applies orange to the traction figures and to the one step in the volunteer
-  journey the volunteer performs.
+  originally applied orange to traction figures as well. The current site keeps
+  it only on the one step in the journey the volunteer performs; the evidence
+  strip uses knockout figures on blue so the two hues never touch.
 
 ## Superseded assets
 

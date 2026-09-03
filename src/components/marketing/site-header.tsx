@@ -9,17 +9,17 @@ import { ThemeToggle } from "@/components/marketing/theme-toggle";
 import { buttonClass } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import { joinDestination } from "@/lib/content/cta";
-import { NAV_TABS_MOCK, navTabHref, navTabPath } from "@/lib/content/nav-tabs";
-import { ORGANIZATION_NAME, ORGANIZATION_SHORT_NAME } from "@/lib/content/org";
+import { HEADER_NAV_ITEMS, headerNavHref, headerNavPath } from "@/lib/content/nav-tabs";
+import { ORGANIZATION_NAME } from "@/lib/content/org";
 
 export function SiteHeader() {
   const t = useTranslations("nav");
   const join = joinDestination();
 
-  const items: NavTabItem[] = NAV_TABS_MOCK.map((tab) => ({
-    href: navTabHref(tab),
-    path: navTabPath(tab),
-    label: t(tab.id),
+  const items: NavTabItem[] = HEADER_NAV_ITEMS.map((item) => ({
+    href: headerNavHref(item),
+    path: headerNavPath(item),
+    label: t(item.id),
   }));
 
   return (
@@ -30,10 +30,7 @@ export function SiteHeader() {
           className="-m-1 rounded-lg p-1"
           aria-label={`${ORGANIZATION_NAME} — ${t("home")}`}
         >
-          <BrandLockup
-            name={ORGANIZATION_NAME}
-            shortName={ORGANIZATION_SHORT_NAME}
-          />
+          <BrandLockup name={ORGANIZATION_NAME} />
         </Link>
 
         <NavTabs items={items} label={t("primaryLabel")} className="hidden lg:flex" />

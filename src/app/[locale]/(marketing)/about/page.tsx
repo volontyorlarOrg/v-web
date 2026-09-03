@@ -2,15 +2,14 @@ import { useFormatter, useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
-import { JsonLd } from "@/components/marketing/json-ld";
 import { NumberedRail } from "@/components/marketing/numbered-rail";
+import { PageBreadcrumbJsonLd } from "@/components/marketing/page-breadcrumb-json-ld";
 import { PageHero } from "@/components/marketing/page-hero";
 import { Scene } from "@/components/marketing/scene";
 import { Section, SectionHeader } from "@/components/marketing/section";
 import { StatGrid, type Stat } from "@/components/marketing/stats";
 import type { Locale } from "@/i18n/routing";
 import { FOUNDED_ON, FOUNDERS, TRACTION } from "@/lib/content/org";
-import { breadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 const STORY = ["founded", "purpose", "growth"] as const;
@@ -30,7 +29,6 @@ export default async function AboutPage({ params }: PageProps<"/[locale]/about">
 
 function About({ locale }: { locale: Locale }) {
   const t = useTranslations("about");
-  const nav = useTranslations("nav");
   const format = useFormatter();
 
   const stats: Stat[] = [
@@ -57,15 +55,7 @@ function About({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <JsonLd
-        data={breadcrumbJsonLd({
-          locale,
-          trail: [
-            { name: nav("home"), route: "home" },
-            { name: nav("about"), route: "about" },
-          ],
-        })}
-      />
+      <PageBreadcrumbJsonLd locale={locale} route="about" />
 
       <PageHero
         title={t("title")}

@@ -3,8 +3,8 @@ import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
 import { ActionLink } from "@/components/marketing/action-link";
-import { JsonLd } from "@/components/marketing/json-ld";
 import { NumberedRail } from "@/components/marketing/numbered-rail";
+import { PageBreadcrumbJsonLd } from "@/components/marketing/page-breadcrumb-json-ld";
 import { PageHero } from "@/components/marketing/page-hero";
 import { Scene, SplitWords } from "@/components/marketing/scene";
 import { Section, SectionHeader, StatusChip } from "@/components/marketing/section";
@@ -12,9 +12,7 @@ import { StepRail, type Step } from "@/components/marketing/steps";
 import { buttonClass } from "@/components/ui/button";
 import type { Locale } from "@/i18n/routing";
 import { joinDestination, opportunitiesDestination } from "@/lib/content/cta";
-import { breadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { buildPageMetadata } from "@/lib/seo/metadata";
-import { appOrigin } from "@/lib/seo/origin";
 
 const HOW_STEPS = ["find", "check", "share", "volunteer"] as const;
 const EXPECTATIONS = ["real", "clear", "support"] as const;
@@ -42,10 +40,8 @@ export default async function VolunteeringPage({
 function Volunteering({ locale }: { locale: Locale }) {
   const t = useTranslations("volunteering");
   const home = useTranslations("home");
-  const nav = useTranslations("nav");
   const join = joinDestination();
   const opportunities = opportunitiesDestination();
-  const hasApp = appOrigin() !== null;
 
   const steps: Step[] = HOW_STEPS.map((id) => ({
     id,
@@ -56,15 +52,7 @@ function Volunteering({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <JsonLd
-        data={breadcrumbJsonLd({
-          locale,
-          trail: [
-            { name: nav("home"), route: "home" },
-            { name: nav("volunteering"), route: "volunteering" },
-          ],
-        })}
-      />
+      <PageBreadcrumbJsonLd locale={locale} route="volunteering" />
 
       <PageHero title={t("title")} lead={t("lead")} />
 
@@ -106,7 +94,7 @@ function Volunteering({ locale }: { locale: Locale }) {
 
           <div className="lg:pt-2">
             <SectionHeader title={t("app.title")} lead={t("app.body")} />
-            {hasApp ? (
+            {opportunities ? (
               <Scene className="mt-9">
                 <ActionLink destination={opportunities} className={buttonClass()}>
                   {t("app.cta")}

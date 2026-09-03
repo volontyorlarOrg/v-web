@@ -40,13 +40,25 @@ test.describe("locale routing", () => {
     await expect(page).toHaveURL(/\/en\/partners$/);
   });
 
-  test("every page declares a canonical URL and three hreflang alternates", async ({ page }) => {
+  test("every page declares canonical, alternate, and social URLs", async ({ page }) => {
     await page.goto("/en/about");
     await expect(page.locator('link[rel="canonical"]')).toHaveCount(1);
     for (const locale of LOCALES) {
       await expect(page.locator(`link[rel="alternate"][hreflang="${locale}"]`)).toHaveCount(1);
     }
     await expect(page.locator('link[rel="alternate"][hreflang="x-default"]')).toHaveCount(1);
+    await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
+      "content",
+      "http://localhost:3000/opengraph-image.png",
+    );
+    await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute(
+      "content",
+      "http://localhost:3000/opengraph-image.png",
+    );
+
+    const socialImage = await page.request.get("/opengraph-image.png");
+    expect(socialImage.status()).toBe(200);
+    expect(socialImage.headers()["content-type"]).toBe("image/png");
   });
 });
 
@@ -102,7 +114,8 @@ test.describe("production information architecture", () => {
   test("an unknown URL returns a 404 page", async ({ page }) => {
     const response = await page.goto("/uz/does-not-exist");
     expect(response?.status()).toBe(404);
-    await expect(page.getByRole("heading", { level: 1 }).first()).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
   });
 
   test("nothing overflows horizontally", async ({ page }) => {
@@ -111,6 +124,15 @@ test.describe("production information architecture", () => {
       () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
     );
     expect(overflow).toBeLessThanOrEqual(0);
+  });
+
+  test("plain HTTP keeps transport-only headers disabled", async ({ page }) => {
+    const response = await page.goto("/en");
+    const headers = response?.headers() ?? {};
+
+    expect(headers["content-security-policy"]).not.toContain("upgrade-insecure-requests");
+    expect(headers["strict-transport-security"]).toBeUndefined();
+    expect(headers["x-content-type-options"]).toBe("nosniff");
   });
 });
 
@@ -199,6 +221,37 @@ test.describe("the hero map", () => {
     expect(geometry.panelPosition).toBe("sticky");
     expect(geometry.sectionHeight).toBeGreaterThan(geometry.panelHeight);
     expect(geometry.panelHeight).toBeLessThanOrEqual(geometry.viewport);
+  });
+
+  test("renders a complete non-pinned state with reduced motion", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/en");
+
+    const state = await page.evaluate(() => {
+      const panel = document.querySelector("#hero-map")?.firstElementChild as HTMLElement;
+      const hiddenScenes = [...document.querySelectorAll<HTMLElement>("[data-scene]")].filter(
+        (element) => getComputedStyle(element).opacity === "0",
+      );
+      const duplicateMarquee = document.querySelector<HTMLElement>(
+        '.marquee-track[aria-hidden="true"]',
+      );
+
+      return {
+        duplicateMarqueeDisplay: duplicateMarquee
+          ? getComputedStyle(duplicateMarquee).display
+          : null,
+        hiddenSceneCount: hiddenScenes.length,
+        motionEnabled: document.documentElement.hasAttribute("data-motion"),
+        panelPosition: getComputedStyle(panel).position,
+      };
+    });
+
+    expect(state).toEqual({
+      duplicateMarqueeDisplay: "none",
+      hiddenSceneCount: 0,
+      motionEnabled: false,
+      panelPosition: "relative",
+    });
   });
 
   test("keeps the page's only h1 in the hero above the map", async ({ page }) => {

@@ -34,6 +34,7 @@ matching locale.
 | `npm run test:e2e` | Playwright smoke suite against a production build |
 | `npm run build` | Webpack production build |
 | `npm run start` | Serve an existing production build |
+| `npm run verify:release` | Validate launch URLs without printing their values |
 
 ## Frontend foundation
 

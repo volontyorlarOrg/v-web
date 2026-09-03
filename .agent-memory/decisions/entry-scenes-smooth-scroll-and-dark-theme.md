@@ -45,8 +45,8 @@ page's "writes nothing to your browser's storage" was no longer true, so its
 cookies section now says exactly what is kept and that it never leaves the
 device. Check that copy before adding anything else that persists.
 
-**The nav tabs are mock.** `NAV_TABS_MOCK` mirrors jamals.uz's flat five-tab
-bar with placeholder entries that point at registered routes and a home-page
+**The nav tabs are provisional.** `HEADER_NAV_ITEMS` defines the flat five-tab
+bar with entries that point at registered routes and a home-page
 anchor. The footer and sitemap still read the route registry. Replace the set
 when the real information architecture is decided; do not grow it.
 

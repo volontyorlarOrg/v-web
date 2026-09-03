@@ -31,7 +31,7 @@ import {
   provinceLift,
   type MapPhase,
 } from "@/components/marketing/hero-map/timeline";
-import { MAP_EXTENT, REGION_GEOMETRY, type RegionPolygon } from "@/lib/map/region-geometry";
+import { REGION_GEOMETRY, type RegionPolygon } from "@/lib/map/region-geometry";
 
 const PLATE_THICKNESS = 0.03;
 const TILE_THICKNESS = 0.05;
@@ -396,5 +396,3 @@ export function createMapScene(canvas: HTMLCanvasElement, palette: Palette): Map
 
   return { render, resize, projectMarkers, setPalette, dispose };
 }
-
-export { MAP_EXTENT };

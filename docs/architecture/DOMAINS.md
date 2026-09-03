@@ -20,6 +20,11 @@ action from `appHref('/login')` and returns `null` while the product origin is
 unset, so the button is absent rather than pointing somewhere invented. Give a
 development machine a placeholder origin in `.env.local` to render it.
 
+`opportunitiesDestination()` follows the same application-only rule for the
+volunteering page. `joinDestination()` is different by design: it uses the
+configured Telegram channel when present and otherwise stays inside the
+marketing site at `/contact`.
+
 **Indexing is gated on the marketing origin.** While `NEXT_PUBLIC_SITE_URL` is
 empty, every page sends `noindex, nofollow`, `robots.txt` disallows all crawling,
 and the sitemap is empty. A preview or placeholder deployment therefore cannot

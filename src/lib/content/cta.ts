@@ -21,12 +21,7 @@ export function loginDestination(): Destination | null {
   return app ? { href: app, external: true } : null;
 }
 
-export function opportunitiesDestination(): Destination {
+export function opportunitiesDestination(): Destination | null {
   const app = appHref("/");
-  if (app) return { href: app, external: true };
-
-  const telegram = channelUrl("telegram");
-  if (telegram) return { href: telegram, external: true };
-
-  return internal("volunteering");
+  return app ? { href: app, external: true } : null;
 }

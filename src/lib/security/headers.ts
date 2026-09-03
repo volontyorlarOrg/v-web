@@ -5,6 +5,17 @@ export type SecurityEnvironment = {
   secureTransport: boolean;
 };
 
+export function configuredTransportIsSecure(origin: string | undefined): boolean {
+  const raw = origin?.trim();
+  if (!raw) return false;
+
+  try {
+    return new URL(raw).protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
 export function contentSecurityPolicy({
   development,
   secureTransport,

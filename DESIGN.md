@@ -145,7 +145,7 @@ none of which survive contact with the delivered UN Blue brand set.
 - Hairline rules and tone bands instead of shadows, gradients and card borders.
 - Entry scenes: headings rise out of a mask word by word, blocks follow, once,
   as a section comes into view.
-- Oversized tabular numerals in orange carrying the human evidence.
+- Oversized tabular numerals in knockout white on a blue evidence band.
 - A rule-led label system that never uses the logo below its minimum size.
 - Provisional material labelled in words, never by colour alone.
 
@@ -186,8 +186,8 @@ reach for.
 
 ### Orange — the volunteer
 
-- **Accent `#E85D30`** — traction figures and the volunteer's step node.
-  Graphics and figures at 24px and above only.
+- **Accent `#E85D30`** — the volunteer's step node. Graphics at 24px and above
+  only.
 - **Accent Ink `#B34917`** — the label attached to an orange moment, and any
   future knockout label on a solid orange fill.
 
@@ -205,8 +205,7 @@ reach for.
 
 - **Paper** — the page ground: a cool blue-white in the light theme, near-black
   in the dark. The whiteboard grid is painted over it.
-- **Surface** — cards and raised content, and the only ground orange figures
-  sit on.
+- **Surface** — raised content and controls that need separation from paper.
 - **Surface Sunk** — alternating section bands.
 - **Surface Soft** — the one blue-tinted band.
 - **Ink / Ink Muted** — primary and secondary copy.
@@ -345,19 +344,17 @@ and quiet, and most groupings use a hairline rule instead of a border.
 
 ### Stat grid
 
-Figures are orange on white cards, labels stay ink muted. These numbers count
-what people did — a community joined, events staffed, applications sent — so
-they are the one place on the home page where orange is unambiguously earned.
-White is the ground because orange has real headroom there and only 3.02:1 on
-the sunk band.
+Figures are knockout white on a full-width blue evidence band, with supporting
+labels in Band Copy and a Primary hairline above each figure. The band makes the
+organisation's verified traction read as one instrument on the home and about
+pages. Orange is not used here because the brand hues cannot touch; it remains
+reserved for the volunteer's own step in the process rail.
 
 ### Hairline grids
 
-Groups whose length is fixed and fills the grid — the stat strip and the three
-contact audiences — use a one-pixel gap over a border-toned
-background, which reads as a printed table. Lists whose length varies use
-separated bordered cards instead, because an empty cell in a gap-filled grid
-looks like a fault.
+Fixed groups use aligned columns and individual hairlines rather than boxed
+cards. Lists whose length varies use separated ruled rows, because an empty
+cell in a gap-filled grid looks like a fault.
 
 ### Step rail
 
@@ -378,7 +375,7 @@ reinforces it.
 
 A 64px bar on mobile and 80px from the large breakpoint: mark plus organisation
 name, the tabs, a compact utility cluster, and one action. The tabs come from
-`NAV_TABS_MOCK` in `src/lib/content/nav-tabs.ts`, a placeholder set that points
+`HEADER_NAV_ITEMS` in `src/lib/content/nav-tabs.ts`, a provisional set that points
 at registered routes and home-page anchors until the real information
 architecture lands; the active tab is marked with `aria-current`. The utility
 cluster is two 40px pills: the language code, which opens a native-name list
@@ -400,10 +397,10 @@ Actions are full-radius pills. They shift background on hover and take a small
 scale-down on press; nothing lifts, because a shadowless page has nothing for a
 lifted element to cast onto.
 
-The one solid band is the closing call to action, and it is deliberate: it is the
-last thing on the page and the only place that needs to stop a reader. Figures
-that would once have sat on a blue block now sit on paper under a hairline, which
-also frees them to be orange where they are a human number.
+The evidence strip and closing call to action use solid blue for different
+purposes: the strip groups verified traction edge to edge, while the closing
+action is a rounded panel inside a paper section. Their shared hue makes them
+institutional; composition keeps them distinct.
 
 ## Motion
 
@@ -483,7 +480,8 @@ typeface. See `docs/brand/BRAND_ASSETS.md`.
 - **Do** keep blue for structure and orange for what a person did.
 - **Do** use the `-ink` value whenever a hue carries words at body size.
 - **Do** set every number in tabular figures.
-- **Do** put orange figures on white, never on a tinted band.
+- **Do** reserve orange for a person's own action; evidence bands stay blue and
+  use knockout figures.
 - **Do** label anything that is planned, in preparation, or not yet published.
 - **Do** check display lines at 360px in Uzbek, Russian, and English.
 - **Do** check every surface in both themes; a token that only has a light value

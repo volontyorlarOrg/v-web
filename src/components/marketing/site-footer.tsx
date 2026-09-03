@@ -5,14 +5,14 @@ import { BrandSignature } from "@/components/brand/signature";
 import { LocaleSwitcher } from "@/components/marketing/locale-switcher";
 import { Scene } from "@/components/marketing/scene";
 import { Link } from "@/i18n/navigation";
-import { availableChannels, channelUrl } from "@/lib/constants/channels";
-import { ORGANIZATION_NAME, ORGANIZATION_SHORT_NAME } from "@/lib/content/org";
+import { configuredChannels } from "@/lib/constants/channels";
+import { ORGANIZATION_NAME } from "@/lib/content/org";
 import { legalNavRoutes, mainNavRoutes, navHref } from "@/lib/routing/routes";
 
 export function SiteFooter() {
   const t = useTranslations("footer");
   const nav = useTranslations("nav");
-  const channels = availableChannels();
+  const channels = configuredChannels();
 
   return (
     <footer>
@@ -21,10 +21,7 @@ export function SiteFooter() {
         className="container-page grid gap-10 py-14 lg:grid-cols-[1.2fr_1fr_1fr] lg:gap-12"
       >
         <div className="max-w-sm">
-          <BrandLockup
-            name={ORGANIZATION_NAME}
-            shortName={ORGANIZATION_SHORT_NAME}
-          />
+          <BrandLockup name={ORGANIZATION_NAME} />
           <p className="mt-4 text-sm leading-relaxed text-ink-muted">
             {t("description")}
           </p>
@@ -56,15 +53,15 @@ export function SiteFooter() {
                 {t("channelsLabel")}
               </h2>
               <ul className="mt-4 space-y-1">
-                {channels.map((id) => (
-                  <li key={id}>
+                {channels.map((channel) => (
+                  <li key={channel.id}>
                     <a
-                      href={channelUrl(id) ?? undefined}
+                      href={channel.url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex min-h-9 items-center text-sm font-semibold text-ink hover:text-primary-ink"
                     >
-                      {t(`channels.${id}`)}
+                      {t(`channels.${channel.id}`)}
                     </a>
                   </li>
                 ))}

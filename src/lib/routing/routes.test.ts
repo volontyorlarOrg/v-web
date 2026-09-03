@@ -1,12 +1,9 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 
-import { defaultLocale, locales } from "@/i18n/routing";
 import {
-  alternateUrls,
   getRoute,
   legalNavRoutes,
   localePath,
-  localeUrl,
   mainNavRoutes,
   navHref,
   publicRoutes,
@@ -61,29 +58,5 @@ describe("locale-aware paths", () => {
   it("prefixes every locale, home included", () => {
     expect(localePath("uz", "home")).toBe("/uz");
     expect(localePath("en", "about")).toBe("/en/about");
-  });
-});
-
-describe("canonical and alternate URLs", () => {
-  beforeEach(() => {
-    vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://example.org");
-  });
-
-  it("builds absolute canonical URLs on the configured origin", () => {
-    expect(localeUrl("ru", "contact")).toBe("https://example.org/ru/contact");
-  });
-
-  it("lists every locale as an alternate of every route", () => {
-    for (const route of publicRoutes) {
-      const alternates = alternateUrls(route.key);
-      expect(Object.keys(alternates).sort()).toEqual([...locales].sort());
-      for (const locale of locales) {
-        expect(alternates[locale]).toBe(localeUrl(locale, route.key));
-      }
-    }
-  });
-
-  it("points x-default material at the default locale", () => {
-    expect(alternateUrls("home")[defaultLocale]).toBe(localeUrl(defaultLocale, "home"));
   });
 });

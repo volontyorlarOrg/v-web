@@ -58,7 +58,7 @@ This is the one easy mistake in the codebase.
 | --- | --- | --- |
 | `navHref("about")` | `/about` | `Link` from `@/i18n/navigation`, which adds the locale itself |
 | `localePath("uz", "about")` | `/uz/about` | Plain anchors, and anything outside the locale segment |
-| `localeUrl("uz", "about")` | `https://…/uz/about` | Canonical URLs, sitemap, structured data |
+| `localeUrl("uz", "about")` in `src/lib/seo/urls.ts` | `https://…/uz/about` | Canonical URLs, sitemap, structured data |
 
 Passing a `localePath` result to the locale-aware `Link` produces `/uz/uz/about`.
 The home route is the other trap: its registered path is the empty string, which
@@ -150,15 +150,16 @@ Server Components are the default. `"use client"` is justified by event
 handlers, client state, browser APIs, or an interactive primitive — and the
 boundary goes as low as possible.
 
-Both current client components take their copy as props from the server, which
-is why the root layout hands `NextIntlClientProvider` only the `nav` namespace.
-Widening that subset ships more JSON in every document, in every locale, and
-should be a deliberate decision. `docs/architecture/ARCHITECTURE.md` has the
-measurements.
+Client components receive translated copy from their server parents. The root
+layout sets `messages={null}` on `NextIntlClientProvider`, so locale and
+navigation context reach the client without serializing a catalog. Passing any
+message subset ships more JSON in every document, in every locale, and should
+be a deliberate decision. `docs/architecture/ARCHITECTURE.md` has the earlier
+whole-catalog measurements.
 
-Shared action styling comes from `buttonClass`. Solid actions use
-`primary-ink`, not `primary`, because a white label needs 4.5:1 and the lighter
-brand blue does not reach it.
+Shared action styling comes from `buttonClass`. Solid actions use `action`, not
+`primary` or `primary-ink`: a white label needs 4.5:1, and the dark theme keeps
+the text-blue and fill-blue roles separate.
 
 For brand marks, `BrandMark` is the logo and must never render below 16px or be
 cropped; `BrandArc` is the derived shape for large decoration.
@@ -173,20 +174,18 @@ Never hard-code an origin. Everything external resolves through a helper:
 | A public channel | `channelUrl(id)` in `src/lib/constants/channels.ts` |
 | A call to action | `joinDestination()` / `opportunitiesDestination()` |
 
-Each returns `null` or falls back to an internal page when the value is not
-configured, and the interface must handle that rather than guess. Only `https`
-channel URLs are accepted. See `../architecture/DOMAINS.md`.
+Application-only destinations return `null` when the app origin is missing;
+community actions may fall back to an internal public page. The interface must
+handle either outcome rather than guess. Only `https` channel URLs are
+accepted. See `../architecture/DOMAINS.md`.
 
 ## Add analytics
 
-`src/lib/constants/analytics.ts` holds the event vocabulary. No provider is
-installed and nothing dispatches these yet; the file exists so the names are
-decided in one place rather than invented per component.
-
-If a provider is added, never attach volunteer PII, essays, phone numbers,
-Telegram identities, or form contents to an event, and revisit the Content
-Security Policy in `next.config.ts` — it currently allows no third-party
-connection at all.
+No provider or speculative event vocabulary is installed. Add both only with a
+concrete measurement requirement. Centralize event names at that point, never
+attach volunteer PII, essays, phone numbers, Telegram identities, or form
+contents, and revisit the Content Security Policy in `next.config.ts` — it
+currently allows no third-party connection at all.
 
 ## Add a dependency
 

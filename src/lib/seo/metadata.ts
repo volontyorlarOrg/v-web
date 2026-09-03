@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
-import { defaultLocale, type Locale } from "@/i18n/routing";
-import { alternateUrls, localeUrl, type RouteKey } from "@/lib/routing/routes";
-import { hasVerifiedMarketingOrigin, marketingOrigin } from "@/lib/seo/origin";
+import type { Locale } from "@/i18n/routing";
+import type { RouteKey } from "@/lib/routing/routes";
+import {
+  hasVerifiedMarketingOrigin,
+  marketingOrigin,
+  marketingUrl,
+} from "@/lib/seo/origin";
+import { alternateUrls, localeUrl } from "@/lib/seo/urls";
 
 const openGraphLocales: Record<Locale, string> = {
   uz: "uz_UZ",
@@ -29,6 +34,12 @@ export async function buildPageMetadata({
   const description = t("metaDescription");
   const canonical = localeUrl(locale, route);
   const indexable = hasVerifiedMarketingOrigin();
+  const socialImage = {
+    url: marketingUrl("/opengraph-image.png"),
+    width: 1200,
+    height: 630,
+    alt: common("organizationName"),
+  };
 
   return {
     metadataBase: new URL(marketingOrigin()),
@@ -36,10 +47,7 @@ export async function buildPageMetadata({
     description,
     alternates: {
       canonical,
-      languages: {
-        ...alternateUrls(route),
-        "x-default": localeUrl(defaultLocale, route),
-      },
+      languages: alternateUrls(route),
     },
     openGraph: {
       type: "website",
@@ -51,11 +59,13 @@ export async function buildPageMetadata({
       alternateLocale: Object.entries(openGraphLocales)
         .filter(([key]) => key !== locale)
         .map(([, value]) => value),
+      images: [socialImage],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
+      images: [socialImage],
     },
     robots: indexable
       ? { index: true, follow: true }

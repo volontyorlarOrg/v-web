@@ -1,5 +1,5 @@
 import { hasLocale, NextIntlClientProvider } from "next-intl";
-import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
+import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Onest, Source_Serif_4 } from "next/font/google";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -54,8 +54,6 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
 
-  const messages = await getMessages();
-
   return (
     <html
       lang={locale}
@@ -67,7 +65,7 @@ export default async function LocaleLayout({
         <ThemeScript />
       </head>
       <body className="flex min-h-full flex-col">
-        <NextIntlClientProvider messages={{ nav: messages.nav }}>
+        <NextIntlClientProvider messages={null}>
           {children}
         </NextIntlClientProvider>
       </body>

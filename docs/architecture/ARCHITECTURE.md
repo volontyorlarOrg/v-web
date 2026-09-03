@@ -30,13 +30,55 @@ flowchart LR
 | `src/app/global-not-found.tsx` | 404 for unmatched URLs; required because the root layout sits under a dynamic segment |
 | `src/app/globals.css` | Tailwind import, design tokens, base layer, container utility |
 | `src/i18n/` | Locale definition, navigation helpers, request config, message catalogs |
-| `src/lib/routing/routes.ts` | The single registry of public routes |
-| `src/lib/seo/` | Origin helpers, the metadata builder, JSON-LD builders |
-| `src/lib/content/` | Verified organisation facts, call-to-action resolution, and the mock navigation tabs |
+| `src/lib/routing/routes.ts` | Framework-agnostic public route registry and locale-relative path builders |
+| `src/lib/seo/` | Origin and absolute URL helpers, metadata, and JSON-LD builders |
+| `src/lib/content/` | Verified organisation facts, call-to-action resolution, and provisional header navigation |
 | `src/lib/theme.ts` | Theme preference, the inline boot script, and the `data-motion` flag |
 | `src/lib/map/` | Generated region geometry, localised region names, SVG path helpers |
-| `src/lib/constants/` | External channel resolution and analytics event names |
+| `src/lib/constants/` | Validated external channel configuration |
 | `src/components/{ui,brand,marketing}/` | Action styling, brand marks, page composition |
+
+The exhaustive file ownership map is in
+[`REPOSITORY_INVENTORY.md`](REPOSITORY_INVENTORY.md).
+
+## Dependency direction
+
+The route registry owns only route identity, navigation flags, sitemap values,
+and locale-relative paths. `src/lib/seo/urls.ts` depends on that registry to
+build canonical and alternate URLs; routing does not depend on SEO, environment
+configuration, or Next.js metadata types. Pages compose components and policy
+helpers. Components may depend on `lib` and `i18n`, while neither `lib` nor
+`i18n` may import a page or marketing component.
+
+`src/lib/content/cta.ts` is the one policy join between configured external
+destinations and route fallbacks. A join action may fall back to `/contact`.
+Application-only actions return `null` while the application origin is unset,
+so callers cannot accidentally render a product link that does not exist.
+
+`src/components/marketing/page-breadcrumb-json-ld.tsx` owns the repeated
+home-to-current-page breadcrumb shape. The pure JSON-LD builders remain under
+`lib/seo`; the component supplies localized navigation labels.
+
+## Deliberately large modules
+
+Four files are large for structural reasons and should not be split by line
+count alone:
+
+- `src/app/globals.css` is the ordered Tailwind token, base, component-motion,
+  theme, reduced-motion, and print surface. Splitting it would make cascade
+  ownership harder to audit.
+- `src/components/marketing/hero-map/hero-map-stage.tsx` owns one coupled DOM
+  measurement and scroll lifecycle. Extract a controller only if another stage
+  needs the same lifecycle or focused controller tests become necessary.
+- `src/components/marketing/hero-map/scene.ts` is the dynamically imported
+  Three.js boundary. Keeping scene allocation, palette changes, projection, and
+  disposal together makes its resource lifetime explicit.
+- `src/lib/map/region-geometry.ts` is generated data; change the generator, not
+  the output by hand.
+
+The home page is a composition root. Repeated visible sections belong in shared
+components only when at least two pages use the same semantic and visual
+contract; page-specific sequencing stays in the page.
 
 ## Rendering rules
 
@@ -54,11 +96,14 @@ browser:
 - `SceneObserver` and `SmoothScroll` render nothing and own one browser API
   each: the entry observer and `lenis`.
 
-The root layout hands `NextIntlClientProvider` only the `nav` namespace.
-Forwarding the whole catalog embedded every page's copy in every document:
-95KB of raw HTML on the home page against 79KB, and 16.0KB gzipped against
-11.4KB. Check for a regression by grepping a rendered page for a string that
-only exists on another page.
+The root layout gives `NextIntlClientProvider` `messages={null}`. It carries the
+locale context needed by `useLocale` and locale-aware navigation hooks, but no
+translation catalog is serialized to the browser; every interactive component
+receives its visible labels from a Server Component. An earlier whole-catalog
+provider embedded every page's copy in every document: 95KB of raw home-page
+HTML and 16.0KB gzipped, versus 79KB and 11.4KB after narrowing it to `nav`.
+The current no-message boundary is smaller still and should be checked by
+grepping a rendered page for a string that exists only on another page.
 
 Every page calls `setRequestLocale` before reading translations. Without it the
 route opts out of static generation.

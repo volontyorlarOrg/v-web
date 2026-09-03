@@ -123,7 +123,8 @@ container-relative size fight each other, and the smaller one silently wins.
 | `SceneObserver` | The one `IntersectionObserver` that marks scenes entered; mounted once in the marketing layout |
 | `SmoothScroll` | Mounts `lenis` when motion is allowed |
 | `ThemeToggle` | The labelled switch that flips `data-theme` and stores the choice |
-| `NavTabs` | The header tabs, rendered from the mock tab set with the active tab marked |
+| `NavTabs` | The header tabs, rendered from the provisional item set with the active tab marked |
+| `PageBreadcrumbJsonLd` | The localized home-to-current-page structured-data trail |
 | `Marquee` | The continuously rolling partner and source rows |
 | `RollingWords` | The hero eyebrow's cycling region name |
 | `BrandSignature` | The oversized footer lockup that writes itself and raises the mark's hands once the reader reaches the bottom of the page |
@@ -168,6 +169,8 @@ lockup's wordmark renders in a different system face on every platform. See
 ## Localization behaviour
 
 - Three locales, `uz` (default), `ru`, `en`, one per URL, prefix always present.
+- The client provider carries locale context with `messages={null}`; translated
+  labels cross the Server/Client boundary as props rather than as a catalog.
 - `src/proxy.ts` sends a prefix-less URL to the best `Accept-Language` match.
 - No locale cookie and no language in `localStorage`: the URL is the only
   language state, so a canonical URL can never render two different languages,
@@ -232,12 +235,12 @@ lockup's wordmark renders in a different system face on every platform. See
 - Two-column compositions collapse in reading order below the large breakpoint.
 - The header shows the tabs from the large breakpoint and moves them into the
   disclosure panel below it; the language and theme controls never move.
-- The header tabs are a placeholder set, `NAV_TABS_MOCK` in
+- The header tabs are a provisional set, `HEADER_NAV_ITEMS` in
   `src/lib/content/nav-tabs.ts`: Volunteering, Events (an anchor into the home
   page's sources band), Partners, About, Contact. Each points at a registered
   route, a test checks that and that every tab has a label in all three
   catalogs, and the footer and sitemap still read `src/lib/routing/routes.ts`.
-  When the real information architecture lands, replace the mock set rather
+  When the real information architecture lands, replace the provisional set rather
   than growing it.
 - The header lockup drops to the mark alone below 360px. `Volontyorlar` set beside
   the mark, the language control and the menu button do not fit a 320px screen

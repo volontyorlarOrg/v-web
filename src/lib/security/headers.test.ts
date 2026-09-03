@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { contentSecurityPolicy, securityHeaders } from "@/lib/security/headers";
+import {
+  configuredTransportIsSecure,
+  contentSecurityPolicy,
+  securityHeaders,
+} from "@/lib/security/headers";
 
 const find = (secureTransport: boolean, key: string) =>
   securityHeaders({ development: !secureTransport, secureTransport }).find(
@@ -8,6 +12,13 @@ const find = (secureTransport: boolean, key: string) =>
   );
 
 describe("security headers", () => {
+  it("enables transport directives only for a configured HTTPS origin", () => {
+    expect(configuredTransportIsSecure("https://example.org")).toBe(true);
+    expect(configuredTransportIsSecure("http://localhost:3210")).toBe(false);
+    expect(configuredTransportIsSecure("")).toBe(false);
+    expect(configuredTransportIsSecure("example.org")).toBe(false);
+  });
+
   it("keeps the core document and resource restrictions in every environment", () => {
     for (const secureTransport of [true, false]) {
       const policy = contentSecurityPolicy({ development: !secureTransport, secureTransport });

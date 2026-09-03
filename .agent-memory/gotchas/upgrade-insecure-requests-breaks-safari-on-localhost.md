@@ -26,7 +26,8 @@ Two things this costs an hour if you do not know it:
    ```
 
 `src/lib/security/headers.ts` now gates that directive and HSTS behind
-`secureTransport`, which is `NODE_ENV === "production"`. Any future header that
-describes a TLS deployment belongs behind the same flag.
+`secureTransport`, which is true only when the configured marketing origin uses
+HTTPS. Production mode alone is not proof that the current connection has TLS.
+Any future header that describes a TLS deployment belongs behind the same flag.
 
 Related: [[building-while-the-dev-server-runs-unstyles-the-page]]

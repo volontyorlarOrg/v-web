@@ -15,7 +15,8 @@ every response:
 - a Content Security Policy
 
 They are built by `src/lib/security/headers.ts`, which `next.config.ts` calls
-with explicit development and secure-transport flags derived from `NODE_ENV`.
+with development derived from `NODE_ENV` and secure transport derived from a
+validated HTTPS `NEXT_PUBLIC_SITE_URL`.
 
 The policy is first-party only, which the site can afford because it loads no
 third-party script, style, frame, font, or image:
@@ -31,16 +32,15 @@ Development adds `'unsafe-eval'` to `script-src` because React uses it for
 debugging, and `ws:` to `connect-src` for hot reload. These exceptions are
 excluded from production headers.
 
-**`upgrade-insecure-requests` and `Strict-Transport-Security` are sent only in
-production.** Both describe a site reached over TLS, and development serves
-plain HTTP on `localhost`. Chromium exempts `localhost` from the upgrade;
-WebKit does not, so sending it in development rewrote every stylesheet, script,
-and font request to `https://localhost:3000` and Safari failed all of them
-against a port with no TLS. The page still returned 200 and rendered completely
-unstyled. `src/lib/security/headers.test.ts` holds both halves of this: the
-production origin lock remains first-party, development-only runtime
-permissions are removed from the production policy, and the two TLS directives
-appear only under `secureTransport`.
+**`upgrade-insecure-requests` and `Strict-Transport-Security` are sent only when
+the configured marketing origin uses HTTPS.** Both describe a site reached over
+TLS. A production-mode server may still run over plain HTTP locally or behind a
+TLS-terminating platform, so `NODE_ENV` alone is not transport evidence.
+Chromium exempts localhost from insecure-request upgrades; WebKit does not.
+Keying the directives to the verified public origin keeps local production
+smoke tests styled and hydrated in Safari while retaining them for an HTTPS
+launch. Unit tests cover configuration parsing, and Playwright asserts the
+actual response headers on the plain-HTTP test server.
 
 **Known weakness:** `script-src` and `style-src` allow `'unsafe-inline'`.
 Next.js App Router emits inline bootstrap scripts and inlines critical CSS, and
@@ -57,9 +57,11 @@ The marketing site has no accounts, sessions, forms, uploads, or database. It
 never receives user input, so it has nothing to validate or sanitise, and it
 never handles volunteer data.
 
-It sets **no cookies and writes nothing to browser storage**. The locale cookie
-`next-intl` would otherwise write is disabled in `src/i18n/routing.ts`, which is
-what allows the privacy page to state plainly that the site stores nothing.
+It sets **no cookies**. The locale cookie `next-intl` would otherwise write is
+disabled in `src/i18n/routing.ts`, so the URL remains the only language state.
+The one browser-storage value is the light/dark theme choice in `localStorage`;
+it stays on the device and is never sent to the server. The privacy page states
+this distinction explicitly.
 
 Outbound links to Telegram, Instagram, or the product application open with
 `rel="noopener noreferrer"`.
