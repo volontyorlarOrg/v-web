@@ -2,13 +2,12 @@ import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
-import { JsonLd } from "@/components/marketing/json-ld";
+import { PageBreadcrumbJsonLd } from "@/components/marketing/page-breadcrumb-json-ld";
 import { PageHero } from "@/components/marketing/page-hero";
 import { Scene } from "@/components/marketing/scene";
 import { Section, SectionHeader } from "@/components/marketing/section";
 import type { Locale } from "@/i18n/routing";
-import { availableChannels, channelUrl } from "@/lib/constants/channels";
-import { breadcrumbJsonLd } from "@/lib/seo/json-ld";
+import { configuredChannels } from "@/lib/constants/channels";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 const AUDIENCES = ["volunteers", "organisers", "regional"] as const;
@@ -28,21 +27,12 @@ export default async function ContactPage({ params }: PageProps<"/[locale]/conta
 
 function Contact({ locale }: { locale: Locale }) {
   const t = useTranslations("contact");
-  const nav = useTranslations("nav");
   const footer = useTranslations("footer");
-  const channels = availableChannels();
+  const channels = configuredChannels();
 
   return (
     <>
-      <JsonLd
-        data={breadcrumbJsonLd({
-          locale,
-          trail: [
-            { name: nav("home"), route: "home" },
-            { name: nav("contact"), route: "contact" },
-          ],
-        })}
-      />
+      <PageBreadcrumbJsonLd locale={locale} route="contact" />
 
       <PageHero title={t("title")} lead={t("lead")} />
 
@@ -50,15 +40,15 @@ function Contact({ locale }: { locale: Locale }) {
         <SectionHeader title={t("channels.title")} />
         {channels.length > 0 ? (
           <Scene as="ul" variant="stagger" className="mt-12 border-b border-border">
-            {channels.map((id) => (
-              <li key={id} className="border-t border-border">
+            {channels.map((channel) => (
+              <li key={channel.id} className="border-t border-border">
                 <a
-                  href={channelUrl(id) ?? undefined}
+                  href={channel.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group flex min-h-20 items-center justify-between gap-6 py-6 text-headline hover:text-primary-ink"
                 >
-                  {footer(`channels.${id}`)}
+                  {footer(`channels.${channel.id}`)}
                   <span
                     aria-hidden="true"
                     className="text-title text-primary transition-transform group-hover:translate-x-1"

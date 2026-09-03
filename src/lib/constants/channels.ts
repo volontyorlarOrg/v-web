@@ -1,5 +1,10 @@
 export type ChannelId = "telegram" | "instagram";
 
+export type ConfiguredChannel = {
+  id: ChannelId;
+  url: string;
+};
+
 function readUrl(value: string | undefined): string | null {
   const raw = value?.trim();
   if (!raw) return null;
@@ -21,14 +26,13 @@ export function channelUrl(id: ChannelId): string | null {
   }
 }
 
-export function availableChannels(): ChannelId[] {
-  return (["telegram", "instagram"] as const).filter(
-    (id) => channelUrl(id) !== null,
-  );
+export function configuredChannels(): ConfiguredChannel[] {
+  return (["telegram", "instagram"] as const).flatMap((id) => {
+    const url = channelUrl(id);
+    return url ? [{ id, url }] : [];
+  });
 }
 
 export function verifiedSocialUrls(): string[] {
-  return availableChannels()
-    .map((id) => channelUrl(id))
-    .filter((url): url is string => url !== null);
+  return configuredChannels().map((channel) => channel.url);
 }

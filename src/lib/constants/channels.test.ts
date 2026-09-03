@@ -1,12 +1,12 @@
 import { describe, expect, it, vi } from "vitest";
 
-import { availableChannels, channelUrl, verifiedSocialUrls } from "@/lib/constants/channels";
+import { channelUrl, configuredChannels, verifiedSocialUrls } from "@/lib/constants/channels";
 
 describe("public channels", () => {
   it("hides every channel while no address is configured", () => {
     vi.stubEnv("NEXT_PUBLIC_TELEGRAM_URL", "");
     vi.stubEnv("NEXT_PUBLIC_INSTAGRAM_URL", "");
-    expect(availableChannels()).toEqual([]);
+    expect(configuredChannels()).toEqual([]);
     expect(verifiedSocialUrls()).toEqual([]);
     expect(channelUrl("telegram")).toBeNull();
   });
@@ -23,7 +23,9 @@ describe("public channels", () => {
   it("reports configured channels for structured data", () => {
     vi.stubEnv("NEXT_PUBLIC_TELEGRAM_URL", "https://t.me/example");
     vi.stubEnv("NEXT_PUBLIC_INSTAGRAM_URL", "");
-    expect(availableChannels()).toEqual(["telegram"]);
+    expect(configuredChannels()).toEqual([
+      { id: "telegram", url: "https://t.me/example" },
+    ]);
     expect(verifiedSocialUrls()).toEqual(["https://t.me/example"]);
   });
 });

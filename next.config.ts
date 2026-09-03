@@ -1,10 +1,13 @@
 import createNextIntlPlugin from "next-intl/plugin";
 import type { NextConfig } from "next";
 
-import { securityHeaders } from "./src/lib/security/headers";
+import {
+  configuredTransportIsSecure,
+  securityHeaders,
+} from "./src/lib/security/headers";
 
 const development = process.env.NODE_ENV === "development";
-const secureTransport = process.env.NODE_ENV === "production";
+const secureTransport = configuredTransportIsSecure(process.env.NEXT_PUBLIC_SITE_URL);
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,

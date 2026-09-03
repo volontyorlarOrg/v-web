@@ -83,10 +83,10 @@ src/app/[locale]/(marketing)/  -> production marketing pages
 src/app/{robots,sitemap}.ts    -> crawl policy and localized sitemap
 src/app/global-not-found.tsx   -> 404 for unmatched URLs (root layout is dynamic)
 src/i18n/                      -> routing, navigation, request config, catalogs
-src/lib/seo/                   -> origin helpers, metadata builder, JSON-LD
+src/lib/seo/                   -> origin and canonical URL helpers, metadata, JSON-LD
 src/lib/routing/routes.ts      -> the public route registry
-src/lib/content/               -> verified facts, call-to-action resolution, mock nav tabs
-src/lib/constants/             -> external channels and analytics event names
+src/lib/content/               -> verified facts, call-to-action resolution, provisional nav items
+src/lib/constants/             -> configured external channels
 src/lib/theme.ts               -> theme preference, the boot script, the motion flag
 src/components/{ui,brand,marketing}/
 e2e/                           -> Playwright smoke suite
@@ -130,8 +130,9 @@ docs/                          -> stable project documentation
   state, browser APIs, or an interactive primitive, with the boundary as low as
   practical.
 - Internal links use `navHref()` with `Link` from `@/i18n/navigation`, which
-  adds the locale prefix itself. `localePath()` and `localeUrl()` are for
-  anchors, canonical URLs, and structured data. Mixing them yields `/uz/uz/...`.
+  adds the locale prefix itself. `localePath()` in `lib/routing` is for plain
+  anchors outside the locale tree; `localeUrl()` in `lib/seo` is for canonical
+  URLs and structured data. Mixing them yields `/uz/uz/...`.
 - No literal hex, no hard-coded origin, no fabricated fact.
 
 ## Default verification

@@ -1,7 +1,4 @@
-import type { MetadataRoute } from "next";
-
-import { locales, type Locale } from "@/i18n/routing";
-import { marketingOrigin } from "@/lib/seo/origin";
+import type { Locale } from "@/i18n/routing";
 
 export type RouteKey =
   | "home"
@@ -12,15 +9,24 @@ export type RouteKey =
   | "privacy"
   | "terms";
 
-type SitemapEntry = MetadataRoute.Sitemap[number];
+type PublicRoutePriority = 0 | 0.1 | 0.2 | 0.3 | 0.4 | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 1;
+
+type PublicRouteChangeFrequency =
+  | "always"
+  | "hourly"
+  | "daily"
+  | "weekly"
+  | "monthly"
+  | "yearly"
+  | "never";
 
 export type PublicRoute = {
   key: RouteKey;
   path: string;
   inMainNav: boolean;
   inLegalNav: boolean;
-  priority: NonNullable<SitemapEntry["priority"]>;
-  changeFrequency: NonNullable<SitemapEntry["changeFrequency"]>;
+  priority: PublicRoutePriority;
+  changeFrequency: PublicRouteChangeFrequency;
 };
 
 export const publicRoutes: readonly PublicRoute[] = [
@@ -48,16 +54,4 @@ export function navHref(key: RouteKey): string {
 
 export function localePath(locale: Locale, key: RouteKey): string {
   return `/${locale}${getRoute(key).path}`;
-}
-
-export function localeUrl(locale: Locale, key: RouteKey): string {
-  return new URL(localePath(locale, key), `${marketingOrigin()}/`).toString();
-}
-
-export function alternateUrls(key: RouteKey): Record<string, string> {
-  const alternates: Record<string, string> = {};
-  for (const locale of locales) {
-    alternates[locale] = localeUrl(locale, key);
-  }
-  return alternates;
 }

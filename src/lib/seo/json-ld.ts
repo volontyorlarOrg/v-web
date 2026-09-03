@@ -1,6 +1,7 @@
 import type { Locale } from "@/i18n/routing";
-import { localeUrl, type RouteKey } from "@/lib/routing/routes";
+import type { RouteKey } from "@/lib/routing/routes";
 import { marketingUrl } from "@/lib/seo/origin";
+import { localeUrl } from "@/lib/seo/urls";
 import { FOUNDED_ON, FOUNDERS } from "@/lib/content/org";
 import { verifiedSocialUrls } from "@/lib/constants/channels";
 

@@ -2,13 +2,12 @@ import { useFormatter, useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
-import { JsonLd } from "@/components/marketing/json-ld";
+import { PageBreadcrumbJsonLd } from "@/components/marketing/page-breadcrumb-json-ld";
 import { PageHero } from "@/components/marketing/page-hero";
 import { ProseSections, type ProseSection } from "@/components/marketing/prose";
 import { Section } from "@/components/marketing/section";
 import type { Locale } from "@/i18n/routing";
 import { LEGAL_UPDATED_ON } from "@/lib/content/org";
-import { breadcrumbJsonLd } from "@/lib/seo/json-ld";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 const SECTION_IDS = ["purpose", "accuracy", "placement", "conduct", "brand", "external", "changes"] as const;
@@ -28,7 +27,6 @@ export default async function TermsPage({ params }: PageProps<"/[locale]/terms">
 
 function Terms({ locale }: { locale: Locale }) {
   const t = useTranslations("terms");
-  const nav = useTranslations("nav");
   const format = useFormatter();
 
   const sections: ProseSection[] = SECTION_IDS.map((id) => ({
@@ -39,15 +37,7 @@ function Terms({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <JsonLd
-        data={breadcrumbJsonLd({
-          locale,
-          trail: [
-            { name: nav("home"), route: "home" },
-            { name: nav("terms"), route: "terms" },
-          ],
-        })}
-      />
+      <PageBreadcrumbJsonLd locale={locale} route="terms" />
 
       <PageHero
         title={t("title")}

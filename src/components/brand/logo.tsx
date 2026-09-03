@@ -63,12 +63,10 @@ export function BrandArc({ className }: { className?: string }) {
 
 export function BrandLockup({
   name,
-  shortName,
   className,
   tone = "primary",
 }: {
   name: string;
-  shortName: string;
   className?: string;
   tone?: "primary" | "inverse";
 }) {
@@ -82,12 +80,11 @@ export function BrandLockup({
       />
       <span
         className={cn(
-          "hidden text-[1.0625rem] leading-none font-bold tracking-[-0.02em] lowercase min-[360px]:inline",
+          "hidden text-base leading-none font-bold tracking-[-0.02em] lowercase min-[360px]:inline",
           tone === "primary" ? "text-ink" : "text-knockout",
         )}
       >
-        <span className="hidden sm:inline">{name}</span>
-        <span className="sm:hidden">{shortName}</span>
+        {name}
       </span>
     </span>
   );

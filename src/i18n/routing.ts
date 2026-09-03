@@ -19,7 +19,3 @@ export const routing = defineRouting({
   localeCookie: false,
   alternateLinks: false,
 });
-
-export function isLocale(value: unknown): value is Locale {
-  return typeof value === "string" && (locales as readonly string[]).includes(value);
-}

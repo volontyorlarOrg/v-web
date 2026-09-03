@@ -1,12 +1,12 @@
 import { navHref, type RouteKey } from "@/lib/routing/routes";
 
-export type NavTab = {
+export type HeaderNavItem = {
   id: string;
   route: RouteKey;
   fragment?: string;
 };
 
-export const NAV_TABS_MOCK: readonly NavTab[] = [
+export const HEADER_NAV_ITEMS: readonly HeaderNavItem[] = [
   { id: "volunteering", route: "volunteering" },
   { id: "events", route: "home", fragment: "sources" },
   { id: "partners", route: "partners" },
@@ -14,11 +14,11 @@ export const NAV_TABS_MOCK: readonly NavTab[] = [
   { id: "contact", route: "contact" },
 ];
 
-export function navTabPath(tab: NavTab): string {
-  return navHref(tab.route);
+export function headerNavPath(item: HeaderNavItem): string {
+  return navHref(item.route);
 }
 
-export function navTabHref(tab: NavTab): string {
-  const path = navTabPath(tab);
-  return tab.fragment ? `${path}#${tab.fragment}` : path;
+export function headerNavHref(item: HeaderNavItem): string {
+  const path = headerNavPath(item);
+  return item.fragment ? `${path}#${item.fragment}` : path;
 }

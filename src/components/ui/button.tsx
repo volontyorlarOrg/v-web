@@ -2,7 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 
 import { cn } from "@/lib/utils";
 
-export const buttonVariants = cva(
+const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 rounded-full font-medium whitespace-nowrap transition-[background-color,border-color,color] duration-200 active:scale-[0.985] disabled:pointer-events-none disabled:opacity-60",
   {
     variants: {
@@ -25,7 +25,7 @@ export const buttonVariants = cva(
   },
 );
 
-export type ButtonVariantProps = VariantProps<typeof buttonVariants>;
+type ButtonVariantProps = VariantProps<typeof buttonVariants>;
 
 export function buttonClass(
   props: ButtonVariantProps & { className?: string } = {},

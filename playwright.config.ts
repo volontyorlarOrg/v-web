@@ -14,8 +14,10 @@ export default defineConfig({
     trace: "on-first-retry",
   },
   projects: [
-    { name: "desktop", use: { ...devices["Desktop Chrome"] } },
-    { name: "mobile", use: { ...devices["Pixel 7"] } },
+    { name: "chromium-desktop", use: { ...devices["Desktop Chrome"] } },
+    { name: "chromium-mobile", use: { ...devices["Pixel 7"] } },
+    { name: "firefox-desktop", use: { ...devices["Desktop Firefox"] } },
+    { name: "webkit-mobile", use: { ...devices["iPhone 15"] } },
   ],
   webServer: {
     command: `npm run build && npx next start -p ${PORT}`,
