@@ -40,12 +40,19 @@ export function Section({
 export function Eyebrow({
   children,
   tone = "primary",
+  rule = "lead",
   className,
 }: {
   children: ReactNode;
   tone?: "primary" | "inverse";
+  rule?: "lead" | "flank";
   className?: string;
 }) {
+  const ruleClass = cn(
+    "h-px w-6 shrink-0",
+    tone === "primary" ? "bg-primary" : "bg-band-copy",
+  );
+
   return (
     <p
       className={cn(
@@ -54,14 +61,11 @@ export function Eyebrow({
         className,
       )}
     >
-      <span
-        aria-hidden="true"
-        className={cn(
-          "h-px w-6",
-          tone === "primary" ? "bg-primary" : "bg-band-copy",
-        )}
-      />
+      <span aria-hidden="true" className={ruleClass} />
       {children}
+      {rule === "flank" ? (
+        <span aria-hidden="true" className={cn(ruleClass, "hidden sm:block")} />
+      ) : null}
     </p>
   );
 }
