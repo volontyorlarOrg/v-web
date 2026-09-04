@@ -18,8 +18,8 @@ export function ActionLink({
     return (
       <a
         href={destination.href}
-        target="_blank"
-        rel="noopener noreferrer"
+        target={destination.newTab ? "_blank" : undefined}
+        rel={destination.newTab ? "noopener noreferrer" : undefined}
         className={className}
         aria-label={ariaLabel}
       >

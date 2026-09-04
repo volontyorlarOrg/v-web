@@ -41,7 +41,7 @@ function Volunteering({ locale }: { locale: Locale }) {
   const t = useTranslations("volunteering");
   const home = useTranslations("home");
   const join = joinDestination();
-  const opportunities = opportunitiesDestination();
+  const opportunities = opportunitiesDestination(locale);
 
   const steps: Step[] = HOW_STEPS.map((id) => ({
     id,

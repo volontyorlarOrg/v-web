@@ -15,7 +15,7 @@ export function HeroMapSection({ locale }: { locale: Locale }) {
   const t = useTranslations("home");
   const map = useTranslations("home.map");
   const join = joinDestination();
-  const login = loginDestination();
+  const login = loginDestination(locale);
   const regions = localisedRegions(locale);
 
   return (

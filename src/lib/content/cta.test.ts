@@ -9,37 +9,40 @@ describe("call-to-action destinations", () => {
   });
 
   it("falls back to internal pages instead of inventing a host", () => {
-    expect(joinDestination()).toEqual({ href: "/contact", external: false });
-    expect(opportunitiesDestination()).toBeNull();
+    expect(joinDestination()).toEqual({ href: "/contact", external: false, newTab: false });
+    expect(opportunitiesDestination("en")).toBeNull();
   });
 
   it("offers no sign-in until the product application has an origin", () => {
-    expect(loginDestination()).toBeNull();
+    expect(loginDestination("en")).toBeNull();
   });
 
-  it("points sign-in at the product application once its origin is known", () => {
+  it("sends sign-in to the product application in the visitor's locale, in the same tab", () => {
     vi.stubEnv("NEXT_PUBLIC_APP_ORIGIN", "https://app.example.org");
-    expect(loginDestination()).toEqual({
-      href: "https://app.example.org/login",
+    expect(loginDestination("ru")).toEqual({
+      href: "https://app.example.org/ru/login",
       external: true,
+      newTab: false,
     });
   });
 
-  it("uses the community channel only for joining", () => {
+  it("uses the community channel only for joining, and opens it in a new tab", () => {
     vi.stubEnv("NEXT_PUBLIC_TELEGRAM_URL", "https://t.me/example");
     expect(joinDestination()).toEqual({
       href: "https://t.me/example",
       external: true,
+      newTab: true,
     });
-    expect(opportunitiesDestination()).toBeNull();
+    expect(opportunitiesDestination("en")).toBeNull();
   });
 
-  it("sends opportunity traffic to the product app when it exists", () => {
+  it("sends opportunity traffic to the product app in the visitor's locale when it exists", () => {
     vi.stubEnv("NEXT_PUBLIC_TELEGRAM_URL", "https://t.me/example");
     vi.stubEnv("NEXT_PUBLIC_APP_ORIGIN", "https://app.example.org");
-    expect(opportunitiesDestination()).toEqual({
-      href: "https://app.example.org/",
+    expect(opportunitiesDestination("uz")).toEqual({
+      href: "https://app.example.org/uz",
       external: true,
+      newTab: false,
     });
   });
 });
