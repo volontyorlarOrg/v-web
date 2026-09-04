@@ -12,6 +12,7 @@ Use this file to route project questions to the smallest relevant source.
 | Brand assets, logo variants, and usage on the web | [`brand/BRAND_ASSETS.md`](brand/BRAND_ASSETS.md) |
 | Logo geometry, colour values, clear space, minimum size | [`brand/LOGO_SPEC.md`](brand/LOGO_SPEC.md) |
 | Applied UI system, localization behaviour, accessibility rules | [`ui/UI_SYSTEM.md`](ui/UI_SYSTEM.md) |
+| Current frontend audit and information-architecture findings | [`reviews/FRONTEND_DIAGNOSIS.md`](reviews/FRONTEND_DIAGNOSIS.md) |
 | Metadata, canonical URLs, hreflang, robots, sitemap, structured data | [`web/SEO_AND_ROUTES.md`](web/SEO_AND_ROUTES.md) |
 | Security headers, CSP, secrets, trust boundaries | [`security/SECURITY.md`](security/SECURITY.md) |
 | Setup, commands, environment, CI, deployment | [`operations/DEVELOPMENT_AND_DEPLOYMENT.md`](operations/DEVELOPMENT_AND_DEPLOYMENT.md) |
