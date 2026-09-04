@@ -25,10 +25,15 @@ describe("header navigation items", () => {
     }
   });
 
-  it("keep a fragment out of the path used to mark the active tab", () => {
-    const events = HEADER_NAV_ITEMS.find((item) => item.id === "events");
-    expect(events).toBeDefined();
-    expect(headerNavHref(events!)).toBe("/#sources");
-    expect(headerNavPath(events!)).toBe("/");
+  it("keeps the primary navigation to four real page destinations", () => {
+    expect(HEADER_NAV_ITEMS.map((item) => item.id)).toEqual([
+      "volunteering",
+      "partners",
+      "about",
+      "contact",
+    ]);
+    for (const item of HEADER_NAV_ITEMS) {
+      expect(headerNavHref(item)).toBe(headerNavPath(item));
+    }
   });
 });
