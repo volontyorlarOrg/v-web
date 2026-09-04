@@ -20,14 +20,19 @@ vi.mock("@/i18n/navigation", () => ({
   ),
 }));
 
-function renderNav() {
+function renderNav(withLogin = false) {
   return render(
     <MobileNav
       items={[
         { href: "/about", label: "About" },
         { href: "/contact", label: "Contact" },
       ]}
-      cta={{ href: "/contact", label: "Join us", external: false }}
+      cta={{ href: "/contact", label: "Join us", external: false, newTab: false }}
+      secondary={
+        withLogin
+          ? { href: "https://app.example.org/en/login", label: "Log in", external: true, newTab: false }
+          : null
+      }
       openLabel="Open menu"
       closeLabel="Close menu"
       navigationLabel="Main navigation"
@@ -75,5 +80,27 @@ describe("MobileNav", () => {
       "aria-expanded",
       "false",
     );
+  });
+
+  it("offers sign-in beside the join action, in the same tab, once the app has an origin", async () => {
+    const user = userEvent.setup();
+    renderNav(true);
+
+    await user.click(screen.getByRole("button", { name: "Open menu" }));
+
+    const login = screen.getByRole("link", { name: "Log in" });
+    expect(login).toHaveAttribute("href", "https://app.example.org/en/login");
+    expect(login).not.toHaveAttribute("target");
+    expect(screen.getByRole("link", { name: "Join us" })).toBeVisible();
+  });
+
+  it("shows only the join action while the app has no origin", async () => {
+    const user = userEvent.setup();
+    renderNav();
+
+    await user.click(screen.getByRole("button", { name: "Open menu" }));
+
+    expect(screen.queryByRole("link", { name: "Log in" })).toBeNull();
+    expect(screen.getByRole("link", { name: "Join us" })).toBeVisible();
   });
 });

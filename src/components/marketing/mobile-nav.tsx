@@ -5,18 +5,23 @@ import { useEffect, useId, useRef, useState } from "react";
 
 import { Link } from "@/i18n/navigation";
 import { buttonClass } from "@/components/ui/button";
+import type { Destination } from "@/lib/content/cta";
 
 export type NavItem = { href: string; label: string };
+
+export type NavAction = Destination & { label: string };
 
 export function MobileNav({
   items,
   cta,
+  secondary = null,
   openLabel,
   closeLabel,
   navigationLabel,
 }: {
   items: readonly NavItem[];
-  cta: { href: string; label: string; external: boolean } | null;
+  cta: NavAction | null;
+  secondary?: NavAction | null;
   openLabel: string;
   closeLabel: string;
   navigationLabel: string;
@@ -38,6 +43,29 @@ export function MobileNav({
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open]);
+
+  function renderAction(action: NavAction, variant: "primary" | "outline") {
+    const className = buttonClass({ variant, size: "sm" });
+
+    if (action.external) {
+      return (
+        <a
+          href={action.href}
+          target={action.newTab ? "_blank" : undefined}
+          rel={action.newTab ? "noopener noreferrer" : undefined}
+          className={className}
+        >
+          {action.label}
+        </a>
+      );
+    }
+
+    return (
+      <Link href={action.href} onClick={() => setOpen(false)} className={className}>
+        {action.label}
+      </Link>
+    );
+  }
 
   return (
     <>
@@ -76,27 +104,9 @@ export function MobileNav({
             ))}
           </nav>
 
-          <div className="mt-4">
-            {cta ? (
-              cta.external ? (
-                <a
-                  href={cta.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={buttonClass({ size: "sm" })}
-                >
-                  {cta.label}
-                </a>
-              ) : (
-                <Link
-                  href={cta.href}
-                  onClick={() => setOpen(false)}
-                  className={buttonClass({ size: "sm" })}
-                >
-                  {cta.label}
-                </Link>
-              )
-            ) : null}
+          <div className="mt-4 flex flex-wrap gap-2">
+            {cta ? renderAction(cta, "primary") : null}
+            {secondary ? renderAction(secondary, "outline") : null}
           </div>
         </div>
       </div>
