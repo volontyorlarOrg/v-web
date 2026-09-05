@@ -272,7 +272,7 @@
   },
   "privacy": {
     "metaTitle": "Maxfiylik",
-    "metaDescription": "Volontyorlar saytida maʼlumotlaringiz bilan nima boʻladi: hisob yozuvi, forma, kuki va analitika yoʻq.",
+    "metaDescription": "Volontyorlar saytida maʼlumotlaringiz bilan nima boʻladi: hisob yozuvi, forma va analitika yoʻq — faqat mavzu va tilni eslab qoladigan ikkita kuki.",
     "title": "Maxfiylik",
     "updatedLabel": "Oxirgi yangilanish",
     "lead": "Bu sahifa siz oʻqiyotgan Volontyorlar saytiga tegishli. U alohida Volontyorlar ilovasini qamrab olmaydi.",
@@ -282,8 +282,8 @@
         "body": "Bu saytda hisob yozuvi, kirish, forma va izoh maydonlari yoʻq. Yuboradigan narsangiz yoʻq, demak saqlaydigan narsamiz ham yoʻq."
       },
       "cookies": {
-        "title": "Kuki yoʻq",
-        "body": "Sayt hech qanday kuki oʻrnatmaydi. Brauzeringizda faqat siz tanlagan yorugʻ yoki tungi rejim saqlanadi — u qurilmangizda qoladi va bizga yuborilmaydi. Tilingiz — siz oʻqiyotgan sahifa manzilining bir qismi, biz eslab qoladigan maʼlumot emas."
+        "title": "Kuki fayllari",
+        "body": "Sayt ikkita kichik kuki oʻrnatadi va ularning hech biri sizni aniqlamaydi: biri siz tanlagan yorugʻ yoki tungi rejimni, ikkinchisi tilingizni eslab qoladi. Ular soʻrovlaringiz bilan birga yuboriladi — shunda bu sayt ham, volontyorlar ilovasi ham siz qoldirgan holatda ochiladi. Kuzatuv, reklama yoki analitika kukisi yoʻq."
       },
       "analytics": {
         "title": "Analitika va kuzatuv yoʻq",
