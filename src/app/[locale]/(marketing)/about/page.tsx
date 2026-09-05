@@ -84,7 +84,7 @@ function About({ locale }: { locale: Locale }) {
         />
       </Section>
 
-      <Section tone="sunk">
+      <Section id="team" tone="sunk">
         <SectionHeader title={t("founders.title")} />
         <Scene as="ul" variant="stagger" className="mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-2">
           {FOUNDERS.map((founder) => (
