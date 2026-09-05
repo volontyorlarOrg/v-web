@@ -39,7 +39,7 @@ describe("LocaleSwitcher", () => {
     await user.click(screen.getByRole("button", { name: "Language: Русский" }));
 
     for (const locale of locales) {
-      const link = screen.getByRole("link", { name: localeNames[locale] });
+      const link = screen.getByRole("menuitem", { name: localeNames[locale] });
       expect(link).toHaveAttribute("href", `/${locale}/partners`);
       expect(link).toHaveAttribute("hreflang", locale);
       expect(link).toHaveAttribute("lang", locale);
@@ -51,11 +51,11 @@ describe("LocaleSwitcher", () => {
     render(<LocaleSwitcher label="Language" />);
     await user.click(screen.getByRole("button", { name: "Language: Русский" }));
 
-    expect(screen.getByRole("link", { name: "Русский" })).toHaveAttribute(
+    expect(screen.getByRole("menuitem", { name: "Русский" })).toHaveAttribute(
       "aria-current",
       "page",
     );
-    expect(screen.getByRole("link", { name: "O‘zbekcha" })).not.toHaveAttribute(
+    expect(screen.getByRole("menuitem", { name: "O‘zbekcha" })).not.toHaveAttribute(
       "aria-current",
     );
   });
@@ -65,7 +65,7 @@ describe("LocaleSwitcher", () => {
     usePathname.mockReturnValue("/");
     render(<LocaleSwitcher label="Language" />);
     await user.click(screen.getByRole("button", { name: "Language: Русский" }));
-    expect(screen.getByRole("link", { name: "English" })).toHaveAttribute("href", "/en");
+    expect(screen.getByRole("menuitem", { name: "English" })).toHaveAttribute("href", "/en");
   });
 
   it("labels the switcher for assistive technology", () => {
