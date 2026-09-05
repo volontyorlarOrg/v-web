@@ -22,7 +22,7 @@
     "skipToContent": "Asosiy qismga oʻtish"
   },
   "footer": {
-    "description": "Volontyorlar Oʻzbekiston boʻylab haqiqiy volontyorlik imkoniyatlarini topadi, ularning ortidagi tashkilotchilar bilan ishlaydi va yoshlarni odam kerak boʻlgan tadbirlar bilan bogʻlaydi.",
+    "description": "Volontyorlik qiling. Mahallangizga yordam bering. Tasdiqlating.",
     "siteLabel": "Sayt",
     "legalLabel": "Huquqiy",
     "channelsLabel": "Kanallar",
@@ -30,7 +30,24 @@
       "telegram": "Telegram",
       "instagram": "Instagram"
     },
-    "location": "Oʻzbekiston"
+    "location": "Oʻzbekiston",
+    "groups": {
+      "explore": "Yoʻnalishlar",
+      "about": "Biz haqimizda",
+      "support": "Yordam"
+    },
+    "links": {
+      "regions": "Hududlar",
+      "organisations": "Tashkilotlar uchun",
+      "team": "Jamoa"
+    },
+    "updates": {
+      "title": "Aloqada boʻling",
+      "description": "Volontyorlik imkoniyatlari va Volontyorlar yangiliklari uchun kanalimizni kuzatib boring.",
+      "unavailable": "Volontyorlik imkoniyatlari va Volontyorlar yangiliklari uchun saytga yana tashrif buyuring.",
+      "telegram": "Telegramda kuzating"
+    },
+    "madeIn": "<country>Oʻzbekistonda</country> yaratilgan"
   },
   "home": {
     "metaTitle": "Volontyorlar — Oʻzbekistondagi yoshlar uchun volontyorlik",
