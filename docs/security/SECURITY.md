@@ -57,11 +57,15 @@ The marketing site has no accounts, sessions, forms, uploads, or database. It
 never receives user input, so it has nothing to validate or sanitise, and it
 never handles volunteer data.
 
-It sets **no cookies**. The locale cookie `next-intl` would otherwise write is
-disabled in `src/i18n/routing.ts`, so the URL remains the only language state.
-The one browser-storage value is the light/dark theme choice in `localStorage`;
-it stays on the device and is never sent to the server. The privacy page states
-this distinction explicitly.
+It sets **two cookies, neither of which identifies a visitor**: `theme` and
+`NEXT_LOCALE`. Both are scoped to the domain this site and the volunteer
+application share, derived in `src/lib/preferences.ts` from the origins already
+configured, so both honour the same choice; `localStorage` is keyed by origin
+and could not cross between them. The
+URL is still the only language state a page renders from — the cookie is read
+only to pick a locale for a prefix-less entry. Neither cookie is `httpOnly`,
+because the theme is applied by a script before first paint. There is no
+tracking, advertising, or analytics cookie, and the privacy page names both.
 
 Outbound links to Telegram, Instagram, or the product application open with
 `rel="noopener noreferrer"`.

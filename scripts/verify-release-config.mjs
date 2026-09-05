@@ -26,10 +26,40 @@ function readHttpsUrl(name, { required, originOnly }) {
   }
 }
 
+function verifySharedPreferenceDomain() {
+  const hosts = [];
+  for (const name of ["NEXT_PUBLIC_SITE_URL", "NEXT_PUBLIC_APP_ORIGIN"]) {
+    const raw = process.env[name]?.trim();
+    if (!raw) return;
+    try {
+      hosts.push(new URL(raw).hostname);
+    } catch {
+      return;
+    }
+  }
+
+  const [site, app] = hosts;
+  if (site === app) return;
+
+  const labels = site.split(".").reverse();
+  const other = app.split(".").reverse();
+  let shared = 0;
+  while (shared < Math.min(labels.length, other.length) && labels[shared] === other[shared]) {
+    shared += 1;
+  }
+
+  if (shared < 2) {
+    issues.push(
+      `NEXT_PUBLIC_SITE_URL (${site}) and NEXT_PUBLIC_APP_ORIGIN (${app}) share no registrable domain, so the theme and language chosen on one will not carry to the other`,
+    );
+  }
+}
+
 readHttpsUrl("NEXT_PUBLIC_SITE_URL", { required: true, originOnly: true });
 readHttpsUrl("NEXT_PUBLIC_APP_ORIGIN", { required: false, originOnly: true });
 readHttpsUrl("NEXT_PUBLIC_TELEGRAM_URL", { required: false, originOnly: false });
 readHttpsUrl("NEXT_PUBLIC_INSTAGRAM_URL", { required: false, originOnly: false });
+verifySharedPreferenceDomain();
 
 if (issues.length > 0) {
   for (const issue of issues) console.error(`Invalid release configuration: ${issue}`);

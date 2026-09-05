@@ -135,6 +135,12 @@
       color 400ms ease;
   }
 
+  button:not(:disabled),
+  [role="button"]:not(:disabled),
+  summary {
+    cursor: pointer;
+  }
+
   h1,
   h2,
   .display-face {

@@ -272,7 +272,7 @@
   },
   "privacy": {
     "metaTitle": "Privacy",
-    "metaDescription": "What happens to your information on the Volontyorlar website: no accounts, no forms, no cookies, and no analytics.",
+    "metaDescription": "What happens to your information on the Volontyorlar website: no accounts, no forms, no analytics, and only two cookies that remember your theme and your language.",
     "title": "Privacy",
     "updatedLabel": "Last updated",
     "lead": "This page describes the Volontyorlar website you are reading. It does not cover the separate Volontyorlar application.",
@@ -282,8 +282,8 @@
         "body": "This website has no accounts, no sign-in, no forms, and no comment fields. There is nothing for you to submit, so there is nothing for us to store."
       },
       "cookies": {
-        "title": "No cookies",
-        "body": "The site sets no cookies. The only thing it keeps in your browser is your choice of light or dark theme, which stays on your device and is never sent to us. Your language is part of the address of the page you are reading, not something we remember about you."
+        "title": "Cookies",
+        "body": "The site sets two small cookies, and neither identifies you: one remembers whether you chose the light or the dark theme, the other remembers your language. They travel with your requests so that this site and the volunteer application open the way you left them. There is no tracking, advertising, or analytics cookie."
       },
       "analytics": {
         "title": "No analytics or tracking",

@@ -33,8 +33,17 @@ the variables rather than inlining them, a component that uses `bg-paper` is
 already themed. `src/lib/theme.ts` owns the attribute: a boot script in
 `<head>` sets `data-theme` from the stored choice or the system preference
 before first paint, `ThemeToggle` writes it, and the hero map re-reads its
-palette when it changes. The choice is the one thing the site keeps in the
-browser, in `localStorage`, and the privacy page says so.
+palette when it changes. The choice lives in a `theme` cookie scoped to the
+domain the site and the application share, so both read the same value;
+`localStorage` cannot cross an origin, and the two run on different ones. The
+scope is derived in `src/lib/preferences.ts` from the origins already
+configured — the longest whole-label suffix `NEXT_PUBLIC_SITE_URL` and
+`NEXT_PUBLIC_APP_ORIGIN` have in common — so there is no domain to configure
+and nothing to keep in step. Fewer than two labels in common means no shared
+domain exists, and the cookie stays host-only rather than being set on a public
+suffix. A value left in
+`localStorage` by an earlier visit is adopted once by the boot script and
+written to the cookie. The privacy page names both cookies.
 
 Fills have their own tokens — `action`, `action-hover`, `band`, `band-copy` —
 because the dark theme needs a text blue that is light and a fill blue that is
@@ -172,10 +181,12 @@ lockup's wordmark renders in a different system face on every platform. See
 - The client provider carries locale context with `messages={null}`; translated
   labels cross the Server/Client boundary as props rather than as a catalog.
 - `src/proxy.ts` sends a prefix-less URL to the best `Accept-Language` match.
-- No locale cookie and no language in `localStorage`: the URL is the only
-  language state, so a canonical URL can never render two different languages,
-  and every response stays cacheable. The theme choice is the only thing stored
-  in the browser, and it never affects what a URL renders on the server.
+- The URL is still the only language state a page renders from, so a canonical
+  URL can never render two different languages. A `NEXT_LOCALE` cookie records
+  the last choice and is read only where no locale is in the URL — the
+  prefix-less entry the proxy redirects — so a visitor who picked Russian on
+  either origin lands in Russian on the other. It shares the theme cookie's
+  derived domain scope.
 - The language disclosure is in the header at every width and in the footer. It
   is a 40px pill showing the language code, opens a list of native language
   names, and links to the same route in another locale, so switching never drops
@@ -195,6 +206,11 @@ lockup's wordmark renders in a different system face on every platform. See
 - A skip link is the first focusable element of every page.
 - The base layer gives every focusable element a 3px `primary-ink` outline at
   3px offset; nothing removes it.
+- The base layer restores `cursor: pointer` on `button`, `[role="button"]`
+  and `summary`. Tailwind 4 no longer ships v3's pointer rule in Preflight, so
+  without this every control sits under the browser arrow. The `:not(:disabled)`
+  guard keeps a disabled control from claiming to be clickable, and anchors are
+  untouched because the browser already points at them.
 - Controls clear 44px in both dimensions.
 - The mobile disclosure sets `aria-expanded` and `aria-controls`, closes on
   Escape with focus returned to the trigger, and closes on selection. The panel

@@ -470,12 +470,12 @@ the map is flat-shaded enough that the difference is invisible.
 | Setting | Where | Why |
 | --- | --- | --- |
 | `localePrefix: "always"` | `src/i18n/routing.ts` | One locale per URL, so a canonical URL can never render two languages |
-| `localeCookie: false` | `src/i18n/routing.ts` | The URL is the only language state; every response stays cacheable and the privacy page can truthfully say nothing is stored |
+| `localeCookie` scoped to the derived shared domain | `src/i18n/routing.ts`, `src/lib/preferences.ts` | The URL is still the only language state a page renders from, so localized pages stay static and cacheable. The cookie is read only to choose a locale for a prefix-less entry, which lets a language picked in the volunteer application hold here and back |
 | `alternateLinks: false` | `src/i18n/routing.ts` | Alternates are emitted by the metadata layer instead, so they live with the canonical URLs rather than in a response header |
 | `timeZone: "Asia/Tashkent"` | `src/i18n/request.ts` | Fixed, so server and client format dates identically for every visitor |
 | `experimental.globalNotFound` | `next.config.ts` | The root layout sits under `[locale]`, so a 404 for an unmatched URL cannot be composed from a layout |
 | Proxy `matcher` | `src/proxy.ts` | Skips API routes, Next internals, and anything containing a dot, so static assets never pay for a proxy hop |
-| Theme in `localStorage`, not a cookie | `src/lib/theme.ts` | A cookie would reach the server and tempt a per-request render; the inline boot script applies the stored value before paint and every page stays static |
+| Theme in a shared cookie, not `localStorage` | `src/lib/preferences.ts`, `src/lib/theme.ts` | `localStorage` is keyed by origin, so a theme chosen here was invisible to the app subdomain. A cookie on the domain both share is visible to both and ignores the port, so it also works across 3000/3001 locally. The scope is derived from `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_APP_ORIGIN`, so there is no extra variable to set. Nothing reads it on the server, so pages stay static; the inline boot script still applies it before paint and adopts an older `localStorage` value once |
 
 `global-not-found.tsx` bypasses the layout tree, which is why it re-imports the
 global stylesheet and the typeface. It sits outside `[locale]` and cannot know
