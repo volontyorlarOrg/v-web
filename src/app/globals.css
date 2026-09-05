@@ -28,6 +28,18 @@
   --color-accent-ink: #b34917;
   --color-mask-opaque: #000000;
 
+  --color-background: var(--color-paper);
+  --color-foreground: var(--color-ink);
+  --color-card: var(--color-surface);
+  --color-card-foreground: var(--color-ink);
+  --color-popover: var(--color-surface);
+  --color-popover-foreground: var(--color-ink);
+  --color-primary-foreground: var(--color-knockout);
+  --color-muted: var(--color-surface-sunk);
+  --color-muted-foreground: var(--color-ink-muted);
+  --color-input: var(--color-border-control);
+  --color-ring: var(--color-primary-ink);
+
   --ease-scene: cubic-bezier(0.22, 1, 0.36, 1);
 
   --font-sans: var(--font-onest), ui-sans-serif, system-ui, sans-serif;
@@ -38,6 +50,7 @@
   --radius-lg: 0.875rem;
   --radius-xl: 1.25rem;
   --radius-2xl: 1.75rem;
+  --radius: var(--radius-md);
 
   --text-display: clamp(2.75rem, 6.6vw, 5rem);
   --text-brand-signature: clamp(2.75rem, 15.5vw, 12.5rem);
