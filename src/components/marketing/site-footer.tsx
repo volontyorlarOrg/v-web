@@ -1,12 +1,17 @@
-import { ArrowUpRight, Instagram, Send } from "lucide-react";
+import { ArrowUpRight, Instagram, Send, type LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { BrandLockup } from "@/components/brand/logo";
 import { buttonClass } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
-import { configuredChannels } from "@/lib/constants/channels";
+import { configuredChannels, type ChannelId } from "@/lib/constants/channels";
 import { ORGANIZATION_NAME } from "@/lib/content/org";
 import { navHref } from "@/lib/routing/routes";
+
+const channelIcon: Record<ChannelId, LucideIcon> = {
+  telegram: Send,
+  instagram: Instagram,
+};
 
 export function SiteFooter() {
   const t = useTranslations("footer");
@@ -50,9 +55,13 @@ export function SiteFooter() {
               {t("description")}
             </p>
             {channels.length > 0 ? (
-              <ul aria-label={t("channelsLabel")} className="mt-4 -ml-3 flex flex-wrap gap-1">
+              <ul
+                role="list"
+                aria-label={t("channelsLabel")}
+                className="mt-4 -ml-3 flex flex-wrap gap-1"
+              >
                 {channels.map((channel) => {
-                  const Icon = channel.id === "telegram" ? Send : Instagram;
+                  const Icon = channelIcon[channel.id];
                   return (
                     <li key={channel.id}>
                       <a
@@ -94,7 +103,7 @@ export function SiteFooter() {
           </div>
 
           <div className="min-w-0 md:col-start-2 md:row-start-1 lg:col-start-3">
-            <h2 className="font-sans text-base font-semibold leading-6 text-ink">
+            <h2 className="font-sans text-sm font-semibold leading-6 text-ink">
               {t("updates.title")}
             </h2>
             <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink-muted text-pretty">
