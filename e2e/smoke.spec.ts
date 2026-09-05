@@ -29,14 +29,14 @@ test.describe("locale routing", () => {
 
   test("switching language keeps the same page", async ({ page }) => {
     await page.goto("/uz/partners");
-    const footer = page.getByRole("contentinfo");
-    await footer.getByRole("button", { name: /Til: O‘zbekcha/ }).click();
-    await footer.getByRole("link", { name: "Русский", exact: true }).click();
+    const header = page.getByRole("banner");
+    await header.getByRole("button", { name: /Til: O‘zbekcha/ }).click();
+    await header.getByRole("link", { name: "Русский", exact: true }).click();
     await expect(page).toHaveURL(/\/ru\/partners$/);
     await expect(page.locator("html")).toHaveAttribute("lang", "ru");
 
-    await footer.getByRole("button", { name: /Язык: Русский/ }).click();
-    await footer.getByRole("link", { name: "English", exact: true }).click();
+    await header.getByRole("button", { name: /Язык: Русский/ }).click();
+    await header.getByRole("link", { name: "English", exact: true }).click();
     await expect(page).toHaveURL(/\/en\/partners$/);
   });
 

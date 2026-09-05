@@ -22,7 +22,7 @@
     "skipToContent": "Skip to content"
   },
   "footer": {
-    "description": "Volontyorlar finds real volunteering across Uzbekistan, works with the organisers behind it, and connects young people to the events that need them.",
+    "description": "Volunteer. Help your local community. Get it verified.",
     "siteLabel": "Site",
     "legalLabel": "Legal",
     "channelsLabel": "Channels",
@@ -30,7 +30,24 @@
       "telegram": "Telegram",
       "instagram": "Instagram"
     },
-    "location": "Uzbekistan"
+    "location": "Uzbekistan",
+    "groups": {
+      "explore": "Explore",
+      "about": "About",
+      "support": "Support"
+    },
+    "links": {
+      "regions": "Regions",
+      "organisations": "For organisations",
+      "team": "Team"
+    },
+    "updates": {
+      "title": "Stay connected",
+      "description": "Follow our channel for volunteering opportunities and news from Volontyorlar.",
+      "unavailable": "Check back for volunteering opportunities and news from Volontyorlar.",
+      "telegram": "Follow on Telegram"
+    },
+    "madeIn": "Made in <country>Uzbekistan</country>"
   },
   "home": {
     "metaTitle": "Volontyorlar — volunteering for young people in Uzbekistan",
