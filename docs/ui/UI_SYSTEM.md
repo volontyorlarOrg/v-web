@@ -27,6 +27,15 @@ block, so `bg-paper`, `text-ink-muted`, `border-border`, `bg-action`, and
 `text-accent` are generated utilities. Components must not contain literal hex
 values.
 
+The same block aliases the token set under the names shadcn/ui components
+expect — `background`, `foreground`, `card`, `popover`, `muted`,
+`muted-foreground`, `input`, `ring`, `primary-foreground` and `radius` — each
+as a `var()` reference to a brand token, so `bg-popover` is `surface` and
+`text-muted-foreground` is `ink-muted` in both themes without a second palette.
+`accent` is not aliased: it is the orange brand token, and a menu item's focus
+surface uses `muted` with `primary-ink` instead. There is no `destructive`
+alias, because the palette defines no red.
+
 The dark theme is the same token names with different values, declared under
 `:root[data-theme="dark"]` in the base layer. Because the utilities reference
 the variables rather than inlining them, a component that uses `bg-paper` is
@@ -111,10 +120,14 @@ container-relative size fight each other, and the smaller one silently wins.
 | `StepRail` | The process rail; blue nodes for Volontyorlar's work, orange for the volunteer's, drawn step by step as it is scrolled |
 | `NameBoard` | Hairline-ruled rows of partner, supporter, and source names |
 | `ProseSections` | Legal and explanatory pages at one measure |
-| `StatusChip` | Dashed pill for planned or unpublished material |
+| `StatusChip` | Dashed pill for planned or unpublished material; the `status` variant of `Badge` |
 | `SectionBackdrop` | The ambient layer on the toned bands; `sourcing` and `channels` |
-| `buttonClass` | The single action styling contract, built with CVA |
+| `Button` / `buttonClass` | The single action styling contract, built with CVA; `Button` renders it, `buttonClass` applies it to a link |
 | `ActionLink` | Chooses a locale-aware link or a safe external anchor |
+| `Badge` | The pill: `default`, `outline` and `status` variants |
+| `Sheet` | The mobile navigation panel: a non-modal Radix dialog that leaves the header interactive |
+| `DropdownMenu` | The language menu; its items are locale links marked `aria-current` |
+| `Switch` | The Radix switch, as a `track` or as an `icon` button carrying its own glyphs |
 | `HeroMapSection` | The home page hero and its scroll-driven map of the fourteen regions |
 | `CountUp` | Counts a figure from 1 to its real value the first time it is scrolled into view |
 | `NumberedRail` | The shared 01–NN hairline rail used for lists that read as a sequence |
@@ -122,7 +135,7 @@ container-relative size fight each other, and the smaller one silently wins.
 | `Scene` / `SplitWords` | The entry-scene boundary and the word-by-word heading mask; server components that only add markup and classes |
 | `SceneObserver` | The one `IntersectionObserver` that marks scenes entered; mounted once in the marketing layout |
 | `SmoothScroll` | Mounts `lenis` when motion is allowed |
-| `ThemeToggle` | The labelled switch that flips `data-theme` and stores the choice |
+| `ThemeToggle` | The labelled `Switch` that flips `data-theme` and stores the choice |
 | `NavTabs` | The header tabs, rendered from the provisional item set with the active tab marked |
 | `PageBreadcrumbJsonLd` | The localized home-to-current-page structured-data trail |
 | `Marquee` | The continuously rolling partner and source rows |
@@ -176,9 +189,9 @@ lockup's wordmark renders in a different system face on every platform. See
   language state, so a canonical URL can never render two different languages,
   and every response stays cacheable. The theme choice is the only thing stored
   in the browser, and it never affects what a URL renders on the server.
-- The language disclosure is in the header at every width and in the footer. It
-  is a 40px pill showing the language code, opens a list of native language
-  names, and links to the same route in another locale, so switching never drops
+- The language menu is in the header at every width. It is a 40px pill showing
+  the language code, opens a Radix dropdown menu of native language names, and
+  each item links to the same route in another locale, so switching never drops
   the reader onto the home page.
 - `html[lang]` matches the active locale on every page.
 - `src/i18n/messages.test.ts` enforces key parity across the three catalogs,
@@ -196,9 +209,14 @@ lockup's wordmark renders in a different system face on every platform. See
 - The base layer gives every focusable element a 3px `primary-ink` outline at
   3px offset; nothing removes it.
 - Controls clear 44px in both dimensions.
-- The mobile disclosure sets `aria-expanded` and `aria-controls`, closes on
-  Escape with focus returned to the trigger, and closes on selection. The panel
-  uses the `hidden` attribute, so its contents leave the accessibility tree.
+- The mobile navigation is a non-modal dialog (`Sheet`). Its trigger carries
+  `aria-expanded` and, while open, `aria-controls`; the panel closes on Escape
+  with focus returned to the trigger, on a tap outside, and on selection. While
+  closed it is not rendered, so its contents leave the accessibility tree; while
+  open the header stays reachable, which is why the dialog is not modal.
+- The language menu is a Radix menu: the trigger is named with the current
+  language, the items are links with `hreflang`, `lang` and `aria-current`,
+  arrow keys move between them, and Escape returns focus to the trigger.
 - Status is never carried by colour alone: the application availability chip
   says so in words, and the orange step node reinforces a title that already
   names who acts.

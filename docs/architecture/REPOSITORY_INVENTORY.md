@@ -14,7 +14,7 @@ public assets. Generated dependencies and build output are excluded at the end.
 | `next.config.ts`, `postcss.config.mjs` | Next.js runtime/security headers and Tailwind/PostCSS integration |
 | `tsconfig.json`, `next-env.d.ts` | Strict TypeScript and generated Next.js declarations |
 | `eslint.config.mjs`, `vitest.config.mts`, `vitest.setup.ts`, `playwright.config.ts` | Static, unit/component, and browser-test configuration |
-| `components.json` | shadcn-compatible component generator settings; it does not add a runtime |
+| `components.json` | shadcn/ui CLI settings: the `radix-nova` style, the aliases, and the stylesheet the CLI must not rewrite |
 | `.env.example`, `.gitignore` | Value-free environment contract and ignored local/generated state |
 | `.github/workflows/ci.yml`, `.github/workflows/codeql.yml`, `.github/dependabot.yml` | Verification, security scanning, and dependency-update automation |
 | `.vscode/extensions.json`, `.claude/launch.json` | Optional editor and local launch recommendations |
@@ -49,7 +49,7 @@ public assets. Generated dependencies and build output are excluded at the end.
 | SEO rendering | `marketing/json-ld.tsx`, `page-breadcrumb-json-ld.tsx` |
 | Motion | `marketing/scene.tsx`, `scene-observer.tsx`, `smooth-scroll.tsx`, `rolling-words.tsx`, `count-up.tsx`, `marquee.tsx`, `section-backdrop.tsx`, `theme-script.tsx` |
 | Hero map | `marketing/hero-map/hero-map-section.tsx` is the server composition; `hero-map-flat.tsx` is the complete SVG fallback; `hero-map-stage.tsx` owns the client lifecycle; `scene.ts` owns Three.js resources; `timeline.ts` and `framing.ts` are pure animation geometry |
-| UI foundation | `components/ui/button.tsx` owns the shared action class variants; no rendered generic Button wrapper exists |
+| UI foundation | `components/ui/` holds the shadcn components: `button.tsx` (`Button` and the `buttonClass` contract), `badge.tsx`, `sheet.tsx`, `dropdown-menu.tsx`, `switch.tsx` |
 
 Components under `marketing` may depend on `lib` and `i18n`. They do not own
 verified facts or environment parsing. Client components keep the browser-only

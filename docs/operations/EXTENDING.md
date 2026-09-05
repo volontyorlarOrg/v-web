@@ -161,6 +161,15 @@ Shared action styling comes from `buttonClass`. Solid actions use `action`, not
 `primary` or `primary-ink`: a white label needs 4.5:1, and the dark theme keeps
 the text-blue and fill-blue roles separate.
 
+Interactive primitives come from shadcn/ui. `npx shadcn@latest add <name>`
+writes the registry source into `src/components/ui/`; edit it before use.
+Remove the `tw-animate-css` classes (`animate-in`, `fade-in-0`, `data-open:`),
+the `destructive` role and the `cn-*` utilities, and keep only colours that are
+tokens or the aliases `globals.css` declares for shadcn's names. Do not let the
+CLI rewrite `globals.css`: its oklch palette would shadow the brand tokens. A
+component nothing uses is not added, and a component that only needs a class
+contract exports its `cva` variants rather than wrapping the element.
+
 For brand marks, `BrandMark` is the logo and must never render below 16px or be
 cropped; `BrandArc` is the derived shape for large decoration.
 
@@ -194,7 +203,9 @@ removed and why, and `AGENTS.md` lists the categories that do not belong in a
 marketing repository. A dependency needs a concrete, implemented requirement,
 not an anticipated one. `lenis` is the one motion dependency and it does one
 thing, smooth scrolling; entry motion is deliberately CSS plus one observer
-rather than an animation library.
+rather than an animation library. `radix-ui` is the one interaction
+dependency, reached only through the shadcn components in
+`src/components/ui/`.
 
 Known constraint: `@vitejs/plugin-react` cannot be installed. Its current major
 peers `@babel/core@^8` while the `shadcn` CLI pins `^7`. Vitest transforms TSX

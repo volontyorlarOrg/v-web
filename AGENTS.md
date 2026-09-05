@@ -53,8 +53,9 @@ belong to the separate Volontyorlar application. Do not rebuild them here.
 - Next.js 16 App Router, React 19, strict TypeScript, Node.js 22.13+
 - Tailwind CSS 4 with semantic tokens in `src/app/globals.css`
 - `next-intl` for `uz` / `ru` / `en` routing and catalogs
-- Radix/shadcn-compatible foundation: `class-variance-authority`, `clsx`,
-  `tailwind-merge`, Lucide icons
+- shadcn/ui components in `src/components/ui/`, built on `radix-ui`,
+  `class-variance-authority`, `clsx`, `tailwind-merge` and Lucide icons; the
+  CLI is configured by `components.json`
 - Vitest + Testing Library for units and components, Playwright for smoke paths
 - npm with a committed lockfile
 
@@ -62,8 +63,13 @@ There is no theme library and no animation library. Light and dark are one
 token set switched by `data-theme` on `<html>` (`src/lib/theme.ts`), entry
 motion is CSS transitions released by a single `IntersectionObserver`
 (`src/components/marketing/scene.tsx`), and `lenis` is the one motion
-dependency, scoped to smooth scrolling. Do not add TanStack, React Hook Form,
-Zod, Zustand, auth SDKs, or dashboard packages.
+dependency, scoped to smooth scrolling. Interactive primitives — the mobile
+navigation sheet, the language menu, the theme switch — come from shadcn/ui on
+`radix-ui`, and their colours are the site's own tokens aliased under shadcn's
+names in `globals.css`. Application libraries stay out of this repository:
+TanStack Query, React Hook Form, Zod, nuqs, Zustand, auth SDKs and dashboard
+packages belong to the Volontyorlar application, which owns the forms and
+backend reads a static marketing site does not have.
 
 `three` is the single exception, and it is scoped to one surface: the home
 page's hero map (`src/components/marketing/hero-map/`). It is loaded

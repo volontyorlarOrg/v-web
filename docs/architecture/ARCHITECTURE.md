@@ -36,7 +36,8 @@ flowchart LR
 | `src/lib/theme.ts` | Theme preference, the inline boot script, and the `data-motion` flag |
 | `src/lib/map/` | Generated region geometry, localised region names, SVG path helpers |
 | `src/lib/constants/` | Validated external channel configuration |
-| `src/components/{ui,brand,marketing}/` | Action styling, brand marks, page composition |
+| `src/components/ui/` | shadcn/ui components: `Button` and `buttonClass`, `Badge`, `Sheet`, `DropdownMenu`, `Switch` |
+| `src/components/{brand,marketing}/` | Brand marks, page composition |
 
 The exhaustive file ownership map is in
 [`REPOSITORY_INVENTORY.md`](REPOSITORY_INVENTORY.md).
@@ -86,10 +87,12 @@ Server Components are the default. Nine components opt into the client, and all
 of them receive their copy as props so no page-level translation reaches the
 browser:
 
-- `LocaleSwitcher` needs the active locale and pathname.
+- `LocaleSwitcher` needs the active locale and pathname; the list is a Radix
+  dropdown menu.
 - `NavTabs` needs the pathname to mark the active tab.
-- `ThemeToggle` needs the document's theme and a click handler.
-- `MobileNav` needs disclosure state and an Escape handler.
+- `ThemeToggle` needs the document's theme; the control is the shadcn `Switch`.
+- `MobileNav` owns the sheet's open state; Radix's dialog handles Escape, focus
+  return and taps outside.
 - `HeroMapStage` owns the home page's hero, its scroll runway, and the canvas.
 - `RollingWords` cycles the region label while respecting reduced motion.
 - `CountUp` animates verified figures when they enter the viewport.
@@ -485,9 +488,20 @@ link for each.
 ## Dependency boundary
 
 Runtime dependencies are `next`, `react`, `react-dom`, `next-intl`,
-`class-variance-authority`, `clsx`, `tailwind-merge`, `lucide-react`, `lenis`,
-which does smooth scrolling and nothing else, and `three`, which is isolated to
-the hero map.
+`radix-ui`, `class-variance-authority`, `clsx`, `tailwind-merge`,
+`lucide-react`, `lenis`, which does smooth scrolling and nothing else, and
+`three`, which is isolated to the hero map.
+
+`radix-ui` arrived with shadcn/ui. The components under `src/components/ui/`
+are shadcn's registry sources, added with `npx shadcn@latest add <name>` and
+then edited: the oklch palette, the `tw-animate-css` classes and the
+`destructive` role are removed, and every colour is one of the site's tokens,
+either directly or through the aliases `globals.css` declares under shadcn's
+names (`background`, `foreground`, `card`, `popover`, `muted`,
+`muted-foreground`, `input`, `ring`, `primary-foreground`, `radius`). shadcn's
+`accent` is not aliased, because `accent` is the orange brand token; a menu
+item's focus surface uses `muted` and `primary-ink` instead. No `destructive`
+token exists, because the palette defines no red.
 
 Removed during the production consolidation because nothing imported them:
 `i18next`, `react-i18next`, `i18next-browser-languagedetector`, `next-themes`,
@@ -496,12 +510,16 @@ considered again when the entry scenes and the dark theme were built and
 declined again: `next-themes` is forty lines of `src/lib/theme.ts`, and an
 animation library would have cost more than every scene on the site put
 together. Themes are a data attribute, interface motion is CSS plus one
-observer, and WebGL stays confined to the hero map.
+observer, and WebGL stays confined to the hero map. Radix returned, as the
+single `radix-ui` package, once three controls had each grown their own
+Escape, focus-return and outside-tap handling.
 
-Do not add application dependencies here: no TanStack, React Hook Form, Zod,
-Zustand, nuqs, openapi-fetch, next-safe-action, jose, drag-and-drop, chart, PDF,
-or auth packages. A future contact form may justify a small validation stack,
-but only once the form is a real requirement.
+Application libraries stay in the application repository: no TanStack Query,
+React Hook Form, Zod, Zustand, nuqs, openapi-fetch, next-safe-action, jose,
+drag-and-drop, chart, PDF, or auth packages here. This site has no form, no
+client state and no backend read, so none of them has a job. A future contact
+form may justify React Hook Form and Zod, but only once the form is a real
+requirement.
 
 ## Presented, not implemented
 
