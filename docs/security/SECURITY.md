@@ -87,6 +87,6 @@ secret, revisit the repository boundary before adding one.
 
 ## Needs verification
 
-- Whether the eventual host applies or overrides these headers
-- Whether a stricter CSP becomes possible or necessary once hosting is chosen
+- Whether Vercel applies or overrides these headers on a production deployment
+- Whether a stricter CSP is possible now that the host is known
 - HTTPS behaviour and HSTS preload eligibility on the production domain

@@ -75,6 +75,5 @@ a programme that is not publicly available.
 
 ## Needs verification
 
-- Production origin and canonical host
 - Whether `www` or the apex is canonical, and the redirect that enforces it
 - Public channel addresses, which would populate `sameAs`

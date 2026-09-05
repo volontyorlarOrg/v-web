@@ -40,17 +40,30 @@ empty, every page sends `noindex, nofollow`, `robots.txt` disallows all crawling
 and the sitemap is empty. A preview or placeholder deployment therefore cannot
 compete with the eventual production domain.
 
+## Verified
+
+| Decision | Value | Evidence |
+| --- | --- | --- |
+| Public marketing domain | `https://volontyorlar.uz` | `NEXT_PUBLIC_SITE_URL` in the `env/` store's production file for this project |
+| Product application origin | `https://app.volontyorlar.uz` | `NEXT_PUBLIC_APP_ORIGIN` in the same file, and the Telegram OIDC redirect registered against that host |
+| Hosting provider | Vercel, one project per frontend; the API is a Render service | `env/SERVICE_SETUP.md` and `env/README.md`, which map each production file to its provider |
+| Deployment trigger | A push to `main` | Both frontends deploy from `main` |
+
+These are recorded here because they are settled, not because they are
+hard-coded. Nothing above appears in source: every origin is still read through
+`src/lib/seo/origin.ts`, and the behaviour when a value is unset is unchanged.
+The real values live in the `env/` store beside these repositories, outside
+version control, and are set in the Vercel project rather than in this
+repository.
+
 ## Needs verification
 
 | Decision | Current evidence |
 | --- | --- |
-| Public marketing domain | None |
-| Product application origin | None |
-| Hosting provider | None |
-| Preview deployment policy | None |
+| Preview deployment policy | None. Whether previews are reachable, and whether `NEXT_PUBLIC_SITE_URL` is scoped to production, decides whether a preview advertises a canonical URL it does not serve |
 | Canonical and `www` redirect policy | None |
 | DNS ownership | None |
-| Deployment trigger and rollback procedure | None |
+| Rollback procedure | None |
 
 Do not copy hostnames, project identifiers, redirects, or environment values
 from any reference repository. Add them only once they are verified externally

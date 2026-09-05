@@ -84,21 +84,37 @@ supplies no environment variables.
 
 ## Deployment
 
-**Needs verification.** The hosting provider, production domain, preview
-indexing policy, environment values, and deployment trigger are not decided.
+This site is a Vercel project serving `https://volontyorlar.uz`. A push to
+`main` is the deployment trigger. The volunteer application is a second Vercel
+project on `https://app.volontyorlar.uz`, and the API is a Render service; the
+whole picture, and every real value, lives in the `env/` store beside these
+repositories, which is deliberately outside version control.
 
-Three things must happen before a public launch:
+Environment values are set in the Vercel project, not in this repository. It
+carries a value-free `.env.example` and nothing else. `NEXT_PUBLIC_*` values are
+inlined at build time, so a change to one needs a rebuild, not just a restart.
 
-1. Set `NEXT_PUBLIC_SITE_URL` to the canonical origin. Until it is set the site
-   ships `noindex` and a disallowing `robots.txt`, which is deliberate but means
-   an unconfigured production deployment will not be indexed.
+Before a release:
+
+1. Run `npm run verify:release`. It fails when the canonical site origin is
+   absent, non-HTTPS, or contains credentials, a path, query, or fragment; when
+   a configured application or channel URL is malformed; and when the site and
+   application origins share no registrable domain, which would stop the theme
+   and language chosen on one from carrying to the other. It reports disabled
+   integrations by variable name only.
 2. Confirm the host does not strip or override the response headers in
    `next.config.ts`.
-3. Run `npm run verify:release`. It fails when the canonical site origin is
-   absent, non-HTTPS, or contains credentials, a path, query, or fragment. The
-   application and channel URLs remain optional, but the command validates any
-   that are configured and reports disabled integrations by variable name only.
+3. Deploy this site and the volunteer application together when a change
+   touches the shared preference cookies in `src/lib/preferences.ts`. Until both
+   run the same code the older origin ignores what the newer one writes; nothing
+   breaks, the preference simply stops crossing.
 
 Every page is statically generated. The only runtime component is the proxy in
-`src/proxy.ts`, so the host must support Next.js middleware, or the locale
-redirect has to be replaced with a host-level rule.
+`src/proxy.ts`, which Vercel runs as middleware; a host that does not run it
+would need the locale redirect replaced with a host-level rule.
+
+Two things are still unverified: whether preview deployments are reachable and
+indexable, and whether `NEXT_PUBLIC_SITE_URL` is scoped to the production
+environment. A preview that inherits the production origin advertises a
+canonical URL it does not serve. Until that is checked, treat preview indexing
+as an open question rather than a solved one.
