@@ -5,3 +5,9 @@ import { afterEach } from "vitest";
 afterEach(() => {
   cleanup();
 });
+
+globalThis.ResizeObserver ??= class {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+};
