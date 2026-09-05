@@ -1,4 +1,4 @@
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { BrandLockup } from "@/components/brand/logo";
 import { ActionLink } from "@/components/marketing/action-link";
@@ -8,13 +8,16 @@ import { NavTabs, type NavTabItem } from "@/components/marketing/nav-tabs";
 import { ThemeToggle } from "@/components/marketing/theme-toggle";
 import { buttonClass } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
-import { joinDestination } from "@/lib/content/cta";
+import type { Locale } from "@/i18n/routing";
+import { joinDestination, loginDestination } from "@/lib/content/cta";
 import { HEADER_NAV_ITEMS, headerNavHref, headerNavPath } from "@/lib/content/nav-tabs";
 import { ORGANIZATION_NAME } from "@/lib/content/org";
 
 export function SiteHeader() {
   const t = useTranslations("nav");
+  const locale = useLocale() as Locale;
   const join = joinDestination();
+  const login = loginDestination(locale);
 
   const items: NavTabItem[] = HEADER_NAV_ITEMS.map((item) => ({
     href: headerNavHref(item),
@@ -38,6 +41,18 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           <LocaleSwitcher label={t("languageLabel")} />
           <ThemeToggle label={t("themeLabel")} />
+          {login ? (
+            <ActionLink
+              destination={login}
+              className={buttonClass({
+                variant: "outline",
+                size: "sm",
+                className: "hidden lg:inline-flex",
+              })}
+            >
+              {t("login")}
+            </ActionLink>
+          ) : null}
           <ActionLink
             destination={join}
             className={buttonClass({ size: "sm", className: "hidden lg:inline-flex" })}
@@ -47,6 +62,7 @@ export function SiteHeader() {
           <MobileNav
             items={items}
             cta={{ ...join, label: t("join") }}
+            secondary={login ? { ...login, label: t("login") } : null}
             openLabel={t("openMenu")}
             closeLabel={t("closeMenu")}
             navigationLabel={t("primaryLabel")}
