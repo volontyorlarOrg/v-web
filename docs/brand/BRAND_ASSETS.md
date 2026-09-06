@@ -14,81 +14,62 @@ as such below.
 
 ## Colour
 
-The delivered specification defines two brand colours, both from the UN
-Volunteers / International Volunteer Day brand guide, and an ink.
-[`LOGO_SPEC.md`](LOGO_SPEC.md) is the authority for the mark and for print;
-this section records what the web token system takes from it and where it
-departs. The web palette is ivory paper, near-black ink, and one blue — see
-[`../../DESIGN.md`](../../DESIGN.md) — and the mark is the one element that
-keeps its delivered value unchanged.
+Two brand colours, both from the UN Volunteers / International Volunteer Day
+brand guide. [`LOGO_SPEC.md`](LOGO_SPEC.md) is the authority; this table records
+the values as they are installed in the token system.
 
-| Spec role | Spec hex | Web token | Web hex | On ivory | Use on the web |
-| --- | --- | --- | --- | --- | --- |
-| **Blue — the platform** | `#007FC2` | `--color-brand` | `#007FC2` | 4.14:1 | The mark, and nothing else |
-| | | `--color-primary` | `#3B82B8` | 3.93:1 | Rails, nodes, eyebrow rules, the hero map's plate; graphics 24px and above |
-| Blue deep | `#005E92` | `--color-primary-ink` | `#23608C` | 6.38:1 | Links, small labels, the focus ring; the one text-sized blue |
-| | | `--color-accent` | `#2A6A9C` | 5.48:1 | The one filled join or apply action; knockout label at 5.5:1 |
-| **Orange — the volunteer** | `#E85D30` | — | — | — | Not in the web palette |
-| Orange deep | `#B34917` | — | — | — | Not in the web palette |
-| Ink | `#222B33` | `--color-ink` | `#141413` | 17.5:1 | Body copy, the wordmark, and the fills that carry weight |
-| Knockout | `#FFFFFF` | `--color-knockout` | `#FAF9F5` | — | Ivory type on ink and on the blue fill |
+| Role | Hex | On white | Token | Use |
+| --- | --- | --- | --- | --- |
+| **Blue — the platform** | `#007FC2` | 4.36:1 | `--color-primary` | The mark, icons, structure, navigation, large graphics |
+| Blue deep | `#005E92` | 6.96:1 | `--color-primary-ink` | Body text, small labels, white-on-blue buttons |
+| **Orange — the volunteer** | `#E85D30` | 3.48:1 | `--color-accent` | Confirmations, achievement, highlights, large graphics |
+| Orange deep | `#B34917` | 5.41:1 | `--color-accent-ink` | Orange text, white-on-orange buttons |
+| Ink | `#222B33` | 14.37:1 | `--color-ink` | Body copy, wordmark |
+| Knockout | `#FFFFFF` | — | `--color-knockout` | On blue, orange, or ink |
 
-The derived blues are the brand blue calmed down: the same hue family
-(201–208°), less saturated, a touch deeper, so they sit on warm ivory rather
-than vibrating against it. The mark does not take the calmer register; the
-delivered `mark-blue.svg` and `--color-brand` are the same colour.
+### The role split
 
-The web ink is `#141413` rather than the specification's `#222B33`. The
-specification's ink was chosen against a cool blue-white page; the web page is
-warm ivory, and a cool navy-black on it reads as a mismatch. The delivered
-`mark-ink.svg` is unchanged and is still the right one-colour dark mark for
-print.
+Blue is the institution: navigation, structure, primary actions, the mark.
+Orange is the person: a confirmed hour, a level reached, a thank-you. White
+dominates, blue carries structure, and orange appears only where a person did
+something. Rationing the orange is what keeps it meaning something.
 
-### Orange on the web
+### Three rules that are not negotiable
 
-Orange is not in the web palette. The site and the application use one accent
-hue, blue, in the role the reference register gives its terracotta; the
-specification's orange remains available for print and partner material where
-the specification's own rules apply. Nothing on the web reaches for `#E85D30`
-or `#B34917`, and the token test asserts that every non-neutral token is blue.
+1. **The mark is never two-colour.** The two hues sit 1.25:1 apart, and 1.24:1
+   once desaturated. In greyscale, one-colour print, embroidery, or for a viewer
+   with colour vision deficiency, an orange dot on a blue arc merges into one
+   flat shape. The mark is blue, ink, or white — one colour at a time.
+2. **Never orange text on blue, or blue text on orange.** Same 1.25:1, and they
+   vibrate optically at that luminance.
+3. **Each hue has a graphics value and a text value.** `#007FC2` and `#E85D30`
+   clear the 3:1 graphics threshold on white but miss the 4.5:1 text floor. Use
+   them for the mark, headings at 24px and above, and large figures. Anything
+   text-sized, and any knockout label on a solid fill, uses `#005E92` or
+   `#B34917`.
 
-### Rules that are not negotiable
-
-1. **The mark is never two-colour, and never recoloured.** The mark is
-   `brand` blue, ink, or knockout — one colour at a time — and on the web it is
-   always `#007FC2` or ivory. Recolouring it into the derived blue would
-   quietly change the logo.
-2. **The blue has a graphics value and a text value.** `#007FC2` and `#3B82B8`
-   clear the 3:1 graphics threshold on every surface but stay below the 4.5:1
-   text floor on paper. Use them for the mark, rails, nodes and marks 24px and
-   above. Anything text-sized uses `#23608C`; a knockout label sits on
-   `#2A6A9C` or on ink.
-3. **Ink carries weight.** The primary button, the traction band, the closing
-   callout and the footer are ink fills with ivory type. A blue fill is the one
-   join or apply action a screen has.
-
-All three are enforced by `src/app/design-tokens.test.ts`: the mark's value is
-pinned in both themes, the graphics blues must stay *below* 4.5:1 on paper,
-every label must clear AA on its fill, and every blue token must have a hue
-between 195° and 225°.
+All three are enforced by `src/app/design-tokens.test.ts`, including the
+negative assertions: brand blue and brand orange must each stay *below* 4.5:1 on
+paper, and every blue/orange pairing must stay below 3:1, so nobody can quietly
+combine them.
 
 ### Surfaces
 
-The graphics blue clears 3:1 on every light surface in the system — 4.14:1 on
-white, 3.93:1 on paper, 3.56:1 on the sunk band, 3.54:1 on the soft band and
-3.33:1 on the accent tint — and the text blue clears 4.5:1 on all of them, at
-5.41:1 on the tint where the margin is narrowest. The test asserts all six
-surfaces in both themes so a future use cannot silently drop below the
-threshold.
+Orange clears 3:1 on every light surface in the system, but only just on the
+tinted bands: 3.48:1 on white, 3.33:1 on paper, 3.02:1 on the sunk band, and
+3.04:1 on the soft blue band. If orange ever carries a large figure, it belongs
+on white. The production evidence strip instead uses knockout figures on blue,
+leaving orange to the volunteer's step. The test asserts all four light
+surfaces so a future use cannot silently drop below the threshold.
 
 ### No red
 
 The palette defines no red. An earlier `--color-destructive` of `#B3261E` was
-removed when the palette still carried orange, because it was 1.21:1 against
-orange deep; with orange gone the reason changed but the rule did not. If a
-destructive or deadline state is ever needed, it has to be chosen against the
-blue and the ink at 3:1 or better, given a token in both themes, and added to
-the specification rather than picked in a component.
+removed because it is 1.21:1 against orange deep — visually the same colour at a
+glance, and a trap for anyone reaching for "a red" to signal urgency. If a
+destructive or deadline state is ever needed, it has to be chosen against
+`#B34917` at 3:1 or better, and added to the specification rather than picked in
+a component.
 
 ## Construction and usage
 
@@ -176,12 +157,12 @@ See [`../../.agent-memory/gotchas/svg-lockup-wordmark-font.md`](../../.agent-mem
 - **Palette conflict.** Previously the explorations, `DESIGN.md`, and
   `.impeccable/design.json` were built on teal `#45C1C4`, which is not a brand
   colour. The explorations and that token file are gone.
-- **Second brand colour.** The specification defines orange `#E85D30` /
-  `#B34917` alongside the blues, with an explicit role split. The site carried
-  it for a time on the traction figures and then on the one step the volunteer
-  performs. It has since left the web palette altogether: the site and the
-  application use ivory, ink and one derived blue, and the mark alone keeps the
-  delivered `#007FC2`. See `.agent-memory/decisions/ivory-ink-and-one-blue.md`.
+- **Second brand colour.** The specification now defines orange `#E85D30` /
+  `#B34917` alongside the blues, with an explicit role split. The token system,
+  the design system, and the contrast test were updated to match; the site
+  originally applied orange to traction figures as well. The current site keeps
+  it only on the one step in the journey the volunteer performs; the evidence
+  strip uses knockout figures on blue so the two hues never touch.
 
 ## Superseded assets
 

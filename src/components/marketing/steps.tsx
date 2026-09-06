@@ -39,14 +39,14 @@ export function StepRail({
               aria-hidden="true"
               className={cn(
                 "process-node absolute top-1.5 left-0 size-3.5 rounded-full ring-4 ring-paper lg:top-0 lg:left-0",
-                byVolunteer ? "bg-ink" : "bg-primary",
+                byVolunteer ? "bg-accent" : "bg-primary",
               )}
             />
             <div className="process-content">
               <p
                 className={cn(
-                  "tabular text-xs font-semibold tracking-[0.12em] uppercase",
-                  byVolunteer ? "text-ink" : "text-primary-ink",
+                  "tabular text-xs font-semibold tracking-[0.14em] uppercase",
+                  byVolunteer ? "text-accent-ink" : "text-primary-ink",
                 )}
               >
                 {String(index + 1).padStart(2, "0")}

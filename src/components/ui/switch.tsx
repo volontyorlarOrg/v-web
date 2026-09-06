@@ -12,7 +12,7 @@ const switchVariants = cva(
     variants: {
       variant: {
         track:
-          "h-7 w-12 rounded-full border data-[state=checked]:border-accent data-[state=checked]:bg-accent data-[state=unchecked]:border-input data-[state=unchecked]:bg-muted",
+          "h-7 w-12 rounded-full border data-[state=checked]:border-action data-[state=checked]:bg-action data-[state=unchecked]:border-input data-[state=unchecked]:bg-muted",
         icon: "",
       },
     },

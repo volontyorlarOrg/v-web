@@ -96,7 +96,7 @@ function Volunteering({ locale }: { locale: Locale }) {
             <SectionHeader title={t("app.title")} lead={t("app.body")} />
             {opportunities ? (
               <Scene className="mt-9">
-                <ActionLink destination={opportunities} className={buttonClass({ variant: "accent" })}>
+                <ActionLink destination={opportunities} className={buttonClass()}>
                   {t("app.cta")}
                 </ActionLink>
               </Scene>

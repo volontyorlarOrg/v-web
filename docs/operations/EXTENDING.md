@@ -123,32 +123,30 @@ once, on one runtime, so there is nothing to disagree with.
 ## Add a colour or token
 
 Tokens live in the `@theme` block of `src/app/globals.css` and nowhere else.
-Components use the generated utilities — `bg-surface`, `text-primary-ink` — and
+Components use the generated utilities — `bg-surface`, `text-accent-ink` — and
 never a literal hex value.
 
 Every token has a light value in `@theme` and, where it differs, a dark value in
 the `:root[data-theme="dark"]` block directly below it. A token that is not
-overridden there keeps its light value in both themes, which is how `knockout`,
-`brand` and `band-copy` work. Add the dark value in the same commit as the light
-one; the token test reads both blocks.
+overridden there keeps its light value in both themes, which is how `knockout`
+and `accent` work. Add the dark value in the same commit as the light one; the
+token test reads both blocks.
 
 Adding a colour means updating `docs/brand/BRAND_ASSETS.md` and adding
-assertions to `src/app/design-tokens.test.ts`. That test encodes the system's
-rules as executable checks: every blue token has a hue between 195° and 225° in
-both themes, every neutral is warm, the graphics blues stay *below* the
-body-text threshold on paper, and every label clears AA on its fill. A new
-token has to join the right list — text, graphics, surface, or fill — so the
-contract covers it.
+assertions to `src/app/design-tokens.test.ts`. That test encodes the brand's
+non-negotiable rules as executable checks, including the negative ones: brand
+blue and brand orange must each stay *below* the body-text threshold, and every
+blue/orange pairing must stay below 3:1. A new hue needs the same treatment
+against both existing ones, in both themes.
 
-Fills are their own tokens. `action` and `action-hover` fill the primary
-button and take an `ink-inverse` label; they are ink in the light theme and
-ivory in the dark. `band` fills the traction band, the closing panel and the
-footer, with `knockout` type and `band-copy` for secondary copy; it stays dark
-in both themes. `accent` is the one blue fill, with a `knockout` label.
-`primary-ink` is text-sized blue only and never a fill.
+Fills are their own tokens. `action` and `action-hover` fill solid buttons,
+`band` fills the solid band and the closing panel, and `band-copy` is the
+secondary copy on it. `primary-ink` is text-sized blue only. In the light theme
+`action` and `band` equal `primary-ink`; in the dark theme they diverge, because
+a blue light enough to read on near-black is too light to carry a white label.
 
-Before reaching for a colour, check the named rules in `../../DESIGN.md`. Ink
-carries weight, blue is the accent, there is no second hue and no red.
+Before reaching for a colour, check the role split in `../../DESIGN.md`. Blue is
+the institution; orange is the person; there is no third hue and no red.
 
 ## Add motion to a section
 

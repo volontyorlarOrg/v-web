@@ -16,11 +16,8 @@ folder. Never store secrets or unverified external claims.
   exploration routes became one design system, one typeface, and three locales
 - `decisions/indexing-gated-on-verified-origin.md` — why the site refuses to be
   indexed until a canonical origin is configured
-- `decisions/ivory-ink-and-one-blue.md` — why the whiteboard became ivory paper
-  with ink fills and one muted blue, how the token names survived, and why the
-  primary button inverts with the theme
-- `decisions/two-brand-hues-with-a-role-split.md` — superseded: blue for the
-  institution, orange for the person, and why they could never touch
+- `decisions/two-brand-hues-with-a-role-split.md` — blue for the institution,
+  orange for the person, and why they may never touch
 - `decisions/source-files-carry-no-comments.md` — where the explanations went
 - `decisions/three-js-scoped-to-the-hero-map.md` — why WebGL is allowed on one
   surface, and the three conditions it has to keep meeting

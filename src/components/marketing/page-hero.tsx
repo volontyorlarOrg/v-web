@@ -17,7 +17,7 @@ export function PageHero({
 }) {
   return (
     <section className={cn("border-b border-border", className)}>
-      <div className="hero-copy container-page py-16 sm:py-24">
+      <div className="hero-copy container-page py-14 sm:py-20">
         {eyebrow ? <Eyebrow className="enter-rise">{eyebrow}</Eyebrow> : null}
         <h1 className="page-display enter-words mt-6 max-w-[24ch] [--enter-delay:120ms]">
           <SplitWords text={title} />
@@ -31,7 +31,7 @@ export function PageHero({
           <dl className="enter-rise mt-9 flex flex-wrap gap-x-12 gap-y-5 [--enter-delay:720ms]">
             {meta.map((item) => (
               <div key={item.label}>
-                <dt className="text-xs font-semibold tracking-[0.12em] text-ink-muted uppercase">
+                <dt className="text-xs font-semibold tracking-[0.14em] text-ink-muted uppercase">
                   {item.label}
                 </dt>
                 <dd className="mt-1.5 font-semibold">{item.value}</dd>

@@ -26,8 +26,8 @@ export function NavTabs({
             href={item.href}
             aria-current={active ? "page" : undefined}
             className={cn(
-              "rounded-full px-3.5 py-2 text-sm font-medium transition-colors hover:bg-surface-sunk hover:text-ink",
-              active ? "bg-accent-soft text-primary-ink" : "text-ink-muted",
+              "rounded-md px-3 py-2 text-sm font-semibold transition-colors hover:bg-surface-soft hover:text-primary-ink",
+              active ? "bg-surface-soft text-primary-ink" : "text-ink-muted",
             )}
           >
             {item.label}

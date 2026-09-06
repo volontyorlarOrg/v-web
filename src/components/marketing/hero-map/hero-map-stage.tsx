@@ -391,7 +391,7 @@ export function HeroMapStage({ regions, fallback, hero, caption, regionsHeading 
                     if (node) map.set(region.id, node);
                     else map.delete(region.id);
                   }}
-                  className="absolute top-0 left-0 grid size-6 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-primary/35 bg-surface-raised text-xs leading-none font-semibold tabular-nums text-primary-ink opacity-0 shadow-[0_1px_3px_rgb(20_20_19/0.14)]"
+                  className="absolute top-0 left-0 grid size-6 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-primary/35 bg-surface text-xs leading-none font-semibold tabular-nums text-primary-ink opacity-0 shadow-[0_1px_3px_rgb(0_0_0/0.14)]"
                 >
                   {numbering.get(region.id)}
                 </span>

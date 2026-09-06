@@ -14,12 +14,12 @@ export function NameBoard({
     <Scene
       as="ul"
       variant="stagger"
-      className={cn("grid gap-4 sm:grid-cols-2 lg:grid-cols-3", className)}
+      className={cn("grid gap-x-10 sm:grid-cols-2 lg:grid-cols-3", className)}
     >
       {entries.map((entry) => (
         <li
           key={entry.id}
-          className="flex flex-col gap-1.5 rounded-xl border border-border bg-surface px-6 py-5"
+          className="flex flex-col gap-1 border-t border-border py-5"
         >
           <span className="text-base font-semibold tracking-[-0.01em] text-ink">
             {entry.name}
