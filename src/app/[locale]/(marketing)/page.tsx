@@ -179,8 +179,9 @@ function Home({ locale }: { locale: Locale }) {
           variant="wipe"
           className="relative isolate overflow-hidden rounded-2xl bg-band px-7 py-16 sm:px-14 sm:py-20"
         >
-          <BrandArc className="pointer-events-none absolute -right-16 -bottom-40 -z-10 size-96 text-knockout/12" />
-          <h2 className="max-w-[18ch] text-headline text-knockout text-balance [--scene-delay:260ms]">
+          <BrandArc className="pointer-events-none absolute -right-16 -bottom-40 -z-10 size-96 text-primary/25" />
+          <span aria-hidden="true" className="scene-rule block h-px w-16 bg-primary" />
+          <h2 className="mt-8 max-w-[18ch] text-headline text-knockout text-balance [--scene-delay:260ms]">
             <SplitWords text={t("cta.title")} />
           </h2>
           <p className="scene-rise mt-6 max-w-xl text-lead text-band-copy text-pretty [--scene-delay:520ms]">
@@ -194,7 +195,7 @@ function Home({ locale }: { locale: Locale }) {
               href={navHref("contact")}
               className={buttonClass({
                 variant: "outline",
-                className: "border-knockout/55 text-knockout hover:border-knockout hover:bg-primary-deep hover:text-knockout",
+                className: "border-knockout/40 text-knockout hover:border-knockout hover:bg-knockout hover:text-band",
               })}
             >
               {t("cta.secondary")}

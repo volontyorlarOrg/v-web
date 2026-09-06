@@ -70,9 +70,9 @@ function Contact({ locale }: { locale: Locale }) {
       </Section>
 
       <Section tone="sunk">
-        <Scene variant="stagger" className="grid gap-x-12 gap-y-10 lg:grid-cols-3">
+        <Scene variant="stagger" className="grid gap-4 lg:grid-cols-3">
           {AUDIENCES.map((id) => (
-            <section key={id} className="border-t border-border-control/60 pt-6">
+            <section key={id} className="rounded-xl border border-border bg-surface p-6">
               <h2 className="text-title font-semibold text-balance">{t(`${id}.title`)}</h2>
               <p className="mt-3 leading-relaxed text-ink-muted text-pretty">
                 {t(`${id}.body`)}
