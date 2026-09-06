@@ -24,7 +24,7 @@ export function NumberedRail({
             aria-hidden="true"
             className="scene-rule absolute inset-x-0 top-0 h-px bg-border-control/70"
           />
-          <p className="tabular pt-1 text-xs font-semibold tracking-[0.14em] text-primary-ink uppercase">
+          <p className="tabular pt-1 text-xs font-semibold tracking-[0.12em] text-primary-ink uppercase">
             {String(index + 1).padStart(2, "0")}
           </p>
           <div>
