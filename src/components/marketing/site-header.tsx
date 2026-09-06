@@ -55,7 +55,11 @@ export function SiteHeader() {
           ) : null}
           <ActionLink
             destination={join}
-            className={buttonClass({ size: "sm", className: "hidden lg:inline-flex" })}
+            className={buttonClass({
+              variant: "accent",
+              size: "sm",
+              className: "hidden lg:inline-flex",
+            })}
           >
             {t("join")}
           </ActionLink>

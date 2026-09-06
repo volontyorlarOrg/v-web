@@ -10,7 +10,7 @@ const toneClass: Record<Tone, string> = {
   paper: "bg-transparent text-ink",
   sunk: "bg-surface-sunk text-ink",
   soft: "bg-surface-soft text-ink",
-  ink: "bg-band text-knockout",
+  ink: "border-t border-t-primary bg-band text-knockout",
 };
 
 export function Section({
@@ -28,7 +28,7 @@ export function Section({
     <section
       id={id}
       className={cn(
-        "relative isolate scroll-mt-20 border-b border-border py-24 sm:py-28 lg:py-32",
+        "relative isolate scroll-mt-20 border-b border-border py-24 sm:py-32 lg:py-40",
         toneClass[tone],
         className,
       )}
@@ -49,16 +49,13 @@ export function Eyebrow({
   rule?: "lead" | "flank";
   className?: string;
 }) {
-  const ruleClass = cn(
-    "h-px w-6 shrink-0",
-    tone === "primary" ? "bg-primary" : "bg-band-copy",
-  );
+  const ruleClass = "h-px w-6 shrink-0 bg-primary";
 
   return (
     <p
       className={cn(
-        "flex items-center gap-2 text-xs font-semibold tracking-[0.14em] uppercase",
-        tone === "primary" ? "text-primary-ink" : "text-band-copy",
+        "flex items-center gap-2.5 text-xs font-semibold tracking-[0.12em] uppercase",
+        tone === "primary" ? "text-ink-muted" : "text-band-copy",
         className,
       )}
     >
@@ -105,7 +102,7 @@ export function SectionHeader({
       ) : null}
       <h2
         className={cn(
-          "mt-5 text-headline text-balance [--scene-delay:100ms]",
+          "mt-6 text-headline text-balance [--scene-delay:100ms]",
           tone === "inverse" && "text-knockout",
         )}
       >
