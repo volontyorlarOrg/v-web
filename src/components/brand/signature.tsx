@@ -14,7 +14,7 @@ export function BrandSignature({
 }) {
   return (
     <div aria-hidden="true" className={cn("brand-signature", className)}>
-      <BrandMarkRaise className="w-[clamp(2.75rem,9vw,7rem)] shrink-0 text-brand" />
+      <BrandMarkRaise className="w-[clamp(2.75rem,9vw,7rem)] shrink-0 text-primary" />
       <span className="brand-signature-word display-face text-primary-muted">
         {[...name].map((letter, index) => (
           <span

@@ -61,7 +61,7 @@ function SheetContent({
         data-slot="sheet-content"
         data-side={side}
         className={cn(
-          "fixed z-50 flex flex-col gap-4 border-border bg-popover text-popover-foreground shadow-[0_18px_40px_-32px_rgb(20_20_19/0.35)] outline-none",
+          "fixed z-50 flex flex-col gap-4 border-border bg-popover text-popover-foreground shadow-[0_18px_40px_-32px_rgb(28_36_43/0.45)] outline-none",
           sideClass[side],
           className,
         )}

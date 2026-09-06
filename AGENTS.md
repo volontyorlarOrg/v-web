@@ -113,16 +113,15 @@ docs/                          -> stable project documentation
   comma `ʻ` (U+02BB), Russian uses Cyrillic, and a test enforces key parity.
 - Add a public page by registering it in `src/lib/routing/routes.ts`; anything
   else is invisible to the navigation and the sitemap.
-- Ivory paper, ink, and one blue. **Ink carries weight**: the primary button,
-  the traction band, the closing callout and the footer are near-black fills
-  with ivory type. **Blue is the accent**: the mark, links, rails, small marks,
-  the tint behind a selected thing, and the one filled join or apply action per
-  screen. The blue has a graphics value (`primary`, 24px and above) and a text
-  value (`primary-ink`); the mark alone keeps the delivered `#007FC2` through
-  `brand`. There is no second hue and no red. Use semantic tokens, never a
-  literal hex. A label on a fill uses the fill's pair — `ink-inverse` on
-  `action`, `knockout` on `accent` and `band` — because the primary button
-  inverts in the dark theme and the band does not. See `DESIGN.md`.
+- Two brand colours with a role each. **Blue is the institution**: navigation,
+  structure, primary actions, the mark. **Orange is the person**: a confirmed
+  hour, a level reached, the volunteer's own step. Blue and orange sit
+  1.25:1 apart and must never be combined — no two-colour mark, no orange on
+  blue, no blue on orange. Each hue has a graphics value (`#007FC2`, `#E85D30`,
+  24px and above) and a text value (`#005E92`, `#B34917`). The palette defines
+  no red. Use semantic tokens, never a literal hex. Solid fills use `action`
+  and `band`, never `primary-ink`, so the dark theme can keep the blue that
+  carries text apart from the blue that carries a white label.
 - Preserve reduced-motion behaviour, keyboard access, visible focus states, one
   logical `h1` per page, and responsive behaviour.
 - Update `/docs` when stable environment or architecture behaviour changes.
