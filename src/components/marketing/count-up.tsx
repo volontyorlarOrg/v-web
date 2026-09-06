@@ -3,6 +3,8 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useLocale } from "next-intl";
 
+import type { Locale } from "@/i18n/routing";
+import { formatCount } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
 const DURATION_MS = 1900;
@@ -23,7 +25,7 @@ export function CountUp({
   className?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const locale = useLocale();
+  const locale = useLocale() as Locale;
   const [value, setValue] = useState(to);
 
   useBeforePaint(() => {
@@ -62,7 +64,7 @@ export function CountUp({
     };
   }, [from, to]);
 
-  const format = (amount: number) => new Intl.NumberFormat(locale).format(amount);
+  const format = (amount: number) => formatCount(amount, locale);
 
   return (
     <span ref={ref} className={cn("tabular inline-grid", className)}>

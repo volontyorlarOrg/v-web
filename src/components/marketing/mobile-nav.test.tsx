@@ -45,7 +45,6 @@ describe("MobileNav", () => {
     renderNav();
     const trigger = screen.getByRole("button", { name: "Open menu" });
     expect(trigger).toHaveAttribute("aria-expanded", "false");
-    expect(trigger).toHaveAttribute("aria-controls");
     expect(screen.queryByRole("navigation", { name: "Main navigation" })).toBeNull();
     expect(screen.queryByRole("link", { name: "About" })).toBeNull();
   });
@@ -59,7 +58,11 @@ describe("MobileNav", () => {
 
     const trigger = screen.getByRole("button", { name: "Close menu" });
     expect(trigger).toHaveAttribute("aria-expanded", "true");
-    expect(screen.getByRole("navigation", { name: "Main navigation" })).toBeVisible();
+    const navigation = screen.getByRole("navigation", { name: "Main navigation" });
+    expect(navigation).toBeVisible();
+    const panel = document.getElementById(trigger.getAttribute("aria-controls") ?? "");
+    expect(panel).not.toBeNull();
+    expect(panel).toContainElement(navigation);
 
     await user.keyboard("{Escape}");
     expect(screen.getByRole("button", { name: "Open menu" })).toHaveAttribute(

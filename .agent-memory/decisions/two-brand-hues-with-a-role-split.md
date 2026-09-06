@@ -1,5 +1,9 @@
 # Blue is the institution, orange is the person
 
+**Superseded by `ivory-ink-and-one-blue.md`.** Orange left the web palette; the
+blue below was replaced by a calmer derived family, and the mark alone keeps
+`#007FC2`. The reasoning is kept because the contrast facts still hold.
+
 The logo specification was updated to define a second brand colour. The site had
 been built on a "single hue" rule, which the new spec contradicts, so the token
 system, design system, and contrast test were reworked rather than patched.

@@ -23,9 +23,18 @@ document, not how it should read.
 ## Where tokens live
 
 `src/app/globals.css` declares every semantic token in a Tailwind 4 `@theme`
-block, so `bg-paper`, `text-ink-muted`, `border-border`, `bg-action`, and
-`text-accent` are generated utilities. Components must not contain literal hex
-values.
+block, so `bg-paper`, `text-ink-muted`, `border-border`, `bg-action`, `bg-accent`
+and `text-brand` are generated utilities. Components must not contain literal
+hex values.
+
+The same block aliases the token set under the names shadcn/ui components
+expect — `background`, `foreground`, `card`, `popover`, `muted`,
+`muted-foreground`, `input`, `ring`, `primary-foreground` and `radius` — each
+as a `var()` reference to a brand token, so `bg-popover` is `surface` and
+`text-muted-foreground` is `ink-muted` in both themes without a second palette.
+`accent` is not aliased: it is the orange brand token, and a menu item's focus
+surface uses `muted` with `primary-ink` instead. There is no `destructive`
+alias, because the palette defines no red.
 
 The dark theme is the same token names with different values, declared under
 `:root[data-theme="dark"]` in the base layer. Because the utilities reference
@@ -45,40 +54,52 @@ suffix. A value left in
 `localStorage` by an earlier visit is adopted once by the boot script and
 written to the cookie. The privacy page names both cookies.
 
-Fills have their own tokens — `action`, `action-hover`, `band`, `band-copy` —
-because the dark theme needs a text blue that is light and a fill blue that is
-dark, and one token cannot be both.
+Fills have their own tokens and their own label tokens. `action` /
+`action-hover` fill the primary button and take `ink-inverse`; they are ink in
+the light theme and ivory in the dark, and `ink-inverse` is Paper's value in
+the light and Ink's in the dark so the pair inverts together. `band` fills the
+traction band, the closing callout and the footer with `knockout` type and
+`band-copy` secondary copy; it stays dark in both themes. `accent` is the one
+blue fill, with a `knockout` label. `brand` is `#007FC2` in both themes and
+used only by the mark.
+
+The ground is flat: `body` paints `paper` and nothing else. The whiteboard's
+dot grid and radial wash are gone, and the token test asserts they stay gone.
 
 `src/app/design-tokens.test.ts` parses that file and asserts the whole contrast
-contract, including the deliberate negatives: the two graphics hues must each
-stay *below* 4.5:1 on paper, and every blue/orange pairing must stay below 3:1.
-If one of those ever passes, the brand specification has changed and needs a
-real decision rather than a silent drift.
+contract in both themes, plus the rules that define the register: every blue
+token has a hue between 195° and 225°, every neutral is warm, the graphics
+blues stay *below* 4.5:1 on paper so they cannot become body text, and every
+label clears AA on its fill. If one of those ever fails, the system has
+changed and needs a real decision rather than a silent drift.
 
-## Where the two hues appear
+## Where the blue appears
 
-Blue carries the header, footer, navigation, buttons, focus ring, eyebrow rules,
-the mark, decorative arcs, and the closing callout band.
+Ink carries the weight: the primary button, the traction band, the closing
+callout and the footer are near-black fills with ivory type, each marked by a
+`primary` hairline.
 
-The traction figures are the loudest thing on the site, so they get their own
-colourway: a full-width `band` with knockout numerals over a `primary` hairline
-that draws itself in. They read as one instrument wherever
+Blue does the accent's jobs and nothing else:
+
+| Surface | Treatment |
+| --- | --- |
+| The mark | `text-brand` |
+| Eyebrow rules, step nodes, the process rail, the fieldwork route and its nodes | `bg-primary` / `stroke: primary` |
+| The hairline on every ink band and the closing callout | `border-t-primary` / `bg-primary` |
+| Links, the active tab's label, small numbers, the focus ring | `text-primary-ink` |
+| The active tab, the active language, the hero's region chip | `bg-accent-soft text-primary-ink` |
+| The one join or apply action on a screen | `buttonClass({ variant: "accent" })` |
+| The hero map's plate and leaders, its markers, its tile sides | `primary`, `primary-ink`, `primary-muted` read from the tokens |
+
+The traction figures are the loudest thing on the site, so they get the
+heaviest surface: a full-width `band` in ink with knockout numerals over a
+`primary` hairline that draws itself in. They read as one instrument wherever
 they appear — the home page and `/about` use the same band — and the closing
 call to action is distinguished from it by being a rounded panel inside a paper
 section rather than a band.
 
-That band is why orange now appears in exactly one place:
-
-| Surface | Treatment |
-| --- | --- |
-| The fourth node and number in `StepRail` | `bg-accent` / `text-accent-ink` |
-
-Orange used to carry the traction figures as well. Moving them onto blue was a
-deliberate trade: orange on blue is forbidden, so a figure cannot be both loud
-and orange. Size and inversion now carry the emphasis that hue used to, and the
-one place a person's own action is called out — the volunteer's step — keeps the
-hue. If the figures ever return to paper, `text-accent` on `surface` (white,
-3.48:1) is the pairing to use; on a tinted band the margin narrows to 3.02:1.
+The step rail's fourth node is `bg-ink` with a `text-ink` number: the volunteer's
+step in the page's own ink against the institution's three blue nodes.
 
 ## Display type fills its column
 
@@ -94,7 +115,7 @@ declares `container-type: inline-size`, and `.hero-display` /
 
 ```css
 .hero-display {
-  font-size: clamp(2.75rem, 8.2cqi, 6.75rem);
+  font-size: clamp(2.75rem, 7.8cqi, 6.25rem);
   text-wrap: balance;
 }
 ```
@@ -113,62 +134,69 @@ container-relative size fight each other, and the smaller one silently wins.
 
 | Component | Role |
 | --- | --- |
-| `Section` | Vertical rhythm, tone band, hairline boundary, container |
-| `SectionHeader` / `Eyebrow` | Rule-led label, headline, lead sentence |
+| `Section` | Vertical rhythm, tone band, hairline boundary, container; the `ink` tone adds the blue hairline |
+| `SectionHeader` / `Eyebrow` | Muted uppercase label led by a blue rule, headline, lead sentence |
 | `PageHero` | Opening block for every page below the home page |
-| `StatGrid` | The knockout figure band: display-serif numerals that count up over a drawn rule |
-| `StepRail` | The process rail; blue nodes for Volontyorlar's work, orange for the volunteer's, drawn step by step as it is scrolled |
-| `NameBoard` | Hairline-ruled rows of partner, supporter, and source names |
+| `StatGrid` | The ink figure band: display-serif numerals that count up over a drawn blue rule |
+| `StepRail` | The process rail; blue nodes for Volontyorlar's work, an ink node for the volunteer's, drawn step by step as it is scrolled |
+| `NameBoard` | A grid of white bordered cards for partner, supporter, and source names |
 | `ProseSections` | Legal and explanatory pages at one measure |
-| `StatusChip` | Dashed pill for planned or unpublished material |
+| `StatusChip` | Dashed pill for planned or unpublished material; the `status` variant of `Badge` |
 | `SectionBackdrop` | The ambient layer on the toned bands; `sourcing` and `channels` |
-| `buttonClass` | The single action styling contract, built with CVA |
+| `Button` / `buttonClass` | The single action styling contract, built with CVA — `primary`, `accent`, `outline`, `ghost`, `inverse`; `Button` renders it, `buttonClass` applies it to a link |
 | `ActionLink` | Chooses a locale-aware link or a safe external anchor |
+| `Badge` | The pill: `default`, `outline` and `status` variants |
+| `Sheet` | The mobile navigation panel: a non-modal Radix dialog that leaves the header interactive |
+| `DropdownMenu` | The language menu; its items are locale links marked `aria-current` |
+| `Switch` | The Radix switch, as a `track` or as an `icon` button carrying its own glyphs |
 | `HeroMapSection` | The home page hero and its scroll-driven map of the fourteen regions |
 | `CountUp` | Counts a figure from 1 to its real value the first time it is scrolled into view |
 | `NumberedRail` | The shared 01–NN hairline rail used for lists that read as a sequence |
-| `WorkField` | The home page's six responsibilities connected by one animated fieldwork route |
+| `WorkField` | The home page's six responsibilities as cards connected by one animated fieldwork route |
 | `Scene` / `SplitWords` | The entry-scene boundary and the word-by-word heading mask; server components that only add markup and classes |
 | `SceneObserver` | The one `IntersectionObserver` that marks scenes entered; mounted once in the marketing layout |
 | `SmoothScroll` | Mounts `lenis` when motion is allowed |
-| `ThemeToggle` | The labelled switch that flips `data-theme` and stores the choice |
-| `NavTabs` | The header tabs, rendered from the provisional item set with the active tab marked |
+| `ThemeToggle` | The labelled `Switch` that flips `data-theme` and stores the choice |
+| `NavTabs` | The header tabs, rendered from the provisional item set with the active tab as an `accent-soft` pill |
 | `PageBreadcrumbJsonLd` | The localized home-to-current-page structured-data trail |
 | `Marquee` | The continuously rolling partner and source rows |
 | `RollingWords` | The hero eyebrow's cycling region name |
-| `BrandSignature` | The oversized footer lockup that writes itself and raises the mark's hands once the reader reaches the bottom of the page |
+| `BrandSignature` | The oversized lockup that writes itself and raises the mark's hands; kept for a closing band, not currently mounted |
 
-Nothing on the home page is a bordered card. `StatGrid`, `NameBoard` and
-`WorkField` use hairline structure rather than containers. `WorkField` pairs the
-six responsibilities around a central route on wide screens and collapses them
-onto a left-hand route on mobile; the moving stroke is decorative and all copy
-is complete at rest.
+Cards are back where a fixed group benefits from them. `WorkField`, `NameBoard`,
+the founders on `/about` and the audiences on `/contact` are white
+`bg-surface` cards with a `border` hairline and the `xl` radius; inside a card
+there is type and at most a rule, never a nested box. `WorkField` keeps its
+central route: the cards pair around it on wide screens with a short connector
+from each card's edge, and collapse onto a left-hand route on mobile; the
+moving stroke is decorative and all copy is complete at rest.
+
+Lists whose length varies stay as hairline-ruled rows, because an empty cell in
+a card grid looks like a fault: the steps, the story on `/about` and what to
+expect on `/volunteering` use `NumberedRail`, the contact channels and the
+responsibilities are ruled lists.
 
 The home page shows partners and sources as two `Marquee` rows rolling in
 opposite directions rather than as a `NameBoard` grid, because nine names in a
-three-column grid left two empty cells. `/partners` keeps the readable
-`NameBoard` lists: a page whose job is to be scanned should not move.
-
-No page uses a bordered card. Lists that read as a sequence — what to expect and
-the story on `/about` — use `NumberedRail`; the home page's responsibilities are
-not presented as steps and therefore use `WorkField`. Pages stay distinct
-through arrangement rather than through different containers: `/volunteering`
-places its rail beside a heading, `/about` centres its rail at one measure, and
-`/contact` gives each channel a full-width row of its own.
+three-column grid left two empty cells. `/partners` keeps the `NameBoard`
+cards: a page whose job is to be scanned should not move.
 
 ## Brand usage in code
 
 `BrandMark` renders the delivered geometry inline so it inherits `currentColor`
 and costs no request. It appears at 32px in the header and 48px on the 404 page,
-always above the documented 16px minimum.
+always above the documented 16px minimum, and always in `text-brand` — the
+delivered `#007FC2` — or `text-knockout` on the footer band. It is the one
+element that does not take the derived blue.
 
 `BrandArc` is the arc alone. Large decorative shapes use it so the logo is never
-cropped, tinted, or scaled below its minimum.
+cropped, tinted, or scaled below its minimum; as a derived device it takes the
+derived blue.
 
 `BrandMarkRaise` is the same geometry split into its two moving parts — the head
-and the arc drawn with `pathLength="100"` — so the footer signature can pop the
-head and then draw the arc outward from its centre, which reads as the two hands
-going up. It is used only there.
+and the arc drawn with `pathLength="100"` — so a signature can pop the head and
+then draw the arc outward from its centre, which reads as the two hands going
+up.
 
 The organisation name is HTML text in Onest beside the mark, not the delivered
 SVG lockup: an SVG loaded through `<img>` cannot fetch its webfont, so that
@@ -188,8 +216,9 @@ lockup's wordmark renders in a different system face on every platform. See
   either origin lands in Russian on the other. It shares the theme cookie's
   derived domain scope.
 - The language disclosure is in the header at every width and in the footer. It
-  is a 40px pill showing the language code, opens a list of native language
-  names, and links to the same route in another locale, so switching never drops
+  is a 40px pill showing the language code, opens a Radix dropdown menu of
+  native language names, and each item links to the same route in another
+  locale, so switching never drops
   the reader onto the home page.
 - `html[lang]` matches the active locale on every page.
 - `src/i18n/messages.test.ts` enforces key parity across the three catalogs,
@@ -212,11 +241,16 @@ lockup's wordmark renders in a different system face on every platform. See
   guard keeps a disabled control from claiming to be clickable, and anchors are
   untouched because the browser already points at them.
 - Controls clear 44px in both dimensions.
-- The mobile disclosure sets `aria-expanded` and `aria-controls`, closes on
-  Escape with focus returned to the trigger, and closes on selection. The panel
-  uses the `hidden` attribute, so its contents leave the accessibility tree.
+- The mobile navigation is a non-modal dialog (`Sheet`). Its trigger carries
+  `aria-expanded` and, while open, `aria-controls`; the panel closes on Escape
+  with focus returned to the trigger, on a tap outside, and on selection. While
+  closed it is not rendered, so its contents leave the accessibility tree; while
+  open the header stays reachable, which is why the dialog is not modal.
+- The language menu is a Radix menu: the trigger is named with the current
+  language, the items are links with `hreflang`, `lang` and `aria-current`,
+  arrow keys move between them, and Escape returns focus to the trigger.
 - Status is never carried by colour alone: the application availability chip
-  says so in words, and the orange step node reinforces a title that already
+  says so in words, and the ink step node reinforces a title that already
   names who acts.
 - Decorative marks and rails are `aria-hidden`; the ordered list carries the
   meaning of the step rail.
@@ -233,8 +267,6 @@ lockup's wordmark renders in a different system face on every platform. See
 - Each marquee is a labelled group of real list items. The second copy of the
   track is `aria-hidden`, the rows pause on hover and on focus within, and under
   reduced motion the duplicate is removed and the row scrolls by hand.
-- The footer signature is `aria-hidden`: it repeats the organisation name that
-  the lockup, the description and the copyright line already carry as text.
 - The hero map's canvas, its plan-view fallback and its numbered pins are all
   `aria-hidden`. The information they carry — the names of all fourteen regions
   — is a visible, ordered list in the markup beside the caption, so nothing

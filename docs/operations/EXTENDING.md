@@ -96,35 +96,59 @@ languages before calling it done.
    and Cyrillic; a new script means a new subset or a second family.
 
 Routing, the sitemap, `hreflang`, the switcher, and the proxy all read from
-`routing.ts` and need no further change.
+`routing.ts` and need no further change. Step 1 also needs a thousands
+separator in `GROUP_SEPARATOR` — see below.
+
+## Format a number
+
+Use `formatCount` from `src/lib/format.ts`, never `Intl.NumberFormat` or
+`toLocaleString`, anywhere a number is rendered in a Client Component.
+
+Node and the browser ship different CLDR data for Uzbek. `Intl.NumberFormat("uz")`
+groups 3600 as `3 600` under Node and as `3,600` in Chrome, so the figure the
+server rendered is not the figure the browser renders, hydration fails, and
+React silently regenerates the whole page subtree on the client. Russian and
+English agree today, which is exactly why the trap is easy to miss: only one of
+the three locales breaks, and only in the browser.
+
+`GROUP_SEPARATOR` in `src/lib/format.ts` is the site's own table, so the string
+is identical on both sides and cannot move when a runtime updates its CLDR
+data. A new locale needs an entry in it. `src/lib/format.test.ts` pins each
+locale's separator and asserts that the function ignores what the runtime
+would have said.
+
+Server Components are free to use `useFormatter()` from `next-intl`: they render
+once, on one runtime, so there is nothing to disagree with.
 
 ## Add a colour or token
 
 Tokens live in the `@theme` block of `src/app/globals.css` and nowhere else.
-Components use the generated utilities — `bg-surface`, `text-accent-ink` — and
+Components use the generated utilities — `bg-surface`, `text-primary-ink` — and
 never a literal hex value.
 
 Every token has a light value in `@theme` and, where it differs, a dark value in
 the `:root[data-theme="dark"]` block directly below it. A token that is not
-overridden there keeps its light value in both themes, which is how `knockout`
-and `accent` work. Add the dark value in the same commit as the light one; the
-token test reads both blocks.
+overridden there keeps its light value in both themes, which is how `knockout`,
+`brand` and `band-copy` work. Add the dark value in the same commit as the light
+one; the token test reads both blocks.
 
 Adding a colour means updating `docs/brand/BRAND_ASSETS.md` and adding
-assertions to `src/app/design-tokens.test.ts`. That test encodes the brand's
-non-negotiable rules as executable checks, including the negative ones: brand
-blue and brand orange must each stay *below* the body-text threshold, and every
-blue/orange pairing must stay below 3:1. A new hue needs the same treatment
-against both existing ones, in both themes.
+assertions to `src/app/design-tokens.test.ts`. That test encodes the system's
+rules as executable checks: every blue token has a hue between 195° and 225° in
+both themes, every neutral is warm, the graphics blues stay *below* the
+body-text threshold on paper, and every label clears AA on its fill. A new
+token has to join the right list — text, graphics, surface, or fill — so the
+contract covers it.
 
-Fills are their own tokens. `action` and `action-hover` fill solid buttons,
-`band` fills the solid band and the closing panel, and `band-copy` is the
-secondary copy on it. `primary-ink` is text-sized blue only. In the light theme
-`action` and `band` equal `primary-ink`; in the dark theme they diverge, because
-a blue light enough to read on near-black is too light to carry a white label.
+Fills are their own tokens. `action` and `action-hover` fill the primary
+button and take an `ink-inverse` label; they are ink in the light theme and
+ivory in the dark. `band` fills the traction band, the closing panel and the
+footer, with `knockout` type and `band-copy` for secondary copy; it stays dark
+in both themes. `accent` is the one blue fill, with a `knockout` label.
+`primary-ink` is text-sized blue only and never a fill.
 
-Before reaching for a colour, check the role split in `../../DESIGN.md`. Blue is
-the institution; orange is the person; there is no third hue and no red.
+Before reaching for a colour, check the named rules in `../../DESIGN.md`. Ink
+carries weight, blue is the accent, there is no second hue and no red.
 
 ## Add motion to a section
 
@@ -161,6 +185,15 @@ Shared action styling comes from `buttonClass`. Solid actions use `action`, not
 `primary` or `primary-ink`: a white label needs 4.5:1, and the dark theme keeps
 the text-blue and fill-blue roles separate.
 
+Interactive primitives come from shadcn/ui. `npx shadcn@latest add <name>`
+writes the registry source into `src/components/ui/`; edit it before use.
+Remove the `tw-animate-css` classes (`animate-in`, `fade-in-0`, `data-open:`),
+the `destructive` role and the `cn-*` utilities, and keep only colours that are
+tokens or the aliases `globals.css` declares for shadcn's names. Do not let the
+CLI rewrite `globals.css`: its oklch palette would shadow the brand tokens. A
+component nothing uses is not added, and a component that only needs a class
+contract exports its `cva` variants rather than wrapping the element.
+
 For brand marks, `BrandMark` is the logo and must never render below 16px or be
 cropped; `BrandArc` is the derived shape for large decoration.
 
@@ -194,7 +227,9 @@ removed and why, and `AGENTS.md` lists the categories that do not belong in a
 marketing repository. A dependency needs a concrete, implemented requirement,
 not an anticipated one. `lenis` is the one motion dependency and it does one
 thing, smooth scrolling; entry motion is deliberately CSS plus one observer
-rather than an animation library.
+rather than an animation library. `radix-ui` is the one interaction
+dependency, reached only through the shadcn components in
+`src/components/ui/`.
 
 Known constraint: `@vitejs/plugin-react` cannot be installed. Its current major
 peers `@babel/core@^8` while the `shadcn` CLI pins `^7`. Vitest transforms TSX

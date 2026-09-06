@@ -32,7 +32,7 @@ export function HeroMapSection({ locale }: { locale: Locale }) {
                 region: () => (
                   <RollingWords
                     words={regions.map((region) => region.locative)}
-                    className="region-rotation-chip rounded-full bg-surface-soft py-1 text-primary-ink"
+                    className="region-rotation-chip rounded-full bg-accent-soft py-1 text-primary-ink"
                   />
                 ),
               })}
@@ -45,7 +45,7 @@ export function HeroMapSection({ locale }: { locale: Locale }) {
             {t("hero.lead")}
           </p>
           <div className="enter-rise mt-10 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row sm:items-center [--enter-delay:920ms]">
-            <ActionLink destination={join} className={buttonClass()}>
+            <ActionLink destination={join} className={buttonClass({ variant: "accent" })}>
               {t("hero.primaryCta")}
             </ActionLink>
             {login ? (

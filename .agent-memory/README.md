@@ -16,8 +16,11 @@ folder. Never store secrets or unverified external claims.
   exploration routes became one design system, one typeface, and three locales
 - `decisions/indexing-gated-on-verified-origin.md` — why the site refuses to be
   indexed until a canonical origin is configured
-- `decisions/two-brand-hues-with-a-role-split.md` — blue for the institution,
-  orange for the person, and why they may never touch
+- `decisions/ivory-ink-and-one-blue.md` — why the whiteboard became ivory paper
+  with ink fills and one muted blue, how the token names survived, and why the
+  primary button inverts with the theme
+- `decisions/two-brand-hues-with-a-role-split.md` — superseded: blue for the
+  institution, orange for the person, and why they could never touch
 - `decisions/source-files-carry-no-comments.md` — where the explanations went
 - `decisions/three-js-scoped-to-the-hero-map.md` — why WebGL is allowed on one
   surface, and the three conditions it has to keep meeting
@@ -26,6 +29,9 @@ folder. Never store secrets or unverified external claims.
 - `decisions/entry-scenes-smooth-scroll-and-dark-theme.md` — why the entry
   scenes are CSS plus one observer rather than GSAP, why fills got their own
   tokens, why the theme lives in `localStorage`, and what the nav tabs are
+- `decisions/shadcn-on-the-brand-tokens.md` — how the shadcn components map
+  onto the brand tokens, why the navigation sheet is not modal, and why the
+  application libraries stay out
 - `gotchas/product-brief-is-not-live-state.md` — what may and may not be claimed
 - `gotchas/svg-lockup-wordmark-font.md` — why the delivered lockup is not used
 - `gotchas/scroll-driven-reveals-are-blank-off-screen.md` — why the old

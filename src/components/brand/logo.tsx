@@ -75,12 +75,12 @@ export function BrandLockup({
       <BrandMark
         className={cn(
           "size-8",
-          tone === "primary" ? "text-primary" : "text-knockout",
+          tone === "primary" ? "text-brand" : "text-knockout",
         )}
       />
       <span
         className={cn(
-          "hidden text-base leading-none font-bold tracking-[-0.02em] lowercase min-[360px]:inline",
+          "hidden text-base leading-none font-semibold tracking-[-0.02em] lowercase min-[360px]:inline",
           tone === "primary" ? "text-ink" : "text-knockout",
         )}
       >

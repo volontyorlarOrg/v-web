@@ -58,7 +58,7 @@ Never place a Telegram bot token, session key, or database credential in a
 | Helpers | Vitest | Route registry, absolute SEO URLs, origin helpers, channel resolution, call-to-action fallbacks, `robots.ts`, `sitemap.ts` |
 | Content | Vitest | Message-catalog key parity, empty and placeholder strings, Uzbek turned comma, Russian Cyrillic |
 | Tokens | Vitest | Contrast contract on every documented colour pairing |
-| Components | Testing Library | Breadcrumb structured data, language switcher, mobile disclosure keyboard and pointer behaviour |
+| Components | Testing Library | Breadcrumb structured data, language menu, mobile navigation sheet keyboard and pointer behaviour |
 | Critical paths | Playwright | Each locale, locale switching, navigation, legal pages, 404, call-to-action destination, absence of exploration routes, horizontal overflow, reduced-motion hero behaviour |
 
 Playwright runs the same production smoke suite in Chromium desktop/mobile,

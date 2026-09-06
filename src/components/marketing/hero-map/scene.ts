@@ -77,7 +77,7 @@ export function readPalette(element: HTMLElement): Palette {
   return {
     plateTop: token("--color-primary"),
     plateSide: token("--color-primary-deep"),
-    tileTop: token("--color-surface-soft"),
+    tileTop: token("--color-surface-raised"),
     tileSide: token("--color-primary-muted"),
     leader: token("--color-primary"),
     marker: token("--color-primary-ink"),
