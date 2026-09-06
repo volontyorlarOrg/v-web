@@ -26,6 +26,9 @@ folder. Never store secrets or unverified external claims.
 - `decisions/entry-scenes-smooth-scroll-and-dark-theme.md` — why the entry
   scenes are CSS plus one observer rather than GSAP, why fills got their own
   tokens, why the theme lives in `localStorage`, and what the nav tabs are
+- `decisions/shadcn-on-the-brand-tokens.md` — how the shadcn components map
+  onto the brand tokens, why the navigation sheet is not modal, and why the
+  application libraries stay out
 - `gotchas/product-brief-is-not-live-state.md` — what may and may not be claimed
 - `gotchas/svg-lockup-wordmark-font.md` — why the delivered lockup is not used
 - `gotchas/scroll-driven-reveals-are-blank-off-screen.md` — why the old
