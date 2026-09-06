@@ -86,10 +86,10 @@ function About({ locale }: { locale: Locale }) {
 
       <Section id="team" tone="sunk">
         <SectionHeader title={t("founders.title")} />
-        <Scene as="ul" variant="stagger" className="mt-12 grid gap-x-12 gap-y-10 sm:grid-cols-2">
+        <Scene as="ul" variant="stagger" className="mt-12 grid gap-4 sm:grid-cols-2">
           {FOUNDERS.map((founder) => (
-            <li key={founder.id} className="border-t border-border pt-6">
-              <p className="text-title font-semibold tracking-[-0.015em]">{founder.name}</p>
+            <li key={founder.id} className="rounded-xl border border-border bg-surface px-6 py-6">
+              <p className="text-title font-semibold tracking-[-0.012em]">{founder.name}</p>
               <p className="mt-2 text-sm tracking-[0.08em] text-primary-ink uppercase">
                 {t(`founders.${founder.id}.role`)}
               </p>

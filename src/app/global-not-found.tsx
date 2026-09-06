@@ -1,4 +1,4 @@
-import { Onest } from "next/font/google";
+import { Onest, Source_Serif_4 } from "next/font/google";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 
@@ -14,6 +14,12 @@ import "./globals.css";
 const onest = Onest({
   subsets: ["latin", "latin-ext", "cyrillic"],
   variable: "--font-onest",
+  display: "swap",
+});
+
+const sourceSerif = Source_Serif_4({
+  subsets: ["latin", "latin-ext", "cyrillic"],
+  variable: "--font-source-serif",
   display: "swap",
 });
 
@@ -36,15 +42,15 @@ export default async function GlobalNotFound() {
       lang={defaultLocale}
       data-theme="light"
       suppressHydrationWarning
-      className={`${onest.variable} h-full`}
+      className={`${onest.variable} ${sourceSerif.variable} h-full`}
     >
       <head>
         <ThemeScript />
       </head>
       <body className="flex min-h-full flex-col">
         <main className="container-page flex flex-1 flex-col justify-center py-20">
-          <BrandMark className="size-12 text-primary" />
-          <p className="mt-8 text-xs font-bold tracking-[0.14em] text-ink-muted uppercase">
+          <BrandMark className="size-12 text-brand" />
+          <p className="mt-8 text-xs font-semibold tracking-[0.12em] text-ink-muted uppercase">
             404
           </p>
           <ul className="mt-6 space-y-8">
@@ -53,7 +59,7 @@ export default async function GlobalNotFound() {
 
               return (
                 <li key={locale} lang={locale}>
-                  <Heading className="text-2xl font-bold tracking-[-0.025em] sm:text-3xl">
+                  <Heading className="text-2xl tracking-[-0.02em] sm:text-3xl">
                     {t("title")}
                   </Heading>
                   <p className="mt-2 text-ink-muted">{t("description")}</p>
