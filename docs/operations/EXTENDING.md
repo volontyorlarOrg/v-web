@@ -96,7 +96,29 @@ languages before calling it done.
    and Cyrillic; a new script means a new subset or a second family.
 
 Routing, the sitemap, `hreflang`, the switcher, and the proxy all read from
-`routing.ts` and need no further change.
+`routing.ts` and need no further change. Step 1 also needs a thousands
+separator in `GROUP_SEPARATOR` — see below.
+
+## Format a number
+
+Use `formatCount` from `src/lib/format.ts`, never `Intl.NumberFormat` or
+`toLocaleString`, anywhere a number is rendered in a Client Component.
+
+Node and the browser ship different CLDR data for Uzbek. `Intl.NumberFormat("uz")`
+groups 3600 as `3 600` under Node and as `3,600` in Chrome, so the figure the
+server rendered is not the figure the browser renders, hydration fails, and
+React silently regenerates the whole page subtree on the client. Russian and
+English agree today, which is exactly why the trap is easy to miss: only one of
+the three locales breaks, and only in the browser.
+
+`GROUP_SEPARATOR` in `src/lib/format.ts` is the site's own table, so the string
+is identical on both sides and cannot move when a runtime updates its CLDR
+data. A new locale needs an entry in it. `src/lib/format.test.ts` pins each
+locale's separator and asserts that the function ignores what the runtime
+would have said.
+
+Server Components are free to use `useFormatter()` from `next-intl`: they render
+once, on one runtime, so there is nothing to disagree with.
 
 ## Add a colour or token
 
