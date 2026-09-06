@@ -46,12 +46,12 @@ export function SiteFooter() {
   ] as const;
 
   return (
-    <footer className="bg-surface">
+    <footer className="border-t border-t-primary bg-band text-knockout">
       <div className="container-page">
-        <div className="grid gap-x-10 gap-y-10 pt-12 pb-10 md:grid-cols-2 lg:grid-cols-[1.25fr_2.1fr_1.3fr] lg:gap-x-8 lg:pt-14 lg:pb-11">
+        <div className="grid gap-x-10 gap-y-12 pt-16 pb-12 md:grid-cols-2 lg:grid-cols-[1.25fr_2.1fr_1.3fr] lg:gap-x-8 lg:pt-20 lg:pb-14">
           <div className="min-w-0 lg:col-start-1 lg:row-start-1">
-            <BrandLockup name={ORGANIZATION_NAME} className="[&>span]:inline" />
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink-muted text-pretty">
+            <BrandLockup name={ORGANIZATION_NAME} tone="inverse" className="[&>span]:inline" />
+            <p className="mt-5 max-w-sm text-sm leading-relaxed text-band-copy text-pretty">
               {t("description")}
             </p>
             {channels.length > 0 ? (
@@ -69,7 +69,7 @@ export function SiteFooter() {
                         target="_blank"
                         rel="noopener noreferrer"
                         aria-label={t(`channels.${channel.id}`)}
-                        className="inline-flex size-11 items-center justify-center rounded-full text-ink-muted transition-colors hover:bg-surface-soft hover:text-primary-ink"
+                        className="inline-flex size-11 items-center justify-center rounded-full text-band-copy transition-colors hover:bg-knockout/10 hover:text-knockout"
                       >
                         <Icon aria-hidden="true" className="size-5" strokeWidth={1.75} />
                       </a>
@@ -83,7 +83,10 @@ export function SiteFooter() {
           <div className="grid min-w-0 gap-x-6 gap-y-8 sm:grid-cols-[0.9fr_0.8fr_1.2fr] md:col-span-2 md:row-start-2 lg:col-span-1 lg:col-start-2 lg:row-start-1">
             {groups.map((group) => (
               <nav key={group.id} aria-labelledby={`footer-${group.id}`} className="min-w-0">
-                <h2 id={`footer-${group.id}`} className="font-sans text-sm font-semibold leading-6 text-ink">
+                <h2
+                  id={`footer-${group.id}`}
+                  className="font-sans text-sm font-semibold leading-6 text-knockout"
+                >
                   {t(`groups.${group.id}`)}
                 </h2>
                 <ul className="mt-2">
@@ -91,7 +94,7 @@ export function SiteFooter() {
                     <li key={link.href}>
                       <Link
                         href={link.href}
-                        className="inline-flex min-h-11 max-w-full items-center py-2 text-sm leading-5 text-ink-muted transition-colors hover:text-primary-ink"
+                        className="inline-flex min-h-11 max-w-full items-center py-2 text-sm leading-5 text-band-copy transition-colors hover:text-knockout"
                       >
                         {link.label}
                       </Link>
@@ -103,10 +106,10 @@ export function SiteFooter() {
           </div>
 
           <div className="min-w-0 md:col-start-2 md:row-start-1 lg:col-start-3">
-            <h2 className="font-sans text-sm font-semibold leading-6 text-ink">
+            <h2 className="font-sans text-sm font-semibold leading-6 text-knockout">
               {t("updates.title")}
             </h2>
-            <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink-muted text-pretty">
+            <p className="mt-3 max-w-sm text-sm leading-relaxed text-band-copy text-pretty">
               {t(telegram ? "updates.description" : "updates.unavailable")}
             </p>
             {telegram ? (
@@ -115,6 +118,7 @@ export function SiteFooter() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={buttonClass({
+                  variant: "inverse",
                   size: "sm",
                   className: "mt-5 max-w-full",
                 })}
@@ -126,11 +130,11 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-3 border-t border-border py-5 text-xs leading-relaxed text-ink-muted sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+        <div className="flex flex-col gap-3 border-t border-knockout/15 py-6 text-xs leading-relaxed text-band-copy sm:flex-row sm:items-center sm:justify-between sm:gap-6">
           <p>© {new Date().getFullYear()} {ORGANIZATION_NAME}</p>
           <p>
             {t.rich("madeIn", {
-              country: (chunks) => <strong className="font-medium text-ink">{chunks}</strong>,
+              country: (chunks) => <strong className="font-medium text-knockout">{chunks}</strong>,
             })}
             <span aria-hidden="true" className="ml-1.5">🩵</span>
           </p>

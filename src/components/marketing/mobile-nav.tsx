@@ -44,7 +44,7 @@ export function MobileNav({
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open]);
 
-  function renderAction(action: NavAction, variant: "primary" | "outline") {
+  function renderAction(action: NavAction, variant: "accent" | "outline") {
     const className = buttonClass({ variant, size: "sm" });
 
     if (action.external) {
@@ -88,7 +88,7 @@ export function MobileNav({
       <div
         id={panelId}
         hidden={!open}
-        className="absolute inset-x-0 top-full border-b border-border bg-paper shadow-[0_18px_40px_-32px_rgb(28_36_43/0.45)] lg:hidden"
+        className="absolute inset-x-0 top-full border-b border-border bg-paper shadow-[0_18px_40px_-32px_rgb(20_20_19/0.35)] lg:hidden"
       >
         <div className="container-page flex flex-col gap-1 py-4">
           <nav aria-label={navigationLabel} className="flex flex-col">
@@ -97,7 +97,7 @@ export function MobileNav({
                 key={item.href}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="flex min-h-12 items-center border-b border-border text-base font-semibold text-ink last:border-b-0 hover:text-primary-ink"
+                className="flex min-h-12 items-center border-b border-border text-base font-medium text-ink last:border-b-0 hover:text-primary-ink"
               >
                 {item.label}
               </Link>
@@ -105,7 +105,7 @@ export function MobileNav({
           </nav>
 
           <div className="mt-4 flex flex-wrap gap-2">
-            {cta ? renderAction(cta, "primary") : null}
+            {cta ? renderAction(cta, "accent") : null}
             {secondary ? renderAction(secondary, "outline") : null}
           </div>
         </div>
