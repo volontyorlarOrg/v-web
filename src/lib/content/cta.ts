@@ -27,6 +27,10 @@ export function loginDestination(locale: Locale): Destination | null {
   return app(`/${locale}/login`);
 }
 
+export function signupDestination(locale: Locale): Destination | null {
+  return app(`/${locale}/signup`);
+}
+
 export function opportunitiesDestination(locale: Locale): Destination | null {
   return app(`/${locale}`);
 }
