@@ -7,6 +7,7 @@ import type { Metadata } from "next";
 import { ThemeScript } from "@/components/marketing/theme-script";
 import { routing } from "@/i18n/routing";
 import { marketingOrigin } from "@/lib/seo/origin";
+import { searchEngineVerification } from "@/lib/seo/verification";
 import "../globals.css";
 
 const onest = Onest({
@@ -42,6 +43,7 @@ export async function generateMetadata({
       template: `%s · ${t("organizationShortName")}`,
     },
     applicationName: t("organizationName"),
+    verification: searchEngineVerification(),
   };
 }
 
