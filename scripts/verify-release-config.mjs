@@ -26,6 +26,22 @@ function readHttpsUrl(name, { required, originOnly }) {
   }
 }
 
+const VERIFICATION_TOKEN = /^[A-Za-z0-9_.=-]{8,128}$/;
+
+function readVerificationToken(name) {
+  const value = process.env[name]?.trim();
+  if (!value) {
+    disabled.push(name);
+    return;
+  }
+
+  if (!VERIFICATION_TOKEN.test(value)) {
+    issues.push(
+      `${name} must be the bare verification token, not a meta tag or a quoted value`,
+    );
+  }
+}
+
 function verifySharedPreferenceDomain() {
   const hosts = [];
   for (const name of ["NEXT_PUBLIC_SITE_URL", "NEXT_PUBLIC_APP_ORIGIN"]) {
@@ -59,6 +75,9 @@ readHttpsUrl("NEXT_PUBLIC_SITE_URL", { required: true, originOnly: true });
 readHttpsUrl("NEXT_PUBLIC_APP_ORIGIN", { required: false, originOnly: true });
 readHttpsUrl("NEXT_PUBLIC_TELEGRAM_URL", { required: false, originOnly: false });
 readHttpsUrl("NEXT_PUBLIC_INSTAGRAM_URL", { required: false, originOnly: false });
+readVerificationToken("GOOGLE_SITE_VERIFICATION");
+readVerificationToken("YANDEX_VERIFICATION");
+readVerificationToken("BING_SITE_VERIFICATION");
 verifySharedPreferenceDomain();
 
 if (issues.length > 0) {
