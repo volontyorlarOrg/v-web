@@ -20,7 +20,8 @@
     "themeLabel": "Dark theme",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
-    "skipToContent": "Skip to content"
+    "skipToContent": "Skip to content",
+    "signup": "Create account"
   },
   "footer": {
     "description": "Volunteer. Help your local community. Get it verified.",
@@ -56,10 +57,11 @@
     "hero": {
       "eyebrowLabel": "Volunteering across Uzbekistan",
       "eyebrow": "Volunteering in <region></region>",
-      "title": "There’s work to be done.",
-      "lead": "Find where you can make yourself useful. We speak with organisers before sharing an opportunity with the community.",
+      "title": "Find your next volunteering opportunity.",
+      "lead": "Connect with organisers, take part in local events, and help your community.",
       "primaryCta": "Become a volunteer",
-      "loginCta": "Log in"
+      "loginCta": "Log in",
+      "signupCta": "Create account"
     },
     "map": {
       "eyebrow": "Across the country",
@@ -139,7 +141,9 @@
       "title": "Volunteering should be easy to find.",
       "lead": "Get opportunities as soon as we find them.",
       "primary": "Join the community",
-      "secondary": "Talk to us"
+      "secondary": "Talk to us",
+      "signupLead": "Create your account and take your first step into volunteering.",
+      "signupPrimary": "Create account"
     }
   },
   "about": {

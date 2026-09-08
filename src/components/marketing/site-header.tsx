@@ -9,7 +9,7 @@ import { ThemeToggle } from "@/components/marketing/theme-toggle";
 import { buttonClass } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
-import { joinDestination, loginDestination } from "@/lib/content/cta";
+import { joinDestination, loginDestination, signupDestination } from "@/lib/content/cta";
 import { HEADER_NAV_ITEMS, headerNavHref, headerNavPath } from "@/lib/content/nav-tabs";
 import { ORGANIZATION_NAME } from "@/lib/content/org";
 
@@ -18,6 +18,9 @@ export function SiteHeader() {
   const locale = useLocale() as Locale;
   const join = joinDestination();
   const login = loginDestination(locale);
+  const signup = signupDestination(locale);
+  const primary = signup ?? join;
+  const primaryLabel = t(signup ? "signup" : "join");
 
   const items: NavTabItem[] = HEADER_NAV_ITEMS.map((item) => ({
     href: headerNavHref(item),
@@ -54,14 +57,14 @@ export function SiteHeader() {
             </ActionLink>
           ) : null}
           <ActionLink
-            destination={join}
+            destination={primary}
             className={buttonClass({ size: "sm", className: "hidden lg:inline-flex" })}
           >
-            {t("join")}
+            {primaryLabel}
           </ActionLink>
           <MobileNav
             items={items}
-            cta={{ ...join, label: t("join") }}
+            cta={{ ...primary, label: primaryLabel }}
             secondary={login ? { ...login, label: t("login") } : null}
             openLabel={t("openMenu")}
             closeLabel={t("closeMenu")}

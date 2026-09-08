@@ -16,7 +16,7 @@ import { WorkField } from "@/components/marketing/work-field";
 import { buttonClass } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
-import { joinDestination } from "@/lib/content/cta";
+import { joinDestination, signupDestination } from "@/lib/content/cta";
 import {
   OPPORTUNITY_SOURCES,
   PARTNERS,
@@ -54,6 +54,7 @@ function Home({ locale }: { locale: Locale }) {
   const partnersCopy = useTranslations("partners");
   const common = useTranslations("common");
   const join = joinDestination();
+  const signup = signupDestination(locale);
 
   const stats: Stat[] = [
     {
@@ -184,11 +185,11 @@ function Home({ locale }: { locale: Locale }) {
             <SplitWords text={t("cta.title")} />
           </h2>
           <p className="scene-rise mt-6 max-w-xl text-lead text-band-copy text-pretty [--scene-delay:520ms]">
-            {t("cta.lead")}
+            {t(signup ? "cta.signupLead" : "cta.lead")}
           </p>
           <div className="scene-rise mt-10 flex flex-col gap-3 sm:flex-row sm:items-center [--scene-delay:640ms]">
-            <ActionLink destination={join} className={buttonClass({ variant: "inverse" })}>
-              {t("cta.primary")}
+            <ActionLink destination={signup ?? join} className={buttonClass({ variant: "inverse" })}>
+              {t(signup ? "cta.signupPrimary" : "cta.primary")}
             </ActionLink>
             <Link
               href={navHref("contact")}
