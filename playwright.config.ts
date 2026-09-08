@@ -29,6 +29,9 @@ export default defineConfig({
       NEXT_PUBLIC_APP_ORIGIN: "",
       NEXT_PUBLIC_TELEGRAM_URL: "",
       NEXT_PUBLIC_INSTAGRAM_URL: "",
+      GOOGLE_SITE_VERIFICATION: "",
+      YANDEX_VERIFICATION: "",
+      BING_SITE_VERIFICATION: "",
     },
   },
 });

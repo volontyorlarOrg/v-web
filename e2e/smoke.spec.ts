@@ -62,6 +62,61 @@ test.describe("locale routing", () => {
   });
 });
 
+test.describe("crawler endpoints", () => {
+  test("robots.txt is served and holds the unconfigured origin back", async ({ page }) => {
+    const response = await page.request.get("/robots.txt");
+    expect(response.status()).toBe(200);
+
+    const body = await response.text();
+    expect(body).toContain("User-Agent: *");
+    expect(body).toContain("Disallow: /");
+    expect(body).not.toContain("Sitemap:");
+  });
+
+  test("sitemap.xml is served and publishes nothing without an origin", async ({ page }) => {
+    const response = await page.request.get("/sitemap.xml");
+    expect(response.status()).toBe(200);
+    expect(response.headers()["content-type"]).toContain("xml");
+
+    const body = await response.text();
+    expect(body).toContain("<urlset");
+    expect(body).not.toContain("<loc>");
+  });
+
+  test("every page tells crawlers not to index the unconfigured origin", async ({ page }) => {
+    await page.goto("/uz");
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+      "content",
+      /noindex/,
+    );
+  });
+
+  test("no ownership is claimed while the verification tokens are unset", async ({ page }) => {
+    await page.goto("/uz");
+    await expect(page.locator('meta[name="google-site-verification"]')).toHaveCount(0);
+    await expect(page.locator('meta[name="yandex-verification"]')).toHaveCount(0);
+    await expect(page.locator('meta[name="msvalidate.01"]')).toHaveCount(0);
+  });
+
+  test("the manifest is linked, served, and points at icons that exist", async ({ page }) => {
+    await page.goto("/uz");
+    const href = await page.locator('link[rel="manifest"]').getAttribute("href");
+    expect(href).toBeTruthy();
+
+    const response = await page.request.get(href!);
+    expect(response.status()).toBe(200);
+
+    const manifest = await response.json();
+    expect(manifest.name).toBe("Volontyorlar");
+    expect(manifest.start_url).toBe("/");
+
+    for (const icon of manifest.icons) {
+      const asset = await page.request.get(icon.src);
+      expect(asset.status(), icon.src).toBe(200);
+    }
+  });
+});
+
 test.describe("navigation", () => {
   test("reaches the main pages from the header", async ({ page }) => {
     await page.goto("/en");
