@@ -14,6 +14,7 @@ Use this file to route project questions to the smallest relevant source.
 | Applied UI system, localization behaviour, accessibility rules | [`ui/UI_SYSTEM.md`](ui/UI_SYSTEM.md) |
 | Current frontend audit and information-architecture findings | [`reviews/FRONTEND_DIAGNOSIS.md`](reviews/FRONTEND_DIAGNOSIS.md) |
 | Metadata, canonical URLs, hreflang, robots, sitemap, structured data | [`web/SEO_AND_ROUTES.md`](web/SEO_AND_ROUTES.md) |
+| Getting the site indexed: what to configure, verify, and submit where | [`operations/SEARCH_LAUNCH.md`](operations/SEARCH_LAUNCH.md) |
 | Security headers, CSP, secrets, trust boundaries | [`security/SECURITY.md`](security/SECURITY.md) |
 | Setup, commands, environment, CI, deployment | [`operations/DEVELOPMENT_AND_DEPLOYMENT.md`](operations/DEVELOPMENT_AND_DEPLOYMENT.md) |
 | Adding a page, copy, locale, token, component, or link | [`operations/EXTENDING.md`](operations/EXTENDING.md) |

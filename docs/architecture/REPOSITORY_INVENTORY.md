@@ -36,6 +36,7 @@ public assets. Generated dependencies and build output are excluded at the end.
 | `src/app/[locale]/(marketing)/privacy/page.tsx`, `terms/page.tsx` | Localized legal documents backed by the shared prose primitive |
 | `src/app/global-not-found.tsx` | Standalone multilingual 404 document required by the dynamic root layout |
 | `src/app/robots.ts`, `src/app/sitemap.ts` | Origin-gated crawl policy and localized route publication |
+| `src/app/manifest.ts` | Web app manifest: installed-shortcut identity, launch colours, icon set |
 | `src/app/globals.css` | Ordered Tailwind tokens, base styles, component classes, themes, motion, print |
 | `src/app/icon.svg`, `apple-icon.png`, `favicon.ico` | Next.js metadata-file assets inherited inside the localized layout |
 
@@ -63,7 +64,7 @@ parents; the client provider carries locale context without message data.
 | Localization | `src/i18n/routing.ts` owns locales and URL policy; `navigation.ts` exposes only used locale-aware navigation helpers; `request.ts` is the implicit `next-intl` request entry; `messages/{uz,ru,en}.json` own translated prose |
 | Verified content | `src/lib/content/org.ts` owns facts and proper nouns; `cta.ts` owns configured destination policy; `nav-tabs.ts` owns the provisional header information architecture |
 | Routing | `src/lib/routing/routes.ts` owns route identity, navigation flags, sitemap values, and relative paths; it is framework- and environment-independent |
-| SEO | `src/lib/seo/origin.ts` validates configured origins; `urls.ts` builds absolute localized URLs; `metadata.ts` builds page metadata; `json-ld.ts` builds structured-data objects |
+| SEO | `src/lib/seo/origin.ts` validates configured origins; `urls.ts` builds absolute localized URLs; `metadata.ts` builds page metadata; `json-ld.ts` builds structured-data objects; `verification.ts` validates search-console ownership tokens |
 | Channels | `src/lib/constants/channels.ts` validates public channel URLs and returns configured ID/URL pairs |
 | Theme/utilities | `src/lib/theme.ts` owns theme persistence, the pre-paint script, and motion capability; `src/lib/utils.ts` owns class merging |
 | Map | `src/lib/map/region-geometry.ts` is generated geometry; `regions.ts` joins localized names; `svg-path.ts` converts geometry for the server fallback |
@@ -78,8 +79,9 @@ parents; the client provider carries locale context without message data.
 | `src/i18n/messages.test.ts` | Catalog parity, non-placeholder copy, Uzbek punctuation, Russian script |
 | `src/app/design-tokens.test.ts`, `typography.test.ts` | Palette/contrast and typography/source invariants |
 | `src/app/seo-routes.test.ts` | Origin-gated robots and sitemap behavior |
+| `src/app/manifest.test.ts` | Manifest identity, token parity with `globals.css`, icon files that exist |
 | `src/lib/routing/routes.test.ts`, `src/lib/seo/urls.test.ts` | Route-registry integrity, relative paths, canonical and alternate URLs |
-| `src/lib/seo/origin.test.ts`, `src/lib/constants/channels.test.ts`, `src/lib/content/cta.test.ts` | Environment validation and safe fallback policy |
+| `src/lib/seo/origin.test.ts`, `src/lib/seo/verification.test.ts`, `src/lib/constants/channels.test.ts`, `src/lib/content/cta.test.ts` | Environment validation and safe fallback policy |
 | `src/lib/content/nav-tabs.test.ts` | Provisional header items point at registered routes and have labels |
 | `src/lib/security/headers.test.ts` | CSP and development/production transport-header split |
 | `src/lib/map/regions.test.ts` | Fourteen-region identity, names, anchors, and map bounds |

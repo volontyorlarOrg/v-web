@@ -35,16 +35,22 @@ a clean checkout fails until they exist.
 ## Environment
 
 The site installs, lints, typechecks, tests, and builds with no environment
-variables at all. All four supported variables are optional and blank in
+variables at all. All seven supported variables are optional and blank in
 `.env.example`; see [`../architecture/DOMAINS.md`](../architecture/DOMAINS.md)
-for what each one changes. Add another only when executable code consumes it,
-document it there, and add a value-free placeholder.
+for what the four origins change, and
+[`../web/SEO_AND_ROUTES.md`](../web/SEO_AND_ROUTES.md) for the three
+search-console ownership tokens. Add another only when executable code consumes
+it, document it there, and add a value-free placeholder.
+
+Four are `NEXT_PUBLIC_*` because client components read them. The three
+verification tokens are not: only `generateMetadata` reads them, and they reach
+the browser as HTML rather than as bundled JavaScript.
 
 `.env.local` is untracked and is where a development machine gets working
 values for services that are not wired up yet — a local product origin so the
 sign-in action renders, or a placeholder channel address. Mark them as
 placeholders in the file and replace each one as the real address is confirmed.
-Nothing invented belongs in tracked source. `npm run test:e2e` pins all four
+Nothing invented belongs in tracked source. `npm run test:e2e` pins all seven
 variables to empty, so the smoke suite keeps testing the unconfigured
 baseline no matter what a machine has locally.
 
@@ -55,11 +61,11 @@ Never place a Telegram bot token, session key, or database credential in a
 
 | Layer | Tool | Scope |
 | --- | --- | --- |
-| Helpers | Vitest | Route registry, absolute SEO URLs, origin helpers, channel resolution, call-to-action fallbacks, `robots.ts`, `sitemap.ts` |
+| Helpers | Vitest | Route registry, absolute SEO URLs, origin helpers, verification tokens, channel resolution, call-to-action fallbacks, `robots.ts`, `sitemap.ts`, `manifest.ts` |
 | Content | Vitest | Message-catalog key parity, empty and placeholder strings, Uzbek turned comma, Russian Cyrillic |
 | Tokens | Vitest | Contrast contract on every documented colour pairing |
 | Components | Testing Library | Breadcrumb structured data, language menu, mobile navigation sheet keyboard and pointer behaviour |
-| Critical paths | Playwright | Each locale, locale switching, navigation, legal pages, 404, call-to-action destination, absence of exploration routes, horizontal overflow, reduced-motion hero behaviour |
+| Critical paths | Playwright | Each locale, locale switching, navigation, legal pages, 404, call-to-action destination, absence of exploration routes, horizontal overflow, reduced-motion hero behaviour, crawler endpoints (`robots.txt`, `sitemap.xml`, the manifest and its icons) |
 
 Playwright runs the same production smoke suite in Chromium desktop/mobile,
 Firefox desktop, and WebKit mobile projects and builds the site itself through
@@ -100,7 +106,9 @@ Before a release:
    absent, non-HTTPS, or contains credentials, a path, query, or fragment; when
    a configured application or channel URL is malformed; and when the site and
    application origins share no registrable domain, which would stop the theme
-   and language chosen on one from carrying to the other. It reports disabled
+   and language chosen on one from carrying to the other; and when a
+   search-console token is not a bare token, which is what happens when the
+   whole `<meta>` element is pasted from the console. It reports disabled
    integrations by variable name only.
 2. Confirm the host does not strip or override the response headers in
    `next.config.ts`.
@@ -112,6 +120,10 @@ Before a release:
 Every page is statically generated. The only runtime component is the proxy in
 `src/proxy.ts`, which Vercel runs as middleware; a host that does not run it
 would need the locale redirect replaced with a host-level rule.
+
+Getting the deployed site into search results is a separate checklist:
+[`SEARCH_LAUNCH.md`](SEARCH_LAUNCH.md) covers turning indexing on, proving
+ownership, and what to submit to Google, Yandex, and Bing.
 
 Two things are still unverified: whether preview deployments are reachable and
 indexable, and whether `NEXT_PUBLIC_SITE_URL` is scoped to the production

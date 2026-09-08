@@ -87,9 +87,10 @@ older Next.js knowledge. Middleware is called Proxy in Next.js 16
 ```text
 src/app/[locale]/(marketing)/  -> production marketing pages
 src/app/{robots,sitemap}.ts    -> crawl policy and localized sitemap
+src/app/manifest.ts            -> web app manifest for installed shortcuts
 src/app/global-not-found.tsx   -> 404 for unmatched URLs (root layout is dynamic)
 src/i18n/                      -> routing, navigation, request config, catalogs
-src/lib/seo/                   -> origin and canonical URL helpers, metadata, JSON-LD
+src/lib/seo/                   -> origin and canonical URL helpers, metadata, JSON-LD, ownership tokens
 src/lib/routing/routes.ts      -> the public route registry
 src/lib/content/               -> verified facts, call-to-action resolution, provisional nav items
 src/lib/constants/             -> configured external channels

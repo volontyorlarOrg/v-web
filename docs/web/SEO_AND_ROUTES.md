@@ -42,6 +42,9 @@ sets its absolute URL for both Open Graph and Twitter. Keeping it out of the
 root app segment avoids asking a file-convention metadata route to inherit
 `metadataBase` through the dynamic locale layout.
 
+When a search-engine token is configured, the localized layout also emits the
+matching ownership meta tag. See *Ownership verification* below.
+
 `src/lib/seo/urls.ts` is the only absolute locale-URL builder. It consumes the
 framework-agnostic route registry and the verified marketing origin, and it
 adds `x-default` to each alternate set. Navigation never imports this module.
@@ -58,6 +61,50 @@ Indexing is opt-in and keyed on `NEXT_PUBLIC_SITE_URL`:
 Each sitemap entry carries the full `hreflang` set, so the three language
 versions are reported as alternates of one another.
 
+## Ownership verification
+
+`src/lib/seo/verification.ts` turns three server-only variables into the meta
+tags a webmaster console looks for when it asks you to prove the property is
+yours:
+
+| Variable | Meta tag | Console |
+| --- | --- | --- |
+| `GOOGLE_SITE_VERIFICATION` | `google-site-verification` | Google Search Console |
+| `YANDEX_VERIFICATION` | `yandex-verification` | Yandex Webmaster |
+| `BING_SITE_VERIFICATION` | `msvalidate.01` | Bing Webmaster Tools |
+
+They carry no `NEXT_PUBLIC_` prefix because nothing in the browser bundle reads
+them; they reach the browser as HTML on their own. Each is blank by default, and
+the whole `verification` object is omitted when all three are, so an
+unconfigured deployment claims no property.
+
+A value must be a bare token of 8 to 128 characters from `A-Z a-z 0-9 _ . = -`.
+Anything else — most often the entire `<meta …>` element pasted from the
+console — is refused, so a mistake degrades to no tag instead of an escaped,
+permanently failing one. `npm run verify:release` reports the same rejection
+before a deploy rather than after.
+
+Verifying by DNS `TXT` record instead needs none of these variables, and is the
+better choice here: `/` redirects to a locale, so the HTML-tag method depends on
+the console following that redirect. A DNS record also survives a host change
+and covers every subdomain at once.
+
+## Web app manifest
+
+`src/app/manifest.ts` is served at `/manifest.webmanifest` and linked from every
+page. It exists for the phone visitor arriving from Telegram who saves the site
+to a home screen: without it the shortcut has no name and no icon.
+
+`start_url` is `/`, not a locale, so the proxy still negotiates the visitor's
+language when the shortcut launches. `background_color` and `theme_color` are
+the light theme's own `--color-paper` and `--color-action`; a manifest is JSON
+and cannot read a token, so `src/app/manifest.test.ts` parses `globals.css` and
+compares the two values, and the copy cannot drift.
+
+Every icon is declared `purpose: "any"`. The blue tile has rounded corners and
+therefore transparent ones, and a platform mask applied to a `maskable` icon
+would cut into them.
+
 ## Structured data
 
 | Type | Where | Basis |
@@ -73,7 +120,17 @@ longer trails if the information architecture later gains nested pages.
 Nothing emits an aggregate rating, review, address, telephone, or an entity for
 a programme that is not publicly available.
 
+## Taking the site live in search
+
+The order matters, and every step after the first depends on the origin being
+configured. [`../operations/SEARCH_LAUNCH.md`](../operations/SEARCH_LAUNCH.md)
+carries the full checklist, including what to submit to each console.
+
 ## Needs verification
 
 - Whether `www` or the apex is canonical, and the redirect that enforces it
 - Public channel addresses, which would populate `sameAs`
+- Whether `lastmod` should stay at build time. Every deploy currently restamps
+  all 21 URLs, which is honest about the deployment but not about the content;
+  Google ignores a `lastmod` it finds unreliable, so the field is inert either
+  way until a real per-page change date exists
