@@ -34,14 +34,18 @@ Verify after the deploy:
 
 ## 2. Settle the canonical host
 
-Decide whether the apex or `www` is canonical and make the other a permanent
-redirect to it, at the host. `NEXT_PUBLIC_SITE_URL` must name the winner exactly.
-Serving both without a redirect splits every page into two competing URLs.
+Settled on 2026-09-09: the **apex** is canonical, and `www.volontyorlar.uz`
+redirects to it in the Vercel domain settings, preserving the path.
 
-This is still open; it is listed under *Needs verification* in
-[`../architecture/DOMAINS.md`](../architecture/DOMAINS.md).
+That redirect currently answers `307`, which tells Google the move is temporary.
+Vercel defaults to `307` and offers `308` in the same status-code selector; `308`
+is the one that says the apex is permanent. Until it is changed, the canonical
+tag on every `www` page carries the signal on its own.
 
 ## 3. Prove ownership
+
+Done for Google on 2026-09-09: a Search Console **Domain** property for
+`volontyorlar.uz`, verified by DNS `TXT` at aHOST. Yandex and Bing still need it.
 
 Each console needs proof the domain is yours. Two methods work; prefer the first.
 
@@ -68,12 +72,17 @@ to add and feeds DuckDuckGo and several assistants.
 
 | Console | Where | Submit |
 | --- | --- | --- |
-| Google Search Console | `search.google.com/search-console` | Add a **Domain** property for `volontyorlar.uz`, then submit `https://volontyorlar.uz/sitemap.xml` under **Sitemaps** |
+| Google Search Console | `search.google.com/search-console` | Done: Domain property added, `https://volontyorlar.uz/sitemap.xml` accepted 2026-09-09 |
 | Yandex Webmaster | `webmaster.yandex.com` | Add the site, then add the same sitemap URL under **Indexing → Sitemap files** |
 | Bing Webmaster Tools | `bing.com/webmasters` | Import the Google Search Console property, which carries the sitemap across |
 
 A Domain property in Google covers every subdomain and both `http` and `https`,
 which is why it is worth the DNS record over a URL-prefix property.
+
+A sitemap submitted before step 1 was true reports `Couldn't fetch` with an empty
+**Last read**, and clears itself once Google refetches; it does not need
+resubmitting. Remove any sitemap row left over from a previous site on the
+domain, so the report shows only URLs you actually publish.
 
 After the sitemap is accepted, use **URL Inspection** on
 `https://volontyorlar.uz/uz` and request indexing once. Do not request it

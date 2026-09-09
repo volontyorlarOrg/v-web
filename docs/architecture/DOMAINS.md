@@ -40,6 +40,11 @@ empty, every page sends `noindex, nofollow`, `robots.txt` disallows all crawling
 and the sitemap is empty. A preview or placeholder deployment therefore cannot
 compete with the eventual production domain.
 
+Production has been serving with the origin set since 2026-09-09: `robots.txt`
+answers `Allow: /` with `Host:` and `Sitemap:` lines, `sitemap.xml` publishes all
+21 localized URLs, and every page carries `index, follow` with an apex canonical.
+Google accepted the sitemap on the same day.
+
 ## Verified
 
 | Decision | Value | Evidence |
@@ -48,6 +53,9 @@ compete with the eventual production domain.
 | Product application origin | `https://app.volontyorlar.uz` | `NEXT_PUBLIC_APP_ORIGIN` in the same file, and the Telegram OIDC redirect registered against that host |
 | Hosting provider | Vercel, one project per frontend; the API is a Render service | `env/SERVICE_SETUP.md` and `env/README.md`, which map each production file to its provider |
 | Deployment trigger | A push to `main` | Both frontends deploy from `main` |
+| Authoritative DNS | aHOST (`rdns1`–`rdns3.ahost.uz`) | `dig NS volontyorlar.uz`, answered 2026-09-09 |
+| Canonical host | The apex. `www.volontyorlar.uz` redirects to it, preserving the path | `dig`/`curl` against production, 2026-09-09 |
+| Google ownership | Verified by DNS `TXT` on the apex, as a Search Console **Domain** property | The `google-site-verification=` record is present in the apex `TXT` set |
 
 These are recorded here because they are settled, not because they are
 hard-coded. Nothing above appears in source: every origin is still read through
@@ -61,9 +69,8 @@ repository.
 | Decision | Current evidence |
 | --- | --- |
 | Preview deployment policy | None. Whether previews are reachable, and whether `NEXT_PUBLIC_SITE_URL` is scoped to production, decides whether a preview advertises a canonical URL it does not serve |
-| Canonical and `www` redirect policy | None |
-| DNS ownership | None |
 | Rollback procedure | None |
+| Redirect permanence | The `www` redirect answers `307`, which is temporary. Vercel defaults a domain redirect to `307` and offers `308`; until it is `308`, Google is told the move may be undone and may keep the `www` URL alongside the apex. The canonical tag on every `www` page already points at the apex, so this is a weaker signal rather than a broken one |
 
 Do not copy hostnames, project identifiers, redirects, or environment values
 from any reference repository. Add them only once they are verified externally
