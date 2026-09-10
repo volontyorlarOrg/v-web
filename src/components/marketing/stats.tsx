@@ -9,11 +9,20 @@ export type Stat = {
   label: string;
 };
 
+export type StatScale = "display" | "compact";
+
+const scaleClass: Record<StatScale, string> = {
+  display: "text-[clamp(3rem,7.5vw,5.25rem)]",
+  compact: "text-[clamp(3rem,5.5vw,4.25rem)]",
+};
+
 export function StatGrid({
   stats,
+  scale = "display",
   className,
 }: {
   stats: readonly Stat[];
+  scale?: StatScale;
   className?: string;
 }) {
   return (
@@ -28,7 +37,12 @@ export function StatGrid({
             aria-hidden="true"
             className="scene-rule absolute inset-x-0 top-0 h-px bg-primary"
           />
-          <dd className="display-face text-[clamp(3rem,7.5vw,5.25rem)] leading-[0.92] tracking-[-0.04em] text-knockout">
+          <dd
+            className={cn(
+              "display-face leading-[0.92] tracking-[-0.04em] text-knockout",
+              scaleClass[scale],
+            )}
+          >
             <CountUp to={stat.amount} suffix={stat.suffix} />
           </dd>
           <dt className="mt-5 max-w-[20ch] text-sm leading-snug text-band-copy">

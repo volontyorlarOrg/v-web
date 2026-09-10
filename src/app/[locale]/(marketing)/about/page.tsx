@@ -8,7 +8,7 @@ import { PageHero } from "@/components/marketing/page-hero";
 import { Section, SectionHeader } from "@/components/marketing/section";
 import { StatGrid, type Stat } from "@/components/marketing/stats";
 import type { Locale } from "@/i18n/routing";
-import { FOUNDED_ON, FOUNDERS, TRACTION } from "@/lib/content/org";
+import { FOUNDED_ON, FOUNDERS, TARGET_REGION_COUNT, TRACTION } from "@/lib/content/org";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
 const STORY = ["founded", "purpose", "growth"] as const;
@@ -50,6 +50,7 @@ function About({ locale }: { locale: Locale }) {
       suffix: "+",
       label: t("stats.applications"),
     },
+    { id: "regions", amount: TARGET_REGION_COUNT, label: t("stats.regions") },
   ];
 
   return (
@@ -85,7 +86,7 @@ function About({ locale }: { locale: Locale }) {
 
       <Section tone="ink">
         <SectionHeader tone="inverse" title={t("numbers.title")} lead={t("numbers.lead")} />
-        <StatGrid stats={stats} className="mt-14" />
+        <StatGrid stats={stats} scale="compact" className="mt-14 lg:grid-cols-5" />
       </Section>
     </>
   );
