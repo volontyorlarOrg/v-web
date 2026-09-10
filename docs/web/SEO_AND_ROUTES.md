@@ -35,8 +35,18 @@ message namespace, so no page assembles its own object. It produces:
 - a `summary_large_image` Twitter card;
 - an indexing directive.
 
-Icons come from the `app/` file conventions (`icon.svg`, `apple-icon.png`, and
-`favicon.ico`), which is why no `metadata.icons` entry is set. The shared
+Icons come from the `app/` file conventions (`favicon.ico`, `icon.png`,
+`icon.svg`, and `apple-icon.png`), which is why no `metadata.icons` entry is set.
+Next.js emits one `<link>` per file and derives `type` and `sizes` from the file
+itself.
+
+`icon.png` is 192×192 and exists for search results specifically. Google's
+supported favicon formats are BMP, GIF, ICO, PNG, JPEG, PPM and TIFF — **not
+SVG** — and it recommends larger than 48×48. That left `favicon.ico` as the only
+candidate, and Next.js reads the first frame of an `.ico` to fill the attribute,
+so it is declared `sizes="16x16"` even though the file packs 16 through 256. The
+PNG removes the ambiguity. A smoke test fails if the only remaining icon is an
+SVG, or if no raster icon reaches 48px. The shared
 1200×630 social image lives at `public/opengraph-image.png`; the metadata builder
 sets its absolute URL for both Open Graph and Twitter. Keeping it out of the
 root app segment avoids asking a file-convention metadata route to inherit

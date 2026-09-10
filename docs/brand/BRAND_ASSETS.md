@@ -111,6 +111,7 @@ tree, not from `public/`:
 | --- | --- |
 | `src/app/favicon.ico` | **Rebuilt.** The delivered `favicon.ico` held a single 16 px frame despite the spec calling for 16–256 px, so it was repacked from `png/mark-blue-{16,32,48,64,128,256}.png` |
 | `src/app/icon.svg` | Copy of `icon-blue.svg` |
+| `src/app/icon.png` | Copy of `png/icon-blue-192.png`. Google's favicon formats are BMP, GIF, ICO, PNG, JPEG, PPM and TIFF, so the SVG alone cannot represent the site in a search result |
 | `src/app/apple-icon.png` | Copy of `png/icon-blue-180.png` |
 | `public/opengraph-image.png` | Rendered from `public/logo/social-card.svg`; referenced explicitly by localized page metadata |
 

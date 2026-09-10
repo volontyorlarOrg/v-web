@@ -38,7 +38,7 @@ public assets. Generated dependencies and build output are excluded at the end.
 | `src/app/robots.ts`, `src/app/sitemap.ts` | Origin-gated crawl policy and localized route publication |
 | `src/app/manifest.ts` | Web app manifest: installed-shortcut identity, launch colours, icon set |
 | `src/app/globals.css` | Ordered Tailwind tokens, base styles, component classes, themes, motion, print |
-| `src/app/icon.svg`, `apple-icon.png`, `favicon.ico` | Next.js metadata-file assets inherited inside the localized layout |
+| `src/app/icon.svg`, `icon.png`, `apple-icon.png`, `favicon.ico` | Next.js metadata-file assets inherited inside the localized layout |
 
 ## Components
 
