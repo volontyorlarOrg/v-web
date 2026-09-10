@@ -32,7 +32,6 @@ export function SiteFooter() {
       id: "about",
       links: [
         { label: nav("about"), href: navHref("about") },
-        { label: t("links.team"), href: `${navHref("about")}#team` },
         { label: nav("partners"), href: navHref("partners") },
       ],
     },

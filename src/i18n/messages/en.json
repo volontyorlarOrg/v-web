@@ -40,8 +40,7 @@
     },
     "links": {
       "regions": "Regions",
-      "organisations": "For organisations",
-      "team": "Team"
+      "organisations": "For organisations"
     },
     "updates": {
       "title": "Stay connected",
@@ -148,14 +147,14 @@
   },
   "about": {
     "metaTitle": "About",
-    "metaDescription": "Volontyorlar was founded on 4 June 2025 by Arslon Rajabov and Parizoda Abdurakhimova to help high school students in Uzbekistan find meaningful volunteering.",
+    "metaDescription": "Volontyorlar was founded on 4 June 2025 by Arslon Rajabov and Abdulaziz Yusupaliev to help high school students in Uzbekistan find meaningful volunteering.",
     "title": "About Volontyorlar",
     "lead": "A volunteering community for high school students in Uzbekistan, built by people who were tired of watching good opportunities disappear into a feed.",
     "foundedLabel": "Founded",
     "foundersLabel": "Founders",
     "founded": {
       "title": "Founded in June 2025",
-      "body": "Volontyorlar was founded on 4 June 2025 by Arslon Rajabov and Parizoda Abdurakhimova to help high school students discover and apply to meaningful volunteering opportunities."
+      "body": "Volontyorlar was founded on 4 June 2025 by Arslon Rajabov and Abdulaziz Yusupaliev to help high school students discover and apply to meaningful volunteering opportunities."
     },
     "purpose": {
       "title": "Why it exists",
@@ -164,15 +163,6 @@
     "growth": {
       "title": "From reposting to running operations",
       "body": "Volontyorlar began by sharing opportunities it found elsewhere. Today it finds opportunities, contacts organisers, sources events, builds partnerships, supplies volunteers, and is building regional operations across the country."
-    },
-    "founders": {
-      "title": "The two who started it",
-      "arslon": {
-        "role": "Co-founder"
-      },
-      "parizoda": {
-        "role": "Co-founder"
-      }
     },
     "numbers": {
       "title": "Where we are now",

@@ -40,8 +40,7 @@
     },
     "links": {
       "regions": "Hududlar",
-      "organisations": "Tashkilotlar uchun",
-      "team": "Jamoa"
+      "organisations": "Tashkilotlar uchun"
     },
     "updates": {
       "title": "Aloqada boʻling",
@@ -148,14 +147,14 @@
   },
   "about": {
     "metaTitle": "Biz haqimizda",
-    "metaDescription": "Volontyorlar 2025-yil 4-iyunda Arslon Rajabov va Parizoda Abdurakhimova tomonidan Oʻzbekistondagi yuqori sinf oʻquvchilariga maʼnoli volontyorlik topishga yordam berish uchun tashkil etilgan.",
+    "metaDescription": "Volontyorlar 2025-yil 4-iyunda Arslon Rajabov va Abdulaziz Yusupaliev tomonidan Oʻzbekistondagi yuqori sinf oʻquvchilariga maʼnoli volontyorlik topishga yordam berish uchun tashkil etilgan.",
     "title": "Volontyorlar haqida",
     "lead": "Yaxshi imkoniyatlarning lentada koʻmilib ketishini kuzatishdan charchagan odamlar tomonidan tuzilgan, yuqori sinf oʻquvchilari uchun volontyorlik hamjamiyati.",
     "foundedLabel": "Tashkil etilgan",
     "foundersLabel": "Asoschilar",
     "founded": {
       "title": "2025-yil iyunida tashkil etilgan",
-      "body": "Volontyorlar 2025-yil 4-iyunda Arslon Rajabov va Parizoda Abdurakhimova tomonidan yuqori sinf oʻquvchilariga maʼnoli volontyorlik imkoniyatlarini topish va ularga ariza berishda yordam berish maqsadida tashkil etilgan."
+      "body": "Volontyorlar 2025-yil 4-iyunda Arslon Rajabov va Abdulaziz Yusupaliev tomonidan yuqori sinf oʻquvchilariga maʼnoli volontyorlik imkoniyatlarini topish va ularga ariza berishda yordam berish maqsadida tashkil etilgan."
     },
     "purpose": {
       "title": "Nima uchun kerak",
@@ -164,15 +163,6 @@
     "growth": {
       "title": "Qayta joylashdan tashkiliy ishga",
       "body": "Volontyorlar boshqa joydan topgan imkoniyatlarini ulashishdan boshlagan. Bugun esa imkoniyat topadi, tashkilotchilar bilan bogʻlanadi, tadbirlarni jalb qiladi, hamkorlik quradi, volontyor taʼminlaydi va mamlakat boʻylab hududiy faoliyatni yoʻlga qoʻyyapti."
-    },
-    "founders": {
-      "title": "Buni boshlagan ikki kishi",
-      "arslon": {
-        "role": "Hammuassis"
-      },
-      "parizoda": {
-        "role": "Hammuassis"
-      }
     },
     "numbers": {
       "title": "Bugungi holat",
