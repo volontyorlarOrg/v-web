@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { joinDestination, loginDestination, opportunitiesDestination } from "@/lib/content/cta";
+import { joinDestination, loginDestination, opportunitiesDestination, signupDestination } from "@/lib/content/cta";
 
 describe("call-to-action destinations", () => {
   beforeEach(() => {
@@ -15,6 +15,7 @@ describe("call-to-action destinations", () => {
 
   it("offers no sign-in until the product application has an origin", () => {
     expect(loginDestination("en")).toBeNull();
+    expect(signupDestination("en")).toBeNull();
   });
 
   it("sends sign-in to the product application in the visitor's locale, in the same tab", () => {
@@ -24,6 +25,17 @@ describe("call-to-action destinations", () => {
       external: true,
       newTab: false,
     });
+  });
+
+  it.each(["uz", "ru", "en"] as const)("keeps %s account creation in the product app", (locale) => {
+    vi.stubEnv("NEXT_PUBLIC_APP_ORIGIN", "https://app.example.org");
+    vi.stubEnv("NEXT_PUBLIC_TELEGRAM_URL", "https://t.me/example");
+    expect(signupDestination(locale)).toEqual({
+      href: `https://app.example.org/${locale}/signup`,
+      external: true,
+      newTab: false,
+    });
+    expect(joinDestination().href).toBe("https://t.me/example");
   });
 
   it("uses the community channel only for joining, and opens it in a new tab", () => {

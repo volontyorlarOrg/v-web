@@ -20,7 +20,8 @@
     "themeLabel": "Tungi rejim",
     "openMenu": "Menyuni ochish",
     "closeMenu": "Menyuni yopish",
-    "skipToContent": "Asosiy qismga oʻtish"
+    "skipToContent": "Asosiy qismga oʻtish",
+    "signup": "Roʻyxatdan oʻtish"
   },
   "footer": {
     "description": "Volontyorlik qiling. Mahallangizga yordam bering. Tasdiqlating.",
@@ -56,10 +57,11 @@
     "hero": {
       "eyebrowLabel": "Oʻzbekiston boʻylab volontyorlik",
       "eyebrow": "<region></region> volontyorlik",
-      "title": "Qilinadigan ish bor.",
-      "lead": "Oʻzingiz foydali boʻladigan joyni toping. Imkoniyatni hamjamiyat bilan ulashishdan oldin tashkilotchilar bilan gaplashamiz.",
+      "title": "Volontyorlik imkoniyatini toping.",
+      "lead": "Tashkilotchilar bilan bogʻlaning, hududingizdagi tadbirlarda qatnashing va jamiyatga foyda keltiring.",
       "primaryCta": "Volontyor boʻling",
-      "loginCta": "Kirish"
+      "loginCta": "Kirish",
+      "signupCta": "Roʻyxatdan oʻtish"
     },
     "map": {
       "eyebrow": "Mamlakat boʻylab",
@@ -139,7 +141,9 @@
       "title": "Volontyorlikni topish oson boʻlishi kerak.",
       "lead": "Imkoniyatlarni biz topgan zahoti oling.",
       "primary": "Hamjamiyatga qoʻshiling",
-      "secondary": "Biz bilan gaplashing"
+      "secondary": "Biz bilan gaplashing",
+      "signupLead": "Roʻyxatdan oʻting va volontyorlik sari ilk qadamni qoʻying.",
+      "signupPrimary": "Roʻyxatdan oʻtish"
     }
   },
   "about": {
