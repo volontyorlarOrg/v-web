@@ -11,10 +11,12 @@ export function organizationJsonLd({
   locale,
   name,
   description,
+  founderJobTitle,
 }: {
   locale: Locale;
   name: string;
   description: string;
+  founderJobTitle: string;
 }): JsonLd {
   const sameAs = verifiedSocialUrls();
 
@@ -27,7 +29,11 @@ export function organizationJsonLd({
     url: localeUrl(locale, "home"),
     logo: marketingUrl("/logo/png/mark-blue-512.png"),
     foundingDate: FOUNDED_ON,
-    founder: FOUNDERS.map((founder) => ({ "@type": "Person", name: founder.name })),
+    founder: FOUNDERS.map((founder) => ({
+      "@type": "Person",
+      name: founder.name,
+      jobTitle: founderJobTitle,
+    })),
     areaServed: { "@type": "Country", name: "Uzbekistan" },
     ...(sameAs.length > 0 ? { sameAs } : {}),
   };

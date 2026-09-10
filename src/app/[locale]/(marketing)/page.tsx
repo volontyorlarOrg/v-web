@@ -84,6 +84,7 @@ function Home({ locale }: { locale: Locale }) {
     locale,
     name: common("organizationName"),
     description: t("metaDescription"),
+    founderJobTitle: common("founderRole"),
   });
   const websiteStructuredData = webSiteJsonLd({
     locale,
