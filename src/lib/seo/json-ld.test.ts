@@ -8,7 +8,7 @@ function organization() {
     locale: "en",
     name: "Volontyorlar",
     description: "Volunteering for young people in Uzbekistan.",
-    founderJobTitle: "Co-founder & CEO",
+    founderJobTitles: { ceo: "Co-founder & CEO", cto: "Co-founder & CTO" },
   });
 }
 
@@ -25,13 +25,17 @@ describe("organizationJsonLd", () => {
     );
   });
 
-  it("gives each founder the title the page carries, not a bare Person", () => {
+  it("gives each founder their own title, not one shared across both", () => {
     const founders = organization().founder as ReadonlyArray<Record<string, string>>;
 
     for (const founder of founders) {
       expect(founder["@type"]).toBe("Person");
-      expect(founder.jobTitle).toBe("Co-founder & CEO");
     }
+
+    expect(founders.map((founder) => [founder.name, founder.jobTitle])).toEqual([
+      ["Arslon Rajabov", "Co-founder & CEO"],
+      ["Abdulaziz Yusupaliev", "Co-founder & CTO"],
+    ]);
   });
 
   it("anchors the organisation to the canonical home URL", () => {

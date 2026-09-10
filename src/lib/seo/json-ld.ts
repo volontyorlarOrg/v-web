@@ -2,7 +2,7 @@ import type { Locale } from "@/i18n/routing";
 import type { RouteKey } from "@/lib/routing/routes";
 import { marketingUrl } from "@/lib/seo/origin";
 import { localeUrl } from "@/lib/seo/urls";
-import { FOUNDED_ON, FOUNDERS } from "@/lib/content/org";
+import { FOUNDED_ON, FOUNDERS, type FounderRole } from "@/lib/content/org";
 import { verifiedSocialUrls } from "@/lib/constants/channels";
 
 export type JsonLd = Record<string, unknown>;
@@ -11,12 +11,12 @@ export function organizationJsonLd({
   locale,
   name,
   description,
-  founderJobTitle,
+  founderJobTitles,
 }: {
   locale: Locale;
   name: string;
   description: string;
-  founderJobTitle: string;
+  founderJobTitles: Record<FounderRole, string>;
 }): JsonLd {
   const sameAs = verifiedSocialUrls();
 
@@ -32,7 +32,7 @@ export function organizationJsonLd({
     founder: FOUNDERS.map((founder) => ({
       "@type": "Person",
       name: founder.name,
-      jobTitle: founderJobTitle,
+      jobTitle: founderJobTitles[founder.role],
     })),
     areaServed: { "@type": "Country", name: "Uzbekistan" },
     ...(sameAs.length > 0 ? { sameAs } : {}),
