@@ -56,12 +56,12 @@ export function SiteHeader() {
               {t("login")}
             </ActionLink>
           ) : null}
-          <ActionLink
+          {/* <ActionLink
             destination={primary}
             className={buttonClass({ size: "sm", className: "hidden lg:inline-flex" })}
           >
             {primaryLabel}
-          </ActionLink>
+          </ActionLink> */}
           <MobileNav
             items={items}
             cta={{ ...primary, label: primaryLabel }}

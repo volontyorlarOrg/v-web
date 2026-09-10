@@ -1,6 +1,6 @@
 export const ORGANIZATION_NAME = "Volontyorlar";
 
-export const FOUNDED_ON = "2025-06-04";
+export const FOUNDED_ON = "2026-08-24";
 
 export type FounderRole = "ceo" | "cto";
 
