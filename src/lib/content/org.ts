@@ -2,10 +2,12 @@ export const ORGANIZATION_NAME = "Volontyorlar";
 
 export const FOUNDED_ON = "2025-06-04";
 
+export type FounderRole = "ceo" | "cto";
+
 export const FOUNDERS = [
-  { id: "arslon", name: "Arslon Rajabov" },
-  { id: "abdulaziz", name: "Abdulaziz Yusupaliev" },
-] as const;
+  { id: "arslon", name: "Arslon Rajabov", role: "ceo" },
+  { id: "abdulaziz", name: "Abdulaziz Yusupaliev", role: "cto" },
+] as const satisfies ReadonlyArray<{ id: string; name: string; role: FounderRole }>;
 
 export const TRACTION = {
   telegramFollowers: 4000,

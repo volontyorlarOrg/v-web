@@ -3,7 +3,10 @@
     "organizationName": "Volontyorlar",
     "organizationShortName": "Volontyorlar",
     "tagline": "Волонтёрство для молодёжи Узбекистана",
-    "founderRole": "Сооснователь и генеральный директор"
+    "founderRoles": {
+      "ceo": "Сооснователь и генеральный директор",
+      "cto": "Сооснователь и технический директор"
+    }
   },
   "nav": {
     "home": "Главная",

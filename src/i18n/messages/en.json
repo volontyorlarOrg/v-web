@@ -3,7 +3,10 @@
     "organizationName": "Volontyorlar",
     "organizationShortName": "Volontyorlar",
     "tagline": "Volunteering for young people in Uzbekistan",
-    "founderRole": "Co-founder & CEO"
+    "founderRoles": {
+      "ceo": "Co-founder & CEO",
+      "cto": "Co-founder & CTO"
+    }
   },
   "nav": {
     "home": "Home",

@@ -3,7 +3,10 @@
     "organizationName": "Volontyorlar",
     "organizationShortName": "Volontyorlar",
     "tagline": "Oʻzbekistondagi yoshlar uchun volontyorlik",
-    "founderRole": "Hammuassis va bosh direktor"
+    "founderRoles": {
+      "ceo": "Hammuassis va bosh direktor",
+      "cto": "Hammuassis va texnik direktor"
+    }
   },
   "nav": {
     "home": "Bosh sahifa",
