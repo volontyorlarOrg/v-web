@@ -29,7 +29,7 @@ public assets. Generated dependencies and build output are excluded at the end.
 | `src/app/[locale]/layout.tsx` | Root document, locale validation, fonts, theme boot, locale-only client provider |
 | `src/app/[locale]/(marketing)/layout.tsx` | Shared marketing shell, skip link, landmarks, header/footer, scene and scroll clients |
 | `src/app/[locale]/(marketing)/page.tsx` | Home-page composition and verified home content mapping |
-| `src/app/[locale]/(marketing)/about/page.tsx` | Organisation story, founders, and traction composition |
+| `src/app/[locale]/(marketing)/about/page.tsx` | Organisation story, founding facts in the hero, and traction composition |
 | `src/app/[locale]/(marketing)/volunteering/page.tsx` | Volunteering explanation and application-origin availability state |
 | `src/app/[locale]/(marketing)/partners/page.tsx` | Verified partner, supporter, and source presentation |
 | `src/app/[locale]/(marketing)/contact/page.tsx` | Configured public channels and audience guidance |

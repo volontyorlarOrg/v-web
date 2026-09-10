@@ -4,7 +4,7 @@
 
 Volontyorlar helps high school students in Uzbekistan discover and
 apply to meaningful volunteering. It was founded on **4 June 2025** by **Arslon
-Rajabov** and **Parizoda Abdurakhimova**.
+Rajabov** and **Abdulaziz Yusupaliev**.
 
 Volontyorlar has grown past reposting other people's opportunities. It now:
 

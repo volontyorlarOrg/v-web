@@ -4,7 +4,7 @@ export const FOUNDED_ON = "2025-06-04";
 
 export const FOUNDERS = [
   { id: "arslon", name: "Arslon Rajabov" },
-  { id: "parizoda", name: "Parizoda Abdurakhimova" },
+  { id: "abdulaziz", name: "Abdulaziz Yusupaliev" },
 ] as const;
 
 export const TRACTION = {
