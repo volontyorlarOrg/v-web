@@ -2,7 +2,8 @@
   "common": {
     "organizationName": "Volontyorlar",
     "organizationShortName": "Volontyorlar",
-    "tagline": "Oʻzbekistondagi yoshlar uchun volontyorlik"
+    "tagline": "Oʻzbekistondagi yoshlar uchun volontyorlik",
+    "founderRole": "Hammuassis va bosh direktor"
   },
   "nav": {
     "home": "Bosh sahifa",
@@ -56,8 +57,8 @@
     "hero": {
       "eyebrowLabel": "Oʻzbekiston boʻylab volontyorlik",
       "eyebrow": "<region></region> volontyorlik",
-      "title": "Volontyorlik imkoniyatini toping.",
-      "lead": "Tashkilotchilar bilan bogʻlaning, hududingizdagi tadbirlarda qatnashing va jamiyatga foyda keltiring.",
+      "title": "Qilinadigan ish bor.",
+      "lead": "Oʻzingiz foydali boʻladigan joyni toping. Imkoniyatni hamjamiyat bilan ulashishdan oldin tashkilotchilar bilan gaplashamiz.",
       "primaryCta": "Volontyor boʻling",
       "loginCta": "Kirish",
       "signupCta": "Roʻyxatdan oʻtish"
