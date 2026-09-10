@@ -75,3 +75,14 @@ repository.
 Do not copy hostnames, project identifiers, redirects, or environment values
 from any reference repository. Add them only once they are verified externally
 and represented in executable configuration.
+
+## Account entry from marketing
+
+When `NEXT_PUBLIC_APP_ORIGIN` is configured, the header (including mobile
+navigation), homepage hero, and closing homepage action send visitors to
+`/{locale}/signup` in the separate application. Existing users retain the
+`/{locale}/login` action. These routes are implemented by `v-app`.
+
+Without an application origin, these primary actions keep their community
+labels and use the existing Telegram/contact fallback. Footer community links
+continue to use `joinDestination()` independently of account creation.
