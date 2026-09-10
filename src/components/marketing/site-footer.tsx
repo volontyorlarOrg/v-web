@@ -1,6 +1,7 @@
-import { ArrowUpRight, Instagram, Send, type LucideIcon } from "lucide-react";
+import { ArrowUpRight, Send, type LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import { Instagram } from "@/components/brand/channel-icons";
 import { BrandLockup } from "@/components/brand/logo";
 import { buttonClass } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
