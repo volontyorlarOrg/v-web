@@ -8,8 +8,8 @@ export const FOUNDERS = [
 ] as const;
 
 export const TRACTION = {
-  telegramFollowers: 3600,
-  instagramFollowers: 220,
+  telegramFollowers: 4000,
+  instagramFollowers: 300,
   eventsSupplied: 50,
   regionalRoleApplications: 500,
 } as const;

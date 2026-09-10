@@ -23,8 +23,8 @@ around them.
 
 | Fact | Value |
 | --- | --- |
-| Telegram community | 3,600+ followers |
-| Instagram | 220+ followers |
+| Telegram community | 4,000+ followers |
+| Instagram | 300+ followers |
 | Events supplied with volunteers | 50+ |
 | Applications for regional project manager and coordinator roles | 500+ |
 | Regional expansion target | all 14 regions of Uzbekistan |
