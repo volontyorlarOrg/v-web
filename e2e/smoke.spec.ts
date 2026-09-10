@@ -199,11 +199,13 @@ test.describe("production information architecture", () => {
   });
 
   test("nothing overflows horizontally", async ({ page }) => {
-    await page.goto("/uz");
-    const overflow = await page.evaluate(
-      () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
-    );
-    expect(overflow).toBeLessThanOrEqual(0);
+    for (const path of ["/uz", "/en/about"]) {
+      await page.goto(path);
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      );
+      expect(overflow, path).toBeLessThanOrEqual(0);
+    }
   });
 
   test("plain HTTP keeps transport-only headers disabled", async ({ page }) => {
