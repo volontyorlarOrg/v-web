@@ -98,6 +98,31 @@ test.describe("crawler endpoints", () => {
     await expect(page.locator('meta[name="msvalidate.01"]')).toHaveCount(0);
   });
 
+  test("declares a large icon in a format a search engine can render", async ({ page }) => {
+    await page.goto("/uz");
+    const icons = page.locator('link[rel="icon"]');
+    const count = await icons.count();
+    expect(count).toBeGreaterThan(0);
+
+    const raster: Array<{ href: string; size: number }> = [];
+    for (let index = 0; index < count; index += 1) {
+      const icon = icons.nth(index);
+      const type = (await icon.getAttribute("type")) ?? "";
+      const href = (await icon.getAttribute("href")) ?? "";
+      const sizes = (await icon.getAttribute("sizes")) ?? "";
+      if (type === "image/svg+xml") continue;
+      raster.push({ href, size: Number.parseInt(sizes.split("x")[0], 10) || 0 });
+    }
+
+    expect(raster.length, "an SVG-only favicon is invisible to Google").toBeGreaterThan(0);
+    expect(Math.max(...raster.map((icon) => icon.size))).toBeGreaterThanOrEqual(48);
+
+    for (const icon of raster) {
+      const response = await page.request.get(icon.href);
+      expect(response.status(), icon.href).toBe(200);
+    }
+  });
+
   test("the manifest is linked, served, and points at icons that exist", async ({ page }) => {
     await page.goto("/uz");
     const href = await page.locator('link[rel="manifest"]').getAttribute("href");
