@@ -64,7 +64,7 @@
       "lead": "Oʻzingiz foydali boʻladigan joyni toping. Imkoniyatni hamjamiyat bilan ulashishdan oldin tashkilotchilar bilan gaplashamiz.",
       "primaryCta": "Volontyor boʻling",
       "loginCta": "Kirish",
-      "signupCta": "Volontyor bo'lish"
+      "signupCta": "Volontyor boʻlish"
     },
     "map": {
       "eyebrow": "Mamlakat boʻylab",
@@ -167,6 +167,16 @@
     "growth": {
       "title": "Qayta joylashdan tashkiliy ishga",
       "body": "Volontyorlar boshqa joydan topgan imkoniyatlarini ulashishdan boshlagan. Bugun esa imkoniyat topadi, tashkilotchilar bilan bogʻlanadi, tadbirlarni jalb qiladi, hamkorlik quradi, volontyor taʼminlaydi va mamlakat boʻylab hududiy faoliyatni yoʻlga qoʻyyapti."
+    },
+    "founders": {
+      "title": "Asoschilar",
+      "lead": "Volontyorlarni uni boshlagan ikki kishining oʻzi olib boradi. Ularning har biriga toʻgʻridan-toʻgʻri yozish mumkin.",
+      "profilesLabel": "{name} ijtimoiy tarmoqlarda",
+      "profile": "{platform}da {name}",
+      "platforms": {
+        "telegram": "Telegram",
+        "linkedin": "LinkedIn"
+      }
     },
     "numbers": {
       "title": "Bugungi holat",
