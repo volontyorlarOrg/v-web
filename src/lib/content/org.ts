@@ -4,10 +4,37 @@ export const FOUNDED_ON = "2026-08-24";
 
 export type FounderRole = "ceo" | "cto";
 
+export type FounderProfileId = "telegram" | "linkedin";
+
+export type Founder = {
+  id: string;
+  name: string;
+  role: FounderRole;
+  profiles: Readonly<Record<FounderProfileId, string>>;
+};
+
 export const FOUNDERS = [
-  { id: "arslon", name: "Arslon Rajabov", role: "ceo" },
-  { id: "abdulaziz", name: "Abdulaziz Yusupaliev", role: "cto" },
-] as const satisfies ReadonlyArray<{ id: string; name: string; role: FounderRole }>;
+  {
+    id: "arslon",
+    name: "Arslon Rajabov",
+    role: "ceo",
+    profiles: {
+      telegram: "https://t.me/ars1on",
+      linkedin: "https://www.linkedin.com/in/rajabov/",
+    },
+  },
+  {
+    id: "abdulaziz",
+    name: "Abdulaziz Yusupaliev",
+    role: "cto",
+    profiles: {
+      telegram: "https://t.me/d_vaderrr",
+      linkedin: "https://www.linkedin.com/in/abdulaziz-yusupaliev-521166377/",
+    },
+  },
+] as const satisfies ReadonlyArray<Founder>;
+
+export const FOUNDER_PROFILE_IDS = ["telegram", "linkedin"] as const satisfies ReadonlyArray<FounderProfileId>;
 
 export const TRACTION = {
   telegramFollowers: 4000,

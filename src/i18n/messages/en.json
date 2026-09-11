@@ -168,6 +168,16 @@
       "title": "From reposting to running operations",
       "body": "Volontyorlar began by sharing opportunities it found elsewhere. Today it finds opportunities, contacts organisers, sources events, builds partnerships, supplies volunteers, and is building regional operations across the country."
     },
+    "founders": {
+      "title": "The founders",
+      "lead": "Volontyorlar is run by the two people who started it. You can reach either of them directly.",
+      "profilesLabel": "{name} on social media",
+      "profile": "{name} on {platform}",
+      "platforms": {
+        "telegram": "Telegram",
+        "linkedin": "LinkedIn"
+      }
+    },
     "numbers": {
       "title": "Where we are now",
       "lead": "Every figure on this page is something we can account for."
