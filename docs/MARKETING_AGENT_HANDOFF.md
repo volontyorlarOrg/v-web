@@ -59,12 +59,11 @@ Current known traction:
 - 500+ applications for regional project manager/coordinator roles.
 
 Current opportunity sources/partners include:
-- Youth Volunteer Club;
 - Yashil Qo'llar;
 - Youth Run Club;
 - Youth for Good;
 - Youth Grants;
-- ArticularUZ.
+- Relay Fellowship.
 
 Near-term education initiative:
 - volunteering basics;

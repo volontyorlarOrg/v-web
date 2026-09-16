@@ -17,7 +17,13 @@ import { buttonClass } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { joinDestination, signupDestination } from "@/lib/content/cta";
-import { OPPORTUNITY_SOURCES, TARGET_REGION_COUNT, TRACTION } from "@/lib/content/org";
+import {
+  OPPORTUNITY_SOURCES,
+  PARTNERS,
+  SUPPORTERS,
+  TARGET_REGION_COUNT,
+  TRACTION,
+} from "@/lib/content/org";
 import { navHref } from "@/lib/routing/routes";
 import { organizationJsonLd, webSiteJsonLd } from "@/lib/seo/json-ld";
 import { buildPageMetadata } from "@/lib/seo/metadata";
@@ -45,6 +51,7 @@ export default async function HomePage({ params }: PageProps<"/[locale]">) {
 
 function Home({ locale }: { locale: Locale }) {
   const t = useTranslations("home");
+  const partnersCopy = useTranslations("partners");
   const common = useTranslations("common");
   const join = joinDestination();
   const signup = signupDestination(locale);
@@ -135,13 +142,41 @@ function Home({ locale }: { locale: Locale }) {
       <Section id="sources" tone="soft">
         <SectionBackdrop variant="channels" />
         <SectionHeader eyebrow={t("sources.eyebrow")} title={t("sources.title")} />
-        <Scene className="mt-12 -mx-5 sm:-mx-8">
+        <Scene className="mt-12 -mx-5 flex flex-col gap-3 border-y border-border sm:-mx-8">
           <Marquee
             label={t("sources.sourcesLabel")}
-            seconds={26}
-            entries={OPPORTUNITY_SOURCES}
+            seconds={44}
+            entries={OPPORTUNITY_SOURCES.map((source) => ({
+              id: source.id,
+              name: source.name,
+              note: partnersCopy("sources.note"),
+            }))}
+          />
+          <Marquee
+            label={t("sources.partnersLabel")}
+            reverse
+            seconds={52}
+            className="border-t border-border"
+            entries={[
+              ...PARTNERS.map((partner) => ({
+                id: partner.id,
+                name: partner.name,
+                note: partnersCopy("partnership.note"),
+              })),
+              ...SUPPORTERS.map((supporter) => ({
+                id: supporter.id,
+                name: supporter.name,
+                note: partnersCopy("support.note"),
+              })),
+            ]}
           />
         </Scene>
+        <Link
+          href={navHref("partners")}
+          className={buttonClass({ variant: "ghost", size: "sm", className: "mt-8 -ml-4" })}
+        >
+          {t("sources.cta")}
+        </Link>
       </Section>
 
       <Section>
