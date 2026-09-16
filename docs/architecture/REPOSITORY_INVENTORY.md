@@ -31,7 +31,7 @@ public assets. Generated dependencies and build output are excluded at the end.
 | `src/app/[locale]/(marketing)/page.tsx` | Home-page composition and verified home content mapping |
 | `src/app/[locale]/(marketing)/about/page.tsx` | Organisation story, founding facts in the hero, and traction composition |
 | `src/app/[locale]/(marketing)/volunteering/page.tsx` | Volunteering explanation and application-origin availability state |
-| `src/app/[locale]/(marketing)/partners/page.tsx` | Verified partner, supporter, and source presentation |
+| `src/app/[locale]/(marketing)/partners/page.tsx` | Public opportunity-source presentation |
 | `src/app/[locale]/(marketing)/contact/page.tsx` | Configured public channels and audience guidance |
 | `src/app/[locale]/(marketing)/privacy/page.tsx`, `terms/page.tsx` | Localized legal documents backed by the shared prose primitive |
 | `src/app/global-not-found.tsx` | Standalone multilingual 404 document required by the dynamic root layout |

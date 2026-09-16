@@ -54,11 +54,54 @@ export const SUPPORTERS = [
 ] as const;
 
 export const OPPORTUNITY_SOURCES = [
-  { id: "yashil-qollar", name: "Yashil Qo‘llar" },
-  { id: "youth-run-club", name: "Youth Run Club" },
-  { id: "youth-for-good", name: "Youth for Good" },
-  { id: "youth-grants", name: "Youth Grants" },
-  { id: "relay-fellowship", name: "Relay Fellowship" },
+  {
+    id: "youth-volunteer-club",
+    name: "Youth Volunteer Club",
+    logo: "/opportunity-sources/youth-volunteer-club.svg",
+    logoGrey: "/opportunity-sources/youth-volunteer-club-grey.svg",
+    logoWidth: 262.88,
+    logoHeight: 100,
+  },
+  {
+    id: "yashil-qollar",
+    name: "Yashil Qo‘llar",
+    logo: "/opportunity-sources/yashil-qollar.svg",
+    logoGrey: "/opportunity-sources/yashil-qollar-grey.svg",
+    logoWidth: 200.21,
+    logoHeight: 100,
+  },
+  {
+    id: "youth-run-club",
+    name: "Youth Run Club",
+    logo: "/opportunity-sources/youth-run-club.svg",
+    logoGrey: "/opportunity-sources/youth-run-club-grey.svg",
+    logoWidth: 269.1,
+    logoHeight: 100,
+  },
+  {
+    id: "youth-for-good",
+    name: "Youth for Good",
+    logo: "/opportunity-sources/youth-for-good.svg",
+    logoGrey: "/opportunity-sources/youth-for-good-grey.svg",
+    logoWidth: 275.37,
+    logoHeight: 100,
+  },
+  {
+    id: "youth-grants",
+    name: "Youth Grants",
+    logo: "/opportunity-sources/youth-grants.svg",
+    logoGrey: "/opportunity-sources/youth-grants-grey.svg",
+    logoWidth: 220,
+    logoHeight: 100,
+  },
+  {
+    id: "articularuz",
+    name: "ArticularUZ",
+    logo: "/opportunity-sources/articularuz.svg",
+    logoGrey: "/opportunity-sources/articularuz-grey.svg",
+    logoWidth: 304.39,
+    logoHeight: 100,
+  },
 ] as const;
 
 export const LEGAL_UPDATED_ON = "2026-09-02";

@@ -127,7 +127,7 @@ container-relative size fight each other, and the smaller one silently wins.
 | `PageHero` | Opening block for every page below the home page |
 | `StatGrid` | The knockout figure band: display-serif numerals that count up over a drawn rule |
 | `StepRail` | The process rail; blue nodes for Volontyorlar's work, orange for the volunteer's, drawn step by step as it is scrolled |
-| `NameBoard` | Hairline-ruled rows of partner, supporter, and source names |
+| `NameBoard` | Hairline-ruled rows of names for scan-first pages |
 | `ProseSections` | Legal and explanatory pages at one measure |
 | `StatusChip` | Dashed pill for planned or unpublished material; the `status` variant of `Badge` |
 | `SectionBackdrop` | The ambient layer on the toned bands; `sourcing` and `channels` |
@@ -147,7 +147,7 @@ container-relative size fight each other, and the smaller one silently wins.
 | `ThemeToggle` | The labelled `Switch` that flips `data-theme` and stores the choice |
 | `NavTabs` | The header tabs, rendered from the provisional item set with the active tab marked |
 | `PageBreadcrumbJsonLd` | The localized home-to-current-page structured-data trail |
-| `Marquee` | The continuously rolling partner and source rows |
+| `Marquee` | The continuously rolling opportunity-source logo strip, with optional grey and color states |
 | `RollingWords` | The hero eyebrow's cycling region name |
 | `BrandSignature` | The oversized footer lockup that writes itself and raises the mark's hands once the reader reaches the bottom of the page |
 
@@ -157,15 +157,17 @@ six responsibilities around a central route on wide screens and collapses them
 onto a left-hand route on mobile; the moving stroke is decorative and all copy
 is complete at rest.
 
-The home page shows partners and sources as two `Marquee` rows rolling in
-opposite directions rather than as a `NameBoard` grid, because nine names in a
-three-column grid left two empty cells. `/partners` keeps the readable
-`NameBoard` lists: a page whose job is to be scanned should not move.
+The home page shows opportunity-source projects in one quiet `Marquee` logo
+strip. Prepared grey lockups share one normalized visual height and reveal their
+color versions on hover or keyboard focus when the light theme can carry those
+colors. Projects without a wordmark fall back to a neutral HTML name. The
+`/partners` route currently keeps only the readable opportunity-source
+`NameBoard`: a page whose job is to be scanned should not move.
 
-No page uses a bordered card. Lists that read as a sequence — what to expect and
-the story on `/about` — use `NumberedRail`; the home page's responsibilities are
-not presented as steps and therefore use `WorkField`. Pages stay distinct
-through arrangement rather than through different containers: `/volunteering`
+Pages avoid generic bordered cards. Lists that read as a sequence — what to
+expect and the story on `/about` — use `NumberedRail`; the home page's
+responsibilities are not presented as steps and therefore use `WorkField`.
+Pages stay distinct through arrangement rather than through different containers: `/volunteering`
 places its rail beside a heading, `/about` centres its rail at one measure, and
 `/contact` gives each channel a full-width row of its own.
 
