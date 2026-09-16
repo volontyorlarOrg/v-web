@@ -376,7 +376,7 @@ What still scrubs with the scroll position is deliberate, and unchanged:
 | --- | --- |
 | `work-field-*` | The home page responsibility route carries one blue signal through six fully visible items |
 | `process` / `rail-line` / `rail-head` / `process-node` / `process-content` | The step rail runs as a process: the connector fills, a head travels along it, and each step lights as the head reaches it |
-| `marquee` | The opportunity-source row rolls continuously, pausing on hover and focus |
+| `marquee` | The partner and source rows roll continuously, pausing on hover and focus |
 
 Only two things below the hero are not CSS. `CountUp` needs a formatted number
 on every frame, and `RollingWords` needs to mount a new word and retire the old

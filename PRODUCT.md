@@ -30,7 +30,7 @@ around them.
 | Regional expansion target | all 14 regions of Uzbekistan |
 | Partnership | O‘ZLIDEP Party |
 | Support and recognition | Youth Affairs Agency, Uzbekistan Volunteer Association, Republican Children's Library |
-| Opportunity sources | Youth Volunteer Club, Yashil Qo‘llar, Youth Run Club, Youth for Good, Youth Grants, ArticularUZ |
+| Opportunity sources | Yashil Qo‘llar, Youth Run Club, Youth for Good, Youth Grants, Relay Fellowship |
 
 Do not add partnerships, statistics, testimonials, awards, offices, addresses,
 or integrations that are not on this list.
