@@ -1,12 +1,21 @@
+import Image from "next/image";
+
 import { cn } from "@/lib/utils";
 
-export type MarqueeEntry = { id: string; name: string; note?: string };
+export type MarqueeEntry = {
+  id: string;
+  name: string;
+  logo?: string;
+  logoGrey?: string;
+  logoWidth?: number;
+  logoHeight?: number;
+};
 
 export function Marquee({
   entries,
   label,
   reverse = false,
-  seconds = 46,
+  seconds = 26,
   className,
 }: {
   entries: readonly MarqueeEntry[];
@@ -38,22 +47,50 @@ function MarqueeTrack({
   duplicate?: boolean;
 }) {
   return (
-    <ul className="marquee-track" aria-hidden={duplicate || undefined}>
-      {entries.map((entry) => (
-        <li
-          key={entry.id}
-          className="flex shrink-0 flex-col justify-center gap-1 border-l border-border py-4 pr-10 pl-6 sm:pr-14 sm:pl-8"
-        >
-          <span className="text-base font-semibold tracking-[-0.01em] whitespace-nowrap text-ink sm:text-lg">
-            {entry.name}
-          </span>
-          {entry.note ? (
-            <span className="text-sm leading-snug whitespace-nowrap text-ink-muted">
-              {entry.note}
-            </span>
-          ) : null}
-        </li>
-      ))}
+    <ul
+      className="marquee-track gap-14 py-5 pr-14 sm:gap-20 sm:py-6 sm:pr-20"
+      aria-hidden={duplicate || undefined}
+    >
+      {entries.map((entry) => {
+        const defaultLogo = entry.logoGrey ?? entry.logo;
+        const colorLogo = entry.logoGrey ? entry.logo : undefined;
+        const width = entry.logoWidth ?? 240;
+        const height = entry.logoHeight ?? 100;
+
+        return (
+          <li
+            key={entry.id}
+            className="marquee-logo-item relative flex h-11 shrink-0 items-center sm:h-15"
+            tabIndex={colorLogo && !duplicate ? 0 : undefined}
+          >
+            {defaultLogo ? (
+              <>
+                <Image
+                  src={defaultLogo}
+                  alt={entry.name}
+                  width={width}
+                  height={height}
+                  className="marquee-logo-grey block h-11 w-auto object-contain sm:h-15"
+                />
+                {colorLogo ? (
+                  <Image
+                    src={colorLogo}
+                    alt=""
+                    aria-hidden="true"
+                    width={width}
+                    height={height}
+                    className="marquee-logo-color absolute inset-0 block h-11 w-auto object-contain sm:h-15"
+                  />
+                ) : null}
+              </>
+            ) : (
+              <span className="text-sm font-medium whitespace-nowrap text-ink-muted sm:text-base">
+                {entry.name}
+              </span>
+            )}
+          </li>
+        );
+      })}
     </ul>
   );
 }

@@ -136,9 +136,7 @@
     "sources": {
       "eyebrow": "Imkoniyat manbalari",
       "title": "Imkoniyatlar qayerdan keladi",
-      "sourcesLabel": "Imkoniyat manbalari",
-      "partnersLabel": "Hamkorlar va qoʻllab-quvvatlovchilar",
-      "cta": "Barcha hamkorlar"
+      "sourcesLabel": "Imkoniyat manbalari"
     },
     "cta": {
       "title": "Volontyorlikni topish oson boʻlishi kerak.",
@@ -232,24 +230,13 @@
     }
   },
   "partners": {
-    "metaTitle": "Hamkorlar",
-    "metaDescription": "Volontyorlar ishlaydigan tashkilotlar: OʻZLIDEP partiyasi bilan hamkorlik, bizni qoʻllab-quvvatlayotgan muassasalar va imkoniyat yetkazib beruvchi manbalar.",
-    "title": "Hamkorlar, qoʻllab-quvvatlovchilar va manbalar",
-    "lead": "Bu sahifada faqat bugun tasdiqlay oladigan aloqalarimiz keltirilgan. Boshqa hech narsa bu yerga yozilmaydi.",
-    "partnership": {
-      "title": "Hamkorlik",
-      "lead": "Bevosita ishlaydigan tashkilotlarimiz.",
-      "note": "Hamkorlik"
-    },
-    "support": {
-      "title": "Qoʻllab-quvvatlash va eʼtirof",
-      "lead": "Volontyorlar faoliyatini qoʻllab-quvvatlaydigan yoki eʼtirof etadigan muassasalar.",
-      "note": "Qoʻllab-quvvatlash va eʼtirof"
-    },
+    "metaTitle": "Imkoniyat manbalari",
+    "metaDescription": "Volontyorlar hamjamiyatiga hozirda volontyorlik imkoniyatlarini taqdim etayotgan loyihalar.",
+    "title": "Imkoniyat manbalari",
+    "lead": "Hamjamiyatga hozirda volontyorlik imkoniyatlarini taqdim etayotgan loyihalar.",
     "sources": {
       "title": "Imkoniyat manbalari",
-      "lead": "Hozirda hamjamiyatga volontyorlik imkoniyatlarini yetkazib berayotgan hamkor va manbalar.",
-      "note": "Imkoniyat manbai"
+      "lead": "Hamjamiyatga hozirda volontyorlik imkoniyatlarini yetkazib berayotgan loyihalar."
     },
     "work": {
       "title": "Volontyorlar bilan ishlash",
