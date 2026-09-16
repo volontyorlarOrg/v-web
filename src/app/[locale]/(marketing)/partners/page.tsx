@@ -10,7 +10,7 @@ import { Section, SectionHeader } from "@/components/marketing/section";
 import { buttonClass } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
-import { OPPORTUNITY_SOURCES, PARTNERS, SUPPORTERS } from "@/lib/content/org";
+import { OPPORTUNITY_SOURCES } from "@/lib/content/org";
 import { navHref } from "@/lib/routing/routes";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
@@ -41,38 +41,10 @@ function Partners({ locale }: { locale: Locale }) {
       <PageHero title={t("title")} lead={t("lead")} />
 
       <Section>
-        <SectionHeader title={t("partnership.title")} lead={t("partnership.lead")} />
-        <NameBoard
-          className="mt-10"
-          entries={PARTNERS.map((partner) => ({
-            id: partner.id,
-            name: partner.name,
-            note: t("partnership.note"),
-          }))}
-        />
-      </Section>
-
-      <Section tone="sunk">
-        <SectionHeader title={t("support.title")} lead={t("support.lead")} />
-        <NameBoard
-          className="mt-10"
-          entries={SUPPORTERS.map((supporter) => ({
-            id: supporter.id,
-            name: supporter.name,
-            note: t("support.note"),
-          }))}
-        />
-      </Section>
-
-      <Section>
         <SectionHeader title={t("sources.title")} lead={t("sources.lead")} />
         <NameBoard
           className="mt-10"
-          entries={OPPORTUNITY_SOURCES.map((source) => ({
-            id: source.id,
-            name: source.name,
-            note: t("sources.note"),
-          }))}
+          entries={OPPORTUNITY_SOURCES}
         />
       </Section>
 
