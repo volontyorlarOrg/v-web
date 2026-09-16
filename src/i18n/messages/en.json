@@ -136,9 +136,7 @@
     "sources": {
       "eyebrow": "Opportunity sources",
       "title": "Where the opportunities come from",
-      "sourcesLabel": "Opportunity sources",
-      "partnersLabel": "Partners and supporters",
-      "cta": "See all partners"
+      "sourcesLabel": "Opportunity sources"
     },
     "cta": {
       "title": "Volunteering should be easy to find.",
@@ -232,24 +230,13 @@
     }
   },
   "partners": {
-    "metaTitle": "Partners",
-    "metaDescription": "The organisations Volontyorlar works with: our partnership with O‘ZLIDEP Party, the institutions that support us, and the sources supplying volunteer opportunities.",
-    "title": "Partners, supporters, and sources",
-    "lead": "This page lists only relationships we can confirm today. Nothing else belongs here.",
-    "partnership": {
-      "title": "Partnership",
-      "lead": "Organisations we work with directly.",
-      "note": "Partnership"
-    },
-    "support": {
-      "title": "Support and recognition",
-      "lead": "Institutions that support or recognise the work of Volontyorlar.",
-      "note": "Support and recognition"
-    },
+    "metaTitle": "Opportunity sources",
+    "metaDescription": "The projects currently providing volunteering opportunities to the Volontyorlar community.",
+    "title": "Opportunity sources",
+    "lead": "The projects currently providing volunteering opportunities to the community.",
     "sources": {
       "title": "Opportunity sources",
-      "lead": "Partners and sources currently supplying volunteer opportunities to the community.",
-      "note": "Opportunity source"
+      "lead": "Projects currently supplying volunteer opportunities to the community."
     },
     "work": {
       "title": "Working with Volontyorlar",
