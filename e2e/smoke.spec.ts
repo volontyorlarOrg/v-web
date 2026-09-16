@@ -305,6 +305,32 @@ test.describe("the hero map", () => {
     expect(geometry.panelHeight).toBeLessThanOrEqual(geometry.viewport);
   });
 
+  test("keeps wheel scrolling available after the map expands the page", async ({ page }) => {
+    await page.goto("/en");
+    await page.waitForFunction(
+      () => {
+        const panel = document.querySelector("#hero-map")?.firstElementChild;
+        return Boolean(panel) && getComputedStyle(panel!).position === "sticky";
+      },
+      null,
+      { timeout: 15_000 },
+    );
+
+    await page.mouse.move((page.viewportSize()?.width ?? 1280) / 2, (page.viewportSize()?.height ?? 720) / 2);
+    for (let index = 0; index < 42; index += 1) {
+      await page.mouse.wheel(0, 700);
+      await page.waitForTimeout(75);
+    }
+
+    await expect
+      .poll(() =>
+        page.evaluate(
+          () => document.documentElement.scrollHeight - window.innerHeight - window.scrollY,
+        ),
+      )
+      .toBeLessThanOrEqual(2);
+  });
+
   test("renders a complete non-pinned state with reduced motion", async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/en");
