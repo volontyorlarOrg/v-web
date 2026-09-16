@@ -630,28 +630,9 @@
   .marquee-track {
     display: flex;
     flex: none;
-    align-items: center;
-    width: max-content;
-    animation: marquee-roll var(--marquee-duration, 26s) linear infinite;
-  }
-
-  .marquee-logo-grey,
-  .marquee-logo-color {
-    transition: opacity 250ms ease;
-  }
-
-  .marquee-logo-color {
-    opacity: 0;
-  }
-
-  :root[data-theme="light"] .marquee-logo-item:hover .marquee-logo-grey,
-  :root[data-theme="light"] .marquee-logo-item:focus-visible .marquee-logo-grey {
-    opacity: 0;
-  }
-
-  :root[data-theme="light"] .marquee-logo-item:hover .marquee-logo-color,
-  :root[data-theme="light"] .marquee-logo-item:focus-visible .marquee-logo-color {
-    opacity: 1;
+    align-items: stretch;
+    min-width: 100%;
+    animation: marquee-roll var(--marquee-duration, 46s) linear infinite;
   }
 
   .marquee-reverse .marquee-track {
