@@ -50,7 +50,7 @@ export function SiteFooter() {
       <div className="container-page">
         <div className="grid gap-x-10 gap-y-10 pt-12 pb-10 md:grid-cols-2 lg:grid-cols-[1.25fr_2.1fr_1.3fr] lg:gap-x-8 lg:pt-14 lg:pb-11">
           <div className="min-w-0 lg:col-start-1 lg:row-start-1">
-            <BrandLockup name={ORGANIZATION_NAME} className="[&>span]:inline" />
+            <BrandLockup name={ORGANIZATION_NAME} className="[&>svg]:block" />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-ink-muted text-pretty">
               {t("description")}
             </p>
@@ -71,7 +71,11 @@ export function SiteFooter() {
                         aria-label={t(`channels.${channel.id}`)}
                         className="inline-flex size-11 items-center justify-center rounded-full text-ink-muted transition-colors hover:bg-surface-soft hover:text-primary-ink"
                       >
-                        <Icon aria-hidden="true" className="size-5" strokeWidth={1.75} />
+                        <Icon
+                          aria-hidden="true"
+                          className="size-5"
+                          strokeWidth={1.75}
+                        />
                       </a>
                     </li>
                   );
@@ -82,8 +86,15 @@ export function SiteFooter() {
 
           <div className="grid min-w-0 gap-x-6 gap-y-8 sm:grid-cols-[0.9fr_0.8fr_1.2fr] md:col-span-2 md:row-start-2 lg:col-span-1 lg:col-start-2 lg:row-start-1">
             {groups.map((group) => (
-              <nav key={group.id} aria-labelledby={`footer-${group.id}`} className="min-w-0">
-                <h2 id={`footer-${group.id}`} className="font-sans text-sm font-semibold leading-6 text-ink">
+              <nav
+                key={group.id}
+                aria-labelledby={`footer-${group.id}`}
+                className="min-w-0"
+              >
+                <h2
+                  id={`footer-${group.id}`}
+                  className="font-sans text-sm font-semibold leading-6 text-ink"
+                >
                   {t(`groups.${group.id}`)}
                 </h2>
                 <ul className="mt-2">
@@ -127,12 +138,18 @@ export function SiteFooter() {
         </div>
 
         <div className="flex flex-col gap-3 border-t border-border py-5 text-xs leading-relaxed text-ink-muted sm:flex-row sm:items-center sm:justify-between sm:gap-6">
-          <p>© {new Date().getFullYear()} {ORGANIZATION_NAME}</p>
+          <p>
+            © {new Date().getFullYear()} {ORGANIZATION_NAME}
+          </p>
           <p>
             {t.rich("madeIn", {
-              country: (chunks) => <strong className="font-medium text-ink">{chunks}</strong>,
+              country: (chunks) => (
+                <strong className="font-medium text-ink">{chunks}</strong>
+              ),
             })}
-            <span aria-hidden="true" className="ml-1.5">🩵</span>
+            <span aria-hidden="true" className="ml-1.5">
+              🩵
+            </span>
           </p>
         </div>
       </div>

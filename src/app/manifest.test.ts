@@ -49,9 +49,17 @@ describe("web app manifest", () => {
     expect(sizes).toContain("512x512");
   });
 
-  it("never claims a maskable icon, because the tile has transparent corners", () => {
-    for (const icon of result.icons ?? []) {
-      expect(icon.purpose).toBe("any");
+  it("claims maskable only for the kit's full-bleed icons, never the rounded tile", () => {
+    const icons = result.icons ?? [];
+    const maskable = icons.filter((icon) => icon.purpose === "maskable");
+
+    expect(maskable.map((icon) => icon.sizes)).toEqual(["192x192", "512x512"]);
+    for (const icon of icons) {
+      if (icon.src.includes("/maskable-icon-")) {
+        expect(icon.purpose).toBe("maskable");
+      } else {
+        expect(icon.purpose).toBe("any");
+      }
     }
   });
 });

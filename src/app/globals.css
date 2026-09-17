@@ -26,6 +26,10 @@
 
   --color-accent: #e85d30;
   --color-accent-ink: #b34917;
+  --color-logo-blue: #007fc2;
+  --color-logo-orange: #e85d30;
+  --color-logo-word: #007fc2;
+
   --color-mask-opaque: #000000;
 
   --color-background: var(--color-paper);
@@ -53,7 +57,6 @@
   --radius: var(--radius-md);
 
   --text-display: clamp(2.75rem, 6.6vw, 5rem);
-  --text-brand-signature: clamp(2.75rem, 15.5vw, 12.5rem);
   --text-hero: clamp(2.75rem, 8.2cqi, 6.75rem);
   --text-page: clamp(2.25rem, 6.4cqi, 4.75rem);
   --text-display--line-height: 1.02;
@@ -101,6 +104,7 @@
     --color-band-copy: #a9cfea;
 
     --color-accent-ink: #f08a55;
+    --color-logo-word: #ffffff;
 
     --board-dot: color-mix(in srgb, var(--color-primary) 22%, transparent);
     --board-wash: color-mix(in srgb, var(--color-primary) 12%, transparent);
@@ -131,8 +135,16 @@
   body {
     background-color: var(--color-paper);
     background-image:
-      radial-gradient(circle at 1px 1px, var(--board-dot) 1px, transparent 1.6px),
-      radial-gradient(72rem 36rem at 50% -10rem, var(--board-wash), transparent 70%);
+      radial-gradient(
+        circle at 1px 1px,
+        var(--board-dot) 1px,
+        transparent 1.6px
+      ),
+      radial-gradient(
+        72rem 36rem at 50% -10rem,
+        var(--board-wash),
+        transparent 70%
+      );
     background-size:
       28px 28px,
       100% 100%;
@@ -216,7 +228,8 @@
 
   .scene-rule {
     transform-origin: left center;
-    transition: scale 1100ms var(--ease-scene) calc(var(--scene-delay, 0ms) + 120ms);
+    transition: scale 1100ms var(--ease-scene)
+      calc(var(--scene-delay, 0ms) + 120ms);
   }
 
   .scene-word {
@@ -257,7 +270,9 @@
     --scene-delay: 640ms;
   }
 
-  html[data-motion] [data-scene]:not([data-in]) :is(.scene-rise, .scene-stagger > *),
+  html[data-motion]
+    [data-scene]:not([data-in])
+    :is(.scene-rise, .scene-stagger > *),
   html[data-motion] [data-scene]:not([data-in]).scene-rise {
     opacity: 0;
     translate: 0 1.75rem;
@@ -305,7 +320,8 @@
   }
 
   @media print, (prefers-reduced-motion: reduce) {
-    [data-scene] :is(.scene-rise, .scene-stagger > *, .scene-rule, .scene-word > span),
+    [data-scene]
+      :is(.scene-rise, .scene-stagger > *, .scene-rule, .scene-word > span),
     [data-scene]:is(.scene-rise, .scene-wipe) {
       opacity: 1 !important;
       translate: none !important;
@@ -376,13 +392,15 @@
     width: var(--card-width);
     color: var(--color-primary);
     opacity: 0.1;
-    animation: backdrop-card-rise var(--card-duration) linear var(--card-delay) infinite;
+    animation: backdrop-card-rise var(--card-duration) linear var(--card-delay)
+      infinite;
   }
 
   .backdrop-cards .card-check {
     stroke: var(--color-accent);
     opacity: 0;
-    animation: backdrop-card-check var(--card-duration) linear var(--card-delay) infinite;
+    animation: backdrop-card-check var(--card-duration) linear var(--card-delay)
+      infinite;
   }
 
   @keyframes backdrop-card-rise {
@@ -433,7 +451,8 @@
     border-radius: 9999px;
     background-color: var(--color-primary);
     opacity: 0.5;
-    animation: backdrop-channel-pulse var(--channel-duration) linear var(--channel-delay) infinite;
+    animation: backdrop-channel-pulse var(--channel-duration) linear
+      var(--channel-delay) infinite;
   }
 
   @keyframes backdrop-channel-pulse {
@@ -645,12 +664,16 @@
   }
 
   :root[data-theme="light"] .marquee-logo-item:hover .marquee-logo-grey,
-  :root[data-theme="light"] .marquee-logo-item:focus-visible .marquee-logo-grey {
+  :root[data-theme="light"]
+    .marquee-logo-item:focus-visible
+    .marquee-logo-grey {
     opacity: 0;
   }
 
   :root[data-theme="light"] .marquee-logo-item:hover .marquee-logo-color,
-  :root[data-theme="light"] .marquee-logo-item:focus-visible .marquee-logo-color {
+  :root[data-theme="light"]
+    .marquee-logo-item:focus-visible
+    .marquee-logo-color {
     opacity: 1;
   }
 
@@ -756,78 +779,6 @@
   .rotating-out .rotating-char {
     animation: rotating-char-out 440ms cubic-bezier(0.4, 0, 1, 1) both;
     animation-delay: calc(var(--char) * 28ms);
-  }
-
-  .brand-signature {
-    display: flex;
-    align-items: center;
-    gap: clamp(0.75rem, 2vw, 1.75rem);
-  }
-
-  .brand-signature-word {
-    display: flex;
-    align-items: flex-end;
-    font-size: var(--text-brand-signature);
-    line-height: 0.88;
-    letter-spacing: -0.045em;
-  }
-
-  .brand-signature-letter {
-    display: block;
-    overflow: clip;
-    padding-bottom: 0.2em;
-    margin-bottom: -0.2em;
-  }
-
-  .brand-signature-glyph {
-    display: block;
-    transition: translate 1000ms var(--ease-scene);
-    transition-delay: calc(var(--i, 0) * 45ms);
-  }
-
-  .brand-head {
-    transform-box: fill-box;
-    transform-origin: center;
-    transition:
-      opacity 500ms var(--ease-scene) 640ms,
-      translate 700ms var(--ease-scene) 640ms,
-      scale 700ms var(--ease-scene) 640ms;
-  }
-
-  .brand-arms {
-    stroke-dasharray: 100 100;
-    stroke-dashoffset: 0;
-    transition:
-      stroke-dasharray 900ms var(--ease-scene) 980ms,
-      stroke-dashoffset 900ms var(--ease-scene) 980ms;
-  }
-
-  html[data-motion] [data-scene]:not([data-in]) .brand-signature-glyph {
-    translate: 0 135%;
-  }
-
-  html[data-motion] [data-scene]:not([data-in]) .brand-head {
-    opacity: 0;
-    translate: 0 34%;
-    scale: 0.55;
-  }
-
-  html[data-motion] [data-scene]:not([data-in]) .brand-arms {
-    stroke-dasharray: 0 100;
-    stroke-dashoffset: -50;
-  }
-
-  @media print, (prefers-reduced-motion: reduce) {
-    .brand-signature-glyph,
-    .brand-head,
-    .brand-arms {
-      opacity: 1 !important;
-      translate: none !important;
-      scale: none !important;
-      stroke-dasharray: 100 100 !important;
-      stroke-dashoffset: 0 !important;
-      transition: none !important;
-    }
   }
 
   @media (prefers-reduced-motion: reduce) {

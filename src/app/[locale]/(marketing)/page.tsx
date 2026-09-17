@@ -2,14 +2,18 @@ import { useTranslations } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 import type { Metadata } from "next";
 
-import { BrandArc } from "@/components/brand/logo";
+import { BrandHeart } from "@/components/brand/logo";
 import { ActionLink } from "@/components/marketing/action-link";
 import { SectionBackdrop } from "@/components/marketing/section-backdrop";
 import { HeroMapSection } from "@/components/marketing/hero-map/hero-map-section";
 import { JsonLd } from "@/components/marketing/json-ld";
 import { Marquee } from "@/components/marketing/marquee";
 import { Scene, SplitWords } from "@/components/marketing/scene";
-import { Eyebrow, Section, SectionHeader } from "@/components/marketing/section";
+import {
+  Eyebrow,
+  Section,
+  SectionHeader,
+} from "@/components/marketing/section";
 import { StatGrid, type Stat } from "@/components/marketing/stats";
 import { StepRail, type Step } from "@/components/marketing/steps";
 import { WorkField } from "@/components/marketing/work-field";
@@ -17,12 +21,23 @@ import { buttonClass } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 import type { Locale } from "@/i18n/routing";
 import { joinDestination, signupDestination } from "@/lib/content/cta";
-import { OPPORTUNITY_SOURCES, TARGET_REGION_COUNT, TRACTION } from "@/lib/content/org";
+import {
+  OPPORTUNITY_SOURCES,
+  TARGET_REGION_COUNT,
+  TRACTION,
+} from "@/lib/content/org";
 import { navHref } from "@/lib/routing/routes";
 import { organizationJsonLd, webSiteJsonLd } from "@/lib/seo/json-ld";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
-const WHAT_WE_DO = ["find", "contact", "source", "partnerships", "supply", "regional"] as const;
+const WHAT_WE_DO = [
+  "find",
+  "contact",
+  "source",
+  "partnerships",
+  "supply",
+  "regional",
+] as const;
 const HOW_STEPS = ["find", "check", "share", "volunteer"] as const;
 
 export async function generateMetadata({
@@ -56,7 +71,12 @@ function Home({ locale }: { locale: Locale }) {
       suffix: "+",
       label: t("stats.telegram"),
     },
-    { id: "events", amount: TRACTION.eventsSupplied, suffix: "+", label: t("stats.events") },
+    {
+      id: "events",
+      amount: TRACTION.eventsSupplied,
+      suffix: "+",
+      label: t("stats.events"),
+    },
     {
       id: "applications",
       amount: TRACTION.regionalRoleApplications,
@@ -134,7 +154,10 @@ function Home({ locale }: { locale: Locale }) {
 
       <Section id="sources" tone="soft">
         <SectionBackdrop variant="channels" />
-        <SectionHeader eyebrow={t("sources.eyebrow")} title={t("sources.title")} />
+        <SectionHeader
+          eyebrow={t("sources.eyebrow")}
+          title={t("sources.title")}
+        />
         <Scene className="mt-12 -mx-5 sm:-mx-8">
           <Marquee
             label={t("sources.sourcesLabel")}
@@ -149,7 +172,7 @@ function Home({ locale }: { locale: Locale }) {
           variant="wipe"
           className="relative isolate overflow-hidden rounded-2xl bg-band px-7 py-16 sm:px-14 sm:py-20"
         >
-          <BrandArc className="pointer-events-none absolute -right-16 -bottom-40 -z-10 size-96 text-knockout/12" />
+          <BrandHeart className="pointer-events-none absolute -right-20 -bottom-24 -z-10 w-[26rem] text-knockout/12" />
           <h2 className="max-w-[18ch] text-headline text-knockout text-balance [--scene-delay:260ms]">
             <SplitWords text={t("cta.title")} />
           </h2>
@@ -157,14 +180,18 @@ function Home({ locale }: { locale: Locale }) {
             {t(signup ? "cta.signupLead" : "cta.lead")}
           </p>
           <div className="scene-rise mt-10 flex flex-col gap-3 sm:flex-row sm:items-center [--scene-delay:640ms]">
-            <ActionLink destination={signup ?? join} className={buttonClass({ variant: "inverse" })}>
+            <ActionLink
+              destination={signup ?? join}
+              className={buttonClass({ variant: "inverse" })}
+            >
               {t(signup ? "cta.signupPrimary" : "cta.primary")}
             </ActionLink>
             <Link
               href={navHref("contact")}
               className={buttonClass({
                 variant: "outline",
-                className: "border-knockout/55 text-knockout hover:border-knockout hover:bg-primary-deep hover:text-knockout",
+                className:
+                  "border-knockout/55 text-knockout hover:border-knockout hover:bg-primary-deep hover:text-knockout",
               })}
             >
               {t("cta.secondary")}
