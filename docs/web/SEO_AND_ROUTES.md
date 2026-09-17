@@ -6,15 +6,15 @@
 footer, the sitemap, and canonical URLs all read from it, so a page that is not
 registered is invisible to all four. Adding a page means adding an entry.
 
-| Key | Path below the locale | Main nav | Footer legal | Priority |
-| --- | --- | --- | --- | --- |
-| `home` | *(empty)* | — | — | 1.0 |
-| `about` | `/about` | yes | — | 0.7 |
-| `volunteering` | `/volunteering` | yes | — | 0.9 |
-| `partners` | `/partners` | yes | — | 0.7 |
-| `contact` | `/contact` | yes | — | 0.6 |
-| `privacy` | `/privacy` | — | yes | 0.3 |
-| `terms` | `/terms` | — | yes | 0.3 |
+| Key            | Path below the locale | Main nav | Footer legal | Priority |
+| -------------- | --------------------- | -------- | ------------ | -------- |
+| `home`         | _(empty)_             | —        | —            | 1.0      |
+| `about`        | `/about`              | yes      | —            | 0.7      |
+| `volunteering` | `/volunteering`       | yes      | —            | 0.9      |
+| `partners`     | `/partners`           | yes      | —            | 0.7      |
+| `contact`      | `/contact`            | yes      | —            | 0.6      |
+| `privacy`      | `/privacy`            | —        | yes          | 0.3      |
+| `terms`        | `/terms`              | —        | yes          | 0.3      |
 
 Each route exists in `uz`, `ru`, and `en`: 21 indexable URLs. `/` redirects to a
 locale. The `/v1`, `/v2`, and `/v3` exploration routes and the style switcher
@@ -37,15 +37,17 @@ message namespace, so no page assembles its own object. It produces:
 
 Icons come from the `app/` file conventions (`favicon.ico`, `icon.png`,
 `icon.svg`, and `apple-icon.png`), which is why no `metadata.icons` entry is set.
+All four are copies of the logo kit's favicon files; see
+`docs/brand/BRAND_ASSETS.md`.
 Next.js emits one `<link>` per file and derives `type` and `sizes` from the file
 itself.
 
 `icon.png` is 192×192 and exists for search results specifically. Google's
 supported favicon formats are BMP, GIF, ICO, PNG, JPEG, PPM and TIFF — **not
 SVG** — and it recommends larger than 48×48. That left `favicon.ico` as the only
-candidate, and Next.js reads the first frame of an `.ico` to fill the attribute,
-so it is declared `sizes="16x16"` even though the file packs 16 through 256. The
-PNG removes the ambiguity. A smoke test fails if the only remaining icon is an
+candidate, and Next.js reads an `.ico`'s frames to fill the attribute — the
+kit's file packs 16, 32 and 48 px and is declared `sizes="48x48"`. The PNG
+removes the ambiguity. A smoke test fails if the only remaining icon is an
 SVG, or if no raster icon reaches 48px. The shared
 1200×630 social image lives at `public/opengraph-image.png`; the metadata builder
 sets its absolute URL for both Open Graph and Twitter. Keeping it out of the
@@ -53,7 +55,7 @@ root app segment avoids asking a file-convention metadata route to inherit
 `metadataBase` through the dynamic locale layout.
 
 When a search-engine token is configured, the localized layout also emits the
-matching ownership meta tag. See *Ownership verification* below.
+matching ownership meta tag. See _Ownership verification_ below.
 
 `src/lib/seo/urls.ts` is the only absolute locale-URL builder. It consumes the
 framework-agnostic route registry and the verified marketing origin, and it
@@ -63,10 +65,10 @@ adds `x-default` to each alternate set. Navigation never imports this module.
 
 Indexing is opt-in and keyed on `NEXT_PUBLIC_SITE_URL`:
 
-| Marketing origin | Page robots meta | `robots.txt` | `sitemap.xml` |
-| --- | --- | --- | --- |
-| Unset | `noindex, nofollow` | `Disallow: /` | empty |
-| Set | `index, follow` | `Allow: /` plus sitemap and host | 21 localized entries |
+| Marketing origin | Page robots meta    | `robots.txt`                     | `sitemap.xml`        |
+| ---------------- | ------------------- | -------------------------------- | -------------------- |
+| Unset            | `noindex, nofollow` | `Disallow: /`                    | empty                |
+| Set              | `index, follow`     | `Allow: /` plus sitemap and host | 21 localized entries |
 
 Each sitemap entry carries the full `hreflang` set, so the three language
 versions are reported as alternates of one another.
@@ -77,11 +79,11 @@ versions are reported as alternates of one another.
 tags a webmaster console looks for when it asks you to prove the property is
 yours:
 
-| Variable | Meta tag | Console |
-| --- | --- | --- |
+| Variable                   | Meta tag                   | Console               |
+| -------------------------- | -------------------------- | --------------------- |
 | `GOOGLE_SITE_VERIFICATION` | `google-site-verification` | Google Search Console |
-| `YANDEX_VERIFICATION` | `yandex-verification` | Yandex Webmaster |
-| `BING_SITE_VERIFICATION` | `msvalidate.01` | Bing Webmaster Tools |
+| `YANDEX_VERIFICATION`      | `yandex-verification`      | Yandex Webmaster      |
+| `BING_SITE_VERIFICATION`   | `msvalidate.01`            | Bing Webmaster Tools  |
 
 They carry no `NEXT_PUBLIC_` prefix because nothing in the browser bundle reads
 them; they reach the browser as HTML on their own. Each is blank by default, and
@@ -117,11 +119,11 @@ would cut into them.
 
 ## Structured data
 
-| Type | Where | Basis |
-| --- | --- | --- |
-| `Organization` | Home | Name, founding date, founders, country, logo, and any configured channel as `sameAs` |
-| `WebSite` | Home | Name, description, locale, publisher reference |
-| `BreadcrumbList` | Every page below home | Home plus the current page |
+| Type             | Where                 | Basis                                                                                |
+| ---------------- | --------------------- | ------------------------------------------------------------------------------------ |
+| `Organization`   | Home                  | Name, founding date, founders, country, logo, and any configured channel as `sameAs` |
+| `WebSite`        | Home                  | Name, description, locale, publisher reference                                       |
+| `BreadcrumbList` | Every page below home | Home plus the current page                                                           |
 
 The shared `PageBreadcrumbJsonLd` component supplies the standard localized
 home-to-current-page trail. The underlying builder stays pure and accepts

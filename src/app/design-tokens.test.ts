@@ -7,7 +7,9 @@ const DARK_START = CSS.indexOf(':root[data-theme="dark"]');
 const DARK_CSS = CSS.slice(DARK_START, CSS.indexOf("}", DARK_START));
 
 function tokenIn(source: string, name: string): string | null {
-  const match = source.match(new RegExp(`--color-${name}:\\s*(#[0-9a-fA-F]{6});`));
+  const match = source.match(
+    new RegExp(`--color-${name}:\\s*(#[0-9a-fA-F]{6});`),
+  );
   return match ? match[1] : null;
 }
 
@@ -42,7 +44,14 @@ const AA_LARGE = 3;
 const SURFACES = ["paper", "surface", "surface-sunk", "surface-soft"];
 const TEXT_TOKENS = ["ink", "ink-muted", "primary-ink", "accent-ink"];
 const GRAPHICS_TOKENS = ["primary", "accent"];
-const SOLID_FILLS = ["action", "action-hover", "band", "primary-deep", "accent-ink", "ink"];
+const SOLID_FILLS = [
+  "action",
+  "action-hover",
+  "band",
+  "primary-deep",
+  "accent-ink",
+  "ink",
+];
 const HUE_PAIRS: ReadonlyArray<readonly [string, string]> = [
   ["primary", "accent"],
   ["primary", "accent-ink"],
@@ -55,7 +64,7 @@ const LIGHT_HUE_PAIRS: ReadonlyArray<readonly [string, string]> = [
   ["primary-deep", "accent"],
 ];
 
-describe("brand values match docs/brand/LOGO_SPEC.md", () => {
+describe("brand values match docs/brand/BRAND_ASSETS.md", () => {
   it.each([
     ["primary", "#007fc2"],
     ["primary-ink", "#005e92"],
@@ -102,15 +111,21 @@ describe("graphics tokens clear 3:1 but are not usable for body text", () => {
 
 describe("knockout labels on solid fills", () => {
   it.each(SOLID_FILLS)("white on %s", (background) => {
-    expect(contrast(token("knockout"), token(background))).toBeGreaterThanOrEqual(AA_TEXT);
+    expect(
+      contrast(token("knockout"), token(background)),
+    ).toBeGreaterThanOrEqual(AA_TEXT);
   });
 
   it("keeps secondary copy on the band legible", () => {
-    expect(contrast(token("band-copy"), token("band"))).toBeGreaterThanOrEqual(AA_TEXT);
+    expect(contrast(token("band-copy"), token("band"))).toBeGreaterThanOrEqual(
+      AA_TEXT,
+    );
   });
 
   it("keeps the inverse button legible at rest and on hover", () => {
-    expect(contrast(token("action"), token("knockout"))).toBeGreaterThanOrEqual(AA_TEXT);
+    expect(contrast(token("action"), token("knockout"))).toBeGreaterThanOrEqual(
+      AA_TEXT,
+    );
     expect(
       contrast(token("primary-deep"), token("primary-muted")),
     ).toBeGreaterThanOrEqual(AA_TEXT);
@@ -158,22 +173,34 @@ describe("the dark theme", () => {
     }
   });
 
-  it.each(GRAPHICS_TOKENS)("%s clears 3:1 on every dark surface", (foreground) => {
-    for (const surface of SURFACES) {
-      expect(
-        contrast(darkToken(foreground), darkToken(surface)),
-        `${foreground} on ${surface}`,
-      ).toBeGreaterThanOrEqual(AA_LARGE);
-    }
-  });
+  it.each(GRAPHICS_TOKENS)(
+    "%s clears 3:1 on every dark surface",
+    (foreground) => {
+      for (const surface of SURFACES) {
+        expect(
+          contrast(darkToken(foreground), darkToken(surface)),
+          `${foreground} on ${surface}`,
+        ).toBeGreaterThanOrEqual(AA_LARGE);
+      }
+    },
+  );
 
-  it.each(["action", "action-hover", "band"])("keeps white labels legible on %s", (fill) => {
-    expect(contrast(darkToken("knockout"), darkToken(fill))).toBeGreaterThanOrEqual(AA_TEXT);
-  });
+  it.each(["action", "action-hover", "band"])(
+    "keeps white labels legible on %s",
+    (fill) => {
+      expect(
+        contrast(darkToken("knockout"), darkToken(fill)),
+      ).toBeGreaterThanOrEqual(AA_TEXT);
+    },
+  );
 
   it("keeps band copy, the inverse button and control borders legible", () => {
-    expect(contrast(darkToken("band-copy"), darkToken("band"))).toBeGreaterThanOrEqual(AA_TEXT);
-    expect(contrast(darkToken("action"), darkToken("knockout"))).toBeGreaterThanOrEqual(AA_TEXT);
+    expect(
+      contrast(darkToken("band-copy"), darkToken("band")),
+    ).toBeGreaterThanOrEqual(AA_TEXT);
+    expect(
+      contrast(darkToken("action"), darkToken("knockout")),
+    ).toBeGreaterThanOrEqual(AA_TEXT);
     expect(
       contrast(darkToken("primary-deep"), darkToken("primary-muted")),
     ).toBeGreaterThanOrEqual(AA_TEXT);

@@ -4,7 +4,7 @@ The logo specification was updated to define a second brand colour. The site had
 been built on a "single hue" rule, which the new spec contradicts, so the token
 system, design system, and contrast test were reworked rather than patched.
 
-- Blue `#007FC2` / `#005E92` — navigation, structure, primary actions, the mark.
+- Blue `#007FC2` / `#005E92` — navigation, structure, primary actions.
 - Orange `#E85D30` / `#B34917` — confirmations, achievement, and any number that
   counts what people did.
 
@@ -14,7 +14,10 @@ white. Every claim in the spec was recomputed and matches exactly.
 **The hues must never touch: 1.25:1.** In greyscale, one-colour print, or for a
 viewer with colour vision deficiency they merge. `src/app/design-tokens.test.ts`
 asserts every blue/orange pairing stays below 3:1, so the rule cannot be broken
-quietly. It already bites once: the regions band keeps white figures on blue,
+quietly. The logo kit that later replaced the mark is the one exception: its
+heart is orange beside blue letters, drawn as a separate shape, and that
+artwork is used only as delivered (see [[logo-kit-drawn-inline]]). It already
+bites once: the regions band keeps white figures on blue,
 even though "500+ applications" is exactly the human number orange would claim.
 
 Orange is applied in one place only — the fourth step of the journey, the one

@@ -1,70 +1,75 @@
-# Volontyorlar — logo specification
+# Volontyorlar — Web Logo Kit
 
-**Mark:** a circle above an open arc. Reads simultaneously as a person with raised arms, the letter V, and a smile.
-**Primary colour:** `#007FC2` — UN Blue, taken from the UN Volunteers / International Volunteer Day brand guide.
+All logos redrawn as clean vector SVGs from the original PNG pack, plus the PNG sizes,
+favicons, app icons and social images a website needs. Open `preview.html` to see everything.
 
-## Construction (200 × 200 unit square)
+## Folders
 
-| | |
-|---|---|
-| Arc centre | (100, 72) |
-| Arc radius | 59 |
-| Arc stroke width | 13 |
-| Arc endpoints | (41.74, 81.30) and (158.26, 81.30) |
-| Arc sweep | 161.86° |
-| Caps | round |
-| Dot centre | (100, 76) |
-| Dot radius | 20 |
-| Gap, dot to arc inner edge | 28.5 units |
+| Folder     | What's inside                                                                                                          | Use it for                                                            |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| `svg/`     | Every logo as a vector (25 files)                                                                                      | **First choice on the website** — sharp at any size, tiny file size   |
+| `png/`     | Same logos as transparent PNGs in several widths (`-480w` = 480 px wide)                                               | Email signatures, CMS/builders that don't accept SVG, documents       |
+| `favicon/` | `favicon.ico/.svg`, 16–96 px PNGs, Apple touch icon, Android + maskable icons, `site.webmanifest`, `head-snippet.html` | Browser tab, bookmarks, phone home screen                             |
+| `social/`  | Open Graph share image (1200×630, blue + light), square avatars (1080×1080)                                            | Link previews on Telegram / Facebook / LinkedIn / X, profile pictures |
 
-Everything derives from three numbers: the arc radius, the stroke width and the dot radius. Change one and re-derive the rest — do not nudge parts independently.
+## Which logo where
 
-## Colour
+| Logo                                 | File                                                                                    | Background                                                                                |
+| ------------------------------------ | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| Wordmark (primary)                   | `wordmark-blue-orange-heart`                                                            | White / light                                                                             |
+| Wordmark on blue                     | `wordmark-white-orange-heart`                                                           | Brand blue                                                                                |
+| Wordmark on orange or photos         | `wordmark-white`                                                                        | Orange, dark photos                                                                       |
+| Wordmark single colour               | `wordmark-blue`, `wordmark-orange`                                                      | Light                                                                                     |
+| Wordmark reversed accent             | `wordmark-orange-blue-heart`                                                            | Light                                                                                     |
+| Lockup (icon + wordmark)             | `lockup-blue-orange-heart`                                                              | Light — site header, footer                                                               |
+| Lockup on blue                       | `lockup-white-orange-heart`                                                             | Brand blue                                                                                |
+| Lockup on orange/photos              | `lockup-orange-white`, `lockup-white`                                                   | Blue, orange, photos                                                                      |
+| App icon                             | `icon-blue-orange-heart` (primary), `icon-blue`, `icon-orange`, `icon-white-blue-glyph` | Any                                                                                       |
+| Glyph only ("on" + heart, no square) | `glyph-blue-orange-heart`, `glyph-white`, `glyph-white-orange-heart`, `glyph-blue`      | Watermarks, loaders                                                                       |
+| Heart                                | `heart-orange`, `heart-blue`, `heart-white`                                             | Bullets, likes, accents                                                                   |
+| `*-currentcolor.svg`                 | wordmark, glyph, heart                                                                  | Paste inline into HTML; they take the CSS `color` of their parent (good for hover states) |
 
-Two brand colours, both from the UN Volunteers / International Volunteer Day brand guide.
+## Quick code
 
-| Role | Hex | On white | Use |
-|---|---|---|---|
-| **Blue — the platform** | `#007FC2` | 4.36:1 | the mark, icons, structure, navigation, large graphics |
-| Blue deep | `#005E92` | 6.96:1 | body text, small labels, white-on-blue buttons |
-| **Orange — the volunteer** | `#E85D30` | 3.48:1 | confirmations, achievement, highlights, large graphics |
-| Orange deep | `#B34917` | 5.41:1 | orange text, white-on-orange buttons |
-| Ink | `#222B33` | 14.37:1 | body copy, wordmark |
-| Knockout | `#FFFFFF` | — | on blue, orange or ink |
+```html
+<!-- Header logo -->
+<a href="/" class="logo">
+  <img src="/svg/lockup-blue-orange-heart.svg" alt="Volontyorlar" height="40" />
+</a>
 
-**Role split.** Blue is the institution: navigation, structure, primary actions, the mark. Orange is the person: a confirmed hour, a level reached, a thank-you. That is Ruler 70 / Hero 30, expressed in colour. Rationing the orange is what keeps it meaning something.
+<!-- Recolourable inline wordmark: paste the contents of wordmark-currentcolor.svg -->
+<span style="color:#007FC2">…inline svg…</span>
+```
 
-**60-30-10.** White dominates. Blue carries structure. Orange appears only where a person did something.
+**Favicons:** copy everything in `favicon/` to the site root and paste `favicon/head-snippet.html`
+into `<head>`. Replace `YOUR-DOMAIN` in the social tags and upload `social/og-image-1200x630.png`.
 
-### Three colour rules that are not negotiable
+SVG sizes: the wordmark is 1000 × 210.74 (ratio ≈ 4.75 : 1), the icon 1000 × 1000,
+the lockups 1657 × 400 (`lockup-white` ≈ 1721 × 400). Set only `height` (or only `width`) in HTML so they scale in proportion.
 
-1. **The mark is never two-colour.** `#007FC2` and `#E85D30` sit at almost identical luminance — **1.25:1 against each other**, and 1.24:1 once desaturated. In greyscale, one-colour print, embroidery, or for a viewer with colour vision deficiency, an orange dot on a blue arc merges into one flat shape. Every orange and amber from `#EA7B4E` to `#FFCE6D` was tested against the blue: none reaches 3:1, and the ones that come closest fail against white. The mark is blue, ink, or white — one colour at a time.
-2. **Never set orange text on blue, or blue text on orange.** 1.25:1. They also vibrate optically at that luminance.
-3. **`#007FC2` is 4.36:1 on white** — clears the 3:1 graphics threshold, misses the 4.5:1 text floor. Fine for the mark and headings at 24px+ (or 18.66px+ bold). Body text and small button labels use `#005E92`. Same logic for orange: `#E85D30` for graphics, `#B34917` for text.
+## Colours
 
-## Sizes
+| Name   | HEX       | RGB           | Role               |
+| ------ | --------- | ------------- | ------------------ |
+| Blue   | `#007FC2` | 0, 127, 194   | Primary            |
+| Orange | `#E85D30` | 232, 93, 48   | Accent, the heart  |
+| White  | `#FFFFFF` | 255, 255, 255 | Dominant surface   |
+| Slate  | `#5B6B78` | 91, 107, 120  | Body text on light |
+| Muted  | `#9AA8B4` | 154, 168, 180 | Captions, footers  |
 
-- **Minimum size:** 16 px. Verified — the mark holds at 16, 24 and 32 px with no simplification needed.
-- **Clear space:** one dot-radius (20 units at this scale) on every side. It scales with the mark.
+```css
+:root {
+  --vol-blue: #007fc2;
+  --vol-orange: #e85d30;
+  --vol-slate: #5b6b78;
+  --vol-muted: #9aa8b4;
+}
+```
 
-## Files
+## Usage rules (from the brand pack)
 
-| File | Use |
-|---|---|
-| `mark-blue.svg` | primary — stroked path, smallest file, best for web |
-| `mark-blue-outlined.svg` | **stroke converted to a filled path** — use for trademark filing, print, laser cutting, embroidery, and any system that cannot render strokes reliably |
-| `mark-black-outlined.svg` | one-colour black, outlined — trademark filings usually want black-and-white |
-| `mark-ink.svg` / `mark-white.svg` | dark and knockout versions |
-| `icon-blue.svg` / `icon-white.svg` | rounded-square app icon, mark at 78% |
-| `lockup-horizontal.svg` | mark plus wordmark |
-| `png/` | rasters, 16 → 1024 px |
-| `favicon.ico` | multi-resolution, 16 → 256 px |
-
-**On the lockup:** the wordmark is currently set in a system fallback, not final type. It needs a licensed face with U+02BB support (Onest is verified) and then custom letterform adjustment — a descriptive name means the wordmark has to carry the distinctiveness the word cannot.
-
-## Before filing
-
-1. Reverse-image search the mark, and search the WIPO Global Brand Database. A circle above an arc is a common construction — confirm it is clear in your classes before you commit.
-2. File the **composite** (mark plus wordmark) as a figurative mark, and the word mark separately.
-3. Use `mark-black-outlined.svg` for the filing artwork.
-4. Uzbekistan is first-to-file. Register the domain and file in the same week, before any public announcement.
+- Clear space: at least the height of the "o" free on every side of the mark.
+- Minimum size: wordmark 120 px wide; icon 16 px.
+- Never stretch, rotate, add shadows, or recolour the heart to anything but orange, white or blue.
+- On photos use the white versions, and make sure the area behind is dark enough.
+- Type: Century Gothic; web fallback Poppins (Google Fonts), then Futura, Avenir, Arial.

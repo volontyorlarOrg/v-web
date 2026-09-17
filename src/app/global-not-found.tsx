@@ -2,7 +2,7 @@ import { Onest } from "next/font/google";
 import { getTranslations } from "next-intl/server";
 import type { Metadata } from "next";
 
-import { BrandMark } from "@/components/brand/logo";
+import { BrandIcon } from "@/components/brand/logo";
 import { ThemeScript } from "@/components/marketing/theme-script";
 import uzMessages from "@/i18n/messages/uz.json";
 import { defaultLocale, localeNames, locales } from "@/i18n/routing";
@@ -43,7 +43,7 @@ export default async function GlobalNotFound() {
       </head>
       <body className="flex min-h-full flex-col">
         <main className="container-page flex flex-1 flex-col justify-center py-20">
-          <BrandMark className="size-12 text-primary" />
+          <BrandIcon className="size-12" />
           <p className="mt-8 text-xs font-bold tracking-[0.14em] text-ink-muted uppercase">
             404
           </p>

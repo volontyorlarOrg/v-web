@@ -60,14 +60,15 @@ dark, and one token cannot be both.
 
 `src/app/design-tokens.test.ts` parses that file and asserts the whole contrast
 contract, including the deliberate negatives: the two graphics hues must each
-stay *below* 4.5:1 on paper, and every blue/orange pairing must stay below 3:1.
+stay _below_ 4.5:1 on paper, and every blue/orange pairing must stay below 3:1.
 If one of those ever passes, the brand specification has changed and needs a
 real decision rather than a silent drift.
 
 ## Where the two hues appear
 
 Blue carries the header, footer, navigation, buttons, focus ring, eyebrow rules,
-the mark, decorative arcs, and the closing callout band.
+the logo's tile and wordmark, and the closing callout band, where the logo's
+heart sits as a faint white device.
 
 The traction figures are the loudest thing on the site, so they get their own
 colourway: a full-width `band` with knockout numerals over a `primary` hairline
@@ -78,8 +79,8 @@ section rather than a band.
 
 That band is why orange now appears in exactly one place:
 
-| Surface | Treatment |
-| --- | --- |
+| Surface                                  | Treatment                       |
+| ---------------------------------------- | ------------------------------- |
 | The fourth node and number in `StepRail` | `bg-accent` / `text-accent-ink` |
 
 Orange used to carry the traction figures as well. Moving them onto blue was a
@@ -120,36 +121,35 @@ container-relative size fight each other, and the smaller one silently wins.
 
 ## Composition primitives
 
-| Component | Role |
-| --- | --- |
-| `Section` | Vertical rhythm, tone band, hairline boundary, container |
-| `SectionHeader` / `Eyebrow` | Rule-led label, headline, lead sentence |
-| `PageHero` | Opening block for every page below the home page |
-| `StatGrid` | The knockout figure band: display-serif numerals that count up over a drawn rule |
-| `StepRail` | The process rail; blue nodes for Volontyorlar's work, orange for the volunteer's, drawn step by step as it is scrolled |
-| `NameBoard` | Hairline-ruled rows of names for scan-first pages |
-| `ProseSections` | Legal and explanatory pages at one measure |
-| `StatusChip` | Dashed pill for planned or unpublished material; the `status` variant of `Badge` |
-| `SectionBackdrop` | The ambient layer on the toned bands; `sourcing` and `channels` |
-| `Button` / `buttonClass` | The single action styling contract, built with CVA; `Button` renders it, `buttonClass` applies it to a link |
-| `ActionLink` | Chooses a locale-aware link or a safe external anchor |
-| `Badge` | The pill: `default`, `outline` and `status` variants |
-| `Sheet` | The mobile navigation panel: a non-modal Radix dialog that leaves the header interactive |
-| `DropdownMenu` | The language menu; its items are locale links marked `aria-current` |
-| `Switch` | The Radix switch, as a `track` or as an `icon` button carrying its own glyphs |
-| `HeroMapSection` | The home page hero and its scroll-driven map of the fourteen regions |
-| `CountUp` | Counts a figure from 1 to its real value the first time it is scrolled into view |
-| `NumberedRail` | The shared 01–NN hairline rail used for lists that read as a sequence |
-| `WorkField` | The home page's six responsibilities connected by one animated fieldwork route |
-| `Scene` / `SplitWords` | The entry-scene boundary and the word-by-word heading mask; server components that only add markup and classes |
-| `SceneObserver` | The one `IntersectionObserver` that marks scenes entered; mounted once in the marketing layout |
-| `SmoothScroll` | Mounts `lenis` when motion is allowed |
-| `ThemeToggle` | The labelled `Switch` that flips `data-theme` and stores the choice |
-| `NavTabs` | The header tabs, rendered from the provisional item set with the active tab marked |
-| `PageBreadcrumbJsonLd` | The localized home-to-current-page structured-data trail |
-| `Marquee` | The continuously rolling opportunity-source logo strip, with optional grey and color states |
-| `RollingWords` | The hero eyebrow's cycling region name |
-| `BrandSignature` | The oversized footer lockup that writes itself and raises the mark's hands once the reader reaches the bottom of the page |
+| Component                   | Role                                                                                                                   |
+| --------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `Section`                   | Vertical rhythm, tone band, hairline boundary, container                                                               |
+| `SectionHeader` / `Eyebrow` | Rule-led label, headline, lead sentence                                                                                |
+| `PageHero`                  | Opening block for every page below the home page                                                                       |
+| `StatGrid`                  | The knockout figure band: display-serif numerals that count up over a drawn rule                                       |
+| `StepRail`                  | The process rail; blue nodes for Volontyorlar's work, orange for the volunteer's, drawn step by step as it is scrolled |
+| `NameBoard`                 | Hairline-ruled rows of names for scan-first pages                                                                      |
+| `ProseSections`             | Legal and explanatory pages at one measure                                                                             |
+| `StatusChip`                | Dashed pill for planned or unpublished material; the `status` variant of `Badge`                                       |
+| `SectionBackdrop`           | The ambient layer on the toned bands; `sourcing` and `channels`                                                        |
+| `Button` / `buttonClass`    | The single action styling contract, built with CVA; `Button` renders it, `buttonClass` applies it to a link            |
+| `ActionLink`                | Chooses a locale-aware link or a safe external anchor                                                                  |
+| `Badge`                     | The pill: `default`, `outline` and `status` variants                                                                   |
+| `Sheet`                     | The mobile navigation panel: a non-modal Radix dialog that leaves the header interactive                               |
+| `DropdownMenu`              | The language menu; its items are locale links marked `aria-current`                                                    |
+| `Switch`                    | The Radix switch, as a `track` or as an `icon` button carrying its own glyphs                                          |
+| `HeroMapSection`            | The home page hero and its scroll-driven map of the fourteen regions                                                   |
+| `CountUp`                   | Counts a figure from 1 to its real value the first time it is scrolled into view                                       |
+| `NumberedRail`              | The shared 01–NN hairline rail used for lists that read as a sequence                                                  |
+| `WorkField`                 | The home page's six responsibilities connected by one animated fieldwork route                                         |
+| `Scene` / `SplitWords`      | The entry-scene boundary and the word-by-word heading mask; server components that only add markup and classes         |
+| `SceneObserver`             | The one `IntersectionObserver` that marks scenes entered; mounted once in the marketing layout                         |
+| `SmoothScroll`              | Mounts `lenis` when motion is allowed                                                                                  |
+| `ThemeToggle`               | The labelled `Switch` that flips `data-theme` and stores the choice                                                    |
+| `NavTabs`                   | The header tabs, rendered from the provisional item set with the active tab marked                                     |
+| `PageBreadcrumbJsonLd`      | The localized home-to-current-page structured-data trail                                                               |
+| `Marquee`                   | The continuously rolling opportunity-source logo strip, with optional grey and color states                            |
+| `RollingWords`              | The hero eyebrow's cycling region name                                                                                 |
 
 Nothing on the home page is a bordered card. `StatGrid`, `NameBoard` and
 `WorkField` use hairline structure rather than containers. `WorkField` pairs the
@@ -173,22 +173,26 @@ places its rail beside a heading, `/about` centres its rail at one measure, and
 
 ## Brand usage in code
 
-`BrandMark` renders the delivered geometry inline so it inherits `currentColor`
-and costs no request. It appears at 32px in the header and 48px on the 404 page,
-always above the documented 16px minimum.
+The logo components draw the logo kit's own paths inline, so they cost no
+request and follow the theme through tokens rather than through separate files.
 
-`BrandArc` is the arc alone. Large decorative shapes use it so the logo is never
-cropped, tinted, or scaled below its minimum.
+`BrandIcon` is the app icon: the blue tile, the white "on", the orange heart. It
+appears at 48px on the 404 page, always above the kit's 16px minimum.
 
-`BrandMarkRaise` is the same geometry split into its two moving parts — the head
-and the arc drawn with `pathLength="100"` — so the footer signature can pop the
-head and then draw the arc outward from its centre, which reads as the two hands
-going up. It is used only there.
+`BrandWordmark` is the outlined `volontyorlar`. Its letters take `currentColor`
+and its heart is always `logo-orange`.
 
-The organisation name is HTML text in Onest beside the mark, not the delivered
-SVG lockup: an SVG loaded through `<img>` cannot fetch its webfont, so that
-lockup's wordmark renders in a different system face on every platform. See
-[`../brand/BRAND_ASSETS.md`](../brand/BRAND_ASSETS.md).
+`BrandLockup` sets the two to the kit's lockup geometry from one variable,
+`--logo`, the icon's size: the wordmark is `0.6006` of it tall, `0.24` of it
+down, after a gap of `0.3025` of it. At `2.65rem` the wordmark is 120.8px wide,
+just above the kit's 120px minimum, so the lockup is never drawn smaller. Its
+`tone` picks the wordmark colour: `primary` reads `logo-word`, blue in the light
+theme and white in the dark, and `inverse` is white on any theme. The lockup is
+one `role="img"` named by its `name` prop.
+
+`BrandHeart` is the kit's standalone heart in `currentColor`. Large decorative
+shapes use it so the logo is never cropped, tinted, or scaled below its minimum.
+See [`../brand/BRAND_ASSETS.md`](../brand/BRAND_ASSETS.md).
 
 ## Localization behaviour
 
@@ -254,8 +258,6 @@ lockup's wordmark renders in a different system face on every platform. See
 - Each marquee is a labelled group of real list items. The second copy of the
   track is `aria-hidden`, the rows pause on hover and on focus within, and under
   reduced motion the duplicate is removed and the row scrolls by hand.
-- The footer signature is `aria-hidden`: it repeats the organisation name that
-  the lockup, the description and the copyright line already carry as text.
 - The hero map's canvas, its plan-view fallback and its numbered pins are all
   `aria-hidden`. The information they carry — the names of all fourteen regions
   — is a visible, ordered list in the markup beside the caption, so nothing
@@ -279,6 +281,7 @@ lockup's wordmark renders in a different system face on every platform. See
   catalogs, and the footer and sitemap still read `src/lib/routing/routes.ts`.
   When the real information architecture lands, replace the provisional set rather
   than growing it.
-- The header lockup drops to the mark alone below 360px. `Volontyorlar` set beside
-  the mark, the language control and the menu button do not fit a 320px screen
-  together, and the mark is the part that still identifies the site.
+- The header lockup drops to the icon alone below 390px. The wordmark cannot
+  shrink below the kit's 120px minimum, and with the language, theme and menu
+  controls beside it the header needs 386px; the icon is the part that still
+  identifies the site. The footer keeps the whole lockup at every width.

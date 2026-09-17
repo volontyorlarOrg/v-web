@@ -54,11 +54,11 @@ Everything else follows from the source layout in `AGENTS.md`.
 
 This is the one easy mistake in the codebase.
 
-| Helper | Returns | Use with |
-| --- | --- | --- |
-| `navHref("about")` | `/about` | `Link` from `@/i18n/navigation`, which adds the locale itself |
-| `localePath("uz", "about")` | `/uz/about` | Plain anchors, and anything outside the locale segment |
-| `localeUrl("uz", "about")` in `src/lib/seo/urls.ts` | `https://…/uz/about` | Canonical URLs, sitemap, structured data |
+| Helper                                              | Returns              | Use with                                                      |
+| --------------------------------------------------- | -------------------- | ------------------------------------------------------------- |
+| `navHref("about")`                                  | `/about`             | `Link` from `@/i18n/navigation`, which adds the locale itself |
+| `localePath("uz", "about")`                         | `/uz/about`          | Plain anchors, and anything outside the locale segment        |
+| `localeUrl("uz", "about")` in `src/lib/seo/urls.ts` | `https://…/uz/about` | Canonical URLs, sitemap, structured data                      |
 
 Passing a `localePath` result to the locale-aware `Link` produces `/uz/uz/about`.
 The home route is the other trap: its registered path is the empty string, which
@@ -135,7 +135,7 @@ token test reads both blocks.
 Adding a colour means updating `docs/brand/BRAND_ASSETS.md` and adding
 assertions to `src/app/design-tokens.test.ts`. That test encodes the brand's
 non-negotiable rules as executable checks, including the negative ones: brand
-blue and brand orange must each stay *below* the body-text threshold, and every
+blue and brand orange must each stay _below_ the body-text threshold, and every
 blue/orange pairing must stay below 3:1. A new hue needs the same treatment
 against both existing ones, in both themes.
 
@@ -192,18 +192,21 @@ CLI rewrite `globals.css`: its oklch palette would shadow the brand tokens. A
 component nothing uses is not added, and a component that only needs a class
 contract exports its `cva` variants rather than wrapping the element.
 
-For brand marks, `BrandMark` is the logo and must never render below 16px or be
-cropped; `BrandArc` is the derived shape for large decoration.
+For the logo, `BrandLockup` and `BrandIcon` are the logo and must never be
+cropped, with the icon never below 16px and the wordmark never below 120px wide;
+`BrandHeart` is the kit's standalone heart, the shape for large decoration. The
+paths in `brand/logo-paths.ts` come from the logo kit and change only with a new
+kit.
 
 ## Link to something outside the site
 
 Never hard-code an origin. Everything external resolves through a helper:
 
-| Need | Helper |
-| --- | --- |
-| The product application | `appHref(path)` in `src/lib/seo/origin.ts` |
-| A public channel | `channelUrl(id)` in `src/lib/constants/channels.ts` |
-| A call to action | `joinDestination()` / `opportunitiesDestination()` |
+| Need                    | Helper                                              |
+| ----------------------- | --------------------------------------------------- |
+| The product application | `appHref(path)` in `src/lib/seo/origin.ts`          |
+| A public channel        | `channelUrl(id)` in `src/lib/constants/channels.ts` |
+| A call to action        | `joinDestination()` / `opportunitiesDestination()`  |
 
 Application-only destinations return `null` when the app origin is missing;
 community actions may fall back to an internal public page. The interface must

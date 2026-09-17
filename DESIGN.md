@@ -119,7 +119,7 @@ components:
 The site reads like a well-set civic notice pinned to a whiteboard: cool
 blue-white paper with a faint dot grid, dark ink, hairline rules doing the
 structural work, and two brand colours with a job each. Blue is the institution
-— navigation, structure, the mark. Orange is the person, and it appears only
+— navigation, structure, the logo's tile. Orange is the person, and it appears only
 where a person did something. It is confident without shouting, and credible
 enough for the schools, agencies, and partner organisations Volontyorlar depends
 on, while staying young through scale, directness, and plain language rather
@@ -176,7 +176,7 @@ reach for.
 
 ### Blue — the platform
 
-- **Primary `#007FC2`** — the mark, decorative arcs, step nodes. Graphics and
+- **Primary `#007FC2`** — icons, step nodes, large graphics. Graphics and
   type at 24px and above only.
 - **Primary Ink `#005E92`** — links, small labels, solid action fills, and the
   focus ring. This is the token that carries text-sized blue.
@@ -221,17 +221,17 @@ every token in `@theme` and overrides the ones that change under
 script that reads the stored choice, or the system preference when there is
 none; the switch in the header writes it and stores it.
 
-| Token | Dark value | Why |
-| --- | --- | --- |
-| paper | `#0A0E13` | Near-black with a cool cast; "dark black", not navy |
-| surface / surface-sunk / surface-soft | `#131920` / `#0E1319` / `#0F1B28` | Raised, sunk, and blue-tinted, a step apart |
-| ink / ink-muted | `#EDF1F5` / `#A6B1BD` | 17:1 and 9:1 on paper |
-| border / border-control | `#1F2833` / `#5B6774` | Hairline, and 3.3:1 for controls |
-| primary / primary-ink | `#3AA0E4` / `#6FBFF2` | Graphics blue and text blue, both legible on black |
-| primary-deep / primary-muted | `#0B3D63` / `#9ECDEC` | Inverse-button hover pairing, 6.7:1 |
-| action / action-hover | `#0E6FB2` / `#1178BF` | White labels at 5.3:1 and 4.7:1 |
-| band / band-copy | `#0D1E31` / `#A9CFEA` | Navy band, 10:1 copy |
-| accent-ink | `#F08A55` | 7.8:1 on paper; `accent` itself is unchanged |
+| Token                                 | Dark value                        | Why                                                 |
+| ------------------------------------- | --------------------------------- | --------------------------------------------------- |
+| paper                                 | `#0A0E13`                         | Near-black with a cool cast; "dark black", not navy |
+| surface / surface-sunk / surface-soft | `#131920` / `#0E1319` / `#0F1B28` | Raised, sunk, and blue-tinted, a step apart         |
+| ink / ink-muted                       | `#EDF1F5` / `#A6B1BD`             | 17:1 and 9:1 on paper                               |
+| border / border-control               | `#1F2833` / `#5B6774`             | Hairline, and 3.3:1 for controls                    |
+| primary / primary-ink                 | `#3AA0E4` / `#6FBFF2`             | Graphics blue and text blue, both legible on black  |
+| primary-deep / primary-muted          | `#0B3D63` / `#9ECDEC`             | Inverse-button hover pairing, 6.7:1                 |
+| action / action-hover                 | `#0E6FB2` / `#1178BF`             | White labels at 5.3:1 and 4.7:1                     |
+| band / band-copy                      | `#0D1E31` / `#A9CFEA`             | Navy band, 10:1 copy                                |
+| accent-ink                            | `#F08A55`                         | 7.8:1 on paper; `accent` itself is unchanged        |
 
 `src/app/design-tokens.test.ts` runs the same contrast contract against both
 blocks. The one rule it does not repeat in the dark is the negative one on the
@@ -241,7 +241,7 @@ as text; on a black ground those values happen to pass, and that is fine.
 ### Named rules
 
 **The Role Split.** Blue is the institution, orange is the person. Navigation,
-structure, primary actions, and the mark are blue. A confirmed hour, a level
+structure, and primary actions are blue. A confirmed hour, a level
 reached, a thank-you, a number that counts what people did — orange. Anything
 that is not clearly one of those is blue. Rationing the orange is what keeps it
 meaning something.
@@ -253,8 +253,9 @@ or `band`, never on `primary-ink` directly: in the light theme they are the same
 colour, in the dark theme they are not, and a component that reaches for
 `primary-ink` as a fill breaks the moment the lights go off.
 
-**The Hues Never Touch.** Blue and orange are 1.25:1 apart. No two-colour mark,
-no orange on blue, no blue on orange. This is why the regions band keeps white
+**The Hues Never Touch.** Blue and orange are 1.25:1 apart. No orange on blue,
+no blue on orange. The logo's orange heart is the kit's own drawing, a separate
+shape that never sits on the blue, and it is the only exception. This is why the regions band keeps white
 figures on blue even though 500+ applications is exactly the kind of number
 orange would otherwise claim.
 
@@ -273,7 +274,7 @@ everything else. See [Two faces](#two-faces) for why, and for the rule that the
 serif is never set bold.
 
 **Character:** both faces carry Russian Cyrillic and U+02BB, the turned comma
-Uzbek needs in *oʻ* and *gʻ*. Onest is the face the delivered logo specification
+Uzbek needs in _oʻ_ and _gʻ_. Onest is the face the earlier logo specification
 verified; the serif was checked against the same two requirements before it was
 adopted, because a display face that cannot set `Fargʻona` is unusable here.
 
@@ -326,7 +327,7 @@ board, not a mood.
 
 Actions and chips are full-radius pills. Everything else grows with scale: 10px
 small controls, 14px inner surfaces, 20px larger panels, 28px on the closing
-callout. Circles belong to the mark's dot and to the step nodes. Borders are thin
+callout. Circles belong to the step nodes. Borders are thin
 and quiet, and most groupings use a hairline rule instead of a border.
 
 ## Components
@@ -373,8 +374,8 @@ reinforces it.
 
 ### Navigation
 
-A 64px bar on mobile and 80px from the large breakpoint: mark plus organisation
-name, the tabs, a compact utility cluster, and one action. The tabs come from
+A 64px bar on mobile and 80px from the large breakpoint: the logo lockup, the
+tabs, a compact utility cluster, and one action. The tabs come from
 `HEADER_NAV_ITEMS` in `src/lib/content/nav-tabs.ts`, a provisional set that points
 at registered routes and home-page anchors until the real information
 architecture lands; the active tab is marked with `aria-current`. The utility
@@ -412,10 +413,6 @@ JavaScript. The curve is one ease (`--ease-scene`), the durations sit around a
 second, and a word stagger is 45ms. Nothing scrubs with the scroll position
 except the devices named below; an entry is time-based, like a curtain going
 up, not a slider.
-
-The footer signature is the one scene that waits for the reader to arrive: the
-wordmark writes itself, the head pops and the two hands go up only once the
-whole band is on screen, which for the last band on the page means the bottom.
 
 Scrolling itself is smoothed by `lenis`, so the scenes and the map play against
 an eased scroll rather than a stepped one. Touch keeps native momentum.
@@ -465,12 +462,15 @@ thing in the band.
 
 ## Brand usage
 
-The mark is used at 32px in the header and 48px on the 404 page, always above
-its documented 16px minimum, never cropped or recoloured in parts. Large
-decorative shapes use the arc alone, which is a derived graphic device rather
-than the logo. The organisation name is set as real HTML text next to the mark
-instead of using the delivered SVG lockup, whose wordmark cannot load its
-typeface. See `docs/brand/BRAND_ASSETS.md`.
+The header and footer carry the kit's lockup: the icon at 42.4px and the
+wordmark beside it at 120.8px wide, just above the kit's 120px minimum. Below
+390px the header shows the icon alone, because the wordmark cannot shrink and
+the language, theme and menu controls still need their room. The 404 page uses
+the icon at 48px. On dark surfaces the wordmark turns white and the heart stays
+orange, the kit's variant for blue and dark grounds. The closing call to action
+uses the heart alone, knocked back to 12% white, as a large decorative device;
+it is the kit's standalone heart, so the logo itself is never cropped. See
+`docs/brand/BRAND_ASSETS.md`.
 
 ## Do's and don'ts
 
@@ -498,4 +498,5 @@ typeface. See `docs/brand/BRAND_ASSETS.md`.
 - **Don't** put a literal hex value in a component.
 - **Don't** claim live opportunities, active authentication, or partners that
   are not in `PRODUCT.md`.
-- **Don't** render the mark below 16px or crop it for decoration.
+- **Don't** render the icon below 16px or the wordmark below 120px wide, or crop
+  the logo for decoration; the heart alone is the decorative device.

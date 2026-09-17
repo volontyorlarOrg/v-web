@@ -20,24 +20,24 @@ flowchart LR
 
 ## Module ownership
 
-| Location | Responsibility |
-| --- | --- |
-| `src/proxy.ts` | Sends a prefix-less URL to a locale using `Accept-Language`; the only non-static code path |
-| `src/app/[locale]/layout.tsx` | Root document, `lang`, typeface, and the client message subset |
-| `src/app/[locale]/(marketing)/layout.tsx` | Skip link, header, main landmark, footer |
-| `src/app/[locale]/(marketing)/*/page.tsx` | The seven public pages |
-| `src/app/robots.ts`, `src/app/sitemap.ts` | Crawl policy and the localized sitemap |
-| `src/app/global-not-found.tsx` | 404 for unmatched URLs; required because the root layout sits under a dynamic segment |
-| `src/app/globals.css` | Tailwind import, design tokens, base layer, container utility |
-| `src/i18n/` | Locale definition, navigation helpers, request config, message catalogs |
-| `src/lib/routing/routes.ts` | Framework-agnostic public route registry and locale-relative path builders |
-| `src/lib/seo/` | Origin and absolute URL helpers, metadata, and JSON-LD builders |
-| `src/lib/content/` | Verified organisation facts, call-to-action resolution, and provisional header navigation |
-| `src/lib/theme.ts` | Theme preference, the inline boot script, and the `data-motion` flag |
-| `src/lib/map/` | Generated region geometry, localised region names, SVG path helpers |
-| `src/lib/constants/` | Validated external channel configuration |
-| `src/components/ui/` | shadcn/ui components: `Button` and `buttonClass`, `Badge`, `Sheet`, `DropdownMenu`, `Switch` |
-| `src/components/{brand,marketing}/` | Brand marks, page composition |
+| Location                                  | Responsibility                                                                               |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `src/proxy.ts`                            | Sends a prefix-less URL to a locale using `Accept-Language`; the only non-static code path   |
+| `src/app/[locale]/layout.tsx`             | Root document, `lang`, typeface, and the client message subset                               |
+| `src/app/[locale]/(marketing)/layout.tsx` | Skip link, header, main landmark, footer                                                     |
+| `src/app/[locale]/(marketing)/*/page.tsx` | The seven public pages                                                                       |
+| `src/app/robots.ts`, `src/app/sitemap.ts` | Crawl policy and the localized sitemap                                                       |
+| `src/app/global-not-found.tsx`            | 404 for unmatched URLs; required because the root layout sits under a dynamic segment        |
+| `src/app/globals.css`                     | Tailwind import, design tokens, base layer, container utility                                |
+| `src/i18n/`                               | Locale definition, navigation helpers, request config, message catalogs                      |
+| `src/lib/routing/routes.ts`               | Framework-agnostic public route registry and locale-relative path builders                   |
+| `src/lib/seo/`                            | Origin and absolute URL helpers, metadata, and JSON-LD builders                              |
+| `src/lib/content/`                        | Verified organisation facts, call-to-action resolution, and provisional header navigation    |
+| `src/lib/theme.ts`                        | Theme preference, the inline boot script, and the `data-motion` flag                         |
+| `src/lib/map/`                            | Generated region geometry, localised region names, SVG path helpers                          |
+| `src/lib/constants/`                      | Validated external channel configuration                                                     |
+| `src/components/ui/`                      | shadcn/ui components: `Button` and `buttonClass`, `Badge`, `Sheet`, `DropdownMenu`, `Switch` |
+| `src/components/{brand,marketing}/`       | Brand marks, page composition                                                                |
 
 The exhaustive file ownership map is in
 [`REPOSITORY_INVENTORY.md`](REPOSITORY_INVENTORY.md).
@@ -127,18 +127,18 @@ renderer for it, because the scene is a fixed set of meshes driven by one number
 and pinning `@react-three/fiber` would tie this repository's React version to
 that package's peer range.
 
-| File | Responsibility |
-| --- | --- |
-| `scripts/build-region-geometry.mjs` | Regenerates the geometry from Natural Earth; run by hand, not in the build |
-| `src/lib/map/region-geometry.ts` | Generated: simplified, projected rings and pin anchors |
-| `src/lib/map/regions.ts` | Joins the geometry to Uzbek, Russian and English names, plus the locative form the eyebrow reads |
-| `src/lib/map/svg-path.ts` | Rings to SVG path data, shared with the fallback |
-| `hero-map-section.tsx` | Server: resolves hero copy, caption and region names |
-| `hero-map-flat.tsx` | Server: the plan-view SVG everything falls back to |
-| `hero-map-stage.tsx` | Client: the sticky runway, scroll progress, the room measured from the DOM, copy layers, pins, region index |
-| `timeline.ts` | The three acts as pure curves; imported by the scene and the stage, covered by unit tests |
-| `framing.ts` | The frame each act fits the map into and the exact perspective fit; pure functions covered by unit tests |
-| `scene.ts` | The three.js scene; imported dynamically, so it is its own chunk |
+| File                                | Responsibility                                                                                              |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| `scripts/build-region-geometry.mjs` | Regenerates the geometry from Natural Earth; run by hand, not in the build                                  |
+| `src/lib/map/region-geometry.ts`    | Generated: simplified, projected rings and pin anchors                                                      |
+| `src/lib/map/regions.ts`            | Joins the geometry to Uzbek, Russian and English names, plus the locative form the eyebrow reads            |
+| `src/lib/map/svg-path.ts`           | Rings to SVG path data, shared with the fallback                                                            |
+| `hero-map-section.tsx`              | Server: resolves hero copy, caption and region names                                                        |
+| `hero-map-flat.tsx`                 | Server: the plan-view SVG everything falls back to                                                          |
+| `hero-map-stage.tsx`                | Client: the sticky runway, scroll progress, the room measured from the DOM, copy layers, pins, region index |
+| `timeline.ts`                       | The three acts as pure curves; imported by the scene and the stage, covered by unit tests                   |
+| `framing.ts`                        | The frame each act fits the map into and the exact perspective fit; pure functions covered by unit tests    |
+| `scene.ts`                          | The three.js scene; imported dynamically, so it is its own chunk                                            |
 
 Three properties are load-bearing:
 
@@ -170,10 +170,10 @@ everything. The schedule lives in `timeline.ts` as pure functions, so the acts
 can be asserted without a canvas; `scene.render()` returns the same curves the
 component needs.
 
-| Progress | Act | What happens |
-| --- | --- | --- |
-| 0 → 0.30 | `emerge` | A survey rule expands and opens the map upward from the lower frame. The board rises into a near plan view as the hero copy retires behind the handoff. |
-| 0.32 → 0.70 | `reveal` | All fourteen regions lift off the base plate one at a time, west to east, each raising a leader line and its numbered pin, while the board tips to 33°. |
+| Progress    | Act      | What happens                                                                                                                                                                                                                                                          |
+| ----------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 0 → 0.30    | `emerge` | A survey rule expands and opens the map upward from the lower frame. The board rises into a near plan view as the hero copy retires behind the handoff.                                                                                                               |
+| 0.32 → 0.70 | `reveal` | All fourteen regions lift off the base plate one at a time, west to east, each raising a leader line and its numbered pin, while the board tips to 33°.                                                                                                               |
 | 0.76 → 0.94 | `settle` | The board tips on to 46° and rises into the settled frame — the part of the panel above the caption — while the caption and the region index rise in beneath it. The final 6% of the runway holds the finished composition, so it is at rest when the panel releases. |
 
 The gap between the acts is the point. Settling the board while regions were
@@ -223,7 +223,7 @@ colour on every tile face.
 
 Regions are not marked with pins stuck into a flat map. The map is built as a
 base plate with the fourteen regions as separate tiles sitting on it, each
-inset from its neighbours by a constant *distance* — the inset is computed per
+inset from its neighbours by a constant _distance_ — the inset is computed per
 region from its own radius, so a hairline gap reads the same on Karakalpakstan
 and on Tashkent city. As progress runs, the tiles lift off the plate and the
 gap under them opens, which is what makes the country legible as fourteen
@@ -248,16 +248,16 @@ defines one frame per act and `frameFor()` interpolates between them on the act
 curves, so a frame is never chosen by viewport aspect or by special-casing a
 breakpoint:
 
-| Frame | Where it is |
-| --- | --- |
+| Frame    | Where it is                                                                                                                                                                                  |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | backdrop | From the measured bottom of the hero copy plus a gap down to one panel height further, top-aligned, so the map hangs from under the buttons on every width and is cropped by the bottom edge |
-| stage | The whole panel inside the room kept for pins — 44px at the sides, 40px above, 32px below |
-| settled | The stage frame with its bottom raised by the caption layer's measured height plus a gap |
+| stage    | The whole panel inside the room kept for pins — 44px at the sides, 40px above, 32px below                                                                                                    |
+| settled  | The stage frame with its bottom raised by the caption layer's measured height plus a gap                                                                                                     |
 
 `fitCamera()` solves the perspective fit exactly. For every silhouette point —
 the convex hull of the country at plate level and again at the top of the
 tallest leader, plus each leader's own position — it computes the camera
-distance that keeps that point inside the frame *at its own depth*, then the
+distance that keeps that point inside the frame _at its own depth_, then the
 offset that lands the hull's centre on the frame's centre, or its topmost point
 on the frame's top edge for a top-aligned frame. The map group is what moves;
 the camera only backs off. `framing.test.ts` projects a slab through the
@@ -292,7 +292,7 @@ nothing in `src/lib/content/org.ts` supports one.
 
 Names are not written on the map. Fourteen name chips over a board that tips
 and moves cannot all fit: on a phone they overlap at any angle, and the
-collision solver that used to place them earned its keep by *hiding* the losers,
+collision solver that used to place them earned its keep by _hiding_ the losers,
 so the regions a reader most wanted to find were the ones that disappeared.
 
 The map instead carries a numbered pin per region, and the names live in an
@@ -372,11 +372,11 @@ load with the same curve and delays.
 
 What still scrubs with the scroll position is deliberate, and unchanged:
 
-| Class | Used for |
-| --- | --- |
-| `work-field-*` | The home page responsibility route carries one blue signal through six fully visible items |
+| Class                                                                      | Used for                                                                                                                   |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `work-field-*`                                                             | The home page responsibility route carries one blue signal through six fully visible items                                 |
 | `process` / `rail-line` / `rail-head` / `process-node` / `process-content` | The step rail runs as a process: the connector fills, a head travels along it, and each step lights as the head reaches it |
-| `marquee` | The opportunity-source row rolls continuously, pausing on hover and focus |
+| `marquee`                                                                  | The opportunity-source row rolls continuously, pausing on hover and focus                                                  |
 
 Only two things below the hero are not CSS. `CountUp` needs a formatted number
 on every frame, and `RollingWords` needs to mount a new word and retire the old
@@ -389,7 +389,7 @@ for both. And `overflow: hidden` is never used on an ancestor of a
 scroll-driven element: `hidden` makes an element a scroll container, so
 `view()` resolves against that box instead of the viewport and the animation is
 finished before it is ever seen. Where clipping is needed above one of these —
-the footer signature's band, and the mask each letter or word rises out of — it
+the mask each letter or word rises out of — it
 is `overflow: clip`, which clips without becoming a scroll container.
 
 ## Smooth scrolling
@@ -402,13 +402,12 @@ native momentum. The base layer carries the four Lenis rules (natural height,
 no native smooth scrolling while Lenis is active, contained overscroll in
 `[data-lenis-prevent]`, clipped overflow while stopped).
 
-The footer signature is the one scene that waits for the reader to arrive
-rather than approach. `Scene` takes `trigger="full"`, and the observer watches
-that band with `threshold: 1`, so the wordmark writes itself letter by letter,
-the head pops and the two hands sweep up only once the whole band is on screen
-— which, for the last band on the page, means the reader has reached the
-bottom, as on wisprflow.ai. A band taller than the viewport falls back to the
-ordinary entry trigger so it can never wait forever.
+`Scene` also takes `trigger="full"`, for a scene that should wait for the
+reader to arrive rather than approach: the observer watches that band with
+`threshold: 1`, so it plays only once the whole band is on screen. A band taller
+than the viewport falls back to the ordinary entry trigger so it can never wait
+forever. It was built for the footer signature, which went with the
+circle-and-arc mark, and nothing uses it now.
 
 One place does not animate against its own box, and it names a timeline on an
 ancestor instead.
@@ -470,15 +469,15 @@ the map is flat-shaded enough that the difference is invisible.
 
 ## Configuration decisions
 
-| Setting | Where | Why |
-| --- | --- | --- |
-| `localePrefix: "always"` | `src/i18n/routing.ts` | One locale per URL, so a canonical URL can never render two languages |
-| `localeCookie` scoped to the derived shared domain | `src/i18n/routing.ts`, `src/lib/preferences.ts` | The URL is still the only language state a page renders from, so localized pages stay static and cacheable. The cookie is read only to choose a locale for a prefix-less entry, which lets a language picked in the volunteer application hold here and back |
-| `alternateLinks: false` | `src/i18n/routing.ts` | Alternates are emitted by the metadata layer instead, so they live with the canonical URLs rather than in a response header |
-| `timeZone: "Asia/Tashkent"` | `src/i18n/request.ts` | Fixed, so server and client format dates identically for every visitor |
-| `experimental.globalNotFound` | `next.config.ts` | The root layout sits under `[locale]`, so a 404 for an unmatched URL cannot be composed from a layout |
-| Proxy `matcher` | `src/proxy.ts` | Skips API routes, Next internals, and anything containing a dot, so static assets never pay for a proxy hop |
-| Theme in a shared cookie, not `localStorage` | `src/lib/preferences.ts`, `src/lib/theme.ts` | `localStorage` is keyed by origin, so a theme chosen here was invisible to the app subdomain. A cookie on the domain both share is visible to both and ignores the port, so it also works across 3000/3001 locally. The scope is derived from `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_APP_ORIGIN`, so there is no extra variable to set. Nothing reads it on the server, so pages stay static; the inline boot script still applies it before paint and adopts an older `localStorage` value once |
+| Setting                                            | Where                                           | Why                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| -------------------------------------------------- | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `localePrefix: "always"`                           | `src/i18n/routing.ts`                           | One locale per URL, so a canonical URL can never render two languages                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| `localeCookie` scoped to the derived shared domain | `src/i18n/routing.ts`, `src/lib/preferences.ts` | The URL is still the only language state a page renders from, so localized pages stay static and cacheable. The cookie is read only to choose a locale for a prefix-less entry, which lets a language picked in the volunteer application hold here and back                                                                                                                                                                                                                                      |
+| `alternateLinks: false`                            | `src/i18n/routing.ts`                           | Alternates are emitted by the metadata layer instead, so they live with the canonical URLs rather than in a response header                                                                                                                                                                                                                                                                                                                                                                       |
+| `timeZone: "Asia/Tashkent"`                        | `src/i18n/request.ts`                           | Fixed, so server and client format dates identically for every visitor                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| `experimental.globalNotFound`                      | `next.config.ts`                                | The root layout sits under `[locale]`, so a 404 for an unmatched URL cannot be composed from a layout                                                                                                                                                                                                                                                                                                                                                                                             |
+| Proxy `matcher`                                    | `src/proxy.ts`                                  | Skips API routes, Next internals, and anything containing a dot, so static assets never pay for a proxy hop                                                                                                                                                                                                                                                                                                                                                                                       |
+| Theme in a shared cookie, not `localStorage`       | `src/lib/preferences.ts`, `src/lib/theme.ts`    | `localStorage` is keyed by origin, so a theme chosen here was invisible to the app subdomain. A cookie on the domain both share is visible to both and ignores the port, so it also works across 3000/3001 locally. The scope is derived from `NEXT_PUBLIC_SITE_URL` and `NEXT_PUBLIC_APP_ORIGIN`, so there is no extra variable to set. Nothing reads it on the server, so pages stay static; the inline boot script still applies it before paint and adopts an older `localStorage` value once |
 
 `global-not-found.tsx` bypasses the layout tree, which is why it re-imports the
 global stylesheet and the typeface. It sits outside `[locale]` and cannot know

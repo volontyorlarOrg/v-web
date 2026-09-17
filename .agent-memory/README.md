@@ -18,6 +18,8 @@ folder. Never store secrets or unverified external claims.
   indexed until a canonical origin is configured
 - `decisions/two-brand-hues-with-a-role-split.md` — blue for the institution,
   orange for the person, and why they may never touch
+- `decisions/logo-kit-drawn-inline.md` — why the logo kit is drawn from inline
+  paths, why it has its own tokens, and how its 120px minimum sets the header
 - `decisions/source-files-carry-no-comments.md` — where the explanations went
 - `decisions/three-js-scoped-to-the-hero-map.md` — why WebGL is allowed on one
   surface, and the three conditions it has to keep meeting
@@ -30,7 +32,6 @@ folder. Never store secrets or unverified external claims.
   onto the brand tokens, why the navigation sheet is not modal, and why the
   application libraries stay out
 - `gotchas/product-brief-is-not-live-state.md` — what may and may not be claimed
-- `gotchas/svg-lockup-wordmark-font.md` — why the delivered lockup is not used
 - `gotchas/scroll-driven-reveals-are-blank-off-screen.md` — why the old
   scroll reveals went, and the bar the entry scenes had to clear
 - `gotchas/next-intl-provider-ships-every-message.md` — how to avoid shipping

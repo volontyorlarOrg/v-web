@@ -13,7 +13,9 @@ one blue. See `DESIGN.md`.
 **Typeface.** Onest, one family, replaces Bricolage Grotesque and Manrope.
 Bricolage has no Cyrillic subset, so it cannot set Russian headings at all —
 that alone decided it. Onest also carries U+02BB, the turned comma Uzbek needs,
-which `docs/brand/LOGO_SPEC.md` had already verified for the wordmark.
+which the logo specification of the time (now
+`docs/brand/reference/circle-arc-logo-spec.md`) had already verified for the
+wordmark.
 
 **Locales.** `next-intl` with `uz` default, `ru`, `en`, prefix always present,
 no locale cookie, no `localStorage`. The i18next trio that was installed had

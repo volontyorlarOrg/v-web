@@ -22,11 +22,11 @@ contacts organisers, sources events, builds partnerships, supplies volunteers,
 and is building regional operations toward all 14 regions.
 
 Do not call the product "Youth Volunteer Club", "YVC", "Youth Volunteering
-Community", or "Volontyor"; all four names are retired. The delivered logo
-lockup carries a `volontyorlar` wordmark that now matches the product name, and
-the site still renders the organisation name as real text next to the mark
-rather than using the lockup, because the lockup's wordmark cannot fetch its
-webfont — see `docs/brand/BRAND_ASSETS.md`.
+Community", or "Volontyor"; all four names are retired. The logo is the
+Volontyorlar web logo kit — the "on" icon with its orange heart and the outlined
+`volontyorlar` wordmark — drawn inline by `src/components/brand/logo.tsx` from
+the kit's own paths, with the kit's files installed under `public/logo/`; see
+`docs/brand/BRAND_ASSETS.md`.
 
 The founders are named and given a role, and nothing more. There is no sourced
 biography for either of them, so `/about` lists their names beside "Co-founder"
@@ -115,11 +115,12 @@ docs/                          -> stable project documentation
 - Add a public page by registering it in `src/lib/routing/routes.ts`; anything
   else is invisible to the navigation and the sitemap.
 - Two brand colours with a role each. **Blue is the institution**: navigation,
-  structure, primary actions, the mark. **Orange is the person**: a confirmed
-  hour, a level reached, the volunteer's own step. Blue and orange sit
-  1.25:1 apart and must never be combined — no two-colour mark, no orange on
-  blue, no blue on orange. Each hue has a graphics value (`#007FC2`, `#E85D30`,
-  24px and above) and a text value (`#005E92`, `#B34917`). The palette defines
+  structure, primary actions. **Orange is the person**: a confirmed hour, a
+  level reached, the volunteer's own step. Blue and orange sit 1.25:1 apart and
+  never meet in the interface — no orange on blue, no blue on orange. The logo
+  is the one place both appear, and only as the kit drew it: the heart is its
+  own shape beside the blue, never on it. Each hue has a graphics value
+  (`#007FC2`, `#E85D30`, 24px and above) and a text value (`#005E92`, `#B34917`). The palette defines
   no red. Use semantic tokens, never a literal hex. Solid fills use `action`
   and `band`, never `primary-ink`, so the dark theme can keep the blue that
   carries text apart from the blue that carries a white label.

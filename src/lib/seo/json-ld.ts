@@ -27,7 +27,7 @@ export function organizationJsonLd({
     name,
     description,
     url: localeUrl(locale, "home"),
-    logo: marketingUrl("/logo/png/mark-blue-512.png"),
+    logo: marketingUrl("/logo/png/icon/icon-blue-orange-heart-512w.png"),
     foundingDate: FOUNDED_ON,
     founder: FOUNDERS.map((founder) => ({
       "@type": "Person",
