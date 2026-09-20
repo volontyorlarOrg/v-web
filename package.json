@@ -46,7 +46,7 @@
     "shadcn": "^4.21.0",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vitest": "^4.1.11"
+    "vitest": "^5.0.1"
   },
   "comments": {
     "overrides.postcss": "Security floor: keep PostCSS at or above 8.5.23."
