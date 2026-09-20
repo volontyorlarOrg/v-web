@@ -3,9 +3,11 @@
 ## Implemented
 
 A single Next.js 16 App Router application: React 19, strict TypeScript,
-Tailwind CSS 4, and `next-intl`. Every marketing page is a Server Component and
-is statically generated at build time. There is no API route, database client,
-authentication provider, or backend transport.
+Tailwind CSS 4, and `next-intl`. Marketing pages are Server Components and are
+statically generated at build time. Public volunteer profiles are the narrow
+dynamic exception: they read the privacy-filtered public backend endpoint on
+the server, carry no session, and are never indexed. There is no API route,
+database client, or authentication provider here.
 
 ```mermaid
 flowchart LR
@@ -13,6 +15,8 @@ flowchart LR
   Proxy --> Locale["/[locale] root layout"]
   Locale --> Marketing["(marketing) layout: header, main, footer"]
   Marketing --> Pages["home · about · volunteering · partners · contact · privacy · terms"]
+  Proxy --> Profile["/<username> rewrite · noindex"]
+  Profile --> PublicApi["GET /public/profiles/:username"]
   Locale --> Meta[robots.ts · sitemap.ts · global-not-found.tsx]
   Pages --> Seo[lib/seo metadata and JSON-LD]
   Pages --> Facts[lib/content verified facts]
@@ -20,24 +24,26 @@ flowchart LR
 
 ## Module ownership
 
-| Location                                  | Responsibility                                                                               |
-| ----------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `src/proxy.ts`                            | Sends a prefix-less URL to a locale using `Accept-Language`; the only non-static code path   |
-| `src/app/[locale]/layout.tsx`             | Root document, `lang`, typeface, and the client message subset                               |
-| `src/app/[locale]/(marketing)/layout.tsx` | Skip link, header, main landmark, footer                                                     |
-| `src/app/[locale]/(marketing)/*/page.tsx` | The seven public pages                                                                       |
-| `src/app/robots.ts`, `src/app/sitemap.ts` | Crawl policy and the localized sitemap                                                       |
-| `src/app/global-not-found.tsx`            | 404 for unmatched URLs; required because the root layout sits under a dynamic segment        |
-| `src/app/globals.css`                     | Tailwind import, design tokens, base layer, container utility                                |
-| `src/i18n/`                               | Locale definition, navigation helpers, request config, message catalogs                      |
-| `src/lib/routing/routes.ts`               | Framework-agnostic public route registry and locale-relative path builders                   |
-| `src/lib/seo/`                            | Origin and absolute URL helpers, metadata, and JSON-LD builders                              |
-| `src/lib/content/`                        | Verified organisation facts, call-to-action resolution, and provisional header navigation    |
-| `src/lib/theme.ts`                        | Theme preference, the inline boot script, and the `data-motion` flag                         |
-| `src/lib/map/`                            | Generated region geometry, localised region names, SVG path helpers                          |
-| `src/lib/constants/`                      | Validated external channel configuration                                                     |
-| `src/components/ui/`                      | shadcn/ui components: `Button` and `buttonClass`, `Badge`, `Sheet`, `DropdownMenu`, `Switch` |
-| `src/components/{brand,marketing}/`       | Brand marks, page composition                                                                |
+| Location                                           | Responsibility                                                                                               |
+| -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `src/proxy.ts`                                     | Localizes marketing routes and rewrites valid root usernames to the private localized profile implementation |
+| `src/app/[locale]/layout.tsx`                      | Root document, `lang`, typeface, and the client message subset                                               |
+| `src/app/[locale]/(marketing)/layout.tsx`          | Skip link, header, main landmark, footer                                                                     |
+| `src/app/[locale]/(marketing)/*/page.tsx`          | The seven public pages                                                                                       |
+| `src/app/[locale]/(public-profile)/`               | Dynamic, server-rendered, non-indexed volunteer profile                                                      |
+| `src/app/robots.ts`, `src/app/sitemap.ts`          | Crawl policy and the localized sitemap                                                                       |
+| `src/app/global-not-found.tsx`                     | 404 for unmatched URLs; required because the root layout sits under a dynamic segment                        |
+| `src/app/globals.css`                              | Tailwind import, design tokens, base layer, container utility                                                |
+| `src/i18n/`                                        | Locale definition, navigation helpers, request config, message catalogs                                      |
+| `src/lib/routing/routes.ts`                        | Framework-agnostic public route registry and locale-relative path builders                                   |
+| `src/lib/seo/`                                     | Origin and absolute URL helpers, metadata, and JSON-LD builders                                              |
+| `src/lib/content/`                                 | Verified organisation facts, call-to-action resolution, and provisional header navigation                    |
+| `src/lib/theme.ts`                                 | Theme preference, the inline boot script, and the `data-motion` flag                                         |
+| `src/lib/map/`                                     | Generated region geometry, localised region names, SVG path helpers                                          |
+| `src/lib/constants/`                               | Validated external channel configuration                                                                     |
+| `src/lib/public-profiles/`                         | Root username routing, public API parsing, and safe profile types                                            |
+| `src/components/ui/`                               | shadcn/ui components: `Button` and `buttonClass`, `Badge`, `Sheet`, `DropdownMenu`, `Switch`                 |
+| `src/components/{brand,marketing,public-profile}/` | Brand marks and page composition                                                                             |
 
 The exhaustive file ownership map is in
 [`REPOSITORY_INVENTORY.md`](REPOSITORY_INVENTORY.md).

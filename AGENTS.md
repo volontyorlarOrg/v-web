@@ -40,13 +40,16 @@ or integrations.
 
 ## Repository boundary
 
-This repository owns the public marketing site only: positioning, public pages,
-partner presentation, SEO, metadata, structured data, legal pages, and links
-into the separate product application.
+This repository owns the public marketing site and the privacy-filtered public
+presentation of volunteer profiles: positioning, public pages, partner
+presentation, SEO, metadata, structured data, legal pages, and links into the
+separate product application.
 
-It does not own volunteer authentication, sessions, dashboards, profiles,
-applications, essays, ratings, attendance records, or admin workflows. Those
-belong to the separate Volontyorlar application. Do not rebuild them here.
+It does not own volunteer authentication, sessions, dashboards, profile
+editing, applications, essays, ratings, attendance records, or admin workflows.
+Those belong to the separate Volontyorlar application. Do not rebuild them
+here. Public profiles consume only the backend's anonymous, privacy-filtered
+contract.
 
 ## Technology stack
 
@@ -69,7 +72,8 @@ navigation sheet, the language menu, the theme switch — come from shadcn/ui on
 names in `globals.css`. Application libraries stay out of this repository:
 TanStack Query, React Hook Form, Zod, nuqs, Zustand, auth SDKs and dashboard
 packages belong to the Volontyorlar application, which owns the forms and
-backend reads a static marketing site does not have.
+authenticated backend reads. The server-rendered public profile is the only
+anonymous backend read in this site.
 
 `three` is the single exception, and it is scoped to one surface: the home
 page's hero map (`src/components/marketing/hero-map/`). It is loaded
@@ -86,12 +90,14 @@ older Next.js knowledge. Middleware is called Proxy in Next.js 16
 
 ```text
 src/app/[locale]/(marketing)/  -> production marketing pages
+src/app/[locale]/(public-profile)/ -> private localized implementation for /<username>
 src/app/{robots,sitemap}.ts    -> crawl policy and localized sitemap
 src/app/manifest.ts            -> web app manifest for installed shortcuts
 src/app/global-not-found.tsx   -> 404 for unmatched URLs (root layout is dynamic)
 src/i18n/                      -> routing, navigation, request config, catalogs
 src/lib/seo/                   -> origin and canonical URL helpers, metadata, JSON-LD, ownership tokens
-src/lib/routing/routes.ts      -> the public route registry
+src/lib/routing/routes.ts      -> the finite marketing route registry
+src/lib/public-profiles/       -> username routing and public API contract
 src/lib/content/               -> verified facts, call-to-action resolution, provisional nav items
 src/lib/constants/             -> configured external channels
 src/lib/theme.ts               -> theme preference, the boot script, the motion flag
@@ -112,8 +118,9 @@ docs/                          -> stable project documentation
 - Keep secrets out of source control. `NEXT_PUBLIC_*` values reach every browser.
 - Every user-facing string exists in `uz`, `ru`, and `en`. Uzbek uses the turned
   comma `ʻ` (U+02BB), Russian uses Cyrillic, and a test enforces key parity.
-- Add a public page by registering it in `src/lib/routing/routes.ts`; anything
-  else is invisible to the navigation and the sitemap.
+- Add a finite marketing page by registering it in `src/lib/routing/routes.ts`;
+  anything else is invisible to the navigation and the sitemap. Username-based
+  public profiles are intentionally unbounded, non-indexed, and excluded.
 - Two brand colours with a role each. **Blue is the institution**: navigation,
   structure, primary actions. **Orange is the person**: a confirmed hour, a
   level reached, the volunteer's own step. Blue and orange sit 1.25:1 apart and

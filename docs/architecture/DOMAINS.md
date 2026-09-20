@@ -5,15 +5,18 @@
 No production hostname is hard-coded anywhere. All origins are read from
 configuration through `src/lib/seo/origin.ts` and `src/lib/constants/channels.ts`:
 
-| Helper | Source | Behaviour when unset |
-| --- | --- | --- |
-| `marketingOrigin()` | `NEXT_PUBLIC_SITE_URL` | Falls back to `http://localhost:3000` |
-| `hasVerifiedMarketingOrigin()` | `NEXT_PUBLIC_SITE_URL` | `false` |
-| `appOrigin()` / `appHref(path)` | `NEXT_PUBLIC_APP_ORIGIN` | `null`; app links are not rendered |
-| `channelUrl('telegram' \| 'instagram')` | `NEXT_PUBLIC_TELEGRAM_URL` / `NEXT_PUBLIC_INSTAGRAM_URL` | `null`; the channel is omitted |
+| Helper                                  | Source                                                   | Behaviour when unset                  |
+| --------------------------------------- | -------------------------------------------------------- | ------------------------------------- |
+| `marketingOrigin()`                     | `NEXT_PUBLIC_SITE_URL`                                   | Falls back to `http://localhost:3000` |
+| `hasVerifiedMarketingOrigin()`          | `NEXT_PUBLIC_SITE_URL`                                   | `false`                               |
+| `appOrigin()` / `appHref(path)`         | `NEXT_PUBLIC_APP_ORIGIN`                                 | `null`; app links are not rendered    |
+| public profile server fetch             | `VOLONTYORLAR_API_URL`                                   | localized temporary-unavailable state |
+| `channelUrl('telegram' \| 'instagram')` | `NEXT_PUBLIC_TELEGRAM_URL` / `NEXT_PUBLIC_INSTAGRAM_URL` | `null`; the channel is omitted        |
 
 Values must be `http(s)` origins; anything else is rejected and treated as
 unset. A configured origin is normalised, so a trailing path is discarded.
+`VOLONTYORLAR_API_URL` is server-only and calls only the backend's public
+profile read endpoint; it must never gain a `NEXT_PUBLIC_` prefix.
 
 `loginDestination(locale)` in `src/lib/content/cta.ts` resolves the sign-in
 action — in the hero, in the desktop header beside "Join us", and in the
@@ -47,15 +50,15 @@ Google accepted the sitemap on the same day.
 
 ## Verified
 
-| Decision | Value | Evidence |
-| --- | --- | --- |
-| Public marketing domain | `https://volontyorlar.uz` | `NEXT_PUBLIC_SITE_URL` in the `env/` store's production file for this project |
-| Product application origin | `https://app.volontyorlar.uz` | `NEXT_PUBLIC_APP_ORIGIN` in the same file, and the Telegram OIDC redirect registered against that host |
-| Hosting provider | Vercel, one project per frontend; the API is a Render service | `env/SERVICE_SETUP.md` and `env/README.md`, which map each production file to its provider |
-| Deployment trigger | A push to `main` | Both frontends deploy from `main` |
-| Authoritative DNS | aHOST (`rdns1`–`rdns3.ahost.uz`) | `dig NS volontyorlar.uz`, answered 2026-09-09 |
-| Canonical host | The apex. `www.volontyorlar.uz` redirects to it, preserving the path | `dig`/`curl` against production, 2026-09-09 |
-| Google ownership | Verified by DNS `TXT` on the apex, as a Search Console **Domain** property | The `google-site-verification=` record is present in the apex `TXT` set |
+| Decision                   | Value                                                                      | Evidence                                                                                               |
+| -------------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Public marketing domain    | `https://volontyorlar.uz`                                                  | `NEXT_PUBLIC_SITE_URL` in the `env/` store's production file for this project                          |
+| Product application origin | `https://app.volontyorlar.uz`                                              | `NEXT_PUBLIC_APP_ORIGIN` in the same file, and the Telegram OIDC redirect registered against that host |
+| Hosting provider           | Vercel, one project per frontend; the API is a Render service              | `env/SERVICE_SETUP.md` and `env/README.md`, which map each production file to its provider             |
+| Deployment trigger         | A push to `main`                                                           | Both frontends deploy from `main`                                                                      |
+| Authoritative DNS          | aHOST (`rdns1`–`rdns3.ahost.uz`)                                           | `dig NS volontyorlar.uz`, answered 2026-09-09                                                          |
+| Canonical host             | The apex. `www.volontyorlar.uz` redirects to it, preserving the path       | `dig`/`curl` against production, 2026-09-09                                                            |
+| Google ownership           | Verified by DNS `TXT` on the apex, as a Search Console **Domain** property | The `google-site-verification=` record is present in the apex `TXT` set                                |
 
 These are recorded here because they are settled, not because they are
 hard-coded. Nothing above appears in source: every origin is still read through
@@ -66,11 +69,11 @@ repository.
 
 ## Needs verification
 
-| Decision | Current evidence |
-| --- | --- |
-| Preview deployment policy | None. Whether previews are reachable, and whether `NEXT_PUBLIC_SITE_URL` is scoped to production, decides whether a preview advertises a canonical URL it does not serve |
-| Rollback procedure | None |
-| Redirect permanence | The `www` redirect answers `307`, which is temporary. Vercel defaults a domain redirect to `307` and offers `308`; until it is `308`, Google is told the move may be undone and may keep the `www` URL alongside the apex. The canonical tag on every `www` page already points at the apex, so this is a weaker signal rather than a broken one |
+| Decision                  | Current evidence                                                                                                                                                                                                                                                                                                                                 |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Preview deployment policy | None. Whether previews are reachable, and whether `NEXT_PUBLIC_SITE_URL` is scoped to production, decides whether a preview advertises a canonical URL it does not serve                                                                                                                                                                         |
+| Rollback procedure        | None                                                                                                                                                                                                                                                                                                                                             |
+| Redirect permanence       | The `www` redirect answers `307`, which is temporary. Vercel defaults a domain redirect to `307` and offers `308`; until it is `308`, Google is told the move may be undone and may keep the `www` URL alongside the apex. The canonical tag on every `www` page already points at the apex, so this is a weaker signal rather than a broken one |
 
 Do not copy hostnames, project identifiers, redirects, or environment values
 from any reference repository. Add them only once they are verified externally

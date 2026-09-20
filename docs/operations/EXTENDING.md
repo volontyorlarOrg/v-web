@@ -24,6 +24,10 @@ Everything else follows from the source layout in `AGENTS.md`.
 
 ## Add a public page
 
+This registry workflow is for indexable marketing pages. The non-indexed,
+username-addressed public profile is the single exception: its unbounded URLs
+must not enter navigation, the sitemap, or `hreflang` output.
+
 1. **Register the route** in `src/lib/routing/routes.ts`. The registry is the
    only list; navigation, footer, sitemap, and canonical URLs all read from it,
    so a page that is not registered is invisible to all four.

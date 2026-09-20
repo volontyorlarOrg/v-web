@@ -21,24 +21,29 @@ describe("security headers", () => {
 
   it("keeps the core document and resource restrictions in every environment", () => {
     for (const secureTransport of [true, false]) {
-      const policy = contentSecurityPolicy({ development: !secureTransport, secureTransport });
+      const policy = contentSecurityPolicy({
+        development: !secureTransport,
+        secureTransport,
+      });
       expect(policy).toContain("default-src 'self'");
       expect(policy).toContain("object-src 'none'");
       expect(policy).toContain("frame-ancestors 'none'");
       expect(policy).toContain("form-action 'self'");
-      expect(policy).toContain("img-src 'self' data:");
+      expect(policy).toContain("img-src 'self' data: https:");
       expect(find(secureTransport, "X-Frame-Options")?.value).toBe("DENY");
-      expect(find(secureTransport, "X-Content-Type-Options")?.value).toBe("nosniff");
+      expect(find(secureTransport, "X-Content-Type-Options")?.value).toBe(
+        "nosniff",
+      );
     }
   });
 
   it("upgrades insecure requests only where there is TLS to upgrade to", () => {
-    expect(contentSecurityPolicy({ development: false, secureTransport: true })).toContain(
-      "upgrade-insecure-requests",
-    );
-    expect(contentSecurityPolicy({ development: true, secureTransport: false })).not.toContain(
-      "upgrade-insecure-requests",
-    );
+    expect(
+      contentSecurityPolicy({ development: false, secureTransport: true }),
+    ).toContain("upgrade-insecure-requests");
+    expect(
+      contentSecurityPolicy({ development: true, secureTransport: false }),
+    ).not.toContain("upgrade-insecure-requests");
   });
 
   it("allows React diagnostics and hot reload connections only in development", () => {
@@ -51,7 +56,9 @@ describe("security headers", () => {
       secureTransport: true,
     });
 
-    expect(developmentPolicy).toContain("script-src 'self' 'unsafe-inline' 'unsafe-eval'");
+    expect(developmentPolicy).toContain(
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+    );
     expect(developmentPolicy).toContain("connect-src 'self' ws:");
     expect(productionPolicy).toContain("script-src 'self' 'unsafe-inline'");
     expect(productionPolicy).toContain("connect-src 'self'");
@@ -59,12 +66,19 @@ describe("security headers", () => {
   });
 
   it("sends HSTS only over a secure transport", () => {
-    expect(find(true, "Strict-Transport-Security")?.value).toContain("max-age=63072000");
+    expect(find(true, "Strict-Transport-Security")?.value).toContain(
+      "max-age=63072000",
+    );
     expect(find(false, "Strict-Transport-Security")).toBeUndefined();
   });
 
   it("never sends a directive that would break a plain-HTTP origin", () => {
-    const policy = contentSecurityPolicy({ development: true, secureTransport: false });
-    expect(policy).not.toMatch(/upgrade-insecure-requests|block-all-mixed-content/);
+    const policy = contentSecurityPolicy({
+      development: true,
+      secureTransport: false,
+    });
+    expect(policy).not.toMatch(
+      /upgrade-insecure-requests|block-all-mixed-content/,
+    );
   });
 });

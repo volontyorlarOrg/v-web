@@ -21,6 +21,13 @@ locale. The `/v1`, `/v2`, and `/v3` exploration routes and the style switcher
 were removed, and an end-to-end test asserts that none of them resolves and that
 no rendered link points at one.
 
+Public volunteer profiles are deliberately outside this registry. Their exact
+address is `/<username>` without a locale prefix; the proxy chooses a display
+locale from `NEXT_LOCALE`, then `Accept-Language`, then Uzbek, and internally
+rewrites to `/[locale]/profiles/[username]`. Product route names are reserved
+before this match. Mixed-case profile paths redirect to lowercase. Direct
+requests to the internal localized path redirect back to the root address.
+
 ## Metadata
 
 `src/lib/seo/metadata.ts` builds every page's metadata from the route key and a
@@ -72,6 +79,11 @@ Indexing is opt-in and keyed on `NEXT_PUBLIC_SITE_URL`:
 
 Each sitemap entry carries the full `hreflang` set, so the three language
 versions are reported as alternates of one another.
+
+Public profile responses always carry `noindex, nofollow` in both metadata and
+`X-Robots-Tag`. They have a canonical root username URL but no sitemap entry or
+`hreflang` alternates. A hidden, generated, management, disabled, merged,
+invalid, or missing profile returns the same `404` page.
 
 ## Ownership verification
 

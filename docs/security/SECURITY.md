@@ -18,12 +18,13 @@ They are built by `src/lib/security/headers.ts`, which `next.config.ts` calls
 with development derived from `NODE_ENV` and secure transport derived from a
 validated HTTPS `NEXT_PUBLIC_SITE_URL`.
 
-The policy is first-party only, which the site can afford because it loads no
-third-party script, style, frame, font, or image:
+The policy keeps scripts, styles, frames, and fonts first-party. HTTPS images
+are allowed because public avatars are served from the configured object-store
+origin:
 
 ```
 default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none';
-form-action 'self'; img-src 'self' data:; font-src 'self';
+form-action 'self'; img-src 'self' data: https:; font-src 'self';
 style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline';
 connect-src 'self'; manifest-src 'self'; upgrade-insecure-requests
 ```

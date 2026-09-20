@@ -16,16 +16,16 @@ locale.
 
 ## Commands
 
-| Command | Purpose |
-| --- | --- |
-| `npm run dev` | Turbopack development server |
-| `npm run dev:webpack` | Webpack development fallback |
-| `npm run lint` | ESLint |
-| `npm run typecheck` | `next typegen` followed by `tsc --noEmit` |
-| `npm run test` | Vitest unit and component tests |
-| `npm run test:e2e` | Playwright smoke suite against a production build |
-| `npm run build` | Webpack production build |
-| `npm run start` | Serve an existing production build |
+| Command                  | Purpose                                                                                |
+| ------------------------ | -------------------------------------------------------------------------------------- |
+| `npm run dev`            | Turbopack development server                                                           |
+| `npm run dev:webpack`    | Webpack development fallback                                                           |
+| `npm run lint`           | ESLint                                                                                 |
+| `npm run typecheck`      | `next typegen` followed by `tsc --noEmit`                                              |
+| `npm run test`           | Vitest unit and component tests                                                        |
+| `npm run test:e2e`       | Playwright smoke suite against a production build                                      |
+| `npm run build`          | Webpack production build                                                               |
+| `npm run start`          | Serve an existing production build                                                     |
 | `npm run verify:release` | Validate the canonical HTTPS origin and configured public URLs without printing values |
 
 `npm run typecheck` runs typegen first because `PageProps`, `LayoutProps`, and
@@ -35,7 +35,7 @@ a clean checkout fails until they exist.
 ## Environment
 
 The site installs, lints, typechecks, tests, and builds with no environment
-variables at all. All seven supported variables are optional and blank in
+variables at all. All eight supported variables are optional and blank in
 `.env.example`; see [`../architecture/DOMAINS.md`](../architecture/DOMAINS.md)
 for what the four origins change, and
 [`../web/SEO_AND_ROUTES.md`](../web/SEO_AND_ROUTES.md) for the three
@@ -44,28 +44,31 @@ it, document it there, and add a value-free placeholder.
 
 Four are `NEXT_PUBLIC_*` because client components read them. The three
 verification tokens are not: only `generateMetadata` reads them, and they reach
-the browser as HTML rather than as bundled JavaScript.
+the browser as HTML rather than as bundled JavaScript. `VOLONTYORLAR_API_URL`
+is also server-only and supplies the anonymous, privacy-filtered public profile
+read; when it is absent, profile URLs show a localized unavailable state.
 
 `.env.local` is untracked and is where a development machine gets working
 values for services that are not wired up yet — a local product origin so the
 sign-in action renders, or a placeholder channel address. Mark them as
 placeholders in the file and replace each one as the real address is confirmed.
-Nothing invented belongs in tracked source. `npm run test:e2e` pins all seven
-variables to empty, so the smoke suite keeps testing the unconfigured
-baseline no matter what a machine has locally.
+Nothing invented belongs in tracked source. `npm run test:e2e` pins the public
+values to empty and points `VOLONTYORLAR_API_URL` at an isolated local stub, so
+the suite covers both the unconfigured marketing baseline and public profiles
+without reading production data.
 
 Never place a Telegram bot token, session key, or database credential in a
 `NEXT_PUBLIC_*` variable. Next.js embeds those values in browser bundles.
 
 ## Testing
 
-| Layer | Tool | Scope |
-| --- | --- | --- |
-| Helpers | Vitest | Route registry, absolute SEO URLs, origin helpers, verification tokens, channel resolution, call-to-action fallbacks, `robots.ts`, `sitemap.ts`, `manifest.ts` |
-| Content | Vitest | Message-catalog key parity, empty and placeholder strings, Uzbek turned comma, Russian Cyrillic |
-| Tokens | Vitest | Contrast contract on every documented colour pairing |
-| Components | Testing Library | Breadcrumb structured data, language menu, mobile navigation sheet keyboard and pointer behaviour |
-| Critical paths | Playwright | Each locale, locale switching, navigation, legal pages, 404, call-to-action destination, absence of exploration routes, horizontal overflow, reduced-motion hero behaviour, crawler endpoints (`robots.txt`, `sitemap.xml`, the manifest and its icons) |
+| Layer          | Tool            | Scope                                                                                                                                                                                                                                                                                                     |
+| -------------- | --------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Helpers        | Vitest          | Route registry, absolute SEO URLs, origin helpers, verification tokens, channel resolution, call-to-action fallbacks, `robots.ts`, `sitemap.ts`, `manifest.ts`                                                                                                                                            |
+| Content        | Vitest          | Message-catalog key parity, empty and placeholder strings, Uzbek turned comma, Russian Cyrillic                                                                                                                                                                                                           |
+| Tokens         | Vitest          | Contrast contract on every documented colour pairing                                                                                                                                                                                                                                                      |
+| Components     | Testing Library | Breadcrumb structured data, language menu, mobile navigation sheet keyboard and pointer behaviour                                                                                                                                                                                                         |
+| Critical paths | Playwright      | Each locale, locale switching, navigation, legal pages, public profile root routing and privacy metadata, 404, call-to-action destination, absence of exploration routes, horizontal overflow, reduced-motion hero behaviour, crawler endpoints (`robots.txt`, `sitemap.xml`, the manifest and its icons) |
 
 Playwright runs the same production smoke suite in Chromium desktop/mobile,
 Firefox desktop, and WebKit mobile projects and builds the site itself through
@@ -74,8 +77,7 @@ Vite plugin in the Vitest config: esbuild reads `jsx: "react-jsx"` from
 `tsconfig.json`, and the plugin would pull in a `@babel/core` major that
 conflicts with the shadcn CLI.
 
-Visual review covers mobile and desktop widths, both themes, and the localized
-404. Reduced motion is verified through Playwright media emulation because it
+Visual review covers mobile and desktop widths, both themes, and the localized 404. Reduced motion is verified through Playwright media emulation because it
 changes both scene visibility and the hero map from a pinned runway to a
 complete, non-pinned layout.
 
@@ -117,9 +119,11 @@ Before a release:
    run the same code the older origin ignores what the newer one writes; nothing
    breaks, the preference simply stops crossing.
 
-Every page is statically generated. The only runtime component is the proxy in
-`src/proxy.ts`, which Vercel runs as middleware; a host that does not run it
-would need the locale redirect replaced with a host-level rule.
+Marketing pages are statically generated. Public volunteer profiles are
+server-rendered on request from the anonymous backend endpoint and are never
+indexed. The proxy in `src/proxy.ts` rewrites `/<username>` to the private
+localized implementation; a host that does not run it would need equivalent
+locale selection, redirects, rewrites, and `X-Robots-Tag` headers.
 
 Getting the deployed site into search results is a separate checklist:
 [`SEARCH_LAUNCH.md`](SEARCH_LAUNCH.md) covers turning indexing on, proving
