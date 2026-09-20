@@ -5,7 +5,9 @@ export type SecurityEnvironment = {
   secureTransport: boolean;
 };
 
-export function configuredTransportIsSecure(origin: string | undefined): boolean {
+export function configuredTransportIsSecure(
+  origin: string | undefined,
+): boolean {
   const raw = origin?.trim();
   if (!raw) return false;
 
@@ -26,7 +28,7 @@ export function contentSecurityPolicy({
     "object-src 'none'",
     "frame-ancestors 'none'",
     "form-action 'self'",
-    "img-src 'self' data:",
+    "img-src 'self' data: https:",
     "font-src 'self'",
     "style-src 'self' 'unsafe-inline'",
     `script-src 'self' 'unsafe-inline'${development ? " 'unsafe-eval'" : ""}`,

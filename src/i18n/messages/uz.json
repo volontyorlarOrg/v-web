@@ -345,5 +345,48 @@
     "title": "Sahifa topilmadi",
     "description": "Bu sahifa mavjud emas yoki koʻchirilgan.",
     "action": "Bosh sahifaga oʻtish"
+  },
+  "publicProfile": {
+    "metaTitle": "{name} — volontyor profili",
+    "metaDescription": "{name}ning Volontyorlardagi ochiq volontyorlik profilini koʻring.",
+    "privacy": "Maxfiylik",
+    "privacyNote": "Bu yerda volontyor ochiq qilishni tanlagan maʼlumotlargina koʻrsatiladi. Aloqa maʼlumotlari va qatnashuv tarixi maxfiy qoladi.",
+    "openLink": "Tashqi havolani ochish",
+    "stats": {
+      "events": "Tadbirlar",
+      "hours": "Soatlar",
+      "xp": "XP"
+    },
+    "levels": {
+      "newcomer": "Yangi",
+      "active": "Faol",
+      "trusted": "Ishonchli",
+      "core": "Yetakchi"
+    },
+    "regions": {
+      "andijan": "Andijon",
+      "bukhara": "Buxoro",
+      "fergana": "Fargʻona",
+      "jizzakh": "Jizzax",
+      "kashkadarya": "Qashqadaryo",
+      "khorezm": "Xorazm",
+      "namangan": "Namangan",
+      "navoiy": "Navoiy",
+      "samarkand": "Samarqand",
+      "sirdaryo": "Sirdaryo",
+      "surkhandarya": "Surxondaryo",
+      "tashkent-region": "Toshkent viloyati",
+      "tashkent-city": "Toshkent shahri",
+      "karakalpakstan": "Qoraqalpogʻiston"
+    },
+    "notFound": {
+      "title": "Profil topilmadi",
+      "body": "Bu volontyor profili mavjud emas yoki ochiq emas.",
+      "home": "Bosh sahifaga oʻtish"
+    },
+    "unavailable": {
+      "title": "Profil vaqtincha mavjud emas",
+      "body": "Hozir bu profilni yuklay olmadik. Birozdan soʻng qayta urinib koʻring."
+    }
   }
 }

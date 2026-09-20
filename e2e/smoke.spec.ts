@@ -40,13 +40,19 @@ test.describe("locale routing", () => {
     await expect(page).toHaveURL(/\/en\/partners$/);
   });
 
-  test("every page declares canonical, alternate, and social URLs", async ({ page }) => {
+  test("every page declares canonical, alternate, and social URLs", async ({
+    page,
+  }) => {
     await page.goto("/en/about");
     await expect(page.locator('link[rel="canonical"]')).toHaveCount(1);
     for (const locale of LOCALES) {
-      await expect(page.locator(`link[rel="alternate"][hreflang="${locale}"]`)).toHaveCount(1);
+      await expect(
+        page.locator(`link[rel="alternate"][hreflang="${locale}"]`),
+      ).toHaveCount(1);
     }
-    await expect(page.locator('link[rel="alternate"][hreflang="x-default"]')).toHaveCount(1);
+    await expect(
+      page.locator('link[rel="alternate"][hreflang="x-default"]'),
+    ).toHaveCount(1);
     await expect(page.locator('meta[property="og:image"]')).toHaveAttribute(
       "content",
       "http://localhost:3000/opengraph-image.png",
@@ -63,7 +69,9 @@ test.describe("locale routing", () => {
 });
 
 test.describe("crawler endpoints", () => {
-  test("robots.txt is served and holds the unconfigured origin back", async ({ page }) => {
+  test("robots.txt is served and holds the unconfigured origin back", async ({
+    page,
+  }) => {
     const response = await page.request.get("/robots.txt");
     expect(response.status()).toBe(200);
 
@@ -73,7 +81,9 @@ test.describe("crawler endpoints", () => {
     expect(body).not.toContain("Sitemap:");
   });
 
-  test("sitemap.xml is served and publishes nothing without an origin", async ({ page }) => {
+  test("sitemap.xml is served and publishes nothing without an origin", async ({
+    page,
+  }) => {
     const response = await page.request.get("/sitemap.xml");
     expect(response.status()).toBe(200);
     expect(response.headers()["content-type"]).toContain("xml");
@@ -83,7 +93,9 @@ test.describe("crawler endpoints", () => {
     expect(body).not.toContain("<loc>");
   });
 
-  test("every page tells crawlers not to index the unconfigured origin", async ({ page }) => {
+  test("every page tells crawlers not to index the unconfigured origin", async ({
+    page,
+  }) => {
     await page.goto("/uz");
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
       "content",
@@ -91,14 +103,22 @@ test.describe("crawler endpoints", () => {
     );
   });
 
-  test("no ownership is claimed while the verification tokens are unset", async ({ page }) => {
+  test("no ownership is claimed while the verification tokens are unset", async ({
+    page,
+  }) => {
     await page.goto("/uz");
-    await expect(page.locator('meta[name="google-site-verification"]')).toHaveCount(0);
-    await expect(page.locator('meta[name="yandex-verification"]')).toHaveCount(0);
+    await expect(
+      page.locator('meta[name="google-site-verification"]'),
+    ).toHaveCount(0);
+    await expect(page.locator('meta[name="yandex-verification"]')).toHaveCount(
+      0,
+    );
     await expect(page.locator('meta[name="msvalidate.01"]')).toHaveCount(0);
   });
 
-  test("declares a large icon in a format a search engine can render", async ({ page }) => {
+  test("declares a large icon in a format a search engine can render", async ({
+    page,
+  }) => {
     await page.goto("/uz");
     const icons = page.locator('link[rel="icon"]');
     const count = await icons.count();
@@ -111,11 +131,19 @@ test.describe("crawler endpoints", () => {
       const href = (await icon.getAttribute("href")) ?? "";
       const sizes = (await icon.getAttribute("sizes")) ?? "";
       if (type === "image/svg+xml") continue;
-      raster.push({ href, size: Number.parseInt(sizes.split("x")[0], 10) || 0 });
+      raster.push({
+        href,
+        size: Number.parseInt(sizes.split("x")[0], 10) || 0,
+      });
     }
 
-    expect(raster.length, "an SVG-only favicon is invisible to Google").toBeGreaterThan(0);
-    expect(Math.max(...raster.map((icon) => icon.size))).toBeGreaterThanOrEqual(48);
+    expect(
+      raster.length,
+      "an SVG-only favicon is invisible to Google",
+    ).toBeGreaterThan(0);
+    expect(Math.max(...raster.map((icon) => icon.size))).toBeGreaterThanOrEqual(
+      48,
+    );
 
     for (const icon of raster) {
       const response = await page.request.get(icon.href);
@@ -123,9 +151,13 @@ test.describe("crawler endpoints", () => {
     }
   });
 
-  test("the manifest is linked, served, and points at icons that exist", async ({ page }) => {
+  test("the manifest is linked, served, and points at icons that exist", async ({
+    page,
+  }) => {
     await page.goto("/uz");
-    const href = await page.locator('link[rel="manifest"]').getAttribute("href");
+    const href = await page
+      .locator('link[rel="manifest"]')
+      .getAttribute("href");
     expect(href).toBeTruthy();
 
     const response = await page.request.get(href!);
@@ -146,11 +178,17 @@ test.describe("navigation", () => {
   test("reaches the main pages from the header", async ({ page }) => {
     await page.goto("/en");
     await openNavigation(page);
-    await page.getByRole("banner").getByRole("link", { name: "Volunteering" }).click();
+    await page
+      .getByRole("banner")
+      .getByRole("link", { name: "Volunteering" })
+      .click();
     await expect(page).toHaveURL(/\/en\/volunteering$/);
 
     await openNavigation(page);
-    await page.getByRole("banner").getByRole("link", { name: "Partners" }).click();
+    await page
+      .getByRole("banner")
+      .getByRole("link", { name: "Partners" })
+      .click();
     await expect(page).toHaveURL(/\/en\/partners$/);
   });
 
@@ -161,14 +199,22 @@ test.describe("navigation", () => {
     await expect(page).toHaveURL(/\/en\/privacy$/);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
 
-    await page.getByRole("contentinfo").getByRole("link", { name: "Terms" }).click();
+    await page
+      .getByRole("contentinfo")
+      .getByRole("link", { name: "Terms" })
+      .click();
     await expect(page).toHaveURL(/\/en\/terms$/);
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   });
 
-  test("the join call to action stays on a verified destination", async ({ page }) => {
+  test("the join call to action stays on a verified destination", async ({
+    page,
+  }) => {
     await page.goto("/en");
-    const cta = page.getByRole("main").getByRole("link", { name: "Join the community" }).first();
+    const cta = page
+      .getByRole("main")
+      .getByRole("link", { name: "Join the community" })
+      .first();
     const href = await cta.getAttribute("href");
     expect(href).toBe("/en/contact");
   });
@@ -182,11 +228,15 @@ test.describe("production information architecture", () => {
     });
   }
 
-  test("no navigation link points at an exploration route", async ({ page }) => {
+  test("no navigation link points at an exploration route", async ({
+    page,
+  }) => {
     await page.goto("/uz");
-    const hrefs = await page.locator("a[href]").evaluateAll((links) =>
-      links.map((link) => link.getAttribute("href") ?? ""),
-    );
+    const hrefs = await page
+      .locator("a[href]")
+      .evaluateAll((links) =>
+        links.map((link) => link.getAttribute("href") ?? ""),
+      );
     expect(hrefs.length).toBeGreaterThan(5);
     expect(hrefs.filter((href) => /\/v[123](\/|$)/.test(href))).toEqual([]);
   });
@@ -202,7 +252,9 @@ test.describe("production information architecture", () => {
     for (const path of ["/uz", "/en/about"]) {
       await page.goto(path);
       const overflow = await page.evaluate(
-        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        () =>
+          document.documentElement.scrollWidth -
+          document.documentElement.clientWidth,
       );
       expect(overflow, path).toBeLessThanOrEqual(0);
     }
@@ -212,14 +264,67 @@ test.describe("production information architecture", () => {
     const response = await page.goto("/en");
     const headers = response?.headers() ?? {};
 
-    expect(headers["content-security-policy"]).not.toContain("upgrade-insecure-requests");
+    expect(headers["content-security-policy"]).not.toContain(
+      "upgrade-insecure-requests",
+    );
     expect(headers["strict-transport-security"]).toBeUndefined();
     expect(headers["x-content-type-options"]).toBe("nosniff");
   });
 });
 
+test.describe("public volunteer profiles", () => {
+  test("serves an available profile at the exact root username URL", async ({
+    page,
+  }) => {
+    const response = await page.goto("/aziza_uz");
+
+    expect(response?.status()).toBe(200);
+    expect(response?.headers()["x-robots-tag"]).toContain("noindex");
+    await expect(page).toHaveURL(/\/aziza_uz$/);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+      "Aziza Karimova",
+    );
+    await expect(page.getByText("@aziza_uz")).toBeVisible();
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+      "content",
+      /noindex.*nofollow/,
+    );
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute(
+      "href",
+      /\/aziza_uz$/,
+    );
+
+    const overflow = await page.evaluate(
+      () =>
+        document.documentElement.scrollWidth -
+        document.documentElement.clientWidth,
+    );
+    expect(overflow).toBeLessThanOrEqual(0);
+  });
+
+  test("normalizes uppercase usernames and does not expose hidden profiles", async ({
+    page,
+  }) => {
+    await page.goto("/AZIZA_UZ");
+    await expect(page).toHaveURL(/\/aziza_uz$/);
+
+    const hidden = await page.goto("/hidden_user");
+    expect(hidden?.status()).toBe(404);
+  });
+
+  test("redirects the private localized implementation to the root URL", async ({
+    page,
+  }) => {
+    await page.goto("/en/profiles/aziza_uz");
+    await expect(page).toHaveURL(/\/aziza_uz$/);
+  });
+});
+
 test.describe("mobile menu", () => {
-  test.skip(({ viewport }) => (viewport?.width ?? 1280) >= 1024, "desktop shows inline navigation");
+  test.skip(
+    ({ viewport }) => (viewport?.width ?? 1280) >= 1024,
+    "desktop shows inline navigation",
+  );
 
   test("opens and closes by touch", async ({ page }) => {
     await page.goto("/en");
@@ -228,7 +333,9 @@ test.describe("mobile menu", () => {
 
     await trigger.tap();
     await expect(trigger).toHaveAttribute("aria-expanded", "true");
-    await expect(page.getByRole("banner").getByRole("link", { name: "About" })).toBeVisible();
+    await expect(
+      page.getByRole("banner").getByRole("link", { name: "About" }),
+    ).toBeVisible();
 
     await trigger.tap();
     await expect(trigger).toHaveAttribute("aria-expanded", "false");
@@ -273,7 +380,9 @@ test.describe("the hero map", () => {
   ] as const) {
     test(`names the regions in ${locale}`, async ({ page }) => {
       await page.goto(`/${locale}`);
-      await expect(page.locator("#hero-map li").filter({ hasText: name })).toHaveCount(1);
+      await expect(
+        page.locator("#hero-map li").filter({ hasText: name }),
+      ).toHaveCount(1);
       await expect(page.locator("#hero-map li")).toHaveCount(14);
     });
   }
@@ -305,7 +414,9 @@ test.describe("the hero map", () => {
     expect(geometry.panelHeight).toBeLessThanOrEqual(geometry.viewport);
   });
 
-  test("keeps wheel scrolling available after the map expands the page", async ({ page }) => {
+  test("keeps wheel scrolling available after the map expands the page", async ({
+    page,
+  }) => {
     await page.goto("/en");
     await page.waitForFunction(
       () => {
@@ -316,7 +427,10 @@ test.describe("the hero map", () => {
       { timeout: 15_000 },
     );
 
-    await page.mouse.move((page.viewportSize()?.width ?? 1280) / 2, (page.viewportSize()?.height ?? 720) / 2);
+    await page.mouse.move(
+      (page.viewportSize()?.width ?? 1280) / 2,
+      (page.viewportSize()?.height ?? 720) / 2,
+    );
     for (let index = 0; index < 42; index += 1) {
       await page.mouse.wheel(0, 700);
       await page.waitForTimeout(75);
@@ -325,21 +439,27 @@ test.describe("the hero map", () => {
     await expect
       .poll(() =>
         page.evaluate(
-          () => document.documentElement.scrollHeight - window.innerHeight - window.scrollY,
+          () =>
+            document.documentElement.scrollHeight -
+            window.innerHeight -
+            window.scrollY,
         ),
       )
       .toBeLessThanOrEqual(2);
   });
 
-  test("renders a complete non-pinned state with reduced motion", async ({ page }) => {
+  test("renders a complete non-pinned state with reduced motion", async ({
+    page,
+  }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/en");
 
     const state = await page.evaluate(() => {
-      const panel = document.querySelector("#hero-map")?.firstElementChild as HTMLElement;
-      const hiddenScenes = [...document.querySelectorAll<HTMLElement>("[data-scene]")].filter(
-        (element) => getComputedStyle(element).opacity === "0",
-      );
+      const panel = document.querySelector("#hero-map")
+        ?.firstElementChild as HTMLElement;
+      const hiddenScenes = [
+        ...document.querySelectorAll<HTMLElement>("[data-scene]"),
+      ].filter((element) => getComputedStyle(element).opacity === "0");
       const duplicateMarquee = document.querySelector<HTMLElement>(
         '.marquee-track[aria-hidden="true"]',
       );
@@ -362,19 +482,26 @@ test.describe("the hero map", () => {
     });
   });
 
-  test("keeps the page's only h1 in the hero above the map", async ({ page }) => {
+  test("keeps the page's only h1 in the hero above the map", async ({
+    page,
+  }) => {
     await page.goto("/en");
     const hero = page.locator("#hero-map");
     await expect(hero.getByRole("heading", { level: 1 })).toHaveCount(1);
     await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
     await expect(
-      hero.getByRole("heading", { level: 2, name: /growing across Uzbekistan/i }),
+      hero.getByRole("heading", {
+        level: 2,
+        name: /growing across Uzbekistan/i,
+      }),
     ).toHaveCount(1);
   });
 
   test("the hero call to action stays reachable at rest", async ({ page }) => {
     await page.goto("/en");
-    const cta = page.locator("#hero-map").getByRole("link", { name: "Become a volunteer" });
+    const cta = page
+      .locator("#hero-map")
+      .getByRole("link", { name: "Become a volunteer" });
     await expect(cta).toBeVisible();
     await expect(cta).toHaveAttribute("href", "/en/contact");
   });
@@ -383,6 +510,8 @@ test.describe("the hero map", () => {
     page,
   }) => {
     await page.goto("/en");
-    await expect(page.locator("#hero-map").getByRole("link", { name: "Log in" })).toHaveCount(0);
+    await expect(
+      page.locator("#hero-map").getByRole("link", { name: "Log in" }),
+    ).toHaveCount(0);
   });
 });

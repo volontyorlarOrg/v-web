@@ -1,6 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
 const PORT = 3210;
+const API_PORT = 3213;
 const baseURL = `http://127.0.0.1:${PORT}`;
 
 export default defineConfig({
@@ -19,19 +20,28 @@ export default defineConfig({
     { name: "firefox-desktop", use: { ...devices["Desktop Firefox"] } },
     { name: "webkit-mobile", use: { ...devices["iPhone 15"] } },
   ],
-  webServer: {
-    command: `npm run build && npx next start -p ${PORT}`,
-    url: baseURL,
-    reuseExistingServer: !process.env.CI,
-    timeout: 180_000,
-    env: {
-      NEXT_PUBLIC_SITE_URL: "",
-      NEXT_PUBLIC_APP_ORIGIN: "",
-      NEXT_PUBLIC_TELEGRAM_URL: "",
-      NEXT_PUBLIC_INSTAGRAM_URL: "",
-      GOOGLE_SITE_VERIFICATION: "",
-      YANDEX_VERIFICATION: "",
-      BING_SITE_VERIFICATION: "",
+  webServer: [
+    {
+      command: "node e2e/stub-public-api.mjs",
+      url: `http://127.0.0.1:${API_PORT}/health`,
+      reuseExistingServer: !process.env.CI,
+      timeout: 10_000,
     },
-  },
+    {
+      command: `npm run build && npx next start -p ${PORT}`,
+      url: baseURL,
+      reuseExistingServer: !process.env.CI,
+      timeout: 180_000,
+      env: {
+        NEXT_PUBLIC_SITE_URL: "",
+        NEXT_PUBLIC_APP_ORIGIN: "",
+        NEXT_PUBLIC_TELEGRAM_URL: "",
+        NEXT_PUBLIC_INSTAGRAM_URL: "",
+        GOOGLE_SITE_VERIFICATION: "",
+        YANDEX_VERIFICATION: "",
+        BING_SITE_VERIFICATION: "",
+        VOLONTYORLAR_API_URL: `http://127.0.0.1:${API_PORT}`,
+      },
+    },
+  ],
 });

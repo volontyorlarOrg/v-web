@@ -345,5 +345,48 @@
     "title": "Page not found",
     "description": "This page does not exist, or it has moved.",
     "action": "Go to the home page"
+  },
+  "publicProfile": {
+    "metaTitle": "{name} — volunteer profile",
+    "metaDescription": "View {name}'s public volunteering profile on Volontyorlar.",
+    "privacy": "Privacy",
+    "privacyNote": "Only the details this volunteer chose to make public are shown here. Contact details and participation history stay private.",
+    "openLink": "Open external link",
+    "stats": {
+      "events": "Events",
+      "hours": "Hours",
+      "xp": "XP"
+    },
+    "levels": {
+      "newcomer": "Newcomer",
+      "active": "Active",
+      "trusted": "Trusted",
+      "core": "Core"
+    },
+    "regions": {
+      "andijan": "Andijan",
+      "bukhara": "Bukhara",
+      "fergana": "Fergana",
+      "jizzakh": "Jizzakh",
+      "kashkadarya": "Kashkadarya",
+      "khorezm": "Khorezm",
+      "namangan": "Namangan",
+      "navoiy": "Navoiy",
+      "samarkand": "Samarkand",
+      "sirdaryo": "Sirdaryo",
+      "surkhandarya": "Surkhandarya",
+      "tashkent-region": "Tashkent region",
+      "tashkent-city": "Tashkent city",
+      "karakalpakstan": "Karakalpakstan"
+    },
+    "notFound": {
+      "title": "Profile not found",
+      "body": "This volunteer profile does not exist or is not public.",
+      "home": "Go to the home page"
+    },
+    "unavailable": {
+      "title": "Profile temporarily unavailable",
+      "body": "We could not load this profile right now. Please try again in a moment."
+    }
   }
 }
