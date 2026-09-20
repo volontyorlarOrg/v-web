@@ -83,12 +83,20 @@ complete, non-pinned layout.
 
 ## CI
 
-GitHub Actions installs from the lockfile, then runs ESLint, typegen plus
-TypeScript, Vitest, a production build, and a high-severity dependency audit.
-The browser job installs Chromium, Firefox, and WebKit before running the same
-suite in all four configured desktop/mobile projects. CodeQL scans JavaScript
-and TypeScript on main, pull requests, and a weekly schedule. CI deliberately
-supplies no environment variables.
+GitHub Actions runs on Ubuntu 24.04 for every push and pull request targeting
+`main`, and can also be started manually. It installs from the lockfile, then
+runs ESLint,
+typegen plus TypeScript, Vitest, a high-severity dependency audit, and a
+production build. The parallel browser job installs Chromium,
+Firefox, and WebKit before running the same suite in all four configured
+desktop/mobile projects, retaining the Playwright report and test results on
+failure. Pull requests also receive a dependency-diff review.
+
+CodeQL scans JavaScript/TypeScript and GitHub Actions workflows on `main`, pull
+requests, and a staggered weekly schedule. Dependabot checks npm and GitHub
+Actions weekly. Every third-party action is pinned to an immutable commit and
+checkout does not persist Git credentials. CI deliberately supplies no
+application environment variables.
 
 ## Deployment
 
