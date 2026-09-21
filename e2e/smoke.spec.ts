@@ -31,12 +31,12 @@ test.describe("locale routing", () => {
     await page.goto("/uz/partners");
     const header = page.getByRole("banner");
     await header.getByRole("button", { name: /Til: O‘zbekcha/ }).click();
-    await header.getByRole("link", { name: "Русский", exact: true }).click();
+    await page.getByRole("menuitem", { name: "Русский", exact: true }).click();
     await expect(page).toHaveURL(/\/ru\/partners$/);
     await expect(page.locator("html")).toHaveAttribute("lang", "ru");
 
     await header.getByRole("button", { name: /Язык: Русский/ }).click();
-    await header.getByRole("link", { name: "English", exact: true }).click();
+    await page.getByRole("menuitem", { name: "English", exact: true }).click();
     await expect(page).toHaveURL(/\/en\/partners$/);
   });
 
@@ -416,7 +416,13 @@ test.describe("the hero map", () => {
 
   test("keeps wheel scrolling available after the map expands the page", async ({
     page,
+    browserName,
+    isMobile,
   }) => {
+    test.skip(
+      browserName === "webkit" && isMobile,
+      "Playwright cannot send wheel events in mobile WebKit",
+    );
     await page.goto("/en");
     await page.waitForFunction(
       () => {
