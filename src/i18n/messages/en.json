@@ -350,12 +350,16 @@
     "metaTitle": "{name} — volunteer profile",
     "metaDescription": "View {name}'s public volunteering profile on Volontyorlar.",
     "privacy": "Privacy",
-    "privacyNote": "Only the details this volunteer chose to make public are shown here. Contact details and participation history stay private.",
+    "privacyNote": "Only what this volunteer chose to make public. Contacts and history stay private.",
     "openLink": "Open external link",
-    "stats": {
-      "events": "Events",
-      "hours": "Hours",
-      "xp": "XP"
+    "figures": "Participation",
+    "events": "{count, plural, one {<n>{value}</n> event} other {<n>{value}</n> events}}",
+    "hours": "{count, plural, one {<n>{value}</n> hour} other {<n>{value}</n> hours}}",
+    "xp": "<n>{value}</n> XP",
+    "rows": {
+      "region": "Region",
+      "languages": "Languages",
+      "links": "Links"
     },
     "levels": {
       "newcomer": "Newcomer",

@@ -1,12 +1,19 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
+import type { ReactNode } from "react";
 
-import { PublicProfileCard } from "@/components/public-profile/public-profile-card";
-import type { Locale } from "@/i18n/routing";
+import {
+  PublicProfileLinks,
+  PublicProfileNumber,
+  PublicProfileSheet,
+  type PublicProfileFigure,
+  type PublicProfileRow,
+} from "@/components/public-profile/public-profile-sheet";
 import {
   getPublicProfile,
   PublicProfileLoadError,
+  type PublicProfile,
 } from "@/lib/public-profiles/public-profile.server";
 import { marketingUrl } from "@/lib/seo/origin";
 
@@ -35,7 +42,7 @@ export default async function PublicProfilePage({
   const { locale, username } = await params;
   setRequestLocale(locale);
   const t = await getTranslations({ locale, namespace: "publicProfile" });
-  let profile;
+  let profile: PublicProfile | null;
   try {
     profile = await getPublicProfile(username);
   } catch (error) {
@@ -55,26 +62,96 @@ export default async function PublicProfilePage({
   }
   if (!profile) notFound();
 
-  const region = profile.region ? t(`regions.${profile.region}`) : null;
+  const format = new Intl.NumberFormat(locale);
+  const number = (chunks: ReactNode) => <PublicProfileNumber chunks={chunks} />;
+  const { attendedEvents, confirmedHours } = profile.stats;
+
+  const figures: PublicProfileFigure[] =
+    attendedEvents + confirmedHours + profile.xp > 0
+      ? [
+          {
+            id: "events",
+            content: t.rich("events", {
+              count: attendedEvents,
+              value: format.format(attendedEvents),
+              n: number,
+            }),
+          },
+          {
+            id: "hours",
+            content: t.rich("hours", {
+              count: confirmedHours,
+              value: format.format(confirmedHours),
+              n: number,
+            }),
+          },
+          {
+            id: "xp",
+            content: t.rich("xp", {
+              value: format.format(profile.xp),
+              n: number,
+            }),
+          },
+        ]
+      : [];
+
+  const languages = languageList(profile.languages, locale);
+  const candidates: (PublicProfileRow | null)[] = [
+    profile.region
+      ? {
+          id: "region",
+          label: t("rows.region"),
+          value: t(`regions.${profile.region}`),
+        }
+      : null,
+    languages
+      ? { id: "languages", label: t("rows.languages"), value: languages }
+      : null,
+    profile.links.length > 0
+      ? {
+          id: "links",
+          label: t("rows.links"),
+          value: (
+            <PublicProfileLinks
+              links={profile.links}
+              openLabel={t("openLink")}
+            />
+          ),
+        }
+      : null,
+  ];
+  const rows = candidates.filter(
+    (row): row is PublicProfileRow => row !== null,
+  );
+
   return (
-    <div className="container-page py-8 sm:py-12 lg:py-16">
-      <div className="mx-auto max-w-4xl">
-        <PublicProfileCard
-          profile={profile}
-          locale={locale as Locale}
-          labels={{
-            level: t(`levels.${profile.level}`),
-            events: t("stats.events"),
-            hours: t("stats.hours"),
-            xp: t("stats.xp"),
-            region,
-            openLink: t("openLink"),
-          }}
-        />
-        <p className="mx-auto mt-6 max-w-2xl text-center text-sm leading-relaxed text-ink-muted">
-          {t("privacyNote")}
-        </p>
-      </div>
+    <div className="container-page py-8 sm:py-14 lg:py-20">
+      <PublicProfileSheet
+        name={profile.displayName}
+        username={profile.username}
+        avatarUrl={profile.avatarUrl}
+        level={t(`levels.${profile.level}`)}
+        bio={profile.bio.trim()}
+        figures={figures}
+        rows={rows}
+        figuresLabel={t("figures")}
+      />
+      <p className="enter-rise mx-auto mt-6 max-w-[40rem] text-center text-sm leading-relaxed text-pretty text-ink-muted [--enter-delay:700ms]">
+        {t("privacyNote")}
+      </p>
     </div>
   );
+}
+
+function languageList(languages: readonly string[], locale: string) {
+  const names = new Intl.DisplayNames([locale], { type: "language" });
+  return languages
+    .map((language) => {
+      try {
+        return names.of(language) ?? language;
+      } catch {
+        return language;
+      }
+    })
+    .join(", ");
 }

@@ -11,6 +11,8 @@ const badgeVariants = cva(
       variant: {
         default: "bg-action px-2.5 py-1 text-knockout",
         outline: "border border-input px-2.5 py-1 text-muted-foreground",
+        achievement:
+          "border border-accent/50 bg-surface px-2.5 py-1 text-accent-ink",
         status:
           "border border-dashed border-input px-3 py-1.5 tracking-[0.1em] text-muted-foreground uppercase",
       },
