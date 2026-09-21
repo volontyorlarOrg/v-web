@@ -58,6 +58,30 @@ typography:
     fontWeight: 700
     lineHeight: 1.4
     letterSpacing: "0.14em"
+  small:
+    fontFamily: "Onest, ui-sans-serif, system-ui, sans-serif"
+    fontSize: "0.875rem"
+    fontWeight: 400
+    lineHeight: 1.45
+    letterSpacing: "normal"
+  profile-name:
+    fontFamily: "Source Serif 4, ui-serif, Georgia, serif"
+    fontSize: "clamp(2.25rem, 8cqi, 3.75rem)"
+    fontWeight: 400
+    lineHeight: 1.03
+    letterSpacing: "-0.03em"
+  profile-name-long:
+    fontFamily: "Source Serif 4, ui-serif, Georgia, serif"
+    fontSize: "clamp(1.75rem, 6cqi, 2.75rem)"
+    fontWeight: 400
+    lineHeight: 1.03
+    letterSpacing: "-0.03em"
+  figure-inline:
+    fontFamily: "Source Serif 4, ui-serif, Georgia, serif"
+    fontSize: "1.75rem"
+    fontWeight: 400
+    lineHeight: 1
+    letterSpacing: "-0.02em"
 rounded:
   sm: "6px"
   md: "10px"
@@ -403,6 +427,23 @@ purposes: the strip groups verified traction edge to edge, while the closing
 action is a rounded panel inside a paper section. Their shared hue makes them
 institutional; composition keeps them distinct.
 
+### Public profile
+
+`/<username>` is one sheet pinned to the board: a `surface` box at most 40rem
+wide with a hairline border, a 28px radius and no shadow, band or cover. It is
+the same sheet the volunteer's own `/profile` draws in the application, minus
+what never leaves it. Top to bottom: the photo (or the initials in the serif)
+in a 2px orange ring, because the ring is the person; the name as the `h1` at
+`profile-name` size, dropping to `profile-name-long` when one word would not
+fit a phone; the handle beside the level as an orange outline pill; the bio as
+`lead`; one line of figures — events, confirmed hours and XP, serif
+`figure-inline` numerals in `accent-ink` beside `ink-muted` words, never a
+stat band; then region, languages and links as ruled rows, a `small` label in a
+7rem column (10rem on a wider sheet) and the value at body size. Anything the
+volunteer left empty has no row, and a new account with nothing counted shows
+no figures at all rather than three zeros. One muted sentence under the sheet
+says only what the volunteer made public is shown.
+
 ## Motion
 
 Every section has an entry scene, and it plays once. As a block reaches the
@@ -437,6 +478,15 @@ frame at its final state.
 Anything else that wants to animate on scroll has to clear the same bar: correct
 and complete at rest, better in motion. If it is blank until scrolled, it does
 not ship.
+
+The public profile plays its entry scene on load, like the heroes: the orange
+ring settles outward around the photo, the name rises out of its mask, the
+handle, bio and figures follow, and each row's hairline draws in from the left
+a beat after the one above. Its figures roll like an odometer — each digit is
+its real value in the text, with a strip of the ten digits laid over it that
+runs from 0 up to it and then gives way — so the number is right at every
+moment and the whole thing is CSS. Reduced motion and print show the finished
+sheet.
 
 ### Ambient backdrops
 

@@ -350,12 +350,16 @@
     "metaTitle": "{name} — профиль волонтёра",
     "metaDescription": "Публичный волонтёрский профиль {name} в Volontyorlar.",
     "privacy": "Конфиденциальность",
-    "privacyNote": "Здесь показаны только данные, которые волонтёр решил сделать публичными. Контакты и история участия остаются приватными.",
+    "privacyNote": "Только то, что волонтёр сам сделал публичным. Контакты и история участия скрыты.",
     "openLink": "Открыть внешнюю ссылку",
-    "stats": {
-      "events": "События",
-      "hours": "Часы",
-      "xp": "XP"
+    "figures": "Участие",
+    "events": "{count, plural, one {<n>{value}</n> мероприятие} few {<n>{value}</n> мероприятия} many {<n>{value}</n> мероприятий} other {<n>{value}</n> мероприятия}}",
+    "hours": "{count, plural, one {<n>{value}</n> час} few {<n>{value}</n> часа} many {<n>{value}</n> часов} other {<n>{value}</n> часа}}",
+    "xp": "<n>{value}</n> XP",
+    "rows": {
+      "region": "Регион",
+      "languages": "Языки",
+      "links": "Ссылки"
     },
     "levels": {
       "newcomer": "Новичок",
