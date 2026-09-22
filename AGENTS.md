@@ -40,16 +40,18 @@ or integrations.
 
 ## Repository boundary
 
-This repository owns the public marketing site and the privacy-filtered public
-presentation of volunteer profiles: positioning, public pages, partner
+This repository owns the public marketing site and the explicitly allowlisted
+public presentation of volunteer profiles: positioning, public pages, partner
 presentation, SEO, metadata, structured data, legal pages, and links into the
 separate product application.
 
 It does not own volunteer authentication, sessions, dashboards, profile
 editing, applications, essays, ratings, attendance records, or admin workflows.
 Those belong to the separate Volontyorlar application. Do not rebuild them
-here. Public profiles consume only the backend's anonymous, privacy-filtered
-contract.
+here. Public profiles consume only the backend's anonymous public contract,
+which includes profile contact, location, education, social, portfolio, joined
+date, level, and aggregate participation fields but excludes account and auth
+data, applications, and history.
 
 ## Technology stack
 

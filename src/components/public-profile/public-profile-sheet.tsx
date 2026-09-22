@@ -1,10 +1,12 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Send, type LucideIcon } from "lucide-react";
 import Image from "next/image";
 import { Children, type CSSProperties, type ReactNode } from "react";
 
 import { SplitWords } from "@/components/marketing/scene";
 import { RollingNumber } from "@/components/public-profile/rolling-number";
 import { Badge } from "@/components/ui/badge";
+import { Instagram, Linkedin } from "@/components/brand/channel-icons";
+import { cn } from "@/lib/utils";
 
 const LONG_WORD = 13;
 
@@ -19,24 +21,44 @@ export type PublicProfileFigure = {
   content: ReactNode;
 };
 
+export type PublicProfileSocialPlatform = "telegram" | "instagram" | "linkedin";
+
+export type PublicProfileSocialLink = {
+  platform: PublicProfileSocialPlatform;
+  handle: string;
+  href: string;
+};
+
+const SOCIAL_ICONS: Record<PublicProfileSocialPlatform, LucideIcon> = {
+  telegram: Send,
+  instagram: Instagram,
+  linkedin: Linkedin,
+};
+
 export function PublicProfileSheet({
   name,
   username,
   avatarUrl,
   level,
   bio,
+  socials,
   figures,
   rows,
   figuresLabel,
+  socialsLabel,
+  platformLabels,
 }: {
   name: string;
   username: string;
   avatarUrl: string | null;
   level: string;
   bio: string;
+  socials: readonly PublicProfileSocialLink[];
   figures: readonly PublicProfileFigure[];
   rows: readonly PublicProfileRow[];
   figuresLabel: string;
+  socialsLabel: string;
+  platformLabels: Record<PublicProfileSocialPlatform, string>;
 }) {
   const longName = name.split(/\s+/).some((word) => word.length > LONG_WORD);
 
@@ -81,10 +103,22 @@ export function PublicProfileSheet({
           <Badge variant="achievement">{level}</Badge>
         </p>
 
-        {bio ? (
-          <p className="profile-bio enter-rise mt-6 [--enter-delay:300ms]">
-            {bio}
-          </p>
+        {bio || socials.length > 0 ? (
+          <div
+            className={cn(
+              "enter-rise mt-6 grid gap-5 [--enter-delay:300ms]",
+              bio &&
+                socials.length > 0 &&
+                "sm:grid-cols-[minmax(0,1fr)_minmax(10rem,0.62fr)] sm:gap-8",
+            )}
+          >
+            {bio ? <p className="profile-bio">{bio}</p> : null}
+            <PublicProfileSocialLinks
+              links={socials}
+              label={socialsLabel}
+              platformLabels={platformLabels}
+            />
+          </div>
         ) : null}
 
         {figures.length > 0 ? (
@@ -121,6 +155,43 @@ export function PublicProfileSheet({
         <div className="pb-7 sm:pb-10" />
       )}
     </article>
+  );
+}
+
+export function PublicProfileSocialLinks({
+  links,
+  label,
+  platformLabels,
+}: {
+  links: readonly PublicProfileSocialLink[];
+  label: string;
+  platformLabels: Record<PublicProfileSocialPlatform, string>;
+}) {
+  if (links.length === 0) return null;
+
+  return (
+    <ul
+      aria-label={label}
+      className="flex min-w-0 flex-wrap gap-x-4 gap-y-2 sm:flex-col sm:items-start"
+    >
+      {links.map((link) => {
+        const Icon = SOCIAL_ICONS[link.platform];
+        return (
+          <li key={link.platform} className="min-w-0 max-w-full">
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer nofollow"
+              aria-label={`${platformLabels[link.platform]}: @${link.handle}`}
+              className="inline-flex min-h-9 max-w-full items-center gap-2 rounded-lg text-sm font-semibold text-primary-ink underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            >
+              <Icon aria-hidden="true" className="size-4 shrink-0" />
+              <span className="truncate">@{link.handle}</span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
   );
 }
 

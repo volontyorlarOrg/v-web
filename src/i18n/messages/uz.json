@@ -350,16 +350,28 @@
     "metaTitle": "{name} — volontyor profili",
     "metaDescription": "{name}ning Volontyorlardagi ochiq volontyorlik profilini koʻring.",
     "privacy": "Maxfiylik",
-    "privacyNote": "Faqat volontyor ochiq qilgan maʼlumotlar. Aloqa va ishtirok tarixi maxfiy qoladi.",
+    "privacyNote": "Volontyor bu profil maʼlumotlarini ochiq qilishni tanlagan.",
     "openLink": "Tashqi havolani ochish",
     "figures": "Ishtirok",
+    "socials": "Ijtimoiy tarmoq profillari",
     "events": "{count, plural, other {<n>{value}</n> ta tadbir}}",
     "hours": "{count, plural, other {<n>{value}</n> soat}}",
     "xp": "<n>{value}</n> XP",
     "rows": {
       "region": "Hudud",
+      "city": "Shahar",
+      "school": "Oʻqish joyi",
+      "gradeYear": "Sinf yoki kurs",
       "languages": "Tillar",
-      "links": "Havolalar"
+      "phone": "Telefon",
+      "telegram": "Telegram",
+      "links": "Portfolio",
+      "joined": "Qoʻshilgan"
+    },
+    "platforms": {
+      "telegram": "Telegram",
+      "instagram": "Instagram",
+      "linkedin": "LinkedIn"
     },
     "levels": {
       "newcomer": "Yangi",
