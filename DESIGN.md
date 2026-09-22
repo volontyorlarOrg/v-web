@@ -431,18 +431,20 @@ institutional; composition keeps them distinct.
 
 `/<username>` is one sheet pinned to the board: a `surface` box at most 40rem
 wide with a hairline border, a 28px radius and no shadow, band or cover. It is
-the same sheet the volunteer's own `/profile` draws in the application, minus
-what never leaves it. Top to bottom: the photo (or the initials in the serif)
+the same sheet the volunteer's own `/profile` draws in the application. Top to
+bottom: the photo (or the initials in the serif)
 in a 2px orange ring, because the ring is the person; the name as the `h1` at
 `profile-name` size, dropping to `profile-name-long` when one word would not
 fit a phone; the handle beside the level as an orange outline pill; the bio as
 `lead`; one line of figures — events, confirmed hours and XP, serif
 `figure-inline` numerals in `accent-ink` beside `ink-muted` words, never a
-stat band; then region, languages and links as ruled rows, a `small` label in a
-7rem column (10rem on a wider sheet) and the value at body size. Anything the
+stat band; social profiles beside the bio; then location, education, languages,
+phone, Telegram, portfolio links, and joined date as ruled rows, a `small` label
+in a 7rem column (10rem on a wider sheet) and the value at body size. Anything the
 volunteer left empty has no row, and a new account with nothing counted shows
 no figures at all rather than three zeros. One muted sentence under the sheet
-says only what the volunteer made public is shown.
+says the profile details are public while the volunteer's public profile is
+enabled.
 
 ## Motion
 

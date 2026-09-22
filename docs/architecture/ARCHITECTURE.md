@@ -5,7 +5,7 @@
 A single Next.js 16 App Router application: React 19, strict TypeScript,
 Tailwind CSS 4, and `next-intl`. Marketing pages are Server Components and are
 statically generated at build time. Public volunteer profiles are the narrow
-dynamic exception: they read the privacy-filtered public backend endpoint on
+dynamic exception: they read the explicitly allowlisted public backend endpoint on
 the server, carry no session, and are never indexed. There is no API route,
 database client, or authentication provider here.
 
