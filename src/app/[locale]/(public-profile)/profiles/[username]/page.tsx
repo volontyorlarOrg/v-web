@@ -9,6 +9,7 @@ import {
   PublicProfileSheet,
   type PublicProfileFigure,
   type PublicProfileRow,
+  type PublicProfileSocialLink,
 } from "@/components/public-profile/public-profile-sheet";
 import {
   getPublicProfile,
@@ -96,6 +97,7 @@ export default async function PublicProfilePage({
       : [];
 
   const languages = languageList(profile.languages, locale);
+  const socials = socialLinks(profile);
   const candidates: (PublicProfileRow | null)[] = [
     profile.region
       ? {
@@ -104,9 +106,14 @@ export default async function PublicProfilePage({
           value: t(`regions.${profile.region}`),
         }
       : null,
+    textRow("city", profile.city, t),
+    textRow("school", profile.school, t),
+    textRow("gradeYear", profile.gradeYear, t),
     languages
       ? { id: "languages", label: t("rows.languages"), value: languages }
       : null,
+    textRow("phone", profile.phone, t),
+    textRow("telegram", profile.telegram ? `@${profile.telegram}` : "", t),
     profile.links.length > 0
       ? {
           id: "links",
@@ -119,6 +126,14 @@ export default async function PublicProfilePage({
           ),
         }
       : null,
+    {
+      id: "joined",
+      label: t("rows.joined"),
+      value: new Intl.DateTimeFormat(locale, {
+        month: "long",
+        year: "numeric",
+      }).format(new Date(profile.joinedAt)),
+    },
   ];
   const rows = candidates.filter(
     (row): row is PublicProfileRow => row !== null,
@@ -132,15 +147,61 @@ export default async function PublicProfilePage({
         avatarUrl={profile.avatarUrl}
         level={t(`levels.${profile.level}`)}
         bio={profile.bio.trim()}
+        socials={socials}
         figures={figures}
         rows={rows}
         figuresLabel={t("figures")}
+        socialsLabel={t("socials")}
+        platformLabels={{
+          telegram: t("platforms.telegram"),
+          instagram: t("platforms.instagram"),
+          linkedin: t("platforms.linkedin"),
+        }}
       />
       <p className="enter-rise mx-auto mt-6 max-w-[40rem] text-center text-sm leading-relaxed text-pretty text-ink-muted [--enter-delay:700ms]">
         {t("privacyNote")}
       </p>
     </div>
   );
+}
+
+function textRow(
+  id: string,
+  value: string,
+  t: Awaited<ReturnType<typeof getTranslations>>,
+): PublicProfileRow | null {
+  const text = value.trim();
+  return text ? { id, label: t(`rows.${id}`), value: text } : null;
+}
+
+function socialLinks(profile: PublicProfile): PublicProfileSocialLink[] {
+  const telegram = profile.telegram.trim().replace(/^@+/, "");
+  const instagram = profile.instagram.trim().replace(/^@+/, "");
+  const linkedinHandle =
+    profile.linkedin.split("/").filter(Boolean).at(-1) ?? "";
+  return [
+    telegram
+      ? {
+          platform: "telegram" as const,
+          handle: telegram,
+          href: `https://t.me/${encodeURIComponent(telegram)}`,
+        }
+      : null,
+    instagram
+      ? {
+          platform: "instagram" as const,
+          handle: instagram,
+          href: `https://www.instagram.com/${encodeURIComponent(instagram)}/`,
+        }
+      : null,
+    profile.linkedin && linkedinHandle
+      ? {
+          platform: "linkedin" as const,
+          handle: linkedinHandle,
+          href: profile.linkedin,
+        }
+      : null,
+  ].filter((link): link is PublicProfileSocialLink => link !== null);
 }
 
 function languageList(languages: readonly string[], locale: string) {

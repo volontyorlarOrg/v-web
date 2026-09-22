@@ -285,6 +285,15 @@ test.describe("public volunteer profiles", () => {
       "Aziza Karimova",
     );
     await expect(page.getByText("@aziza_uz")).toBeVisible();
+    await expect(page.getByText("+998901234567")).toBeVisible();
+    await expect(page.getByText("School 110")).toBeVisible();
+    await expect(page.getByText("Tashkent", { exact: true })).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "Instagram: @aziza.volunteers" }),
+    ).toHaveAttribute("href", "https://www.instagram.com/aziza.volunteers/");
+    await expect(
+      page.getByRole("link", { name: /example\.com\/aziza/ }),
+    ).toBeVisible();
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
       "content",
       /noindex.*nofollow/,

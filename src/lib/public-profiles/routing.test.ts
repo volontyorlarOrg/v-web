@@ -14,6 +14,8 @@ describe("public profile root routing", () => {
   it("leaves product routes and invalid names to normal locale routing", () => {
     expect(rootPublicUsername("/about")).toBeNull();
     expect(rootPublicUsername("/leaderboard")).toBeNull();
+    expect(rootPublicUsername("/profiles")).toBeNull();
+    expect(rootPublicUsername("/_vercel")).toBeNull();
     expect(rootPublicUsername("/ab")).toBeNull();
     expect(rootPublicUsername("/aziza/profile")).toBeNull();
   });

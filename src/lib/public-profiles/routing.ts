@@ -4,6 +4,7 @@ export const PUBLIC_USERNAME_PATTERN = /^[a-z0-9_]{5,32}$/;
 
 export const RESERVED_PUBLIC_SEGMENTS = new Set([
   "_next",
+  "_vercel",
   "about",
   "admin",
   "applications",
@@ -15,6 +16,7 @@ export const RESERVED_PUBLIC_SEGMENTS = new Set([
   "partners",
   "privacy",
   "profile",
+  "profiles",
   "record",
   "saved",
   "settings",
