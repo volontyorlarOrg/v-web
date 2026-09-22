@@ -12,9 +12,16 @@ const base = {
   avatarUrl: null,
   level: "Active",
   bio: "Toshkentdagi taʼlim loyihalarida volontyorlik qilaman.",
+  socials: [],
   figures: [{ id: "events", content: "12 events" }],
   rows: [{ id: "region", label: "Region", value: "Tashkent city" }],
   figuresLabel: "Participation",
+  socialsLabel: "Social profiles",
+  platformLabels: {
+    telegram: "Telegram",
+    instagram: "Instagram",
+    linkedin: "LinkedIn",
+  },
 };
 
 describe("PublicProfileSheet", () => {
@@ -50,6 +57,24 @@ describe("PublicProfileSheet", () => {
     render(<PublicProfileSheet {...base} bio="" figures={[]} rows={[]} />);
     expect(screen.queryByRole("list")).not.toBeInTheDocument();
     expect(screen.queryByRole("term")).not.toBeInTheDocument();
+  });
+
+  it("renders labelled social profile links", () => {
+    render(
+      <PublicProfileSheet
+        {...base}
+        socials={[
+          {
+            platform: "linkedin",
+            handle: "aziza-karimova",
+            href: "https://www.linkedin.com/in/aziza-karimova",
+          },
+        ]}
+      />,
+    );
+    expect(
+      screen.getByRole("link", { name: "LinkedIn: @aziza-karimova" }),
+    ).toHaveAttribute("href", "https://www.linkedin.com/in/aziza-karimova");
   });
 });
 

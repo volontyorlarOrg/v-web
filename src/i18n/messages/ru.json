@@ -350,16 +350,28 @@
     "metaTitle": "{name} — профиль волонтёра",
     "metaDescription": "Публичный волонтёрский профиль {name} в Volontyorlar.",
     "privacy": "Конфиденциальность",
-    "privacyNote": "Только то, что волонтёр сам сделал публичным. Контакты и история участия скрыты.",
+    "privacyNote": "Волонтёр решил сделать эти данные профиля публичными.",
     "openLink": "Открыть внешнюю ссылку",
     "figures": "Участие",
+    "socials": "Социальные профили",
     "events": "{count, plural, one {<n>{value}</n> мероприятие} few {<n>{value}</n> мероприятия} many {<n>{value}</n> мероприятий} other {<n>{value}</n> мероприятия}}",
     "hours": "{count, plural, one {<n>{value}</n> час} few {<n>{value}</n> часа} many {<n>{value}</n> часов} other {<n>{value}</n> часа}}",
     "xp": "<n>{value}</n> XP",
     "rows": {
       "region": "Регион",
+      "city": "Город",
+      "school": "Место учёбы",
+      "gradeYear": "Класс или курс",
       "languages": "Языки",
-      "links": "Ссылки"
+      "phone": "Телефон",
+      "telegram": "Telegram",
+      "links": "Портфолио",
+      "joined": "Регистрация"
+    },
+    "platforms": {
+      "telegram": "Telegram",
+      "instagram": "Instagram",
+      "linkedin": "LinkedIn"
     },
     "levels": {
       "newcomer": "Новичок",

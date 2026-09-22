@@ -45,8 +45,9 @@ it, document it there, and add a value-free placeholder.
 Four are `NEXT_PUBLIC_*` because client components read them. The three
 verification tokens are not: only `generateMetadata` reads them, and they reach
 the browser as HTML rather than as bundled JavaScript. `VOLONTYORLAR_API_URL`
-is also server-only and supplies the anonymous, privacy-filtered public profile
-read; when it is absent, profile URLs show a localized unavailable state.
+is also server-only and supplies the anonymous, explicitly allowlisted public
+profile read; when it is absent, profile URLs show a localized unavailable
+state.
 
 `.env.local` is untracked and is where a development machine gets working
 values for services that are not wired up yet — a local product origin so the
