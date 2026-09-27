@@ -365,6 +365,16 @@ test.describe("mobile menu", () => {
 });
 
 test.describe("the hero map", () => {
+  async function hasWebGL2(page: Page) {
+    return page.evaluate(() => {
+      try {
+        return Boolean(document.createElement("canvas").getContext("webgl2"));
+      } catch {
+        return false;
+      }
+    });
+  }
+
   test("renders a plan-view map and every region name without JavaScript", async ({
     browser,
   }) => {
@@ -398,6 +408,15 @@ test.describe("the hero map", () => {
 
   test("pins a panel that releases into the next section", async ({ page }) => {
     await page.goto("/en");
+    if (!(await hasWebGL2(page))) {
+      const map = page.locator("#hero-map");
+      await expect(map.locator("svg path")).toHaveCount(14);
+      await expect(map.locator(":scope > div")).toHaveCSS(
+        "position",
+        "relative",
+      );
+      return;
+    }
     await page.waitForFunction(
       () => {
         const panel = document.querySelector("#hero-map")?.firstElementChild;
@@ -433,14 +452,20 @@ test.describe("the hero map", () => {
       "Playwright cannot send wheel events in mobile WebKit",
     );
     await page.goto("/en");
-    await page.waitForFunction(
-      () => {
-        const panel = document.querySelector("#hero-map")?.firstElementChild;
-        return Boolean(panel) && getComputedStyle(panel!).position === "sticky";
-      },
-      null,
-      { timeout: 15_000 },
-    );
+    if (await hasWebGL2(page)) {
+      await page.waitForFunction(
+        () => {
+          const panel = document.querySelector("#hero-map")?.firstElementChild;
+          return (
+            Boolean(panel) && getComputedStyle(panel!).position === "sticky"
+          );
+        },
+        null,
+        { timeout: 15_000 },
+      );
+    } else {
+      await expect(page.locator("#hero-map svg path")).toHaveCount(14);
+    }
 
     await page.mouse.move(
       (page.viewportSize()?.width ?? 1280) / 2,
