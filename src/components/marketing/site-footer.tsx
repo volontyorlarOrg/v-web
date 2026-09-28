@@ -24,6 +24,7 @@ export function SiteFooter() {
       id: "explore",
       links: [
         { label: nav("volunteering"), href: navHref("volunteering") },
+        { label: nav("blog"), href: navHref("blog") },
         { label: t("links.regions"), href: `${navHref("home")}#hero-map` },
         { label: t("links.organisations"), href: navHref("contact") },
       ],

@@ -25,7 +25,8 @@
     "openMenu": "Menyuni ochish",
     "closeMenu": "Menyuni yopish",
     "skipToContent": "Asosiy qismga oʻtish",
-    "signup": "Roʻyxatdan oʻtish"
+    "signup": "Roʻyxatdan oʻtish",
+    "blog": "Blog"
   },
   "footer": {
     "description": "Volontyorlik qiling. Mahallangizga yordam bering. Tasdiqlating.",
@@ -404,5 +405,44 @@
       "title": "Profil vaqtincha mavjud emas",
       "body": "Hozir bu profilni yuklay olmadik. Birozdan soʻng qayta urinib koʻring."
     }
+  },
+  "blog": {
+    "title": "Hikoyalar va qoʻllanmalar",
+    "lead": "Volontyorlik faoliyatingizni mazmunli qilish uchun amaliy fikrlar.",
+    "empty": "Hozircha maqolalar yoʻq. Yangi hikoyalar shu yerda paydo boʻladi.",
+    "read": "Maqolani oʻqish",
+    "back": "Barcha maqolalar",
+    "next": "Keyingisi",
+    "previous": "Oldingisi",
+    "fallback": "Ushbu maqola {language} tilida mavjud.",
+    "published": "Chop etilgan: {date}",
+    "preview": "Qoralama koʻrinishi",
+    "previewNotice": "Bu qoralamani faqat administratorlar koʻra oladi.",
+    "error": "Maqolalarni yuklab boʻlmadi. Qayta urinib koʻring.",
+    "retry": "Qayta urinish",
+    "notFound": "Maqola topilmadi",
+    "author": "Muallif: {name}",
+    "credit": "Surat: {name}",
+    "languages": {
+      "uz": "oʻzbek",
+      "ru": "rus",
+      "en": "ingliz"
+    },
+    "metaTitle": "Blog — Volontyorlar",
+    "metaDescription": "Volontyorlar hikoyalari va amaliy qoʻllanmalari.",
+    "availableIn": "Chop etilgan tillar",
+    "eyebrow": "Blog",
+    "languageNames": {
+      "uz": "Oʻzbekcha",
+      "ru": "Ruscha",
+      "en": "Inglizcha"
+    },
+    "writtenIn": "{language} tilida",
+    "pagination": "Sahifalar",
+    "previewExpiredTitle": "Koʻrib chiqish muddati tugadi",
+    "previewExpiredBody": "Qoralamani koʻrib chiqish 10 daqiqa amal qiladi. Uni administrator portalidan qayta oching.",
+    "missingTitle": "Sarlavha hali yoʻq",
+    "missingSummary": "Qisqa mazmun hali yoʻq. Usiz bu tilni chop etib boʻlmaydi.",
+    "missingBody": "Maqola matni hali yoʻq. Usiz bu tilni chop etib boʻlmaydi."
   }
 }

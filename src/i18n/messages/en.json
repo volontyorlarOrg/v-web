@@ -25,7 +25,8 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "skipToContent": "Skip to content",
-    "signup": "Create account"
+    "signup": "Create account",
+    "blog": "Blog"
   },
   "footer": {
     "description": "Volunteer. Help your local community. Get it verified.",
@@ -404,5 +405,44 @@
       "title": "Profile temporarily unavailable",
       "body": "We could not load this profile right now. Please try again in a moment."
     }
+  },
+  "blog": {
+    "title": "Stories & guides",
+    "lead": "Practical ideas for making your volunteering count.",
+    "empty": "No articles yet. New stories will appear here.",
+    "read": "Read article",
+    "back": "All articles",
+    "next": "Next",
+    "previous": "Previous",
+    "fallback": "This article is available in {language}.",
+    "published": "Published {date}",
+    "preview": "Draft preview",
+    "previewNotice": "Only administrators can see this draft preview.",
+    "error": "Articles could not be loaded. Please try again.",
+    "retry": "Try again",
+    "notFound": "Article not found",
+    "author": "By {name}",
+    "credit": "Photo: {name}",
+    "languages": {
+      "uz": "Uzbek",
+      "ru": "Russian",
+      "en": "English"
+    },
+    "metaTitle": "Blog — Volontyorlar",
+    "metaDescription": "Stories and practical guides from Volontyorlar.",
+    "availableIn": "Published languages",
+    "eyebrow": "Blog",
+    "languageNames": {
+      "uz": "Uzbek",
+      "ru": "Russian",
+      "en": "English"
+    },
+    "writtenIn": "In {language}",
+    "pagination": "Pages",
+    "previewExpiredTitle": "This preview has expired",
+    "previewExpiredBody": "A draft preview lasts 10 minutes. Open it again from the administrator portal.",
+    "missingTitle": "No title yet",
+    "missingSummary": "No summary yet. It is required before this language can be published.",
+    "missingBody": "No article text yet. It is required before this language can be published."
   }
 }
