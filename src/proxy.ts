@@ -12,6 +12,12 @@ const localize = createMiddleware(routing);
 const PROFILE_REWRITE_MARKER = "_volontyorlar_profile";
 
 export default function proxy(request: NextRequest) {
+  if (/^\/(?:uz|ru|en)\/blog\/preview(?:\/|$)/.test(request.nextUrl.pathname)) {
+    const response = localize(request);
+    response.headers.set("Cache-Control", "private, no-store");
+    response.headers.set("X-Robots-Tag", "noindex, nofollow");
+    return response;
+  }
   const internal = /^\/(?:uz|ru|en)\/profiles\/([a-z0-9_]{5,32})\/?$/.exec(
     request.nextUrl.pathname,
   );

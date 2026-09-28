@@ -5,6 +5,8 @@ import sitemap from "@/app/sitemap";
 import { locales } from "@/i18n/routing";
 import { publicRoutes } from "@/lib/routing/routes";
 
+vi.mock("server-only", () => ({}));
+
 describe("robots.txt", () => {
   beforeEach(() => {
     vi.stubEnv("NEXT_PUBLIC_SITE_URL", "");
@@ -30,13 +32,13 @@ describe("sitemap.xml", () => {
     vi.stubEnv("NEXT_PUBLIC_SITE_URL", "");
   });
 
-  it("publishes nothing while the canonical host is unknown", () => {
-    expect(sitemap()).toEqual([]);
+  it("publishes nothing while the canonical host is unknown", async () => {
+    expect(await sitemap()).toEqual([]);
   });
 
-  it("lists every route in every locale with full hreflang alternates", () => {
+  it("lists every route in every locale with full hreflang alternates", async () => {
     vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://example.org");
-    const entries = sitemap();
+    const entries = await sitemap();
 
     expect(entries).toHaveLength(publicRoutes.length * locales.length);
 
@@ -54,9 +56,9 @@ describe("sitemap.xml", () => {
     }
   });
 
-  it("never exposes an exploration route", () => {
+  it("never exposes an exploration route", async () => {
     vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://example.org");
-    for (const entry of sitemap()) {
+    for (const entry of await sitemap()) {
       expect(entry.url).not.toMatch(/\/v[123]$/);
     }
   });

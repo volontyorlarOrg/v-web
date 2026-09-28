@@ -7,19 +7,21 @@
 
 ```bash
 npm ci
-cp .env.example .env.local
 npm run dev
 ```
 
-The development server runs on `http://localhost:3000` and redirects to a
-locale.
+In the shared workspace, the development command loads the ignored
+`../env/local/web.local.env` file and runs on `http://localhost:3000`.
+For a standalone checkout, copy `.env.example` to `.env.local` and use
+`npm run dev:standalone`.
 
 ## Commands
 
 | Command                  | Purpose                                                                                |
 | ------------------------ | -------------------------------------------------------------------------------------- |
-| `npm run dev`            | Turbopack development server                                                           |
-| `npm run dev:webpack`    | Webpack development fallback                                                           |
+| `npm run dev`            | Turbopack server using the shared local web environment                                |
+| `npm run dev:webpack`    | Webpack fallback using the shared local web environment                                |
+| `npm run dev:standalone` | Turbopack server using this repository's .env.local                                    |
 | `npm run lint`           | ESLint                                                                                 |
 | `npm run typecheck`      | `next typegen` followed by `tsc --noEmit`                                              |
 | `npm run test`           | Vitest unit and component tests                                                        |
@@ -35,7 +37,7 @@ a clean checkout fails until they exist.
 ## Environment
 
 The site installs, lints, typechecks, tests, and builds with no environment
-variables at all. All eight supported variables are optional and blank in
+variables at all. The supported variables are optional and blank in
 `.env.example`; see [`../architecture/DOMAINS.md`](../architecture/DOMAINS.md)
 for what the four origins change, and
 [`../web/SEO_AND_ROUTES.md`](../web/SEO_AND_ROUTES.md) for the three
@@ -46,14 +48,13 @@ Four are `NEXT_PUBLIC_*` because client components read them. The three
 verification tokens are not: only `generateMetadata` reads them, and they reach
 the browser as HTML rather than as bundled JavaScript. `VOLONTYORLAR_API_URL`
 is also server-only and supplies the anonymous, explicitly allowlisted public
-profile read; when it is absent, profile URLs show a localized unavailable
-state.
+profile and blog reads; when it is absent, those routes show an unavailable
+state. `BLOG_ADMIN_ORIGIN` allows preview POSTs from one exact administrator
+origin, and `BLOG_REVALIDATION_SECRET` verifies signed publication invalidations.
 
-`.env.local` is untracked and is where a development machine gets working
-values for services that are not wired up yet — a local product origin so the
-sign-in action renders, or a placeholder channel address. Mark them as
-placeholders in the file and replace each one as the real address is confirmed.
-Nothing invented belongs in tracked source. `npm run test:e2e` pins the public
+`.env.local` is untracked and remains available for standalone development;
+the shared stack reads `../env/local/web.local.env` directly. Nothing invented
+belongs in tracked source. `npm run test:e2e` pins the public
 values to empty and points `VOLONTYORLAR_API_URL` at an isolated local stub, so
 the suite covers both the unconfigured marketing baseline and public profiles
 without reading production data.

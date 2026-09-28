@@ -13,6 +13,7 @@ Use this file to route project questions to the smallest relevant source.
 | Logo geometry, colour values, clear space, minimum size | [`brand/LOGO_SPEC.md`](brand/LOGO_SPEC.md) |
 | Applied UI system, localization behaviour, accessibility rules | [`ui/UI_SYSTEM.md`](ui/UI_SYSTEM.md) |
 | Current frontend audit and information-architecture findings | [`reviews/FRONTEND_DIAGNOSIS.md`](reviews/FRONTEND_DIAGNOSIS.md) |
+| Blog architecture, editorial workflow, and public/admin layout concepts | [`plans/BLOG_IMPLEMENTATION_PLAN.md`](plans/BLOG_IMPLEMENTATION_PLAN.md) |
 | Metadata, canonical URLs, hreflang, robots, sitemap, structured data | [`web/SEO_AND_ROUTES.md`](web/SEO_AND_ROUTES.md) |
 | Getting the site indexed: what to configure, verify, and submit where | [`operations/SEARCH_LAUNCH.md`](operations/SEARCH_LAUNCH.md) |
 | Security headers, CSP, secrets, trust boundaries | [`security/SECURITY.md`](security/SECURITY.md) |

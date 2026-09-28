@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Volontyorlar public blog layout concepts</title>
+  <desc id="desc">Side by side concepts for the blog index and an article. Each uses a picture area, title, summary, and compact reading layout. The shapes are illustrative placeholders.</desc>
+  <defs>
+    <pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#d8e6f0"/></pattern>
+    <linearGradient id="scene" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#cde5ef"/><stop offset="1" stop-color="#e8f2ee"/></linearGradient>
+    <clipPath id="indexPhoto"><rect x="36" y="272" width="510" height="202" rx="10"/></clipPath>
+    <clipPath id="articlePhoto"><rect x="654" y="314" width="510" height="236" rx="10"/></clipPath>
+  </defs>
+  <rect width="1200" height="760" fill="#f5f8fb"/>
+  <rect width="1200" height="760" fill="url(#dots)"/>
+  <text x="36" y="37" font-family="Arial, sans-serif" font-size="13" font-weight="700" letter-spacing="2" fill="#005e92">PUBLIC BLOG • LAYOUT CONCEPT</text>
+  <text x="36" y="62" font-family="Arial, sans-serif" font-size="14" fill="#566270">Picture and text hierarchy, using the current site colors and typography roles</text>
+
+  <rect x="24" y="88" width="548" height="640" rx="16" fill="#fff" stroke="#dbe3ea"/>
+  <rect x="24" y="88" width="548" height="56" rx="16" fill="#fff"/>
+  <path d="M24 144H572" stroke="#dbe3ea"/>
+  <rect x="40" y="104" width="31" height="31" rx="8" fill="#007fc2"/>
+  <path d="M49 115q6-7 12 0v7q-6 7-12 0z" fill="none" stroke="white" stroke-width="3"/>
+  <path d="M55 129l-5-5h10z" fill="#e85d30"/>
+  <text x="80" y="125" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#222b33">volontyorlar</text>
+  <text x="409" y="123" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#005e92">BLOG</text>
+  <text x="459" y="123" font-family="Arial, sans-serif" font-size="12" fill="#566270">EN • ☼</text>
+  <text x="36" y="181" font-family="Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="2" fill="#005e92">01 / BLOG INDEX</text>
+  <text x="36" y="227" font-family="Georgia, serif" font-size="42" fill="#222b33">Stories &amp; guides</text>
+  <text x="36" y="252" font-family="Arial, sans-serif" font-size="14" fill="#566270">Ideas, field notes, and practical volunteering advice.</text>
+  <rect x="36" y="272" width="510" height="202" rx="10" fill="url(#scene)"/>
+  <g clip-path="url(#indexPhoto)">
+    <circle cx="450" cy="312" r="48" fill="#f4f8ec"/>
+    <path d="M30 430 Q170 338 300 424 T580 400 V490 H30Z" fill="#8ec5cc"/>
+    <path d="M25 465 Q160 394 270 456 T580 415 V490 H25Z" fill="#4c98ad"/>
+    <path d="M102 471q18-85 70-98m-16 99q28-56 75-69" fill="none" stroke="#eff8f3" stroke-width="5" opacity=".8"/>
+  </g>
+  <rect x="48" y="285" width="150" height="24" rx="12" fill="#fff" opacity=".9"/>
+  <text x="59" y="301" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#005e92">COVER PHOTO AREA</text>
+  <text x="36" y="505" font-family="Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="1.5" fill="#b34917">FIELD GUIDE  ·  28 SEP 2026</text>
+  <text x="36" y="543" font-family="Georgia, serif" font-size="27" fill="#222b33">Your first day of volunteering</text>
+  <text x="36" y="572" font-family="Arial, sans-serif" font-size="14" fill="#566270">A short, useful introduction to choosing a role and</text>
+  <text x="36" y="592" font-family="Arial, sans-serif" font-size="14" fill="#566270">knowing what to expect when you arrive.</text>
+  <path d="M36 617H546" stroke="#dbe3ea"/>
+  <text x="36" y="647" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#005e92">Read article →</text>
+  <path d="M36 673H546" stroke="#dbe3ea"/>
+  <text x="36" y="697" font-family="Arial, sans-serif" font-size="13" fill="#222b33">More articles</text>
+  <text x="397" y="697" font-family="Arial, sans-serif" font-size="12" fill="#566270">Compact dated rows ↓</text>
+
+  <rect x="628" y="88" width="548" height="640" rx="16" fill="#fff" stroke="#dbe3ea"/>
+  <rect x="628" y="88" width="548" height="56" rx="16" fill="#fff"/>
+  <path d="M628 144H1176" stroke="#dbe3ea"/>
+  <rect x="644" y="104" width="31" height="31" rx="8" fill="#007fc2"/>
+  <path d="M653 115q6-7 12 0v7q-6 7-12 0z" fill="none" stroke="white" stroke-width="3"/>
+  <path d="M659 129l-5-5h10z" fill="#e85d30"/>
+  <text x="684" y="125" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#222b33">volontyorlar</text>
+  <text x="1013" y="123" font-family="Arial, sans-serif" font-size="12" font-weight="700" fill="#005e92">BLOG</text>
+  <text x="1063" y="123" font-family="Arial, sans-serif" font-size="12" fill="#566270">EN • ☼</text>
+  <text x="654" y="181" font-family="Arial, sans-serif" font-size="11" font-weight="700" letter-spacing="2" fill="#005e92">02 / ARTICLE</text>
+  <text x="654" y="207" font-family="Arial, sans-serif" font-size="12" fill="#566270">Home / Blog / Your first day</text>
+  <text x="654" y="252" font-family="Georgia, serif" font-size="35" fill="#222b33">Your first day of</text>
+  <text x="654" y="290" font-family="Georgia, serif" font-size="35" fill="#222b33">volunteering</text>
+  <rect x="654" y="314" width="510" height="236" rx="10" fill="url(#scene)"/>
+  <g clip-path="url(#articlePhoto)">
+    <circle cx="1056" cy="348" r="54" fill="#f4f8ec"/>
+    <path d="M648 475 Q787 363 936 462 T1180 436 V560 H648Z" fill="#8ec5cc"/>
+    <path d="M645 521 Q780 435 900 502 T1180 460 V560 H645Z" fill="#4c98ad"/>
+    <path d="M722 545q23-100 88-117m-20 124q33-73 82-84" fill="none" stroke="#eff8f3" stroke-width="6" opacity=".8"/>
+  </g>
+  <text x="654" y="571" font-family="Arial, sans-serif" font-size="11" fill="#566270">Picture caption and credit appear directly below the image.</text>
+  <text x="654" y="611" font-family="Arial, sans-serif" font-size="14" fill="#222b33">Begin with a role you understand and a cause you care about.</text>
+  <text x="654" y="634" font-family="Arial, sans-serif" font-size="14" fill="#222b33">Read what the organiser needs, then prepare a question or two.</text>
+  <text x="654" y="678" font-family="Georgia, serif" font-size="22" fill="#222b33">What to check before you go</text>
+  <path d="M654 696H1164" stroke="#dbe3ea"/>
+  <text x="654" y="713" font-family="Arial, sans-serif" font-size="11" fill="#566270">Reading column continues with headings, lists and inline pictures</text>
+</svg>

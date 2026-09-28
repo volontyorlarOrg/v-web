@@ -25,9 +25,10 @@ describe("header navigation items", () => {
     }
   });
 
-  it("keeps the primary navigation to four real page destinations", () => {
+  it("keeps the primary navigation to five real page destinations", () => {
     expect(HEADER_NAV_ITEMS.map((item) => item.id)).toEqual([
       "volunteering",
+      "blog",
       "partners",
       "about",
       "contact",
