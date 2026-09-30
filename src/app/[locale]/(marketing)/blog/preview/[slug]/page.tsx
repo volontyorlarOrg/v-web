@@ -34,7 +34,6 @@ export default async function BlogPreviewPage({
       locale={locale as Locale}
       preview
       labels={{
-        eyebrow: t("eyebrow"),
         back: t("back"),
         fallback: t("fallback", {
           language: t(`languages.${article.contentLocale}`),
@@ -43,8 +42,10 @@ export default async function BlogPreviewPage({
         previewNotice: t("previewNotice"),
         author: t.raw("author") as string,
         published: t.raw("published") as string,
+        readingTime: t.raw("readingTime") as string,
         credit: t.raw("credit") as string,
         availableIn: t("availableIn"),
+        more: t("more"),
         languages: {
           uz: t("languageNames.uz"),
           ru: t("languageNames.ru"),

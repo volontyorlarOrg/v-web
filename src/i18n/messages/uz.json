@@ -443,6 +443,10 @@
     "previewExpiredBody": "Qoralamani koʻrib chiqish 10 daqiqa amal qiladi. Uni administrator portalidan qayta oching.",
     "missingTitle": "Sarlavha hali yoʻq",
     "missingSummary": "Qisqa mazmun hali yoʻq. Usiz bu tilni chop etib boʻlmaydi.",
-    "missingBody": "Maqola matni hali yoʻq. Usiz bu tilni chop etib boʻlmaydi."
+    "missingBody": "Maqola matni hali yoʻq. Usiz bu tilni chop etib boʻlmaydi.",
+    "pageOf": "{page}-sahifa, jami {pages}",
+    "emptyAction": "Volontyorlik qanday ishlashini koʻring",
+    "readingTime": "{minutes} daqiqada oʻqiladi",
+    "more": "Blogdan yana"
   }
 }

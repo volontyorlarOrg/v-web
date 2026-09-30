@@ -198,6 +198,22 @@ export function blogMediaSrc(
     : `/api/blog/media/${mediaId}/${variant}`;
 }
 
+const MEDIA_WIDTHS = { sm: 480, md: 960, lg: 1600 } as const;
+
+export function blogMediaSrcSet(
+  path: string | null,
+  preview = false,
+  previewLocale?: Locale,
+): string | undefined {
+  if (!MEDIA_PATH.test(path ?? "")) return undefined;
+  return Object.entries(MEDIA_WIDTHS)
+    .map(
+      ([variant, width]) =>
+        `${blogMediaSrc(path!.replace(/\/(sm|md|lg)$/, `/${variant}`), preview, previewLocale)} ${width}w`,
+    )
+    .join(", ");
+}
+
 export function blogMediaUrl(path: string | null): string | null {
   const src = blogMediaSrc(path);
   return src ? marketingUrl(src) : null;
