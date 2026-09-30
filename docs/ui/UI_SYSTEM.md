@@ -150,6 +150,9 @@ container-relative size fight each other, and the smaller one silently wins.
 | `PageBreadcrumbJsonLd`      | The localized home-to-current-page structured-data trail                                                               |
 | `Marquee`                   | The continuously rolling opportunity-source logo strip, with optional grey and color states                            |
 | `RollingWords`              | The hero eyebrow's cycling region name                                                                                 |
+| `BlogFeature`               | The newest article on the first blog page: a wide card, cover beside the serif title, summary and a read cue           |
+| `BlogCard`                  | One article in the blog grid and under an article: cover or plate, date, language chip, title, three-line summary     |
+| `BlogPlate`                 | The cover an article without a picture gets: the dot-grid board in `surface-soft` with the kit's heart at its centre   |
 
 Nothing on the home page is a bordered card. `StatGrid`, `NameBoard` and
 `WorkField` use hairline structure rather than containers. `WorkField` pairs the
@@ -167,6 +170,26 @@ colors. Projects without a wordmark fall back to a neutral HTML name. The
 Pages avoid generic bordered cards. Lists that read as a sequence — what to
 expect and the story on `/about` — use `NumberedRail`; the home page's
 responsibilities are not presented as steps and therefore use `WorkField`.
+
+The blog is the one deliberate exception. An article is a self-contained thing
+a reader picks up, it usually carries a picture, and the list grows without
+limit, so `/blog` and the "More from the blog" band under an article show
+articles as cards. They stay inside the flat system: `surface` on the board,
+one `border` hairline that darkens to `border-control` on hover, no shadow,
+20px corners on a grid card and 28px on the feature, following the
+radius-grows-with-scale rule. A card is a single link: the title's anchor
+stretches over the whole card with an `::after`, so the tab order has one stop
+per article and a screen reader hears the title once; the cover is `alt=""`,
+and the feature's "Read article" pill is `aria-hidden`. Focus draws the 3px
+ring around the card itself through `has-[a:focus-visible]`. Hover answers
+with the border, the title turning `primary-ink` and the cover easing to
+1.035 — nothing lifts. The grid is one column on phones, two from the small
+breakpoint and three from the large one; the first page leads with
+`BlogFeature` and later pages are grid only. An article without a cover gets
+`BlogPlate` rather than a text-only card, so every card has the same anatomy;
+on phones the plate is 3:1 instead of 3:2, because it carries no information.
+Grid cards set their title in Onest at `title` size, as every card title on
+the site does; the feature and the article page keep the serif.
 Pages stay distinct through arrangement rather than through different containers: `/volunteering`
 places its rail beside a heading, `/about` centres its rail at one measure, and
 `/contact` gives each channel a full-width row of its own.

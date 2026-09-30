@@ -555,3 +555,50 @@ test.describe("the hero map", () => {
     ).toHaveCount(0);
   });
 });
+
+test.describe("the blog", () => {
+  test("lists articles as cards that each open their article", async ({ page }) => {
+    await page.goto("/en/blog");
+    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    const cards = page.getByRole("main").getByRole("article");
+    await expect(cards).toHaveCount(3);
+    for (const card of await cards.all()) {
+      await expect(card.getByRole("link")).toHaveCount(1);
+    }
+    await expect(cards.nth(1)).toHaveAttribute("lang", "uz");
+    await expect(cards.nth(1).getByText("In Uzbek")).toBeVisible();
+
+    await cards.nth(2).click({ position: { x: 40, y: 24 } });
+    await expect(page).toHaveURL(/\/en\/blog\/school-club$/);
+    await expect(
+      page.getByRole("heading", { level: 1, name: "Starting a volunteering club at school" }),
+    ).toBeVisible();
+  });
+
+  test("an article offers the other articles as cards", async ({ page }) => {
+    await page.goto("/en/blog/riverbank-clean-up");
+    await expect(page.getByText("1 min read")).toBeVisible();
+    const more = page.getByRole("region", { name: "More from the blog" });
+    await expect(more.getByRole("article")).toHaveCount(2);
+    await expect(
+      more.getByRole("link", { name: "A day at the riverbank clean-up" }),
+    ).toHaveCount(0);
+    if (!(await isMobile(page))) {
+      await expect(
+        page.getByRole("navigation", { name: /main|primary/i }).getByRole("link", {
+          name: "Blog",
+        }),
+      ).toHaveAttribute("aria-current", "true");
+    }
+  });
+
+  test("nothing on the blog overflows horizontally", async ({ page }) => {
+    for (const path of ["/uz/blog", "/ru/blog/birinchi-imkoniyat"]) {
+      await page.goto(path);
+      const overflow = await page.evaluate(
+        () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+      );
+      expect(overflow, path).toBeLessThanOrEqual(0);
+    }
+  });
+});

@@ -443,6 +443,10 @@
     "previewExpiredBody": "A draft preview lasts 10 minutes. Open it again from the administrator portal.",
     "missingTitle": "No title yet",
     "missingSummary": "No summary yet. It is required before this language can be published.",
-    "missingBody": "No article text yet. It is required before this language can be published."
+    "missingBody": "No article text yet. It is required before this language can be published.",
+    "pageOf": "Page {page} of {pages}",
+    "emptyAction": "See how volunteering works",
+    "readingTime": "{minutes} min read",
+    "more": "More from the blog"
   }
 }

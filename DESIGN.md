@@ -410,8 +410,9 @@ the tabs move into their own panel that closes on Escape and on selection.
 
 ## Surfaces and components
 
-Cards do not have borders. A group of related things is separated by a hairline
-rule above each item and a generous gap, not by a box: the boxed grid reads as a
+Cards do not have borders — the blog, below, is the one exception. A group of
+related things is separated by a hairline rule above each item and a generous
+gap, not by a box: the boxed grid reads as a
 table, and a table is the wrong register for six sentences about what an
 organisation does. `StatGrid` and `NameBoard` use the same rule-and-space
 treatment. The home page's "what we do" list keeps those hairlines but joins
@@ -445,6 +446,27 @@ volunteer left empty has no row, and a new account with nothing counted shows
 no figures at all rather than three zeros. One muted sentence under the sheet
 says the profile details are public while the volunteer's public profile is
 enabled.
+
+### Blog
+
+`/blog` is a grid of article cards, because an article is an object a reader
+picks up rather than a sentence in a list. The first page opens with one wide
+feature card — cover on the left from the large breakpoint, the title in the
+serif beside it — and continues as a grid of one, two or three columns. A card
+is `surface` with a hairline border, 20px corners (28px for the feature) and no
+shadow; the cover sits flush at the top in 3:2. An article without a picture
+gets a plate instead: the dot-grid board in `surface-soft` with the kit's heart
+at a quarter strength in its centre, so a missing picture reads as the site's
+own placeholder and not as a broken image. Under the cover: the date and, when
+the article is in another language than the page, an outline chip naming it;
+the title in Onest at `title` size; and at most three lines of summary. The
+whole card is one link.
+
+An article page is a 42rem reading column: back link, title, summary, then one
+ruled byline row — author, date, reading time — and the published-language
+pills. The cover breaks out to 64rem with 28px corners; its caption returns to
+the column. Under the article a `surface-sunk` band offers up to three other
+articles as the same cards.
 
 ## Motion
 

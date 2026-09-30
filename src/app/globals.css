@@ -1178,3 +1178,15 @@
     text-wrap: balance;
   }
 }
+
+@layer components {
+  .blog-plate {
+    background-color: var(--color-surface-soft);
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      var(--board-dot) 1px,
+      transparent 1.6px
+    );
+    background-size: 20px 20px;
+  }
+}

@@ -1,13 +1,30 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { ArticleView } from "@/components/blog/article-view";
+import { ArticleView, type MoreArticle } from "@/components/blog/article-view";
 import type { Locale } from "@/i18n/routing";
-import { getBlogArticle, blogMediaUrl } from "@/lib/blog/blog.server";
+import {
+  BlogLoadError,
+  blogMediaUrl,
+  getBlogArticle,
+  getBlogList,
+} from "@/lib/blog/blog.server";
 import { hasVerifiedMarketingOrigin, marketingUrl } from "@/lib/seo/origin";
+
+const MORE_ARTICLES = 3;
 
 function articleUrl(locale: Locale, slug: string) {
   return marketingUrl(`/${locale}/blog/${encodeURIComponent(slug)}`);
+}
+
+async function moreArticles(locale: Locale, slug: string) {
+  try {
+    const list = await getBlogList(locale);
+    return list.items.filter((item) => item.slug !== slug).slice(0, MORE_ARTICLES);
+  } catch (error) {
+    if (error instanceof BlogLoadError) return [];
+    throw error;
+  }
 }
 
 export async function generateMetadata({
@@ -63,8 +80,16 @@ export default async function BlogArticlePage({
   const article = await getBlogArticle(slug, locale as Locale);
   if (!article) notFound();
   const t = await getTranslations("blog");
+  const more: MoreArticle[] = (await moreArticles(locale as Locale, slug)).map(
+    (item) => ({
+      item,
+      writtenIn:
+        item.contentLocale === locale
+          ? null
+          : t("writtenIn", { language: t(`languages.${item.contentLocale}`) }),
+    }),
+  );
   const labels = {
-    eyebrow: t("eyebrow"),
     back: t("back"),
     fallback: t("fallback", {
       language: t(`languages.${article.contentLocale}`),
@@ -73,8 +98,10 @@ export default async function BlogArticlePage({
     previewNotice: t("previewNotice"),
     author: t.raw("author") as string,
     published: t.raw("published") as string,
+    readingTime: t.raw("readingTime") as string,
     credit: t.raw("credit") as string,
     availableIn: t("availableIn"),
+    more: t("more"),
     languages: {
       uz: t("languageNames.uz"),
       ru: t("languageNames.ru"),
@@ -110,6 +137,7 @@ export default async function BlogArticlePage({
         article={article}
         locale={locale as Locale}
         labels={labels}
+        more={more}
       />
     </>
   );
