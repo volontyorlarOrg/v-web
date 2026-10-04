@@ -50,8 +50,8 @@ editing, applications, essays, ratings, attendance records, or admin workflows.
 Those belong to the separate Volontyorlar application. Do not rebuild them
 here. Public profiles consume only the backend's anonymous public contract,
 which includes profile contact, location, education, social, portfolio, joined
-date, level, and aggregate participation fields but excludes account and auth
-data, applications, and history.
+date, level, aggregate participation fields, and administrator-added past events.
+It excludes account and auth data, applications, and attendance history.
 
 ## Technology stack
 

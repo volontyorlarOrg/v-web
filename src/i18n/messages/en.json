@@ -358,6 +358,13 @@
     "events": "{count, plural, one {<n>{value}</n> event} other {<n>{value}</n> events}}",
     "hours": "{count, plural, one {<n>{value}</n> hour} other {<n>{value}</n> hours}}",
     "xp": "<n>{value}</n> XP",
+    "pastEvents": {
+      "title": "Past events",
+      "hours": "h",
+      "adminAdded": "Added by an administrator",
+      "counted": "Counts toward progress",
+      "notCounted": "History only"
+    },
     "rows": {
       "region": "Region",
       "city": "City",
