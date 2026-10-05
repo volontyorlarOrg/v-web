@@ -29,6 +29,16 @@ export const PUBLIC_PROFILE_REGIONS = [
 type PublicProfileLevel = (typeof PUBLIC_PROFILE_LEVELS)[number];
 type PublicProfileRegion = (typeof PUBLIC_PROFILE_REGIONS)[number];
 
+export type PublicPastEvent = {
+  id: string;
+  title: string;
+  organization: string;
+  eventDate: string;
+  hours: number;
+  xpAwarded: number;
+  countsTowardProgress: boolean;
+};
+
 export type PublicProfile = {
   displayName: string;
   username: string;
@@ -48,6 +58,7 @@ export type PublicProfile = {
   level: PublicProfileLevel;
   xp: number;
   stats: { attendedEvents: number; confirmedHours: number };
+  pastEvents: PublicPastEvent[];
 };
 
 export class PublicProfileLoadError extends Error {}
@@ -99,6 +110,7 @@ export function parsePublicProfile(value: unknown): PublicProfile | null {
         return url ? [url] : [];
       })
     : null;
+  const pastEvents = parsePastEvents(value.pastEvents);
   if (
     typeof value.displayName !== "string" ||
     typeof value.username !== "string" ||
@@ -117,6 +129,7 @@ export function parsePublicProfile(value: unknown): PublicProfile | null {
     typeof value.linkedin !== "string" ||
     linkedin === null ||
     links === null ||
+    pastEvents === null ||
     typeof value.joinedAt !== "string" ||
     Number.isNaN(Date.parse(value.joinedAt)) ||
     !includes(PUBLIC_PROFILE_LEVELS, value.level) ||
@@ -148,7 +161,39 @@ export function parsePublicProfile(value: unknown): PublicProfile | null {
       attendedEvents: value.stats.attendedEvents,
       confirmedHours: value.stats.confirmedHours,
     },
+    pastEvents,
   };
+}
+
+function parsePastEvents(value: unknown): PublicPastEvent[] | null {
+  if (value === undefined) return [];
+  if (!Array.isArray(value)) return null;
+  const events: PublicPastEvent[] = [];
+  for (const item of value) {
+    if (
+      !isRecord(item) ||
+      typeof item.id !== "string" ||
+      typeof item.title !== "string" ||
+      typeof item.organization !== "string" ||
+      typeof item.eventDate !== "string" ||
+      !/^\d{4}-\d{2}-\d{2}$/.test(item.eventDate) ||
+      !nonnegativeNumber(item.hours) ||
+      !Number.isInteger(item.xpAwarded) ||
+      !nonnegativeNumber(item.xpAwarded) ||
+      typeof item.countsTowardProgress !== "boolean"
+    )
+      return null;
+    events.push({
+      id: item.id,
+      title: item.title,
+      organization: item.organization,
+      eventDate: item.eventDate,
+      hours: item.hours,
+      xpAwarded: item.xpAwarded,
+      countsTowardProgress: item.countsTowardProgress,
+    });
+  }
+  return events;
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {

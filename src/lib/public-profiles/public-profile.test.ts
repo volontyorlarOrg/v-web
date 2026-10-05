@@ -21,6 +21,17 @@ const payload = {
   level: "trusted",
   xp: 640,
   stats: { attendedEvents: 8, confirmedHours: 24.5 },
+  pastEvents: [
+    {
+      id: "event-1",
+      title: "Community cleanup",
+      organization: "Community Foundation",
+      eventDate: "2026-09-20",
+      hours: 4.5,
+      xpAwarded: 80,
+      countsTowardProgress: true,
+    },
+  ],
 };
 
 describe("public profile contract", () => {
@@ -29,11 +40,13 @@ describe("public profile contract", () => {
       ...payload,
       email: "private@example.com",
       history: [{ title: "Private event" }],
+      pastEvents: [{ ...payload.pastEvents[0], createdById: "private-admin" }],
     });
 
     expect(parsed).toEqual(payload);
     expect(parsed).not.toHaveProperty("email");
     expect(parsed).not.toHaveProperty("history");
+    expect(parsed?.pastEvents[0]).not.toHaveProperty("createdById");
   });
 
   it("rejects invalid identity, statistics and non-HTTP avatar URLs", () => {
@@ -45,6 +58,7 @@ describe("public profile contract", () => {
       { ...payload, linkedin: "https://linkedin.com/company/aziza" },
       { ...payload, joinedAt: "not-a-date" },
       { ...payload, stats: { attendedEvents: 8, confirmedHours: NaN } },
+      { ...payload, pastEvents: [{ ...payload.pastEvents[0], hours: -1 }] },
     ]) {
       expect(parsePublicProfile(candidate)).toBeNull();
     }

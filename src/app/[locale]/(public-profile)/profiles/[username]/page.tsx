@@ -11,6 +11,7 @@ import {
   type PublicProfileRow,
   type PublicProfileSocialLink,
 } from "@/components/public-profile/public-profile-sheet";
+import { PublicPastEvents } from "@/components/public-profile/public-past-events";
 import {
   getPublicProfile,
   PublicProfileLoadError,
@@ -150,6 +151,19 @@ export default async function PublicProfilePage({
         socials={socials}
         figures={figures}
         rows={rows}
+        pastEvents={
+          <PublicPastEvents
+            events={profile.pastEvents}
+            locale={locale}
+            labels={{
+              title: t("pastEvents.title"),
+              hours: t("pastEvents.hours"),
+              adminAdded: t("pastEvents.adminAdded"),
+              counted: t("pastEvents.counted"),
+              notCounted: t("pastEvents.notCounted"),
+            }}
+          />
+        }
         figuresLabel={t("figures")}
         socialsLabel={t("socials")}
         platformLabels={{
