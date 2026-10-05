@@ -289,6 +289,11 @@ test.describe("public volunteer profiles", () => {
     await expect(page.getByText("School 110")).toBeVisible();
     await expect(page.getByText("Tashkent", { exact: true })).toBeVisible();
     await expect(
+      page.getByRole("heading", { name: "Past events" }),
+    ).toBeVisible();
+    await expect(page.getByText("Community cleanup")).toBeVisible();
+    await expect(page.getByText("Community Foundation")).toBeVisible();
+    await expect(
       page.getByRole("link", { name: "Instagram: @aziza.volunteers" }),
     ).toHaveAttribute("href", "https://www.instagram.com/aziza.volunteers/");
     await expect(

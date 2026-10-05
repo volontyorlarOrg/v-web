@@ -22,6 +22,17 @@ const profile = {
   level: "active",
   xp: 780,
   stats: { attendedEvents: 12, confirmedHours: 48 },
+  pastEvents: [
+    {
+      id: "event-1",
+      title: "Community cleanup",
+      organization: "Community Foundation",
+      eventDate: "2026-09-20",
+      hours: 4.5,
+      xpAwarded: 80,
+      countsTowardProgress: true,
+    },
+  ],
 };
 
 createServer((request, response) => {
