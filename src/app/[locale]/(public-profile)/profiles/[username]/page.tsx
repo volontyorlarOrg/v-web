@@ -11,7 +11,7 @@ import {
   type PublicProfileRow,
   type PublicProfileSocialLink,
 } from "@/components/public-profile/public-profile-sheet";
-import { PublicPastEvents } from "@/components/public-profile/public-past-events";
+import { PublicActivity } from "@/components/public-profile/public-activity";
 import {
   getPublicProfile,
   PublicProfileLoadError,
@@ -127,14 +127,16 @@ export default async function PublicProfilePage({
           ),
         }
       : null,
-    {
-      id: "joined",
-      label: t("rows.joined"),
-      value: new Intl.DateTimeFormat(locale, {
-        month: "long",
-        year: "numeric",
-      }).format(new Date(profile.joinedAt)),
-    },
+    profile.joinedAt
+      ? {
+          id: "joined",
+          label: t("rows.joined"),
+          value: new Intl.DateTimeFormat(locale, {
+            month: "long",
+            year: "numeric",
+          }).format(new Date(profile.joinedAt)),
+        }
+      : null,
   ];
   const rows = candidates.filter(
     (row): row is PublicProfileRow => row !== null,
@@ -151,16 +153,20 @@ export default async function PublicProfilePage({
         socials={socials}
         figures={figures}
         rows={rows}
-        pastEvents={
-          <PublicPastEvents
-            events={profile.pastEvents}
+        activity={
+          <PublicActivity
+            entries={profile.activity}
             locale={locale}
             labels={{
-              title: t("pastEvents.title"),
-              hours: t("pastEvents.hours"),
-              adminAdded: t("pastEvents.adminAdded"),
-              counted: t("pastEvents.counted"),
-              notCounted: t("pastEvents.notCounted"),
+              title: t("activity.title"),
+              hours: t("activity.hours"),
+              notCounted: t("activity.notCounted"),
+              more: t("activity.more", { count: profile.activity.length }),
+              placements: {
+                winner: t("activity.placements.winner"),
+                contributor: t("activity.placements.contributor"),
+                attendee: t("activity.placements.attendee"),
+              },
             }}
           />
         }

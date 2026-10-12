@@ -34,6 +34,19 @@ const payload = {
   ],
 };
 
+const attended = {
+  id: "attendance-1",
+  source: "attendance",
+  kind: "competition",
+  title: "Youth ideas contest",
+  organization: "Ideas Lab",
+  eventDate: "2026-09-10",
+  hours: null,
+  placement: "winner",
+  xpAwarded: 50,
+  countsTowardProgress: true,
+};
+
 describe("public profile contract", () => {
   it("maps the full public profile while dropping account-only data", () => {
     const parsed = parsePublicProfile({
@@ -43,7 +56,17 @@ describe("public profile contract", () => {
       pastEvents: [{ ...payload.pastEvents[0], createdById: "private-admin" }],
     });
 
-    expect(parsed).toEqual(payload);
+    expect(parsed).toEqual({
+      ...payload,
+      activity: [
+        {
+          ...payload.pastEvents[0],
+          source: "manual",
+          kind: "volunteering",
+          placement: null,
+        },
+      ],
+    });
     expect(parsed).not.toHaveProperty("email");
     expect(parsed).not.toHaveProperty("history");
     expect(parsed?.pastEvents[0]).not.toHaveProperty("createdById");
@@ -59,8 +82,59 @@ describe("public profile contract", () => {
       { ...payload, joinedAt: "not-a-date" },
       { ...payload, stats: { attendedEvents: 8, confirmedHours: NaN } },
       { ...payload, pastEvents: [{ ...payload.pastEvents[0], hours: -1 }] },
+      { ...payload, joinedAt: 20250901 },
+      { ...payload, activity: [{ ...attended, source: "private" }] },
+      { ...payload, activity: [{ ...attended, placement: "champion" }] },
+      { ...payload, activity: [{ ...attended, eventDate: "10.09.2026" }] },
+      { ...payload, activity: "none" },
     ]) {
       expect(parsePublicProfile(candidate)).toBeNull();
     }
+  });
+
+  it("accepts a profile whose owner keeps optional parts off the page", () => {
+    const parsed = parsePublicProfile({
+      ...payload,
+      region: null,
+      phone: "",
+      languages: [],
+      links: [],
+      joinedAt: null,
+      pastEvents: [],
+      activity: [],
+    });
+
+    expect(parsed).toMatchObject({
+      displayName: "Aziza Karimova",
+      bio: "I volunteer for community projects.",
+      joinedAt: null,
+      phone: "",
+      activity: [],
+    });
+  });
+
+  it("reads attended events and past events as one activity list", () => {
+    const parsed = parsePublicProfile({
+      ...payload,
+      activity: [
+        { ...attended, attendanceNote: "private" },
+        {
+          ...payload.pastEvents[0],
+          source: "manual",
+          kind: "volunteering",
+          placement: null,
+        },
+      ],
+    });
+
+    expect(parsed?.activity).toEqual([
+      attended,
+      {
+        ...payload.pastEvents[0],
+        source: "manual",
+        kind: "volunteering",
+        placement: null,
+      },
+    ]);
   });
 });
