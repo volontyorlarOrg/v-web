@@ -358,13 +358,6 @@
     "events": "{count, plural, other {<n>{value}</n> ta tadbir}}",
     "hours": "{count, plural, other {<n>{value}</n> soat}}",
     "xp": "<n>{value}</n> XP",
-    "pastEvents": {
-      "title": "Oʻtgan tadbirlar",
-      "hours": "soat",
-      "adminAdded": "Administrator qoʻshgan",
-      "counted": "Taraqqiyotga hisoblanadi",
-      "notCounted": "Faqat tarix"
-    },
     "rows": {
       "region": "Hudud",
       "city": "Shahar",
@@ -411,6 +404,17 @@
     "unavailable": {
       "title": "Profil vaqtincha mavjud emas",
       "body": "Hozir bu profilni yuklay olmadik. Birozdan soʻng qayta urinib koʻring."
+    },
+    "activity": {
+      "title": "Faoliyat",
+      "hours": "soat",
+      "notCounted": "Faqat tarix",
+      "more": "Barchasini koʻrsatish: {count}",
+      "placements": {
+        "winner": "Gʻolib",
+        "contributor": "Faol ishtirokchi",
+        "attendee": "Ishtirok etdi"
+      }
     }
   },
   "blog": {

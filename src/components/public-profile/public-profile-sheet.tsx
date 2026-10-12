@@ -44,7 +44,7 @@ export function PublicProfileSheet({
   socials,
   figures,
   rows,
-  pastEvents,
+  activity,
   figuresLabel,
   socialsLabel,
   platformLabels,
@@ -57,7 +57,7 @@ export function PublicProfileSheet({
   socials: readonly PublicProfileSocialLink[];
   figures: readonly PublicProfileFigure[];
   rows: readonly PublicProfileRow[];
-  pastEvents?: ReactNode;
+  activity?: ReactNode;
   figuresLabel: string;
   socialsLabel: string;
   platformLabels: Record<PublicProfileSocialPlatform, string>;
@@ -156,7 +156,7 @@ export function PublicProfileSheet({
       ) : (
         <div className="pb-7 sm:pb-10" />
       )}
-      {pastEvents}
+      {activity}
     </article>
   );
 }

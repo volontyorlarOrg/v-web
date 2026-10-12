@@ -288,11 +288,12 @@ test.describe("public volunteer profiles", () => {
     await expect(page.getByText("+998901234567")).toBeVisible();
     await expect(page.getByText("School 110")).toBeVisible();
     await expect(page.getByText("Tashkent", { exact: true })).toBeVisible();
-    await expect(
-      page.getByRole("heading", { name: "Past events" }),
-    ).toBeVisible();
-    await expect(page.getByText("Community cleanup")).toBeVisible();
-    await expect(page.getByText("Community Foundation")).toBeVisible();
+    const activity = page.getByRole("region", { name: "Activity" });
+    await expect(activity.getByRole("listitem")).toHaveCount(2);
+    await expect(activity.getByText("Riverside tree planting")).toBeVisible();
+    await expect(activity.getByText("3 h · +30 XP")).toBeVisible();
+    await expect(activity.getByText("Community cleanup")).toBeVisible();
+    await expect(activity.getByText("Community Foundation")).toBeVisible();
     await expect(
       page.getByRole("link", { name: "Instagram: @aziza.volunteers" }),
     ).toHaveAttribute("href", "https://www.instagram.com/aziza.volunteers/");
@@ -314,6 +315,24 @@ test.describe("public volunteer profiles", () => {
         document.documentElement.clientWidth,
     );
     expect(overflow).toBeLessThanOrEqual(0);
+  });
+
+  test("shows only the always-on parts of a profile whose owner hid the rest", async ({
+    page,
+  }) => {
+    const response = await page.goto("/sardor_uz");
+
+    expect(response?.status()).toBe(200);
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+      "Sardor Aliyev",
+    );
+    await expect(page.getByText("@sardor_uz")).toBeVisible();
+    await expect(
+      page.getByRole("list", { name: "Participation" }),
+    ).toBeVisible();
+    await expect(page.getByRole("term")).toHaveCount(0);
+    await expect(page.getByRole("region", { name: "Activity" })).toHaveCount(0);
+    await expect(page.getByText("+998901234567")).toHaveCount(0);
   });
 
   test("normalizes uppercase usernames and does not expose hidden profiles", async ({

@@ -48,10 +48,14 @@ separate product application.
 It does not own volunteer authentication, sessions, dashboards, profile
 editing, applications, essays, ratings, attendance records, or admin workflows.
 Those belong to the separate Volontyorlar application. Do not rebuild them
-here. Public profiles consume only the backend's anonymous public contract,
-which includes profile contact, location, education, social, portfolio, joined
-date, level, aggregate participation fields, and administrator-added past events.
-It excludes account and auth data, applications, and attendance history.
+here. Public profiles consume only the backend's anonymous public contract.
+The name, username, photo, level, bio and aggregate participation are always
+in it; contact, location, education, social, portfolio, the joined date and
+the activity list (attended events and past events) are there only while the
+volunteer keeps them shown, and arrive empty otherwise, so this site renders
+what it is given and holds no visibility rule of its own. The contract
+excludes account and auth data, applications, and every attendance outcome
+other than attended.
 
 ## Technology stack
 
