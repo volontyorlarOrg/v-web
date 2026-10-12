@@ -39,6 +39,25 @@ export type PublicPastEvent = {
   countsTowardProgress: boolean;
 };
 
+export const PUBLIC_ACTIVITY_PLACEMENTS = [
+  "winner",
+  "contributor",
+  "attendee",
+] as const;
+
+export type PublicActivity = {
+  id: string;
+  source: "attendance" | "manual";
+  kind: "volunteering" | "competition";
+  title: string;
+  organization: string;
+  eventDate: string;
+  hours: number | null;
+  placement: (typeof PUBLIC_ACTIVITY_PLACEMENTS)[number] | null;
+  xpAwarded: number;
+  countsTowardProgress: boolean;
+};
+
 export type PublicProfile = {
   displayName: string;
   username: string;
@@ -54,11 +73,12 @@ export type PublicProfile = {
   instagram: string;
   linkedin: string;
   links: string[];
-  joinedAt: string;
+  joinedAt: string | null;
   level: PublicProfileLevel;
   xp: number;
   stats: { attendedEvents: number; confirmedHours: number };
   pastEvents: PublicPastEvent[];
+  activity: PublicActivity[];
 };
 
 export class PublicProfileLoadError extends Error {}
@@ -111,6 +131,11 @@ export function parsePublicProfile(value: unknown): PublicProfile | null {
       })
     : null;
   const pastEvents = parsePastEvents(value.pastEvents);
+  const activity =
+    value.activity === undefined
+      ? (pastEvents?.map(activityFromPastEvent) ?? null)
+      : parseActivity(value.activity);
+  const joinedAt = value.joinedAt ?? null;
   if (
     typeof value.displayName !== "string" ||
     typeof value.username !== "string" ||
@@ -130,8 +155,9 @@ export function parsePublicProfile(value: unknown): PublicProfile | null {
     linkedin === null ||
     links === null ||
     pastEvents === null ||
-    typeof value.joinedAt !== "string" ||
-    Number.isNaN(Date.parse(value.joinedAt)) ||
+    activity === null ||
+    (joinedAt !== null &&
+      (typeof joinedAt !== "string" || Number.isNaN(Date.parse(joinedAt)))) ||
     !includes(PUBLIC_PROFILE_LEVELS, value.level) ||
     !nonnegativeNumber(value.xp) ||
     !nonnegativeNumber(value.stats.attendedEvents) ||
@@ -154,7 +180,7 @@ export function parsePublicProfile(value: unknown): PublicProfile | null {
     instagram: value.instagram,
     linkedin,
     links,
-    joinedAt: value.joinedAt,
+    joinedAt: joinedAt as string | null,
     level: value.level as PublicProfileLevel,
     xp: value.xp,
     stats: {
@@ -162,7 +188,53 @@ export function parsePublicProfile(value: unknown): PublicProfile | null {
       confirmedHours: value.stats.confirmedHours,
     },
     pastEvents,
+    activity,
   };
+}
+
+function activityFromPastEvent(event: PublicPastEvent): PublicActivity {
+  return {
+    ...event,
+    source: "manual",
+    kind: "volunteering",
+    placement: null,
+  };
+}
+
+function parseActivity(value: unknown): PublicActivity[] | null {
+  if (!Array.isArray(value)) return null;
+  const entries: PublicActivity[] = [];
+  for (const item of value) {
+    if (
+      !isRecord(item) ||
+      typeof item.id !== "string" ||
+      (item.source !== "attendance" && item.source !== "manual") ||
+      (item.kind !== "volunteering" && item.kind !== "competition") ||
+      typeof item.title !== "string" ||
+      typeof item.organization !== "string" ||
+      typeof item.eventDate !== "string" ||
+      !/^\d{4}-\d{2}-\d{2}$/.test(item.eventDate) ||
+      (item.hours !== null && !nonnegativeNumber(item.hours)) ||
+      (item.placement !== null &&
+        !includes(PUBLIC_ACTIVITY_PLACEMENTS, item.placement)) ||
+      !Number.isInteger(item.xpAwarded) ||
+      typeof item.countsTowardProgress !== "boolean"
+    )
+      return null;
+    entries.push({
+      id: item.id,
+      source: item.source,
+      kind: item.kind,
+      title: item.title,
+      organization: item.organization,
+      eventDate: item.eventDate,
+      hours: item.hours,
+      placement: item.placement,
+      xpAwarded: item.xpAwarded as number,
+      countsTowardProgress: item.countsTowardProgress,
+    });
+  }
+  return entries;
 }
 
 function parsePastEvents(value: unknown): PublicPastEvent[] | null {
