@@ -358,13 +358,6 @@
     "events": "{count, plural, one {<n>{value}</n> мероприятие} few {<n>{value}</n> мероприятия} many {<n>{value}</n> мероприятий} other {<n>{value}</n> мероприятия}}",
     "hours": "{count, plural, one {<n>{value}</n> час} few {<n>{value}</n> часа} many {<n>{value}</n> часов} other {<n>{value}</n> часа}}",
     "xp": "<n>{value}</n> XP",
-    "pastEvents": {
-      "title": "Прошедшие мероприятия",
-      "hours": "ч",
-      "adminAdded": "Добавлено администратором",
-      "counted": "Учитывается в прогрессе",
-      "notCounted": "Только история"
-    },
     "rows": {
       "region": "Регион",
       "city": "Город",
@@ -411,6 +404,17 @@
     "unavailable": {
       "title": "Профиль временно недоступен",
       "body": "Сейчас не удалось загрузить этот профиль. Попробуйте ещё раз через минуту."
+    },
+    "activity": {
+      "title": "Активность",
+      "hours": "ч",
+      "notCounted": "Только история",
+      "more": "Показать все: {count}",
+      "placements": {
+        "winner": "Победитель",
+        "contributor": "Отличился",
+        "attendee": "Участвовал"
+      }
     }
   },
   "blog": {

@@ -358,13 +358,6 @@
     "events": "{count, plural, one {<n>{value}</n> event} other {<n>{value}</n> events}}",
     "hours": "{count, plural, one {<n>{value}</n> hour} other {<n>{value}</n> hours}}",
     "xp": "<n>{value}</n> XP",
-    "pastEvents": {
-      "title": "Past events",
-      "hours": "h",
-      "adminAdded": "Added by an administrator",
-      "counted": "Counts toward progress",
-      "notCounted": "History only"
-    },
     "rows": {
       "region": "Region",
       "city": "City",
@@ -411,6 +404,17 @@
     "unavailable": {
       "title": "Profile temporarily unavailable",
       "body": "We could not load this profile right now. Please try again in a moment."
+    },
+    "activity": {
+      "title": "Activity",
+      "hours": "h",
+      "notCounted": "History only",
+      "more": "Show all {count}",
+      "placements": {
+        "winner": "Winner",
+        "contributor": "Contributor",
+        "attendee": "Took part"
+      }
     }
   },
   "blog": {

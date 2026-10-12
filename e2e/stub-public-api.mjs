@@ -33,6 +33,51 @@ const profile = {
       countsTowardProgress: true,
     },
   ],
+  activity: [
+    {
+      id: "attendance-1",
+      source: "attendance",
+      kind: "volunteering",
+      title: "Riverside tree planting",
+      organization: "Green City",
+      eventDate: "2026-09-27",
+      hours: 3,
+      placement: null,
+      xpAwarded: 30,
+      countsTowardProgress: true,
+    },
+    {
+      id: "event-1",
+      source: "manual",
+      kind: "volunteering",
+      title: "Community cleanup",
+      organization: "Community Foundation",
+      eventDate: "2026-09-20",
+      hours: 4.5,
+      placement: null,
+      xpAwarded: 80,
+      countsTowardProgress: true,
+    },
+  ],
+};
+
+const reserved = {
+  ...profile,
+  displayName: "Sardor Aliyev",
+  username: "sardor_uz",
+  region: null,
+  city: "",
+  school: "",
+  gradeYear: "",
+  languages: [],
+  phone: "",
+  telegram: "",
+  instagram: "",
+  linkedin: "",
+  links: [],
+  joinedAt: null,
+  pastEvents: [],
+  activity: [],
 };
 
 createServer((request, response) => {
@@ -43,6 +88,11 @@ createServer((request, response) => {
   if (request.url === "/public/profiles/aziza_uz") {
     response.writeHead(200, { "Content-Type": "application/json" });
     response.end(JSON.stringify(profile));
+    return;
+  }
+  if (request.url === "/public/profiles/sardor_uz") {
+    response.writeHead(200, { "Content-Type": "application/json" });
+    response.end(JSON.stringify(reserved));
     return;
   }
   response.writeHead(404, { "Content-Type": "application/json" });
