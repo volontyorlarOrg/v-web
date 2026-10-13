@@ -58,6 +58,7 @@ describe("public profile contract", () => {
 
     expect(parsed).toEqual({
       ...payload,
+      hometownRegion: null,
       activity: [
         {
           ...payload.pastEvents[0],
@@ -90,6 +91,16 @@ describe("public profile contract", () => {
     ]) {
       expect(parsePublicProfile(candidate)).toBeNull();
     }
+  });
+
+  it("reads the hometown apart from the current region, and tolerates a backend that does not send it yet", () => {
+    expect(parsePublicProfile(payload)?.hometownRegion).toBeNull();
+    expect(
+      parsePublicProfile({ ...payload, hometownRegion: "samarkand" }),
+    ).toMatchObject({ region: "tashkent-city", hometownRegion: "samarkand" });
+    expect(
+      parsePublicProfile({ ...payload, hometownRegion: "atlantis" }),
+    ).toBeNull();
   });
 
   it("accepts a profile whose owner keeps optional parts off the page", () => {

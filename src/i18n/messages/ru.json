@@ -360,6 +360,7 @@
     "xp": "<n>{value}</n> XP",
     "rows": {
       "region": "Регион",
+      "hometownRegion": "Родом из",
       "city": "Город",
       "school": "Место учёбы",
       "gradeYear": "Класс или курс",

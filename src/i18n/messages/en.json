@@ -360,6 +360,7 @@
     "xp": "<n>{value}</n> XP",
     "rows": {
       "region": "Region",
+      "hometownRegion": "Hometown",
       "city": "City",
       "school": "School",
       "gradeYear": "Year or grade",
