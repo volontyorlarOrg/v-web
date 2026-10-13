@@ -64,6 +64,7 @@ export type PublicProfile = {
   avatarUrl: string | null;
   bio: string;
   region: PublicProfileRegion | null;
+  hometownRegion: PublicProfileRegion | null;
   city: string;
   school: string;
   gradeYear: string;
@@ -121,6 +122,7 @@ function apiOrigin() {
 export function parsePublicProfile(value: unknown): PublicProfile | null {
   if (!isRecord(value) || !isRecord(value.stats)) return null;
   const region = value.region;
+  const hometownRegion = value.hometownRegion ?? null;
   const avatarUrl = optionalHttpUrl(value.avatarUrl);
   const linkedin =
     value.linkedin === "" ? "" : optionalLinkedinUrl(value.linkedin);
@@ -143,6 +145,8 @@ export function parsePublicProfile(value: unknown): PublicProfile | null {
     (value.avatarUrl !== null && avatarUrl === null) ||
     typeof value.bio !== "string" ||
     (region !== null && !includes(PUBLIC_PROFILE_REGIONS, region)) ||
+    (hometownRegion !== null &&
+      !includes(PUBLIC_PROFILE_REGIONS, hometownRegion)) ||
     typeof value.city !== "string" ||
     typeof value.school !== "string" ||
     typeof value.gradeYear !== "string" ||
@@ -171,6 +175,7 @@ export function parsePublicProfile(value: unknown): PublicProfile | null {
     avatarUrl,
     bio: value.bio,
     region: region as PublicProfileRegion | null,
+    hometownRegion: hometownRegion as PublicProfileRegion | null,
     city: value.city,
     school: value.school,
     gradeYear: value.gradeYear,

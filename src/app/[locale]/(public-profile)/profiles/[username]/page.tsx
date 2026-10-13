@@ -107,6 +107,13 @@ export default async function PublicProfilePage({
           value: t(`regions.${profile.region}`),
         }
       : null,
+    profile.hometownRegion
+      ? {
+          id: "hometownRegion",
+          label: t("rows.hometownRegion"),
+          value: t(`regions.${profile.hometownRegion}`),
+        }
+      : null,
     textRow("city", profile.city, t),
     textRow("school", profile.school, t),
     textRow("gradeYear", profile.gradeYear, t),
