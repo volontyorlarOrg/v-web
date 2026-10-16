@@ -4,6 +4,10 @@ import { PUBLIC_USERNAME_PATTERN } from "@/lib/public-profiles/routing";
 
 export const PUBLIC_PROFILE_LEVELS = [
   "newcomer",
+  "volunteer",
+  "supervisor",
+  "coordinator",
+  "leader",
   "active",
   "trusted",
   "core",
