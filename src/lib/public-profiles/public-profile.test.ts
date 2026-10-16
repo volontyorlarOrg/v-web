@@ -73,6 +73,24 @@ describe("public profile contract", () => {
     expect(parsed?.pastEvents[0]).not.toHaveProperty("createdById");
   });
 
+  it("reads every step of the hours ladder and still the older levels", () => {
+    for (const level of [
+      "newcomer",
+      "volunteer",
+      "supervisor",
+      "coordinator",
+      "leader",
+      "active",
+      "trusted",
+      "core",
+    ]) {
+      expect(parsePublicProfile({ ...payload, level })?.level, level).toBe(
+        level,
+      );
+    }
+    expect(parsePublicProfile({ ...payload, level: "legend" })).toBeNull();
+  });
+
   it("rejects invalid identity, statistics and non-HTTP avatar URLs", () => {
     for (const candidate of [
       { ...payload, username: "NO" },

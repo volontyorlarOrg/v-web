@@ -377,6 +377,10 @@
     },
     "levels": {
       "newcomer": "Newcomer",
+      "volunteer": "Volunteer",
+      "supervisor": "Supervisor",
+      "coordinator": "Coordinator",
+      "leader": "Leader",
       "active": "Active",
       "trusted": "Trusted",
       "core": "Core"
