@@ -377,6 +377,10 @@
     },
     "levels": {
       "newcomer": "Yangi",
+      "volunteer": "Volontyor",
+      "supervisor": "Supervayzer",
+      "coordinator": "Koordinator",
+      "leader": "Yetakchi",
       "active": "Faol",
       "trusted": "Ishonchli",
       "core": "Yetakchi"

@@ -377,6 +377,10 @@
     },
     "levels": {
       "newcomer": "Новичок",
+      "volunteer": "Волонтёр",
+      "supervisor": "Супервайзер",
+      "coordinator": "Координатор",
+      "leader": "Лидер",
       "active": "Активный",
       "trusted": "Надёжный",
       "core": "Лидер"
