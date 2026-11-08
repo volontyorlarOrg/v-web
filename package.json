@@ -33,19 +33,19 @@
     "three": "^0.185.1"
   },
   "devDependencies": {
-    "@playwright/test": "^1.63.0",
+    "@playwright/test": "^1.65.0",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
-    "@testing-library/user-event": "^14.6.7",
+    "@testing-library/user-event": "^14.6.8",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/three": "^0.185.4",
     "eslint": "^9.39.3",
-    "eslint-config-next": "^16.3.4",
+    "eslint-config-next": "^16.4.5",
     "jsdom": "^30.0.1",
-    "shadcn": "^4.21.0",
+    "shadcn": "^4.23.0",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^4.1.11"
