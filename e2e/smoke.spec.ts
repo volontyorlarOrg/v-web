@@ -275,7 +275,7 @@ test.describe("production information architecture", () => {
 test.describe("public volunteer profiles", () => {
   test("serves an available profile at the exact root username URL", async ({
     page,
-  }) => {
+  }, testInfo) => {
     const response = await page.goto("/aziza_uz");
 
     expect(response?.status()).toBe(200);
@@ -289,7 +289,12 @@ test.describe("public volunteer profiles", () => {
     await expect(page.getByText("School 110")).toBeVisible();
     await expect(page.getByText("Tashkent", { exact: true })).toBeVisible();
     const activity = page.getByRole("region", { name: "Activity" });
-    await expect(activity.getByRole("listitem")).toHaveCount(2);
+    await expect(activity.getByRole("listitem")).toHaveCount(3);
+    const reward = activity
+      .getByRole("listitem")
+      .filter({ hasText: "Profile completed" });
+    await expect(reward).toContainText("+50 XP");
+    await expect(reward).toContainText("Oct 11, 2026");
     await expect(activity.getByText("Riverside tree planting")).toBeVisible();
     await expect(activity.getByText("3 h · +30 XP")).toBeVisible();
     await expect(activity.getByText("Community cleanup")).toBeVisible();
@@ -315,6 +320,21 @@ test.describe("public volunteer profiles", () => {
         document.documentElement.clientWidth,
     );
     expect(overflow).toBeLessThanOrEqual(0);
+    for (const theme of ["light", "dark"] as const) {
+      await page.emulateMedia({ colorScheme: theme, reducedMotion: "reduce" });
+      await page.reload();
+      await expect(reward).toBeVisible();
+      expect(
+        await page.evaluate(
+          () => document.documentElement.scrollWidth <= window.innerWidth,
+        ),
+      ).toBe(true);
+      await page.screenshot({
+        path: testInfo.outputPath(`profile-reward-${theme}.png`),
+        fullPage: true,
+        animations: "disabled",
+      });
+    }
   });
 
   test("shows only the always-on parts of a profile whose owner hid the rest", async ({

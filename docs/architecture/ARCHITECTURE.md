@@ -1,5 +1,15 @@
 # Web Architecture
 
+## Profile reward history
+
+Public profile activity includes claimed profile-completion rewards from the
+public contract's `rewards` array (`id`, `key`, `xpAwarded`, `claimedAt`).
+The page shows "Profile completed", the paid XP and the claim date in
+Asia/Tashkent, alongside events in chronological order. The backend returns
+no rewards when activity is hidden and deduplicates merged-account claims.
+Unclaimed completions do not appear. Missing `rewards` on an older API response
+means an empty list; rewards never add hours or attended events.
+
 ## Implemented
 
 A single Next.js 16 App Router application: React 19, strict TypeScript,

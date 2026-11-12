@@ -18,6 +18,7 @@ import {
   type PublicProfile,
 } from "@/lib/public-profiles/public-profile.server";
 import { marketingUrl } from "@/lib/seo/origin";
+import { publicActivityTimeline } from "@/lib/public-profiles/activity";
 
 export const dynamic = "force-dynamic";
 
@@ -148,6 +149,7 @@ export default async function PublicProfilePage({
   const rows = candidates.filter(
     (row): row is PublicProfileRow => row !== null,
   );
+  const activity = publicActivityTimeline(profile.activity, profile.rewards);
 
   return (
     <div className="container-page py-8 sm:py-14 lg:py-20">
@@ -162,13 +164,16 @@ export default async function PublicProfilePage({
         rows={rows}
         activity={
           <PublicActivity
-            entries={profile.activity}
+            entries={activity}
             locale={locale}
             labels={{
               title: t("activity.title"),
               hours: t("activity.hours"),
               notCounted: t("activity.notCounted"),
-              more: t("activity.more", { count: profile.activity.length }),
+              more: t("activity.more", {
+                count: activity.length,
+              }),
+              profileCompleted: t("activity.profileCompleted"),
               placements: {
                 winner: t("activity.placements.winner"),
                 contributor: t("activity.placements.contributor"),

@@ -419,7 +419,8 @@
         "winner": "Winner",
         "contributor": "Contributor",
         "attendee": "Took part"
-      }
+      },
+      "profileCompleted": "Profile completed"
     }
   },
   "blog": {
