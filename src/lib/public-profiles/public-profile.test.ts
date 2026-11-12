@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 
 import { parsePublicProfile } from "@/lib/public-profiles/public-profile.server";
+import { publicActivityTimeline } from "@/lib/public-profiles/activity";
 
 const payload = {
   displayName: "Aziza Karimova",
@@ -34,6 +35,45 @@ const payload = {
   ],
 };
 
+describe("public profile rewards", () => {
+  const reward = {
+    id: "reward",
+    key: "profile",
+    xpAwarded: 50,
+    claimedAt: "2026-10-10T21:30:00.000Z",
+  };
+
+  it("sorts rewards against local event dates and ignores unknown keys", () => {
+    const profile = parsePublicProfile({
+      ...payload,
+      rewards: [{ ...reward, claimedAt: "2026-09-19T21:30:00.000Z" }],
+    });
+    expect(
+      publicActivityTimeline(profile!.activity, [
+        ...profile!.rewards,
+        { ...reward, id: "unknown", key: "retired" },
+      ]).map((entry) => entry.source),
+    ).toEqual(["checkpoint", "manual"]);
+  });
+
+  it("accepts paid rewards and defaults an older response to no rewards", () => {
+    expect(
+      parsePublicProfile({ ...payload, rewards: [reward] })?.rewards,
+    ).toEqual([reward]);
+    expect(parsePublicProfile(payload)?.rewards).toEqual([]);
+  });
+
+  it.each([
+    { ...reward, claimedAt: null },
+    { ...reward, claimedAt: "yesterday" },
+    { ...reward, xpAwarded: 0 },
+    { ...reward, xpAwarded: -50 },
+    { ...reward, id: "" },
+  ])("refuses malformed reward data %j", (bad) => {
+    expect(parsePublicProfile({ ...payload, rewards: [bad] })).toBeNull();
+  });
+});
+
 const attended = {
   id: "attendance-1",
   source: "attendance",
@@ -58,6 +98,7 @@ describe("public profile contract", () => {
 
     expect(parsed).toEqual({
       ...payload,
+      rewards: [],
       hometownRegion: null,
       activity: [
         {

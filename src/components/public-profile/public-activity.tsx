@@ -1,4 +1,5 @@
 import type { PublicActivity as PublicActivityEntry } from "@/lib/public-profiles/public-profile.server";
+import type { publicActivityTimeline } from "@/lib/public-profiles/activity";
 
 const LEAD = 6;
 
@@ -7,6 +8,7 @@ type Labels = {
   hours: string;
   notCounted: string;
   more: string;
+  profileCompleted: string;
   placements: Record<NonNullable<PublicActivityEntry["placement"]>, string>;
 };
 
@@ -15,7 +17,7 @@ function ActivityList({
   locale,
   labels,
 }: {
-  entries: readonly PublicActivityEntry[];
+  entries: ReturnType<typeof publicActivityTimeline>;
   locale: string;
   labels: Labels;
 }) {
@@ -26,10 +28,38 @@ function ActivityList({
     timeZone: "UTC",
   });
   const number = new Intl.NumberFormat(locale);
+  const rewardDate = new Intl.DateTimeFormat(locale, {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    timeZone: "Asia/Tashkent",
+  });
 
   return (
     <ul className="divide-y divide-border">
       {entries.map((entry) => {
+        if (entry.source === "checkpoint") {
+          return (
+            <li
+              key={`${entry.source}-${entry.id}`}
+              className="flex flex-wrap items-baseline gap-x-5 gap-y-1 py-3"
+            >
+              <div className="min-w-0 flex-1">
+                <p className="font-semibold text-ink">
+                  {labels.profileCompleted}
+                </p>
+                <p className="text-sm text-ink-muted">
+                  <time dateTime={entry.claimedAt}>
+                    {rewardDate.format(new Date(entry.claimedAt))}
+                  </time>
+                </p>
+              </div>
+              <p className="tabular text-sm text-ink">
+                +{number.format(entry.xpAwarded)} XP
+              </p>
+            </li>
+          );
+        }
         const credited =
           entry.source === "attendance" || entry.countsTowardProgress;
         const facts = [
@@ -76,7 +106,7 @@ export function PublicActivity({
   locale,
   labels,
 }: {
-  entries: readonly PublicActivityEntry[];
+  entries: ReturnType<typeof publicActivityTimeline>;
   locale: string;
   labels: Labels;
 }) {

@@ -22,6 +22,14 @@ const profile = {
   level: "active",
   xp: 780,
   stats: { attendedEvents: 12, confirmedHours: 48 },
+  rewards: [
+    {
+      id: "profile-reward",
+      key: "profile",
+      xpAwarded: 50,
+      claimedAt: "2026-10-10T21:30:00.000Z",
+    },
+  ],
   pastEvents: [
     {
       id: "event-1",
@@ -78,6 +86,7 @@ const reserved = {
   joinedAt: null,
   pastEvents: [],
   activity: [],
+  rewards: [],
 };
 
 createServer((request, response) => {

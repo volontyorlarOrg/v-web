@@ -84,6 +84,14 @@ export type PublicProfile = {
   stats: { attendedEvents: number; confirmedHours: number };
   pastEvents: PublicPastEvent[];
   activity: PublicActivity[];
+  rewards: PublicReward[];
+};
+
+export type PublicReward = {
+  id: string;
+  key: string;
+  xpAwarded: number;
+  claimedAt: string;
 };
 
 export class PublicProfileLoadError extends Error {}
@@ -137,6 +145,7 @@ export function parsePublicProfile(value: unknown): PublicProfile | null {
       })
     : null;
   const pastEvents = parsePastEvents(value.pastEvents);
+  const rewards = parseRewards(value.rewards);
   const activity =
     value.activity === undefined
       ? (pastEvents?.map(activityFromPastEvent) ?? null)
@@ -163,6 +172,7 @@ export function parsePublicProfile(value: unknown): PublicProfile | null {
     linkedin === null ||
     links === null ||
     pastEvents === null ||
+    rewards === null ||
     activity === null ||
     (joinedAt !== null &&
       (typeof joinedAt !== "string" || Number.isNaN(Date.parse(joinedAt)))) ||
@@ -198,7 +208,39 @@ export function parsePublicProfile(value: unknown): PublicProfile | null {
     },
     pastEvents,
     activity,
+    rewards,
   };
+}
+
+function parseRewards(value: unknown): PublicReward[] | null {
+  if (value === undefined) return [];
+  if (!Array.isArray(value)) return null;
+  const rewards: PublicReward[] = [];
+  for (const item of value) {
+    if (
+      !isRecord(item) ||
+      typeof item.id !== "string" ||
+      !item.id ||
+      typeof item.key !== "string" ||
+      !item.key ||
+      !Number.isInteger(item.xpAwarded) ||
+      !nonnegativeNumber(item.xpAwarded) ||
+      item.xpAwarded === 0 ||
+      typeof item.claimedAt !== "string" ||
+      !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/.test(
+        item.claimedAt,
+      ) ||
+      Number.isNaN(Date.parse(item.claimedAt))
+    )
+      return null;
+    rewards.push({
+      id: item.id,
+      key: item.key,
+      xpAwarded: item.xpAwarded,
+      claimedAt: item.claimedAt,
+    });
+  }
+  return rewards;
 }
 
 function activityFromPastEvent(event: PublicPastEvent): PublicActivity {

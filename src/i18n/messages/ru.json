@@ -419,7 +419,8 @@
         "winner": "Победитель",
         "contributor": "Отличился",
         "attendee": "Участвовал"
-      }
+      },
+      "profileCompleted": "Профиль заполнен"
     }
   },
   "blog": {
