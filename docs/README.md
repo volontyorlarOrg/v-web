@@ -53,3 +53,12 @@ These pages separate three kinds of truth:
 
 Unknowns stay explicit. They are not filled with assumed contracts, hostnames,
 or partner claims.
+
+## Personal data and legal notices
+
+The Privacy Policy and Terms (`privacy` and `terms` in the catalogs) are copied
+from the backend's archived legal text with `npm run legal:sync` in
+`../v-backend`; never edit them here. `src/lib/legal/document.test.ts` fails if
+they drift from the hashes volunteers consent to. The contact block reads
+`LEGAL_CONTACT_EMAIL` and `LEGAL_CORRESPONDENCE_ADDRESS` at build time. See
+[consent and data-request operations](../../v-backend/docs/operations/DATA_RIGHTS_AND_CONSENT.md).

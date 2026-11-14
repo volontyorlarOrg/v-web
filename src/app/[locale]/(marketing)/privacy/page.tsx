@@ -4,13 +4,12 @@ import type { Metadata } from "next";
 
 import { PageBreadcrumbJsonLd } from "@/components/marketing/page-breadcrumb-json-ld";
 import { PageHero } from "@/components/marketing/page-hero";
+import { LegalContact } from "@/components/legal/legal-contact";
 import { ProseSections, type ProseSection } from "@/components/marketing/prose";
 import { Section } from "@/components/marketing/section";
 import type { Locale } from "@/i18n/routing";
 import { LEGAL_UPDATED_ON } from "@/lib/content/org";
 import { buildPageMetadata } from "@/lib/seo/metadata";
-
-const SECTION_IDS = ["collection", "cookies", "analytics", "logs", "links", "app", "contact"] as const;
 
 export async function generateMetadata({
   params,
@@ -29,11 +28,9 @@ function Privacy({ locale }: { locale: Locale }) {
   const t = useTranslations("privacy");
   const format = useFormatter();
 
-  const sections: ProseSection[] = SECTION_IDS.map((id) => ({
-    id,
-    title: t(`sections.${id}.title`),
-    body: t(`sections.${id}.body`),
-  }));
+  const sections: ProseSection[] = Object.entries(
+    t.raw("sections") as Record<string, Omit<ProseSection, "id">>,
+  ).map(([id, section]) => ({ id, ...section }));
 
   return (
     <>
@@ -56,6 +53,7 @@ function Privacy({ locale }: { locale: Locale }) {
 
       <Section>
         <ProseSections sections={sections} />
+        <LegalContact />
       </Section>
     </>
   );
