@@ -6,9 +6,9 @@ export const LEGAL_OPERATORS = [
 ] as const;
 
 export const LEGAL_DOCUMENT_HASHES = {
-  uz: "5775cded508bec9a9c7c47311b77603897c60bfb87a74934cd1430245b905446",
-  ru: "d6e6c8d71e925d2d894e24b96d52fc3a6ff72e2690244ad7b948f02f576fb1a7",
-  en: "abe5694fa5f1fa66b8b89a903539447fcc8d5a8a794e5637dfe8043a8661dd5c",
+  uz: "b176d2255ec8f77bdb5b7ab7ed4d0dec3d114884d7ffa64834ecca4e1d51e739",
+  ru: "a8ab51d605370f24eab7e40bf1405d396e02cd4a5a1ea47ed80d0c129a21a17b",
+  en: "de76520e8968332c73cf8db2b1f4bf82f0dc29cc786a57f82c6921c90b720df6",
 } as const;
 
 export function legalContact() {
