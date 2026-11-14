@@ -22,7 +22,7 @@ export function ProseSections({
   children?: ReactNode;
 }) {
   return (
-    <div className="max-w-2xl">
+    <div>
       {children}
       <div className="mt-10 space-y-10">
         {sections.map((section) => (
@@ -34,14 +34,14 @@ export function ProseSections({
               block.kind === "list" ? (
                 <ul
                   key={index}
-                  className="mt-3 list-disc space-y-1.5 ps-5 leading-relaxed text-ink-muted"
+                  className="mt-4 list-disc space-y-2 ps-6 text-lg leading-relaxed text-ink-muted"
                 >
                   {block.items.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
               ) : (
-                <p key={index} className="mt-3 leading-relaxed text-ink-muted">
+                <p key={index} className="mt-4 text-lg leading-relaxed text-ink-muted">
                   {block.text}
                 </p>
               ),
