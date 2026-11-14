@@ -104,4 +104,4 @@ export const OPPORTUNITY_SOURCES = [
   },
 ] as const;
 
-export const LEGAL_UPDATED_ON = "2026-09-02";
+export const LEGAL_UPDATED_ON = "2026-11-14";

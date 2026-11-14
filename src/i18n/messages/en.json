@@ -268,76 +268,100 @@
     }
   },
   "privacy": {
-    "metaTitle": "Privacy",
-    "metaDescription": "What happens to your information on the Volontyorlar website: no accounts, no forms, no analytics, and only two cookies that remember your theme and your language.",
-    "title": "Privacy",
-    "updatedLabel": "Last updated",
-    "lead": "This page describes the Volontyorlar website you are reading. It does not cover the separate Volontyorlar application.",
+    "title": "Privacy Policy",
+    "metaTitle": "Privacy Policy",
+    "metaDescription": "What personal data Volontyorlar collects, why, who can see it, where it is stored and how to use your rights.",
+    "lead": "Volontyorlar connects volunteers with organisations. To do that we store your account, profile, applications and participation records. This policy explains what we collect, who can see it and how you stay in control. It covers volontyorlar.uz, app.volontyorlar.uz, org.volontyorlar.uz and the staff and admin portals.",
+    "updatedLabel": "Updated",
     "sections": {
+      "operator": {
+        "title": "Who is responsible",
+        "body": "Volontyorlar is run by two private individuals, Arslon Rajabov and Abdulaziz Yusupaliev. They decide how your data is used and are the owners and operators of the Volontyorlar database under the Law of the Republic of Uzbekistan “On Personal Data” (No. ZRU-547 of 2 July 2019, as amended). Volontyorlar is not a registered company or NGO.\n\nThe fastest way to reach us is Settings → Privacy in the volunteer app; we answer in your request history. Our email and postal address are shown at the end of this page."
+      },
       "collection": {
-        "title": "We do not collect personal data here",
-        "body": "This website has no accounts, no sign-in, no forms, and no comment fields. There is nothing for you to submit, so there is nothing for us to store."
+        "title": "What data we collect",
+        "body": "We collect only what running volunteer opportunities needs:\n\n- When you sign up: name, email, password (stored only as a one-way hash), username and profile photo.\n- If you sign in with Telegram: your Telegram ID, name, Telegram username, phone number and language.\n- If you sign in with Google: your Google account ID, name and email.\n- Your profile: bio, school or university, grade or year, current and home region, city, languages, skills, phone, Telegram and Instagram usernames, LinkedIn, portfolio links and the fields you choose to hide.\n- Your applications: answers, essays, saved drafts, a copy of your profile at the moment you apply, and the organiser’s decision and notes.\n- Your participation: attendance, confirmed hours, XP, level, rewards, rank and administrator adjustments.\n- Your requests: data requests, problem reports, and your consent choices and their history.\n- Technical data: sign-in sessions, security audit records, and IP address and browser details in our hosting providers’ logs.\n\nWe do not collect your date of birth, home address, passport or ID numbers, health information, or biometric or genetic data. Please do not include such data in essays or answers."
+      },
+      "purposes": {
+        "title": "Why we use it",
+        "body": "Your consent is the main ground for processing (Articles 18 and 21 of the law). Some processing is also needed to provide the service under the Terms or to meet legal duties. We use your data to:\n\n- create and protect your account and sign you in;\n- show opportunities and let you apply;\n- let organisations review your applications and organise events;\n- record attendance, hours, XP and levels;\n- accept applications automatically when an organiser chooses this (see “Automatic decisions”);\n- send you notifications in the app and, if you connect it, on Telegram;\n- show you on the leaderboard or on a public profile, only if you turn these on;\n- answer your requests and reports;\n- keep the platform secure and investigate misuse.\n\nWe never sell your data, show advertising or use analytics or advertising trackers. Using your data for a new purpose needs your new consent (Article 19)."
+      },
+      "access": {
+        "title": "Who can access your data",
+        "body": "By default only you, the organisations you apply to, our coordinators and our administrators can see your data.\n\n- You: everything in your account, at any time.\n- An organisation you apply to: your answers and essay, account email, and a copy of your profile (name, contacts, education, location and links); later, your attendance and hours at its event. Access starts when you submit, and we notify you which organisation received your data (Article 23).\n- Volontyorlar coordinators: the same, but only for the opportunities they run.\n- Administrators (the two founders and the accounts they appoint): all platform data, when needed to run the service, verify hours, handle reports and answer your requests.\n- Other signed-in volunteers: your name, username, photo, XP and rank on the leaderboard, only if you turn on “Show me on the leaderboard”.\n- Anyone on the internet: your public profile (name, username, photo, bio, region, city, school, grade, languages, phone, social links, XP and activity, minus the fields you hide), only if you turn on “Make my profile public”. This is your written consent to publication under Article 29.\n- Service providers listed below: only the data they store or process for us, on our instructions.\n- State bodies: only what a law or a court order requires.\n\nAn organisation keeps the copy of your application even if you later edit your profile. Your profile photo is stored at a hard-to-guess link; anyone who has that link can open it."
+      },
+      "providers": {
+        "title": "Where your data is stored",
+        "body": "Your data is stored outside Uzbekistan, mainly in Singapore. Cabinet of Ministers Resolution No. 415 of 29 July 2026 lists Singapore as a country with adequate protection of personal data (Articles 15 and 27¹ of the law).\n\n- Neon: main database, Singapore.\n- Render: our API server, Singapore.\n- Vercel: our websites, Singapore region with a global delivery network.\n- Upstash: short-lived cache and rate limits, Singapore.\n- Cloudflare R2: profile photos and event images, Cloudflare’s global network.\n- Telegram: sign-in and the messages our bot sends you.\n- Google: sign-in, if you choose it.\n\nArticle 27¹ requires biometric data, genetic data and telecom subscriber data to stay in Uzbekistan; we collect none of these."
+      },
+      "retention": {
+        "title": "How long we keep it",
+        "body": "We keep your data only as long as its purpose needs (Articles 10 and 17):\n\n- Account, profile, applications and participation: while your account exists.\n- After you ask for deletion or withdraw consent: deleted or anonymised within 30 days, unless a law requires us to keep a record.\n- Consent and request history: while your account exists, then only as long as we need proof that we handled your request.\n- Security audit records: 90 days.\n- Sign-in sessions: 3 days in the volunteer app, 2 days in the staff, organisation and admin portals.\n- Unfinished sign-in steps: 10 to 30 minutes.\n- Provider logs and backups: until the provider overwrites them on its own schedule."
+      },
+      "consent": {
+        "title": "Your consent and choices",
+        "body": "Every volunteer gives the same consent on one page before using the app: one required checkbox and two optional ones.\n\n- Required: you have read this policy and the Terms and agree that Volontyorlar processes your personal data as described. Without it you cannot create an account or keep using the app.\n- Optional: “Show me on the leaderboard”.\n- Optional: “Make my profile public”.\n\nWe record the policy version, language, time and your choices as proof of consent (Article 21). You can change the optional choices or withdraw consent at any time in Settings → Privacy. Withdrawing stops normal use of the app, removes you from the leaderboard and from public view, stops Telegram messages, and starts deletion as described above."
+      },
+      "rights": {
+        "title": "Your rights",
+        "body": "Send any request from Settings → Privacy or to the contacts at the end of this page:\n\n- Information and a copy of your data (Articles 22 and 30): we answer within 10 days; if we refuse, we explain why in writing within 10 days.\n- Correction (Article 11): within 3 days of your request. You can also edit most profile data yourself.\n- Deletion or withdrawal of consent (Articles 17 and 21): normal use stops immediately; deletion within 30 days.\n- Removing a public profile (Article 29): switch it off yourself at any time; it disappears immediately.\n- Objection to an automatic decision (Article 24): a person reviews it and we answer in writing within 10 days.\n- Suspension of processing of incomplete, outdated, wrong or unlawfully obtained data (Article 30).\n\nYou can also complain to the State Personalisation Centre under the Cabinet of Ministers of the Republic of Uzbekistan or to a court. We never ask for your password."
+      },
+      "automated": {
+        "title": "Automatic decisions",
+        "body": "Two things happen automatically:\n\n- Automatic acceptance: when an organiser turns it on, a complete application is accepted automatically while places remain. Nobody is rejected automatically; once places run out, the opportunity stops taking applications.\n- XP, levels and rank are calculated from confirmed attendance, hours and administrator adjustments. They are Volontyorlar’s own records, not a state qualification.\n\nTo object to either, choose “Review an automatic decision” in Settings → Privacy (Article 24)."
       },
       "cookies": {
-        "title": "Cookies",
-        "body": "The site sets two small cookies, and neither identifies you: one remembers whether you chose the light or the dark theme, the other remembers your language. They travel with your requests so that this site and the volunteer application open the way you left them. There is no tracking, advertising, or analytics cookie."
+        "title": "Cookies and browser storage",
+        "body": "We use only the cookies and browser storage the service needs. There are no analytics or advertising cookies, so we do not show a cookie banner.\n\n- Keeping you signed in (encrypted session): up to 3 days in the app, 2 days in the portals.\n- Protecting sign-in with Telegram or Google: 10 to 15 minutes.\n- Carrying your consent from the consent page to sign-up: 30 minutes.\n- Remembering your language and theme: up to 1 year.\n- Remembering onboarding progress: 90 days."
       },
-      "analytics": {
-        "title": "No analytics or tracking",
-        "body": "No analytics, advertising, or third-party tracking script runs on this website, and no third-party fonts or embeds are loaded."
+      "security": {
+        "title": "Security and notices",
+        "body": "We protect your data as Article 27 requires:\n\n- All connections are encrypted. Passwords, sign-in tokens and consent codes are stored only as one-way hashes.\n- Every request is checked against your live session and role; organisations and coordinators see only their own opportunities.\n- Our logs never contain request bodies, essays, contacts, tokens or cookies.\n\nAfter you give consent we send you an in-app notice that your data is in our database. When you submit an application we immediately notify you which organisation received which data (Article 23). If a data breach affects you, we will tell you and the authorities as the law requires."
       },
-      "logs": {
-        "title": "Server logs",
-        "body": "Like any website, your request reaches a hosting provider that may keep short-lived technical logs, such as an IP address and browser type. We do not use those logs to identify visitors."
-      },
-      "links": {
-        "title": "Links to other services",
-        "body": "Links to Telegram, Instagram, or the Volontyorlar application take you to services with their own privacy practices. This page does not cover them."
-      },
-      "app": {
-        "title": "The Volontyorlar application",
-        "body": "The separate Volontyorlar application handles volunteer profiles and applications. It has its own privacy terms, and nothing on this website is connected to it."
-      },
-      "contact": {
-        "title": "Questions",
-        "body": "Ask through one of our public channels."
+      "changes": {
+        "title": "Changes to this policy",
+        "body": "This version is dated 14 November 2026. We keep earlier versions on file. If a change adds a new purpose, a new recipient or new data, you will see the consent page again, and the change applies to you only after you agree (Article 19). The official Uzbek text of the law prevails over any translation."
       }
     }
   },
   "terms": {
-    "metaTitle": "Terms",
-    "metaDescription": "Terms for using the Volontyorlar website: what it is, what it is not, and what it does not promise.",
-    "title": "Terms",
-    "updatedLabel": "Last updated",
-    "lead": "These terms cover this website. The separate Volontyorlar application has its own.",
+    "title": "Terms of Use",
+    "metaTitle": "Terms of Use",
+    "metaDescription": "The rules for volunteers, organisations and administrators using Volontyorlar.",
+    "lead": "These terms are the rules for using Volontyorlar. Read them together with the Privacy Policy.",
+    "updatedLabel": "Updated",
     "sections": {
-      "purpose": {
-        "title": "What this site is",
-        "body": "This website is informational. It describes Volontyorlar, the organisations we work with, and how volunteering with us works. It is not a place to apply, sign in, or manage a volunteer profile."
+      "operator": {
+        "title": "The service",
+        "body": "Volontyorlar is a platform that connects volunteers with organisations. It is run by two private individuals, Arslon Rajabov and Abdulaziz Yusupaliev, and is not a registered company or NGO. The laws of the Republic of Uzbekistan apply."
       },
-      "accuracy": {
-        "title": "Accuracy",
-        "body": "We publish only information we can confirm. Details about events and partners can still change, and pages may be out of date between updates."
+      "accounts": {
+        "title": "Your account",
+        "body": "- Give accurate information and use only your own identity.\n- Keep your sign-in details private and do not share your account.\n- Tell us if you suspect someone else is using your account.\n\nEmail sign-up does not yet verify your email address, and there is no self-service password reset. Telegram and Google sign-in depend on those services."
       },
-      "placement": {
-        "title": "No guarantee of a place",
-        "body": "Reading this website does not enrol you in anything and does not guarantee a place at any event. Volunteer places are decided together with the organiser of each event."
+      "applications": {
+        "title": "Applications",
+        "body": "When you submit an application, the organisation that runs the opportunity sees your answers, essay, account email and a copy of your profile. Editing your profile later does not change that copy.\n\nOrganisers decide on applications, unless they choose automatic acceptance while places remain. An accepted application does not guarantee a place, transport, payment, insurance or a particular outcome; check the event’s requirements with the organiser. Withdraw your application if you cannot attend."
+      },
+      "participation": {
+        "title": "Volunteering and safety",
+        "body": "Volunteering is voluntary and must be lawful. Organisers are responsible for safe conditions and for following the Law “On Volunteer Activity”, including its limits for young volunteers, a written agreement when volunteering exceeds 20 hours a month, and any training or insurance an activity needs. Accepting an application on the platform does not replace those documents."
+      },
+      "records": {
+        "title": "Hours, XP and visibility",
+        "body": "Hours, XP, levels and rewards are Volontyorlar’s own records. They are not money, property, an academic qualification, employment or a state credential. Corrections, merged duplicate accounts, attendance checks and administrator adjustments can change them; raise disputes in Settings → Privacy.\n\nThe leaderboard and a public profile are optional and stay off until you turn them on. Anything you make public can be copied by others."
       },
       "conduct": {
-        "title": "Using the site",
-        "body": "Do not attempt to disrupt the site, and do not use it to mislead anyone about Volontyorlar or the organisations named on it."
+        "title": "Responsible use",
+        "body": "- Do not impersonate others, harass anyone, attack the service or collect other people’s data.\n- Do not upload identity documents or sensitive data to your profile.\n- Organisations may use applicant data only for the opportunity it was submitted to, must limit who sees it and must not use it for promotion.\n\nWe may restrict an account for security, misuse or legal reasons. You can dispute a restriction through the contacts in the Privacy Policy."
       },
-      "brand": {
-        "title": "Our name and mark",
-        "body": "The Volontyorlar name and mark belong to Volontyorlar. Do not use them in a way that implies a partnership that does not exist."
-      },
-      "external": {
-        "title": "External links",
-        "body": "We link to other organisations and services. We do not control them and are not responsible for their content."
+      "limits": {
+        "title": "Availability and ending use",
+        "body": "The service may change or be interrupted, and we cannot promise it is free of errors. Nothing in these terms limits rights that the law of Uzbekistan does not allow to be limited. You can stop using the service at any time and ask for your data to be deleted in Settings → Privacy. Raise disputes with us first; you can always turn to the competent authority or a court."
       },
       "changes": {
         "title": "Changes",
-        "body": "These terms can change. The date above shows the last update."
+        "body": "This version is dated 14 November 2026. If a change needs your new agreement, you will see the consent page again."
       }
     }
   },
@@ -461,5 +485,10 @@
     "missingTitle": "No title yet",
     "missingSummary": "No summary yet. It is required before this language can be published.",
     "missingBody": "No article text yet. It is required before this language can be published."
+  },
+  "legal": {
+    "contact": "Contact",
+    "responsible": "Responsible individuals",
+    "pending": "Our contact email and postal address will be published here. Until then, write to us in Settings → Privacy in the volunteer app."
   }
 }
