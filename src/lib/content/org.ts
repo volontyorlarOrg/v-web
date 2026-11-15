@@ -37,7 +37,7 @@ export const FOUNDERS = [
 export const FOUNDER_PROFILE_IDS = ["telegram", "linkedin"] as const satisfies ReadonlyArray<FounderProfileId>;
 
 export const TRACTION = {
-  telegramFollowers: 4000,
+  telegramFollowers: 5000,
   instagramFollowers: 300,
   eventsSupplied: 50,
   regionalRoleApplications: 500,
