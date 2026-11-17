@@ -63,6 +63,10 @@ export type PublicActivity = {
 };
 
 export type PublicProfile = {
+  verification: {
+    verified: boolean;
+    organization: { id: string; name: string; logoUrl: string | null } | null;
+  };
   displayName: string;
   username: string;
   avatarUrl: string | null;
@@ -133,6 +137,7 @@ function apiOrigin() {
 
 export function parsePublicProfile(value: unknown): PublicProfile | null {
   if (!isRecord(value) || !isRecord(value.stats)) return null;
+  const verification = parseVerification(value.verification);
   const region = value.region;
   const hometownRegion = value.hometownRegion ?? null;
   const avatarUrl = optionalHttpUrl(value.avatarUrl);
@@ -153,6 +158,7 @@ export function parsePublicProfile(value: unknown): PublicProfile | null {
   const joinedAt = value.joinedAt ?? null;
   if (
     typeof value.displayName !== "string" ||
+    verification === null ||
     typeof value.username !== "string" ||
     !PUBLIC_USERNAME_PATTERN.test(value.username) ||
     (value.avatarUrl !== null && avatarUrl === null) ||
@@ -184,6 +190,7 @@ export function parsePublicProfile(value: unknown): PublicProfile | null {
     return null;
   }
   return {
+    verification,
     displayName: value.displayName,
     username: value.username,
     avatarUrl,
@@ -209,6 +216,30 @@ export function parsePublicProfile(value: unknown): PublicProfile | null {
     pastEvents,
     activity,
     rewards,
+  };
+}
+
+function parseVerification(
+  value: unknown,
+): PublicProfile["verification"] | null {
+  if (value === undefined) return { verified: false, organization: null };
+  if (!isRecord(value) || typeof value.verified !== "boolean") return null;
+  if (value.organization === null)
+    return { verified: value.verified, organization: null };
+  if (
+    !isRecord(value.organization) ||
+    typeof value.organization.id !== "string" ||
+    typeof value.organization.name !== "string"
+  )
+    return null;
+  const logoUrl = optionalHttpUrl(value.organization.logoUrl);
+  return {
+    verified: value.verified,
+    organization: {
+      id: value.organization.id,
+      name: value.organization.name,
+      logoUrl,
+    },
   };
 }
 

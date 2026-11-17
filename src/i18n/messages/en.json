@@ -284,11 +284,11 @@
       },
       "purposes": {
         "title": "Why we use it",
-        "body": "Your consent is the main ground for processing (Articles 18 and 21 of the law). Some processing is also needed to provide the service under the Terms or to meet legal duties. We use your data to:\n\n- create and protect your account and sign you in;\n- show opportunities and let you apply;\n- let organisations review your applications and organise events;\n- record attendance, hours, XP and levels;\n- accept applications automatically when an organiser chooses this (see “Automatic decisions”);\n- send you notifications in the app and, if you connect it, on Telegram;\n- show you on the leaderboard, and on a public profile if you turn it on in Settings → Privacy;\n- answer your requests and reports;\n- keep the platform secure and investigate misuse.\n\nWe never sell your data, show advertising or use analytics or advertising trackers. Using your data for a new purpose needs your new consent (Article 19)."
+        "body": "Your consent is the main ground for processing (Articles 18 and 21 of the law). Some processing is also needed to provide the service under the Terms or to meet legal duties. We use your data to:\n\n- create and protect your account and sign you in;\n- show opportunities and let you apply;\n- let organisations review your applications and organise events;\n- record attendance, hours, XP and levels;\n- accept applications automatically when an organiser chooses this (see “Automatic decisions”);\n- send you notifications in the app and, if you connect it, on Telegram;\n- show your profile and your place on the leaderboard;\n- answer your requests and reports;\n- keep the platform secure and investigate misuse.\n\nWe never sell your data, show advertising or use analytics or advertising trackers. Using your data for a new purpose needs your new consent (Article 19)."
       },
       "access": {
         "title": "Who can access your data",
-        "body": "By default only you, the organisations you apply to, our coordinators and our administrators can see your data, except that your leaderboard entry is shown to other signed-in volunteers.\n\n- You: everything in your account, at any time.\n- An organisation you apply to: your answers and essay, account email, and a copy of your profile (name, contacts, education, location and links); later, your attendance and hours at its event. Access starts when you submit, and we notify you which organisation received your data (Article 23).\n- Volontyorlar coordinators: the same, but only for the opportunities they run.\n- Administrators (the two founders and the accounts they appoint): all platform data, when needed to run the service, verify hours, handle reports and answer your requests.\n- Other signed-in volunteers: your name, username, photo, XP and rank on the leaderboard.\n- Anyone on the internet: anyone with the link volontyorlar.uz/your_username sees your public profile (name, username, photo, bio, region, city, school, grade, languages, phone, social links, XP and activity), except the fields you hide, only if you turn on “Make my profile public” in Settings → Privacy. It is off until you switch it on. This is your written consent to publication under Article 29.\n- Service providers listed below: only the data they store or process for us, on our instructions.\n- State bodies: only what a law or a court order requires.\n\nAn organisation keeps the copy of your application even if you later edit your profile. Your profile photo is stored at a hard-to-guess link; anyone who has that link can open it."
+        "body": "Your public profile and leaderboard entry are visible to other people. The remaining account and application data is available only to the people described below.\n\n- You: everything in your account, at any time.\n- An organisation you apply to: your answers and essay, account email, and a copy of your profile (name, contacts, education, location and links); later, your attendance and hours at its event. Access starts when you submit, and we notify you which organisation received your data (Article 23).\n- Volontyorlar coordinators: the same, but only for the opportunities they run.\n- Administrators (the two founders and the accounts they appoint): all platform data, when needed to run the service, verify hours, handle reports and answer your requests.\n- Other signed-in volunteers: your name, username, photo, XP and rank on the leaderboard.\n- Anyone on the internet: after you choose a username and accept this policy, your profile can be opened by anyone. It shows your name, username, photo, level, XP and aggregate participation, and any verification or organization affiliation. In Edit profile you choose whether to show your bio, location, education, languages, contact details, social and portfolio links, joined date and activity. These optional details start hidden for new accounts and for accounts that were previously private.\n- Service providers listed below: only the data they store or process for us, on our instructions.\n- State bodies: only what a law or a court order requires.\n\nAn organisation keeps the copy of your application even if you later edit your profile. Your profile photo is stored at a hard-to-guess link; anyone who has that link can open it."
       },
       "providers": {
         "title": "Where your data is stored",
@@ -300,11 +300,11 @@
       },
       "consent": {
         "title": "Your consent and choices",
-        "body": "Every volunteer gives the same consent on one page before using the app: one required checkbox.\n\n- Required: you have read this policy and the Terms and agree that Volontyorlar processes your personal data as described. Without it you cannot create an account or keep using the app.\n\nWe record the policy version, language and time as proof of consent (Article 21). Making your profile public is a separate choice that is off until you switch it on in Settings → Privacy, where you can also withdraw consent at any time. Withdrawing stops normal use of the app, takes your profile out of public view, stops Telegram messages, and starts deletion as described above, which also removes you from the leaderboard."
+        "body": "Every volunteer gives the same consent on one page before using the app: one required checkbox.\n\n- Required: you have read this policy and the Terms and agree that Volontyorlar processes your personal data as described. Without it you cannot create an account or keep using the app.\n\nWe record the policy version, language and time as proof of consent (Article 21). Agreeing includes publication of your profile as described above. Choose the optional details shown in Edit profile. You can withdraw consent in Settings → Privacy; doing so stops normal use of the app, removes your profile from public view, stops Telegram messages and starts deletion as described above."
       },
       "rights": {
         "title": "Your rights",
-        "body": "Send any request from Settings → Privacy or to the contacts at the end of this page:\n\n- Information and a copy of your data (Articles 22 and 30): we answer within 10 days; if we refuse, we explain why in writing within 10 days.\n- Correction (Article 11): within 3 days of your request. You can also edit most profile data yourself.\n- Deletion or withdrawal of consent (Articles 17 and 21): normal use stops immediately; deletion within 30 days.\n- Removing a public profile (Article 29): switch it off yourself at any time; it disappears immediately.\n- Objection to an automatic decision (Article 24): a person reviews it and we answer in writing within 10 days.\n- Suspension of processing of incomplete, outdated, wrong or unlawfully obtained data (Article 30).\n\nYou can also complain to the State Personalisation Centre under the Cabinet of Ministers of the Republic of Uzbekistan or to a court. We never ask for your password."
+        "body": "Send any request from Settings → Privacy or to the contacts at the end of this page:\n\n- Information and a copy of your data (Articles 22 and 30): we answer within 10 days; if we refuse, we explain why in writing within 10 days.\n- Correction (Article 11): within 3 days of your request. You can also edit most profile data yourself.\n- Deletion or withdrawal of consent (Articles 17 and 21): normal use stops immediately; deletion within 30 days.\n- Public profile: choose which optional details appear in Edit profile. To remove the profile, request withdrawal of consent or deletion; normal use of the app stops.\n- Objection to an automatic decision (Article 24): a person reviews it and we answer in writing within 10 days.\n- Suspension of processing of incomplete, outdated, wrong or unlawfully obtained data (Article 30).\n\nYou can also complain to the State Personalisation Centre under the Cabinet of Ministers of the Republic of Uzbekistan or to a court. We never ask for your password."
       },
       "automated": {
         "title": "Automatic decisions",
@@ -320,7 +320,7 @@
       },
       "changes": {
         "title": "Changes to this policy",
-        "body": "This version is dated 14 November 2026. We keep earlier versions on file. If a change adds a new purpose, a new recipient or new data, you will see the consent page again, and the change applies to you only after you agree (Article 19). The official Uzbek text of the law prevails over any translation."
+        "body": "This version is dated 18 November 2026. We keep earlier versions on file. If a change adds a new purpose, a new recipient or new data, you will see the consent page again, and the change applies to you only after you agree (Article 19). The official Uzbek text of the law prevails over any translation."
       }
     }
   },
@@ -349,7 +349,7 @@
       },
       "records": {
         "title": "Hours, XP and visibility",
-        "body": "Hours, XP, levels and rewards are Volontyorlar’s own records. They are not money, property, an academic qualification, employment or a state credential. Corrections, merged duplicate accounts, attendance checks and administrator adjustments can change them; raise disputes in Settings → Privacy.\n\nEvery volunteer appears on the leaderboard. A public profile is optional and stays off until you turn it on in Settings → Privacy. Anything you make public can be copied by others."
+        "body": "Hours, XP, levels and rewards are Volontyorlar’s own records. They are not money, property, an academic qualification, employment or a state credential. Corrections, merged duplicate accounts, attendance checks and administrator adjustments can change them; raise disputes in Settings → Privacy.\n\nEvery volunteer appears on the leaderboard. Accepting these terms includes agreeing that your profile can be seen by others. You can choose which optional details to show in Edit profile. Public information can be copied by others."
       },
       "conduct": {
         "title": "Responsible use",
@@ -361,7 +361,7 @@
       },
       "changes": {
         "title": "Changes",
-        "body": "This version is dated 14 November 2026. If a change needs your new agreement, you will see the consent page again."
+        "body": "This version is dated 18 November 2026. If a change needs your new agreement, you will see the consent page again."
       }
     }
   },
@@ -445,7 +445,9 @@
         "attendee": "Took part"
       },
       "profileCompleted": "Profile completed"
-    }
+    },
+    "verified": "Verified",
+    "affiliation": "Affiliated with {name}"
   },
   "blog": {
     "title": "Stories & guides",

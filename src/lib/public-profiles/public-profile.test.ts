@@ -98,6 +98,7 @@ describe("public profile contract", () => {
 
     expect(parsed).toEqual({
       ...payload,
+      verification: { verified: false, organization: null },
       rewards: [],
       hometownRegion: null,
       activity: [
@@ -112,6 +113,12 @@ describe("public profile contract", () => {
     expect(parsed).not.toHaveProperty("email");
     expect(parsed).not.toHaveProperty("history");
     expect(parsed?.pastEvents[0]).not.toHaveProperty("createdById");
+  });
+
+  it("accepts verification and hides unsafe organization logos", () => {
+    const verification = { verified: true, organization: { id: "org", name: "Example", logoUrl: "https://example.com/logo.png" } };
+    expect(parsePublicProfile({ ...payload, verification })?.verification).toEqual(verification);
+    expect(parsePublicProfile({ ...payload, verification: { ...verification, organization: { ...verification.organization, logoUrl: "javascript:alert(1)" } } })?.verification.organization?.logoUrl).toBeNull();
   });
 
   it("reads every step of the hours ladder and still the older levels", () => {

@@ -37,6 +37,7 @@ const SOCIAL_ICONS: Record<PublicProfileSocialPlatform, LucideIcon> = {
 
 export function PublicProfileSheet({
   name,
+  marks,
   username,
   avatarUrl,
   level,
@@ -50,6 +51,7 @@ export function PublicProfileSheet({
   platformLabels,
 }: {
   name: string;
+  marks?: ReactNode;
   username: string;
   avatarUrl: string | null;
   level: string;
@@ -95,7 +97,7 @@ export function PublicProfileSheet({
           data-long={longName || undefined}
           className="profile-name enter-words mt-7 [--enter-delay:60ms]"
         >
-          <SplitWords text={name} />
+          <SplitWords text={name} /> {marks}
         </h1>
 
         <p className="enter-rise mt-3 flex flex-wrap items-center gap-x-3 gap-y-2 [--enter-delay:220ms]">
