@@ -284,11 +284,11 @@
       },
       "purposes": {
         "title": "Nima uchun foydalanamiz",
-        "body": "Qayta ishlashning asosiy asosi — sizning roziligingiz (qonunning 18 va 21-moddalari). Ayrim qayta ishlash Shartlar boʻyicha xizmat koʻrsatish yoki qonun talablarini bajarish uchun ham zarur. Maʼlumotlaringizdan quyidagilar uchun foydalanamiz:\n\n- hisobingizni yaratish, himoya qilish va tizimga kiritish;\n- imkoniyatlarni koʻrsatish va arizalaringizni qabul qilish;\n- tashkilotlarga arizalarni koʻrib chiqish va tadbirlar oʻtkazish imkonini berish;\n- qatnashish, soatlar, XP va darajalarni hisobga olish;\n- tashkilotchi tanlagan boʻlsa, arizalarni avtomatik qabul qilish («Avtomatik qarorlar»ga qarang);\n- ilovada va, ulagan boʻlsangiz, Telegramda bildirishnomalar yuborish;\n- sizni reytingda va, Sozlamalar → Maxfiylik boʻlimida yoqsangiz, ommaviy profilda koʻrsatish;\n- soʻrov va xabarlaringizga javob berish;\n- platforma xavfsizligini taʼminlash va suiisteʼmolni tekshirish.\n\nMaʼlumotlaringizni sotmaymiz, reklama koʻrsatmaymiz, analitika yoki reklama trekerlaridan foydalanmaymiz. Yangi maqsad uchun yangi roziligingiz kerak (19-modda)."
+        "body": "Qayta ishlashning asosiy asosi — sizning roziligingiz (qonunning 18 va 21-moddalari). Ayrim qayta ishlash Shartlar boʻyicha xizmat koʻrsatish yoki qonun talablarini bajarish uchun ham zarur. Maʼlumotlaringizdan quyidagilar uchun foydalanamiz:\n\n- hisobingizni yaratish, himoya qilish va tizimga kiritish;\n- imkoniyatlarni koʻrsatish va arizalaringizni qabul qilish;\n- tashkilotlarga arizalarni koʻrib chiqish va tadbirlar oʻtkazish imkonini berish;\n- qatnashish, soatlar, XP va darajalarni hisobga olish;\n- tashkilotchi tanlagan boʻlsa, arizalarni avtomatik qabul qilish («Avtomatik qarorlar»ga qarang);\n- ilovada va, ulagan boʻlsangiz, Telegramda bildirishnomalar yuborish;\n- profilingiz va reytingdagi oʻrningizni koʻrsatish;\n- soʻrov va xabarlaringizga javob berish;\n- platforma xavfsizligini taʼminlash va suiisteʼmolni tekshirish.\n\nMaʼlumotlaringizni sotmaymiz, reklama koʻrsatmaymiz, analitika yoki reklama trekerlaridan foydalanmaymiz. Yangi maqsad uchun yangi roziligingiz kerak (19-modda)."
       },
       "access": {
         "title": "Maʼlumotlaringizni kim koʻra oladi",
-        "body": "Odatiy holatda maʼlumotlaringizni faqat siz, ariza bergan tashkilotlaringiz, koordinatorlarimiz va administratorlarimiz koʻradi; istisno — reytingdagi qatoringiz, uni tizimga kirgan boshqa volontyorlar koʻradi.\n\n- Siz: hisobingizdagi hamma narsa, istalgan vaqtda.\n- Ariza bergan tashkilotingiz: javoblar va esse, hisob pochtasi va profil nusxasi (ism, aloqa, taʼlim, joylashuv va havolalar); keyinroq — uning tadbiridagi qatnashishingiz va soatlaringiz. Kirish ariza yuborilganda ochiladi va qaysi tashkilot maʼlumot olganini sizga xabar qilamiz (23-modda).\n- Volontyorlar koordinatorlari: xuddi shunday, lekin faqat oʻzlari olib boradigan imkoniyatlar boʻyicha.\n- Administratorlar (ikki asoschi va ular tayinlagan hisoblar): xizmat ishlashi, soatlarni tekshirish, xabarlarni koʻrib chiqish va soʻrovlaringizga javob berish uchun kerak boʻlganda platformadagi barcha maʼlumotlar.\n- Tizimga kirgan boshqa volontyorlar: reytingdagi ismingiz, foydalanuvchi nomingiz, suratingiz, XP va oʻrningiz.\n- Internetdagi istalgan kishi: volontyorlar.uz/your_username havolasiga ega har kim ommaviy profilingizni (ism, foydalanuvchi nomi, surat, oʻzingiz haqingizda, hudud, shahar, maktab, sinf, tillar, telefon, ijtimoiy tarmoqlar, XP va faollik) koʻradi, yashirgan maydonlaringizdan tashqari — faqat Sozlamalar → Maxfiylik boʻlimida «Profilimni ommaviy qilish»ni yoqsangiz. Odatda u oʻchiq. Bu 29-moddaga koʻra eʼlon qilishga yozma roziligingizdir.\n- Quyida sanab oʻtilgan xizmat provayderlari: faqat biz uchun, bizning koʻrsatmamiz bilan saqlaydigan yoki qayta ishlaydigan maʼlumotlar.\n- Davlat organlari: faqat qonun yoki sud qarori talab qilgan maʼlumotlar.\n\nProfilingizni keyin oʻzgartirsangiz ham, tashkilot ariza nusxasini saqlab qoladi. Profil suratingiz topish qiyin boʻlgan havolada saqlanadi; shu havolaga ega har kim uni ocha oladi."
+        "body": "Ochiq profilingiz va reytingdagi oʻrningizni boshqa odamlar koʻra oladi. Hisob va arizaga oid qolgan maʼlumotlar quyida koʻrsatilgan shaxslarga beriladi.\n\n- Siz: hisobingizdagi hamma narsa, istalgan vaqtda.\n- Ariza bergan tashkilotingiz: javoblar va esse, hisob pochtasi va profil nusxasi (ism, aloqa, taʼlim, joylashuv va havolalar); keyinroq — uning tadbiridagi qatnashishingiz va soatlaringiz. Kirish ariza yuborilganda ochiladi va qaysi tashkilot maʼlumot olganini sizga xabar qilamiz (23-modda).\n- Volontyorlar koordinatorlari: xuddi shunday, lekin faqat oʻzlari olib boradigan imkoniyatlar boʻyicha.\n- Administratorlar (ikki asoschi va ular tayinlagan hisoblar): xizmat ishlashi, soatlarni tekshirish, xabarlarni koʻrib chiqish va soʻrovlaringizga javob berish uchun kerak boʻlganda platformadagi barcha maʼlumotlar.\n- Tizimga kirgan boshqa volontyorlar: reytingdagi ismingiz, foydalanuvchi nomingiz, suratingiz, XP va oʻrningiz.\n- Internetdagi istalgan kishi: foydalanuvchi nomini tanlab, ushbu siyosatga rozilik berganingizdan keyin profilingizni har kim ochishi mumkin. Unda ism, foydalanuvchi nomi, surat, daraja, XP, umumiy ishtirok koʻrsatkichlari va mavjud tasdiqlash yoki tashkilot belgisi koʻrinadi. Profilni tahrirlashda oʻzingiz haqingizdagi matn, joylashuv, taʼlim, tillar, aloqa maʼlumotlari, ijtimoiy tarmoq va portfolio havolalari, qoʻshilgan sana va faollikni koʻrsatish yoki yashirishni tanlaysiz. Bu ixtiyoriy maʼlumotlar yangi va ilgari yopiq boʻlgan hisoblarda dastlab yashiriladi.\n- Quyida sanab oʻtilgan xizmat provayderlari: faqat biz uchun, bizning koʻrsatmamiz bilan saqlaydigan yoki qayta ishlaydigan maʼlumotlar.\n- Davlat organlari: faqat qonun yoki sud qarori talab qilgan maʼlumotlar.\n\nProfilingizni keyin oʻzgartirsangiz ham, tashkilot ariza nusxasini saqlab qoladi. Profil suratingiz topish qiyin boʻlgan havolada saqlanadi; shu havolaga ega har kim uni ocha oladi."
       },
       "providers": {
         "title": "Maʼlumotlar qayerda saqlanadi",
@@ -300,11 +300,11 @@
       },
       "consent": {
         "title": "Roziligingiz va tanlovlaringiz",
-        "body": "Har bir volontyor ilovadan foydalanishdan oldin bitta sahifada bir xil rozilik beradi: bitta majburiy belgi.\n\n- Majburiy: siz ushbu siyosat va Shartlarni oʻqidingiz va Volontyorlar shaxsga doir maʼlumotlaringizni tavsiflangandek qayta ishlashiga rozisiz. Busiz hisob yaratib yoki ilovadan foydalanishda davom etib boʻlmaydi.\n\nRozilik isboti sifatida siyosat versiyasi, til va vaqtni qayd etamiz (21-modda). Profilni ommaviy qilish alohida tanlov, odatda oʻchiq: uni yoqish yoki rozilikni qaytarib olish istalgan vaqtda Sozlamalar → Maxfiylik boʻlimida mumkin. Qaytarib olish ilovadan odatiy foydalanishni toʻxtatadi, profilingizni ommaviy koʻrinishdan olib tashlaydi, Telegram xabarlarini toʻxtatadi va yuqorida tavsiflangan oʻchirishni boshlaydi, bu sizni reytingdan ham olib tashlaydi."
+        "body": "Har bir volontyor ilovadan foydalanishdan oldin bitta sahifada bir xil rozilik beradi: bitta majburiy belgi.\n\n- Majburiy: siz ushbu siyosat va Shartlarni oʻqidingiz va Volontyorlar shaxsga doir maʼlumotlaringizni tavsiflangandek qayta ishlashiga rozisiz. Busiz hisob yaratib yoki ilovadan foydalanishda davom etib boʻlmaydi.\n\nRozilik isboti sifatida siyosat versiyasi, til va vaqtni qayd etamiz (21-modda). Rozilik yuqorida tavsiflangan profilni koʻrsatishni ham oʻz ichiga oladi. Ixtiyoriy maʼlumotlarni Profilni tahrirlash boʻlimida tanlaysiz. Rozilikni Sozlamalar → Maxfiylik orqali qaytarib olishingiz mumkin; bunda ilovadan odatiy foydalanish toʻxtaydi, profil ochiq koʻrinishdan olinadi, Telegram xabarlari toʻxtatiladi va yuqorida tavsiflangan oʻchirish boshlanadi."
       },
       "rights": {
         "title": "Huquqlaringiz",
-        "body": "Har qanday soʻrovni Sozlamalar → Maxfiylik orqali yoki sahifa oxiridagi aloqa maʼlumotlari boʻyicha yuboring:\n\n- Maʼlumot va maʼlumotlaringiz nusxasi (22 va 30-moddalar): 10 kun ichida javob beramiz; rad etsak, sababini 10 kun ichida yozma tushuntiramiz.\n- Tuzatish (11-modda): soʻrovdan keyin 3 kun ichida. Profil maʼlumotlarining aksariyatini oʻzingiz ham tahrirlay olasiz.\n- Oʻchirish yoki rozilikni qaytarib olish (17 va 21-moddalar): odatiy foydalanish darhol toʻxtaydi; oʻchirish 30 kun ichida.\n- Ommaviy profilni olib tashlash (29-modda): istalgan vaqtda oʻzingiz oʻchirasiz; u darhol yoʻqoladi.\n- Avtomatik qarorga eʼtiroz (24-modda): uni inson koʻrib chiqadi va 10 kun ichida yozma javob beramiz.\n- Toʻliq boʻlmagan, eskirgan, notoʻgʻri yoki qonunga zid olingan maʼlumotlarni qayta ishlashni toʻxtatib turish (30-modda).\n\nShuningdek, Oʻzbekiston Respublikasi Vazirlar Mahkamasi huzuridagi Davlat personallashtirish markaziga yoki sudga shikoyat qilishingiz mumkin. Biz hech qachon parolingizni soʻramaymiz."
+        "body": "Har qanday soʻrovni Sozlamalar → Maxfiylik orqali yoki sahifa oxiridagi aloqa maʼlumotlari boʻyicha yuboring:\n\n- Maʼlumot va maʼlumotlaringiz nusxasi (22 va 30-moddalar): 10 kun ichida javob beramiz; rad etsak, sababini 10 kun ichida yozma tushuntiramiz.\n- Tuzatish (11-modda): soʻrovdan keyin 3 kun ichida. Profil maʼlumotlarining aksariyatini oʻzingiz ham tahrirlay olasiz.\n- Oʻchirish yoki rozilikni qaytarib olish (17 va 21-moddalar): odatiy foydalanish darhol toʻxtaydi; oʻchirish 30 kun ichida.\n- Ochiq profil: Profilni tahrirlashda qaysi ixtiyoriy maʼlumotlar koʻrinishini tanlang. Profilni olib tashlash uchun rozilikni qaytarib olish yoki oʻchirishni soʻrang; ilovadan odatiy foydalanish toʻxtaydi.\n- Avtomatik qarorga eʼtiroz (24-modda): uni inson koʻrib chiqadi va 10 kun ichida yozma javob beramiz.\n- Toʻliq boʻlmagan, eskirgan, notoʻgʻri yoki qonunga zid olingan maʼlumotlarni qayta ishlashni toʻxtatib turish (30-modda).\n\nShuningdek, Oʻzbekiston Respublikasi Vazirlar Mahkamasi huzuridagi Davlat personallashtirish markaziga yoki sudga shikoyat qilishingiz mumkin. Biz hech qachon parolingizni soʻramaymiz."
       },
       "automated": {
         "title": "Avtomatik qarorlar",
@@ -320,7 +320,7 @@
       },
       "changes": {
         "title": "Siyosatdagi oʻzgarishlar",
-        "body": "Bu versiya 2026-yil 14-noyabr sanasi bilan. Oldingi versiyalarni saqlab qolamiz. Agar oʻzgarish yangi maqsad, yangi oluvchi yoki yangi maʼlumot qoʻshsa, rozilik sahifasini yana koʻrasiz va oʻzgarish siz rozilik berganingizdan keyingina kuchga kiradi (19-modda). Qonunning oʻzbek tilidagi rasmiy matni har qanday tarjimadan ustun turadi."
+        "body": "Bu versiya 2026-yil 18-noyabr sanasi bilan. Oldingi versiyalarni saqlab qolamiz. Agar oʻzgarish yangi maqsad, yangi oluvchi yoki yangi maʼlumot qoʻshsa, rozilik sahifasini yana koʻrasiz va oʻzgarish siz rozilik berganingizdan keyingina kuchga kiradi (19-modda). Qonunning oʻzbek tilidagi rasmiy matni har qanday tarjimadan ustun turadi."
       }
     }
   },
@@ -349,7 +349,7 @@
       },
       "records": {
         "title": "Soatlar, XP va koʻrinish",
-        "body": "Soatlar, XP, darajalar va mukofotlar — Volontyorlarning oʻz yozuvlari. Ular pul, mulk, akademik malaka, ishga joylashish yoki davlat hujjati emas. Tuzatishlar, takroriy hisoblarni birlashtirish, qatnashishni tekshirish va administrator tuzatishlari ularni oʻzgartirishi mumkin; eʼtirozni Sozlamalar → Maxfiylik orqali bildiring.\n\nHar bir volontyor reytingda koʻrinadi. Ommaviy profil ixtiyoriy boʻlib, Sozlamalar → Maxfiylik boʻlimida oʻzingiz yoqmaguningizcha oʻchiq turadi. Ommaviy qilgan narsangizni boshqalar nusxalab olishi mumkin."
+        "body": "Soatlar, XP, darajalar va mukofotlar — Volontyorlarning oʻz yozuvlari. Ular pul, mulk, akademik malaka, ishga joylashish yoki davlat hujjati emas. Tuzatishlar, takroriy hisoblarni birlashtirish, qatnashishni tekshirish va administrator tuzatishlari ularni oʻzgartirishi mumkin; eʼtirozni Sozlamalar → Maxfiylik orqali bildiring.\n\nHar bir volontyor reytingda koʻrinadi. Ushbu shartlarni qabul qilish profilingiz boshqalarga koʻrinishiga rozilikni ham oʻz ichiga oladi. Profilni tahrirlashda qaysi ixtiyoriy maʼlumotlarni koʻrsatishni tanlashingiz mumkin. Ochiq maʼlumotni boshqalar nusxalashi mumkin."
       },
       "conduct": {
         "title": "Masʼuliyatli foydalanish",
@@ -361,7 +361,7 @@
       },
       "changes": {
         "title": "Oʻzgarishlar",
-        "body": "Bu versiya 2026-yil 14-noyabr sanasi bilan. Agar oʻzgarish uchun yangi roziligingiz kerak boʻlsa, rozilik sahifasini yana koʻrasiz."
+        "body": "Bu versiya 2026-yil 18-noyabr sanasi bilan. Agar oʻzgarish uchun yangi roziligingiz kerak boʻlsa, rozilik sahifasini yana koʻrasiz."
       }
     }
   },
@@ -445,7 +445,9 @@
         "attendee": "Ishtirok etdi"
       },
       "profileCompleted": "Profil toʻldirildi"
-    }
+    },
+    "verified": "Tasdiqlangan",
+    "affiliation": "{name} tashkilotiga aloqador"
   },
   "blog": {
     "title": "Hikoyalar va qoʻllanmalar",
