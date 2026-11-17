@@ -1,6 +1,6 @@
 <!-- BEGIN:nextjs-agent-rules -->
 
-# This is NOT the Next.js you know
+## This is NOT the Next.js you know
 
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
 
@@ -49,8 +49,8 @@ It does not own volunteer authentication, sessions, dashboards, profile
 editing, applications, essays, ratings, attendance records, or admin workflows.
 Those belong to the separate Volontyorlar application. Do not rebuild them
 here. Public profiles consume only the backend's anonymous public contract.
-The name, username, photo, level, bio and aggregate participation are always
-in it; contact, location, education, social, portfolio, the joined date and
+The name, username, photo, level and aggregate participation are always
+in it; bio, contact, location, education, social, portfolio, the joined date and
 the activity list (attended events and past events) are there only while the
 volunteer keeps them shown, and arrive empty otherwise, so this site renders
 what it is given and holds no visibility rule of its own. The contract

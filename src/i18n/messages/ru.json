@@ -445,7 +445,9 @@
         "attendee": "Участвовал"
       },
       "profileCompleted": "Профиль заполнен"
-    }
+    },
+    "verified": "Подтверждён",
+    "affiliation": "Связан с организацией {name}"
   },
   "blog": {
     "title": "Истории и советы",
