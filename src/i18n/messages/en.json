@@ -445,7 +445,9 @@
         "attendee": "Took part"
       },
       "profileCompleted": "Profile completed"
-    }
+    },
+    "verified": "Verified",
+    "affiliation": "Affiliated with {name}"
   },
   "blog": {
     "title": "Stories & guides",

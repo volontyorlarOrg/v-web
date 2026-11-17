@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import { BadgeCheck } from "lucide-react";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
@@ -155,6 +157,40 @@ export default async function PublicProfilePage({
     <div className="container-page py-8 sm:py-14 lg:py-20">
       <PublicProfileSheet
         name={profile.displayName}
+        marks={
+          <span className="inline-flex items-center gap-1 align-middle">
+            {profile.verification.verified ? (
+              <span aria-label={t("verified")} title={t("verified")}>
+                <BadgeCheck
+                  aria-hidden="true"
+                  className="size-5 fill-action text-knockout"
+                />
+              </span>
+            ) : null}
+            {profile.verification.organization ? (
+              <span
+                title={profile.verification.organization.name}
+                aria-label={t("affiliation", {
+                  name: profile.verification.organization.name,
+                })}
+                className="inline-grid size-6 place-items-center overflow-hidden rounded-sm bg-surface-soft text-xs font-semibold text-primary-ink"
+              >
+                {profile.verification.organization.logoUrl ? (
+                  <Image
+                    unoptimized
+                    width={24}
+                    height={24}
+                    src={profile.verification.organization.logoUrl}
+                    alt=""
+                    className="size-full object-contain"
+                  />
+                ) : (
+                  profile.verification.organization.name.slice(0, 1)
+                )}
+              </span>
+            ) : null}
+          </span>
+        }
         username={profile.username}
         avatarUrl={profile.avatarUrl}
         level={t(`levels.${profile.level}`)}

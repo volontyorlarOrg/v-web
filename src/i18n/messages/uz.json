@@ -445,7 +445,9 @@
         "attendee": "Ishtirok etdi"
       },
       "profileCompleted": "Profil toʻldirildi"
-    }
+    },
+    "verified": "Tasdiqlangan",
+    "affiliation": "{name} tashkilotiga aloqador"
   },
   "blog": {
     "title": "Hikoyalar va qoʻllanmalar",
