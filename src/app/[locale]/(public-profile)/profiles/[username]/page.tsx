@@ -160,15 +160,17 @@ export default async function PublicProfilePage({
         marks={
           <span className="inline-flex items-center gap-1 align-middle">
             {profile.verification.verified ? (
-              <span aria-label={t("verified")} title={t("verified")}>
+              <span role="img" aria-label={t("verified")} title={t("verified")}>
                 <BadgeCheck
                   aria-hidden="true"
                   className="size-5 fill-action text-knockout"
                 />
               </span>
             ) : null}
-            {profile.verification.organization ? (
+            {profile.verification.verified &&
+            profile.verification.organization ? (
               <span
+                role="img"
                 title={profile.verification.organization.name}
                 aria-label={t("affiliation", {
                   name: profile.verification.organization.name,
