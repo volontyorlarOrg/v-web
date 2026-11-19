@@ -27,8 +27,7 @@
 # misc
 .DS_Store
 *.pem
-# Scratch output from the Impeccable plugin; the design system now lives in
-# DESIGN.md, which is tracked.
+# Scratch output from the Impeccable plugin.
 /.impeccable/
 
 # debug

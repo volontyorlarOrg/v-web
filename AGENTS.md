@@ -11,8 +11,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 # Volontyorlar Web — Agent Guide
 
 This repository is the public **Volontyorlar** marketing website. Read
-this file before meaningful work, then use [`docs/README.md`](docs/README.md) to
-load only the project context the task needs.
+this file before meaningful work.
 
 ## Product identity
 
@@ -25,16 +24,14 @@ Do not call the product "Youth Volunteer Club", "YVC", "Youth Volunteering
 Community", or "Volontyor"; all four names are retired. The logo is the
 Volontyorlar web logo kit — the "on" icon with its orange heart and the outlined
 `volontyorlar` wordmark — drawn inline by `src/components/brand/logo.tsx` from
-the kit's own paths, with the kit's files installed under `public/logo/`; see
-`docs/brand/BRAND_ASSETS.md`.
+the kit's own paths, with the kit's files installed under `public/logo/`.
 
 The founders are named and given a role, and nothing more. There is no sourced
 biography for either of them, so `/about` lists their names beside "Co-founder"
 and stops there; a longer description has to come from them before it can be
 written.
 
-Verified facts live in `src/lib/content/org.ts` and in
-[`PRODUCT.md`](PRODUCT.md). Nothing outside those sources may be presented as
+Verified facts live in `src/lib/content/org.ts`. Nothing outside those sources may be presented as
 fact: no extra partners, statistics, testimonials, awards, offices, addresses,
 or integrations.
 
@@ -85,8 +82,7 @@ anonymous backend read in this site.
 page's hero map (`src/components/marketing/hero-map/`). It is loaded
 dynamically so it never enters the initial bundle, and the section renders a
 complete server-side SVG map without it. Adding WebGL anywhere else, or reaching
-for a React renderer such as `@react-three/fiber`, needs a fresh decision — see
-`docs/architecture/ARCHITECTURE.md`.
+for a React renderer such as `@react-three/fiber`, needs a fresh decision.
 
 For framework behaviour, read `node_modules/next/dist/docs/` before relying on
 older Next.js knowledge. Middleware is called Proxy in Next.js 16
@@ -109,8 +105,6 @@ src/lib/constants/             -> configured external channels
 src/lib/theme.ts               -> theme preference, the boot script, the motion flag
 src/components/{ui,brand,marketing}/
 e2e/                           -> Playwright smoke suite
-docs/                          -> stable project documentation
-.agent-memory/                 -> durable decisions, discoveries, gotchas
 ```
 
 ## Critical rules
@@ -139,12 +133,10 @@ docs/                          -> stable project documentation
   carries text apart from the blue that carries a white label.
 - Preserve reduced-motion behaviour, keyboard access, visible focus states, one
   logical `h1` per page, and responsive behaviour.
-- Update `/docs` when stable environment or architecture behaviour changes.
 
 ## Code conventions
 
-- **Source files carry no comments.** Explanations go in `/docs` — see
-  [`docs/operations/EXTENDING.md`](docs/operations/EXTENDING.md). Names, types,
+- **Source files carry no comments.** Names, types,
   and test names carry intent inside the source. Compiler and linter directives
   are not comments and stay.
 - Server Components by default; `"use client"` only for event handlers, client
@@ -169,6 +161,3 @@ Add `npm run build` for build or deployment work, and `npm run test:e2e` when
 routing, navigation, or the information architecture changes. For UI work also
 inspect the affected routes at mobile and desktop widths, in both themes, and
 with reduced motion.
-
-To add anything — a page, copy, a locale, a token, a component, an external
-link — follow [`docs/operations/EXTENDING.md`](docs/operations/EXTENDING.md).

@@ -84,7 +84,3 @@ exercises the unconfigured baseline.
 
 `NEXT_PUBLIC_*` values are embedded in the browser bundle. Never put a bot
 token, session key, or database credential in one.
-
-See [`docs/README.md`](docs/README.md) for project context and
-[`docs/operations/DEVELOPMENT_AND_DEPLOYMENT.md`](docs/operations/DEVELOPMENT_AND_DEPLOYMENT.md)
-for the environment contract.

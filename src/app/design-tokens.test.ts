@@ -64,7 +64,7 @@ const LIGHT_HUE_PAIRS: ReadonlyArray<readonly [string, string]> = [
   ["primary-deep", "accent"],
 ];
 
-describe("brand values match docs/brand/BRAND_ASSETS.md", () => {
+describe("brand values match the logo kit", () => {
   it.each([
     ["primary", "#007fc2"],
     ["primary-ink", "#005e92"],
