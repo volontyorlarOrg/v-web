@@ -65,7 +65,6 @@ export type PublicActivity = {
 export type PublicProfile = {
   verification: {
     verified: boolean;
-    organization: { id: string; name: string; logoUrl: string | null } | null;
   };
   displayName: string;
   username: string;
@@ -222,25 +221,9 @@ export function parsePublicProfile(value: unknown): PublicProfile | null {
 function parseVerification(
   value: unknown,
 ): PublicProfile["verification"] | null {
-  if (value === undefined) return { verified: false, organization: null };
+  if (value === undefined) return { verified: false };
   if (!isRecord(value) || typeof value.verified !== "boolean") return null;
-  if (value.organization === null)
-    return { verified: value.verified, organization: null };
-  if (
-    !isRecord(value.organization) ||
-    typeof value.organization.id !== "string" ||
-    typeof value.organization.name !== "string"
-  )
-    return null;
-  const logoUrl = optionalHttpUrl(value.organization.logoUrl);
-  return {
-    verified: value.verified,
-    organization: {
-      id: value.organization.id,
-      name: value.organization.name,
-      logoUrl,
-    },
-  };
+  return { verified: value.verified };
 }
 
 function parseRewards(value: unknown): PublicReward[] | null {

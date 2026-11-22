@@ -167,30 +167,6 @@ export default async function PublicProfilePage({
                 />
               </span>
             ) : null}
-            {profile.verification.verified &&
-            profile.verification.organization ? (
-              <span
-                role="img"
-                title={profile.verification.organization.name}
-                aria-label={t("affiliation", {
-                  name: profile.verification.organization.name,
-                })}
-                className="inline-grid size-6 place-items-center overflow-hidden rounded-sm bg-surface-soft text-xs font-semibold text-primary-ink"
-              >
-                {profile.verification.organization.logoUrl ? (
-                  <Image
-                    unoptimized
-                    width={24}
-                    height={24}
-                    src={profile.verification.organization.logoUrl}
-                    alt=""
-                    className="size-full object-contain"
-                  />
-                ) : (
-                  profile.verification.organization.name.slice(0, 1)
-                )}
-              </span>
-            ) : null}
           </span>
         }
         username={profile.username}
