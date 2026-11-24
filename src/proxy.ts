@@ -11,21 +11,24 @@ import {
 const localize = createMiddleware(routing);
 const PROFILE_REWRITE_MARKER = "_volontyorlar_profile";
 
+function withPrivatePageHeaders(response: NextResponse) {
+  response.headers.set("Referrer-Policy", "strict-origin");
+  response.headers.set("X-Robots-Tag", "noindex, nofollow");
+  return response;
+}
+
 export default function proxy(request: NextRequest) {
   if (/^\/(?:uz|ru|en)\/blog\/preview(?:\/|$)/.test(request.nextUrl.pathname)) {
     const response = localize(request);
     response.headers.set("Cache-Control", "private, no-store");
-    response.headers.set("X-Robots-Tag", "noindex, nofollow");
-    return response;
+    return withPrivatePageHeaders(response);
   }
   const internal = /^\/(?:uz|ru|en)\/profiles\/([a-z0-9_]{5,32})\/?$/.exec(
     request.nextUrl.pathname,
   );
   if (internal?.[1]) {
     if (request.nextUrl.searchParams.get(PROFILE_REWRITE_MARKER) === "1") {
-      const response = localize(request);
-      response.headers.set("X-Robots-Tag", "noindex, nofollow");
-      return response;
+      return withPrivatePageHeaders(localize(request));
     }
     return NextResponse.redirect(new URL(`/${internal[1]}`, request.url));
   }
@@ -43,9 +46,7 @@ export default function proxy(request: NextRequest) {
   const destination = request.nextUrl.clone();
   destination.pathname = `/${locale}/profiles/${username}`;
   destination.searchParams.set(PROFILE_REWRITE_MARKER, "1");
-  const response = NextResponse.rewrite(destination);
-  response.headers.set("X-Robots-Tag", "noindex, nofollow");
-  return response;
+  return withPrivatePageHeaders(NextResponse.rewrite(destination));
 }
 
 export const config = {

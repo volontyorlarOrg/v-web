@@ -72,6 +72,20 @@ describe("security headers", () => {
     expect(find(false, "Strict-Transport-Security")).toBeUndefined();
   });
 
+  it("allows Google tag delivery and GA4 requests only when analytics is enabled", () => {
+    const production = { development: false, secureTransport: true };
+    const policy = securityHeaders({ ...production, analyticsEnabled: true }).find(
+      (header) => header.key === "Content-Security-Policy",
+    )?.value;
+
+    expect(contentSecurityPolicy(production)).not.toMatch(
+      /googletagmanager|google-analytics/,
+    );
+    expect(policy).toMatch(/script-src [^;]+ https:\/\/www\.googletagmanager\.com;/);
+    expect(policy).toMatch(/connect-src [^;]+ https:\/\/\*\.google-analytics\.com/);
+    expect(policy).not.toMatch(/doubleclick|unsafe-eval/);
+  });
+
   it("never sends a directive that would break a plain-HTTP origin", () => {
     const policy = contentSecurityPolicy({
       development: true,

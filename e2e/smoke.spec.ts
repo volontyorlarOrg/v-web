@@ -280,6 +280,7 @@ test.describe("public volunteer profiles", () => {
 
     expect(response?.status()).toBe(200);
     expect(response?.headers()["x-robots-tag"]).toContain("noindex");
+    expect(response?.headers()["referrer-policy"]).toBe("strict-origin");
     await expect(page).toHaveURL(/\/aziza_uz$/);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(
       "Aziza Karimova",

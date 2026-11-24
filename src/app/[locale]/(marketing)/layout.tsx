@@ -1,9 +1,11 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
+import { GoogleTag } from "@/components/marketing/google-tag";
 import { SceneObserver } from "@/components/marketing/scene-observer";
 import { SiteFooter } from "@/components/marketing/site-footer";
 import { SiteHeader } from "@/components/marketing/site-header";
 import { SmoothScroll } from "@/components/marketing/smooth-scroll";
+import { googleTagManagerId } from "@/lib/analytics/config";
 
 export default async function MarketingLayout({
   children,
@@ -13,6 +15,7 @@ export default async function MarketingLayout({
   setRequestLocale(locale);
 
   const t = await getTranslations({ locale, namespace: "nav" });
+  const containerId = googleTagManagerId();
 
   return (
     <>
@@ -29,6 +32,7 @@ export default async function MarketingLayout({
       <SiteFooter />
       <SmoothScroll />
       <SceneObserver />
+      {containerId && <GoogleTag containerId={containerId} />}
     </>
   );
 }

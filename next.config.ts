@@ -1,6 +1,7 @@
 import createNextIntlPlugin from "next-intl/plugin";
 import type { NextConfig } from "next";
 
+import { googleTagManagerId } from "./src/lib/analytics/config";
 import {
   configuredTransportIsSecure,
   securityHeaders,
@@ -8,6 +9,7 @@ import {
 
 const development = process.env.NODE_ENV === "development";
 const secureTransport = configuredTransportIsSecure(process.env.NEXT_PUBLIC_SITE_URL);
+const analyticsEnabled = Boolean(googleTagManagerId());
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
@@ -21,7 +23,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/:path*",
-        headers: securityHeaders({ development, secureTransport }),
+        headers: securityHeaders({ development, secureTransport, analyticsEnabled }),
       },
     ];
   },
