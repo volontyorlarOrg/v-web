@@ -163,7 +163,7 @@ export default async function PublicProfilePage({
               <span role="img" aria-label={t("verified")} title={t("verified")}>
                 <BadgeCheck
                   aria-hidden="true"
-                  className="size-5 fill-action text-knockout"
+                  className="size-5 fill-action text-knockout [&>path:first-child]:stroke-none"
                 />
               </span>
             ) : null}
