@@ -9,6 +9,7 @@ type Labels = {
   notCounted: string;
   more: string;
   profileCompleted: string;
+  xpTakenAway: string;
   placements: Record<NonNullable<PublicActivityEntry["placement"]>, string>;
 };
 
@@ -38,6 +39,26 @@ function ActivityList({
   return (
     <ul className="divide-y divide-border">
       {entries.map((entry) => {
+        if (entry.source === "deduction") {
+          return (
+            <li
+              key={`${entry.source}-${entry.id}`}
+              className="flex flex-wrap items-baseline gap-x-5 gap-y-1 py-3"
+            >
+              <div className="min-w-0 flex-1">
+                <p className="font-semibold text-ink">{labels.xpTakenAway}</p>
+                <p className="text-sm text-ink-muted">
+                  <time dateTime={entry.createdAt}>
+                    {rewardDate.format(new Date(entry.createdAt))}
+                  </time>
+                </p>
+              </div>
+              <p className="tabular text-sm text-ink">
+                −{number.format(Math.abs(entry.xp))} XP
+              </p>
+            </li>
+          );
+        }
         if (entry.source === "checkpoint") {
           return (
             <li

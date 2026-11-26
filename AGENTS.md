@@ -51,7 +51,9 @@ city, school, languages, portfolio links and the joined date are always in it;
 contact, hometown, year or grade, social and the activity list (attended events
 and past events) are there only while the volunteer keeps them shown, and
 arrive empty otherwise, so this site renders what it is given and holds no
-visibility rule of its own. The contract
+visibility rule of its own. The XP figure is the backend's net total and is
+shown even at or below zero, and the activity lists an administrator's XP
+deductions by amount and date only, never the reason. The contract
 excludes account and auth data, applications, and every attendance outcome
 other than attended.
 

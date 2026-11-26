@@ -444,7 +444,8 @@
         "contributor": "Отличился",
         "attendee": "Участвовал"
       },
-      "profileCompleted": "Профиль заполнен"
+      "profileCompleted": "Профиль заполнен",
+      "xpTakenAway": "XP отняты"
     },
     "verified": "Подтверждён",
     "affiliation": "Связан с организацией {name}"

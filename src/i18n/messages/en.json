@@ -444,7 +444,8 @@
         "contributor": "Contributor",
         "attendee": "Took part"
       },
-      "profileCompleted": "Profile completed"
+      "profileCompleted": "Profile completed",
+      "xpTakenAway": "XP taken away"
     },
     "verified": "Verified",
     "affiliation": "Affiliated with {name}"

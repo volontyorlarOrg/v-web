@@ -100,6 +100,7 @@ describe("public profile contract", () => {
       ...payload,
       verification: { verified: false },
       rewards: [],
+      deductions: [],
       hometownRegion: null,
       activity: [
         {
@@ -142,7 +143,8 @@ describe("public profile contract", () => {
   it("rejects invalid identity, statistics and non-HTTP avatar URLs", () => {
     for (const candidate of [
       { ...payload, username: "NO" },
-      { ...payload, xp: -1 },
+      { ...payload, xp: 1.5 },
+      { ...payload, xp: "640" },
       { ...payload, avatarUrl: "javascript:alert(1)" },
       { ...payload, linkedin: "https://example.com/in/aziza" },
       { ...payload, linkedin: "https://linkedin.com/company/aziza" },
@@ -157,6 +159,56 @@ describe("public profile contract", () => {
     ]) {
       expect(parsePublicProfile(candidate)).toBeNull();
     }
+  });
+
+  it("keeps a net XP total below zero instead of refusing the profile", () => {
+    expect(parsePublicProfile({ ...payload, xp: -1 })?.xp).toBe(-1);
+    expect(parsePublicProfile({ ...payload, xp: -30 })?.xp).toBe(-30);
+    expect(parsePublicProfile({ ...payload, xp: 0 })?.xp).toBe(0);
+  });
+
+  it("reads administrator deductions and refuses one that is not a loss", () => {
+    const deduction = {
+      id: "deduction-1",
+      xp: -20,
+      createdAt: "2026-11-20T08:15:00.000Z",
+    };
+    expect(
+      parsePublicProfile({ ...payload, deductions: [deduction] })?.deductions,
+    ).toEqual([deduction]);
+    expect(
+      parsePublicProfile({
+        ...payload,
+        deductions: [{ ...deduction, reason: "Private note" }],
+      })?.deductions[0],
+    ).not.toHaveProperty("reason");
+    for (const bad of [
+      { ...deduction, xp: 0 },
+      { ...deduction, xp: 20 },
+      { ...deduction, xp: -2.5 },
+      { ...deduction, id: "" },
+      { ...deduction, createdAt: "2026-11-20" },
+    ]) {
+      expect(parsePublicProfile({ ...payload, deductions: [bad] })).toBeNull();
+    }
+    expect(parsePublicProfile({ ...payload, deductions: "none" })).toBeNull();
+  });
+
+  it("places deductions in the activity timeline by when they happened", () => {
+    const profile = parsePublicProfile({
+      ...payload,
+      deductions: [
+        { id: "late", xp: -20, createdAt: "2026-10-01T06:00:00.000Z" },
+        { id: "early", xp: -5, createdAt: "2026-09-01T06:00:00.000Z" },
+      ],
+    });
+    expect(
+      publicActivityTimeline(
+        profile!.activity,
+        profile!.rewards,
+        profile!.deductions,
+      ).map((entry) => `${entry.source}:${entry.id}`),
+    ).toEqual(["deduction:late", "manual:event-1", "deduction:early"]);
   });
 
   it("reads the hometown apart from the current region, and tolerates a backend that does not send it yet", () => {
