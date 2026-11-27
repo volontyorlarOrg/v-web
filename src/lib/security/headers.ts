@@ -3,6 +3,7 @@ export type SecurityHeader = { key: string; value: string };
 export type SecurityEnvironment = {
   development: boolean;
   secureTransport: boolean;
+  analyticsEnabled?: boolean;
 };
 
 export function configuredTransportIsSecure(
@@ -21,7 +22,13 @@ export function configuredTransportIsSecure(
 export function contentSecurityPolicy({
   development,
   secureTransport,
+  analyticsEnabled = false,
 }: SecurityEnvironment): string {
+  const tagOrigin = analyticsEnabled ? " https://www.googletagmanager.com" : "";
+  const analyticsOrigins = analyticsEnabled
+    ? " https://*.google-analytics.com https://*.google.com"
+    : "";
+
   return [
     "default-src 'self'",
     "base-uri 'self'",
@@ -31,17 +38,14 @@ export function contentSecurityPolicy({
     "img-src 'self' data: https:",
     "font-src 'self'",
     "style-src 'self' 'unsafe-inline'",
-    `script-src 'self' 'unsafe-inline'${development ? " 'unsafe-eval'" : ""}`,
-    `connect-src 'self'${development ? " ws:" : ""}`,
+    `script-src 'self' 'unsafe-inline'${development ? " 'unsafe-eval'" : ""}${tagOrigin}`,
+    `connect-src 'self'${development ? " ws:" : ""}${tagOrigin}${analyticsOrigins}`,
     "manifest-src 'self'",
     ...(secureTransport ? ["upgrade-insecure-requests"] : []),
   ].join("; ");
 }
 
-export function securityHeaders({
-  development,
-  secureTransport,
-}: SecurityEnvironment): SecurityHeader[] {
+export function securityHeaders(environment: SecurityEnvironment): SecurityHeader[] {
   return [
     { key: "X-Frame-Options", value: "DENY" },
     { key: "X-Content-Type-Options", value: "nosniff" },
@@ -51,7 +55,7 @@ export function securityHeaders({
       key: "Permissions-Policy",
       value: "camera=(), microphone=(), geolocation=(), browsing-topics=()",
     },
-    ...(secureTransport
+    ...(environment.secureTransport
       ? [
           {
             key: "Strict-Transport-Security",
@@ -61,7 +65,7 @@ export function securityHeaders({
       : []),
     {
       key: "Content-Security-Policy",
-      value: contentSecurityPolicy({ development, secureTransport }),
+      value: contentSecurityPolicy(environment),
     },
   ];
 }

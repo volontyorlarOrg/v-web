@@ -66,8 +66,7 @@ Plus `/robots.txt` and `/sitemap.xml`.
 
 ## Environment variables
 
-All four variables in `.env.example` are optional and blank on purpose, because
-no domain or channel address is verified yet:
+The following settings in `.env.example` are optional:
 
 | Variable | Effect while unset |
 | --- | --- |
@@ -75,12 +74,19 @@ no domain or channel address is verified yet:
 | `NEXT_PUBLIC_APP_ORIGIN` | Links into the Volontyorlar application, including the hero sign-in action, are not rendered |
 | `NEXT_PUBLIC_TELEGRAM_URL` | The join action falls back to the contact page |
 | `NEXT_PUBLIC_INSTAGRAM_URL` | The channel is omitted from the footer and contact page |
+| `GOOGLE_TAG_MANAGER_ID` | Google Analytics stays off |
 
 Local development values belong in `.env.local`, which is untracked. While a
 service has no verified address, put a clearly-marked placeholder there rather
 than a fabricated value in tracked source, and replace it once the real address
-is confirmed. The Playwright suite pins all four variables to empty so it always
-exercises the unconfigured baseline.
+is confirmed. The Playwright suite leaves the public URL and channel variables
+unset to exercise the unconfigured baseline.
 
 `NEXT_PUBLIC_*` values are embedded in the browser bundle. Never put a bot
 token, session key, or database credential in one.
+
+Once the public privacy policy reflects the use of Google Analytics, set
+`GOOGLE_TAG_MANAGER_ID=GTM-W3KFRT6C` in the production build and runtime
+environments. The tag loads on marketing pages. Volunteer profiles and draft
+blog previews are excluded. After deployment, verify a visit in Google
+Analytics Realtime.

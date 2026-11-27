@@ -38,6 +38,7 @@ export default defineConfig({
         NEXT_PUBLIC_TELEGRAM_URL: "",
         NEXT_PUBLIC_INSTAGRAM_URL: "",
         GOOGLE_SITE_VERIFICATION: "",
+        GOOGLE_TAG_MANAGER_ID: "",
         YANDEX_VERIFICATION: "",
         BING_SITE_VERIFICATION: "",
         VOLONTYORLAR_API_URL: `http://127.0.0.1:${API_PORT}`,
