@@ -445,7 +445,9 @@
         "attendee": "Участвовал"
       },
       "profileCompleted": "Профиль заполнен",
-      "xpTakenAway": "XP отняты"
+      "xpTakenAway": "XP отняты",
+      "xpReset": "Сброс XP при смене наград",
+      "noShow": "Не пришёл без предупреждения"
     },
     "verified": "Подтверждён",
     "affiliation": "Связан с организацией {name}"

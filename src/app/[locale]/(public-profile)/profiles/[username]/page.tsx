@@ -190,6 +190,8 @@ export default async function PublicProfilePage({
               }),
               profileCompleted: t("activity.profileCompleted"),
               xpTakenAway: t("activity.xpTakenAway"),
+              xpReset: t("activity.xpReset"),
+              noShow: t("activity.noShow"),
               placements: {
                 winner: t("activity.placements.winner"),
                 contributor: t("activity.placements.contributor"),

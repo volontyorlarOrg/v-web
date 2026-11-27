@@ -21,7 +21,7 @@ export function publicActivityTimeline(
     ...deductions.map((deduction) => ({
       ...deduction,
       source: "deduction" as const,
-      eventDate: deduction.createdAt,
+      eventDate: deduction.date,
     })),
   ].sort((a, b) => activityTime(b.eventDate) - activityTime(a.eventDate));
 }

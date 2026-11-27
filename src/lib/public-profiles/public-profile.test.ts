@@ -117,9 +117,29 @@ describe("public profile contract", () => {
   });
 
   it("accepts verification and discards legacy organization marks", () => {
-    const verification = { verified: true, organization: { id: "org", name: "Example", logoUrl: "https://example.com/logo.png" } };
-    expect(parsePublicProfile({ ...payload, verification })?.verification).toEqual({ verified: true });
-    expect(parsePublicProfile({ ...payload, verification: { ...verification, organization: { ...verification.organization, logoUrl: "javascript:alert(1)" } } })?.verification).not.toHaveProperty("organization");
+    const verification = {
+      verified: true,
+      organization: {
+        id: "org",
+        name: "Example",
+        logoUrl: "https://example.com/logo.png",
+      },
+    };
+    expect(
+      parsePublicProfile({ ...payload, verification })?.verification,
+    ).toEqual({ verified: true });
+    expect(
+      parsePublicProfile({
+        ...payload,
+        verification: {
+          ...verification,
+          organization: {
+            ...verification.organization,
+            logoUrl: "javascript:alert(1)",
+          },
+        },
+      })?.verification,
+    ).not.toHaveProperty("organization");
   });
 
   it("reads every step of the hours ladder and still the older levels", () => {
@@ -167,27 +187,52 @@ describe("public profile contract", () => {
     expect(parsePublicProfile({ ...payload, xp: 0 })?.xp).toBe(0);
   });
 
-  it("reads administrator deductions and refuses one that is not a loss", () => {
-    const deduction = {
+  it("reads every kind of XP loss and refuses one that is not a loss", () => {
+    const adjustment = {
       id: "deduction-1",
+      kind: "adjustment",
       xp: -20,
-      createdAt: "2026-11-20T08:15:00.000Z",
+      reason: "Left early",
+      date: "2026-11-20T08:15:00.000Z",
+      opportunityTitle: null,
+      organization: null,
     };
-    expect(
-      parsePublicProfile({ ...payload, deductions: [deduction] })?.deductions,
-    ).toEqual([deduction]);
+    const noShow = {
+      id: "no-show-1",
+      kind: "no_show",
+      xp: -10,
+      reason: null,
+      date: "2026-10-20T09:00:00.000Z",
+      opportunityTitle: "Riverbank clean-up",
+      organization: "Volontyorlar",
+    };
+    const reset = {
+      ...adjustment,
+      id: "reset-1",
+      kind: "reset",
+      xp: -50,
+      reason: null,
+    };
     expect(
       parsePublicProfile({
         ...payload,
-        deductions: [{ ...deduction, reason: "Private note" }],
-      })?.deductions[0],
-    ).not.toHaveProperty("reason");
+        deductions: [adjustment, noShow, reset],
+      })?.deductions,
+    ).toEqual([adjustment, noShow, reset]);
+    expect(
+      parsePublicProfile({
+        ...payload,
+        deductions: [{ ...reset, reason: "Milestone XP reset: launch-key" }],
+      })?.deductions[0]?.reason,
+    ).toBeNull();
     for (const bad of [
-      { ...deduction, xp: 0 },
-      { ...deduction, xp: 20 },
-      { ...deduction, xp: -2.5 },
-      { ...deduction, id: "" },
-      { ...deduction, createdAt: "2026-11-20" },
+      { ...adjustment, xp: 0 },
+      { ...adjustment, xp: 20 },
+      { ...adjustment, xp: -2.5 },
+      { ...adjustment, id: "" },
+      { ...adjustment, kind: "penalty" },
+      { ...adjustment, date: "2026-11-20" },
+      { ...noShow, opportunityTitle: "" },
     ]) {
       expect(parsePublicProfile({ ...payload, deductions: [bad] })).toBeNull();
     }
@@ -195,11 +240,20 @@ describe("public profile contract", () => {
   });
 
   it("places deductions in the activity timeline by when they happened", () => {
+    const loss = (id: string, date: string) => ({
+      id,
+      kind: "adjustment",
+      xp: -5,
+      reason: null,
+      date,
+      opportunityTitle: null,
+      organization: null,
+    });
     const profile = parsePublicProfile({
       ...payload,
       deductions: [
-        { id: "late", xp: -20, createdAt: "2026-10-01T06:00:00.000Z" },
-        { id: "early", xp: -5, createdAt: "2026-09-01T06:00:00.000Z" },
+        loss("late", "2026-10-01T06:00:00.000Z"),
+        loss("early", "2026-09-01T06:00:00.000Z"),
       ],
     });
     expect(

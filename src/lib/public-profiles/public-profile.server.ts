@@ -93,9 +93,15 @@ export type PublicProfile = {
 
 export type PublicDeduction = {
   id: string;
+  kind: "no_show" | "adjustment" | "reset";
   xp: number;
-  createdAt: string;
+  reason: string | null;
+  date: string;
+  opportunityTitle: string | null;
+  organization: string | null;
 };
+
+const DEDUCTION_KINDS = ["no_show", "adjustment", "reset"] as const;
 
 export type PublicReward = {
   id: string;
@@ -237,19 +243,27 @@ function parseDeductions(value: unknown): PublicDeduction[] | null {
       !isRecord(item) ||
       typeof item.id !== "string" ||
       !item.id ||
+      !includes(DEDUCTION_KINDS, item.kind) ||
       !Number.isInteger(item.xp) ||
       (item.xp as number) >= 0 ||
-      typeof item.createdAt !== "string" ||
-      !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/.test(
-        item.createdAt,
-      ) ||
-      Number.isNaN(Date.parse(item.createdAt))
+      typeof item.date !== "string" ||
+      !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/.test(item.date) ||
+      Number.isNaN(Date.parse(item.date))
     )
       return null;
+    const text = (field: unknown) =>
+      typeof field === "string" && field.trim() ? field.trim() : null;
+    const kind = item.kind as PublicDeduction["kind"];
+    const opportunityTitle = text(item.opportunityTitle);
+    if (kind === "no_show" && !opportunityTitle) return null;
     deductions.push({
       id: item.id,
+      kind,
       xp: item.xp as number,
-      createdAt: item.createdAt,
+      reason: kind === "adjustment" ? text(item.reason) : null,
+      date: item.date,
+      opportunityTitle: kind === "no_show" ? opportunityTitle : null,
+      organization: kind === "no_show" ? text(item.organization) : null,
     });
   }
   return deductions;

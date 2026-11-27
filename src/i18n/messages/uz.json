@@ -445,7 +445,9 @@
         "attendee": "Ishtirok etdi"
       },
       "profileCompleted": "Profil toʻldirildi",
-      "xpTakenAway": "XP ayirildi"
+      "xpTakenAway": "XP ayirildi",
+      "xpReset": "Mukofotlar oʻzgarganda XP bekor qilindi",
+      "noShow": "Sababsiz kelmadi"
     },
     "verified": "Tasdiqlangan",
     "affiliation": "{name} tashkilotiga aloqador"
