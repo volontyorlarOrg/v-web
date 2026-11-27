@@ -11,8 +11,7 @@ export function GoogleTag({ containerId }: { containerId: string }) {
     <>
       <Script id="google-tag-init">
         {`window.dataLayer = window.dataLayer || [];
-function gtag() { window.dataLayer.push(arguments); }
-gtag('js', new Date());`}
+window.dataLayer.push({ "gtm.start": new Date().getTime(), event: "gtm.js" });`}
       </Script>
       <Script src={`https://www.googletagmanager.com/gtm.js?id=${containerId}`} />
     </>
