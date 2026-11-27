@@ -9,6 +9,9 @@ type Labels = {
   notCounted: string;
   more: string;
   profileCompleted: string;
+  xpTakenAway: string;
+  xpReset: string;
+  noShow: string;
   placements: Record<NonNullable<PublicActivityEntry["placement"]>, string>;
 };
 
@@ -38,6 +41,42 @@ function ActivityList({
   return (
     <ul className="divide-y divide-border">
       {entries.map((entry) => {
+        if (entry.source === "deduction") {
+          const lost = `−${number.format(Math.abs(entry.xp))} XP`;
+          const when = (
+            <time dateTime={entry.date}>
+              {rewardDate.format(new Date(entry.date))}
+            </time>
+          );
+          return (
+            <li
+              key={`${entry.source}-${entry.id}`}
+              className="flex flex-wrap items-baseline gap-x-5 gap-y-1 py-3"
+            >
+              <div className="min-w-0 flex-1">
+                <p className="font-semibold [overflow-wrap:anywhere] text-ink">
+                  {entry.kind === "no_show"
+                    ? entry.opportunityTitle
+                    : entry.kind === "reset"
+                      ? labels.xpReset
+                      : labels.xpTakenAway}
+                </p>
+                <p className="text-sm [overflow-wrap:anywhere] text-ink-muted">
+                  {entry.kind === "no_show" && entry.organization
+                    ? `${entry.organization} · `
+                    : null}
+                  {when}
+                  {entry.kind === "adjustment" && entry.reason
+                    ? ` · ${entry.reason}`
+                    : null}
+                </p>
+              </div>
+              <p className="tabular text-sm text-ink">
+                {entry.kind === "no_show" ? `${labels.noShow} · ${lost}` : lost}
+              </p>
+            </li>
+          );
+        }
         if (entry.source === "checkpoint") {
           return (
             <li

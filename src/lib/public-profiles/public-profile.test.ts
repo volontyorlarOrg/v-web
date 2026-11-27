@@ -100,6 +100,7 @@ describe("public profile contract", () => {
       ...payload,
       verification: { verified: false },
       rewards: [],
+      deductions: [],
       hometownRegion: null,
       activity: [
         {
@@ -116,9 +117,29 @@ describe("public profile contract", () => {
   });
 
   it("accepts verification and discards legacy organization marks", () => {
-    const verification = { verified: true, organization: { id: "org", name: "Example", logoUrl: "https://example.com/logo.png" } };
-    expect(parsePublicProfile({ ...payload, verification })?.verification).toEqual({ verified: true });
-    expect(parsePublicProfile({ ...payload, verification: { ...verification, organization: { ...verification.organization, logoUrl: "javascript:alert(1)" } } })?.verification).not.toHaveProperty("organization");
+    const verification = {
+      verified: true,
+      organization: {
+        id: "org",
+        name: "Example",
+        logoUrl: "https://example.com/logo.png",
+      },
+    };
+    expect(
+      parsePublicProfile({ ...payload, verification })?.verification,
+    ).toEqual({ verified: true });
+    expect(
+      parsePublicProfile({
+        ...payload,
+        verification: {
+          ...verification,
+          organization: {
+            ...verification.organization,
+            logoUrl: "javascript:alert(1)",
+          },
+        },
+      })?.verification,
+    ).not.toHaveProperty("organization");
   });
 
   it("reads every step of the hours ladder and still the older levels", () => {
@@ -142,7 +163,8 @@ describe("public profile contract", () => {
   it("rejects invalid identity, statistics and non-HTTP avatar URLs", () => {
     for (const candidate of [
       { ...payload, username: "NO" },
-      { ...payload, xp: -1 },
+      { ...payload, xp: 1.5 },
+      { ...payload, xp: "640" },
       { ...payload, avatarUrl: "javascript:alert(1)" },
       { ...payload, linkedin: "https://example.com/in/aziza" },
       { ...payload, linkedin: "https://linkedin.com/company/aziza" },
@@ -157,6 +179,90 @@ describe("public profile contract", () => {
     ]) {
       expect(parsePublicProfile(candidate)).toBeNull();
     }
+  });
+
+  it("keeps a net XP total below zero instead of refusing the profile", () => {
+    expect(parsePublicProfile({ ...payload, xp: -1 })?.xp).toBe(-1);
+    expect(parsePublicProfile({ ...payload, xp: -30 })?.xp).toBe(-30);
+    expect(parsePublicProfile({ ...payload, xp: 0 })?.xp).toBe(0);
+  });
+
+  it("reads every kind of XP loss and refuses one that is not a loss", () => {
+    const adjustment = {
+      id: "deduction-1",
+      kind: "adjustment",
+      xp: -20,
+      reason: "Left early",
+      date: "2026-11-20T08:15:00.000Z",
+      opportunityTitle: null,
+      organization: null,
+    };
+    const noShow = {
+      id: "no-show-1",
+      kind: "no_show",
+      xp: -10,
+      reason: null,
+      date: "2026-10-20T09:00:00.000Z",
+      opportunityTitle: "Riverbank clean-up",
+      organization: "Volontyorlar",
+    };
+    const reset = {
+      ...adjustment,
+      id: "reset-1",
+      kind: "reset",
+      xp: -50,
+      reason: null,
+    };
+    expect(
+      parsePublicProfile({
+        ...payload,
+        deductions: [adjustment, noShow, reset],
+      })?.deductions,
+    ).toEqual([adjustment, noShow, reset]);
+    expect(
+      parsePublicProfile({
+        ...payload,
+        deductions: [{ ...reset, reason: "Milestone XP reset: launch-key" }],
+      })?.deductions[0]?.reason,
+    ).toBeNull();
+    for (const bad of [
+      { ...adjustment, xp: 0 },
+      { ...adjustment, xp: 20 },
+      { ...adjustment, xp: -2.5 },
+      { ...adjustment, id: "" },
+      { ...adjustment, kind: "penalty" },
+      { ...adjustment, date: "2026-11-20" },
+      { ...noShow, opportunityTitle: "" },
+    ]) {
+      expect(parsePublicProfile({ ...payload, deductions: [bad] })).toBeNull();
+    }
+    expect(parsePublicProfile({ ...payload, deductions: "none" })).toBeNull();
+  });
+
+  it("places deductions in the activity timeline by when they happened", () => {
+    const loss = (id: string, date: string) => ({
+      id,
+      kind: "adjustment",
+      xp: -5,
+      reason: null,
+      date,
+      opportunityTitle: null,
+      organization: null,
+    });
+    const profile = parsePublicProfile({
+      ...payload,
+      deductions: [
+        loss("late", "2026-10-01T06:00:00.000Z"),
+        loss("early", "2026-09-01T06:00:00.000Z"),
+      ],
+    });
+    expect(
+      publicActivityTimeline(
+        profile!.activity,
+        profile!.rewards,
+        profile!.deductions,
+      ).map((entry) => `${entry.source}:${entry.id}`),
+    ).toEqual(["deduction:late", "manual:event-1", "deduction:early"]);
   });
 
   it("reads the hometown apart from the current region, and tolerates a backend that does not send it yet", () => {

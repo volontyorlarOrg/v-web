@@ -71,34 +71,31 @@ export default async function PublicProfilePage({
   const number = (chunks: ReactNode) => <PublicProfileNumber chunks={chunks} />;
   const { attendedEvents, confirmedHours } = profile.stats;
 
-  const figures: PublicProfileFigure[] =
-    attendedEvents + confirmedHours + profile.xp > 0
-      ? [
-          {
-            id: "events",
-            content: t.rich("events", {
-              count: attendedEvents,
-              value: format.format(attendedEvents),
-              n: number,
-            }),
-          },
-          {
-            id: "hours",
-            content: t.rich("hours", {
-              count: confirmedHours,
-              value: format.format(confirmedHours),
-              n: number,
-            }),
-          },
-          {
-            id: "xp",
-            content: t.rich("xp", {
-              value: format.format(profile.xp),
-              n: number,
-            }),
-          },
-        ]
-      : [];
+  const figures: PublicProfileFigure[] = [
+    {
+      id: "events",
+      content: t.rich("events", {
+        count: attendedEvents,
+        value: format.format(attendedEvents),
+        n: number,
+      }),
+    },
+    {
+      id: "hours",
+      content: t.rich("hours", {
+        count: confirmedHours,
+        value: format.format(confirmedHours),
+        n: number,
+      }),
+    },
+    {
+      id: "xp",
+      content: t.rich("xp", {
+        value: format.format(profile.xp),
+        n: number,
+      }),
+    },
+  ];
 
   const languages = languageList(profile.languages, locale);
   const socials = socialLinks(profile);
@@ -151,7 +148,11 @@ export default async function PublicProfilePage({
   const rows = candidates.filter(
     (row): row is PublicProfileRow => row !== null,
   );
-  const activity = publicActivityTimeline(profile.activity, profile.rewards);
+  const activity = publicActivityTimeline(
+    profile.activity,
+    profile.rewards,
+    profile.deductions,
+  );
 
   return (
     <div className="container-page py-8 sm:py-14 lg:py-20">
@@ -188,6 +189,9 @@ export default async function PublicProfilePage({
                 count: activity.length,
               }),
               profileCompleted: t("activity.profileCompleted"),
+              xpTakenAway: t("activity.xpTakenAway"),
+              xpReset: t("activity.xpReset"),
+              noShow: t("activity.noShow"),
               placements: {
                 winner: t("activity.placements.winner"),
                 contributor: t("activity.placements.contributor"),

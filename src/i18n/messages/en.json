@@ -444,7 +444,10 @@
         "contributor": "Contributor",
         "attendee": "Took part"
       },
-      "profileCompleted": "Profile completed"
+      "profileCompleted": "Profile completed",
+      "xpTakenAway": "XP taken away",
+      "xpReset": "XP reset when rewards changed",
+      "noShow": "Unexcused no-show"
     },
     "verified": "Verified",
     "affiliation": "Affiliated with {name}"

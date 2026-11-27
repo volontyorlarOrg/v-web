@@ -444,7 +444,10 @@
         "contributor": "Faol ishtirokchi",
         "attendee": "Ishtirok etdi"
       },
-      "profileCompleted": "Profil toʻldirildi"
+      "profileCompleted": "Profil toʻldirildi",
+      "xpTakenAway": "XP ayirildi",
+      "xpReset": "Mukofotlar oʻzgarganda XP bekor qilindi",
+      "noShow": "Sababsiz kelmadi"
     },
     "verified": "Tasdiqlangan",
     "affiliation": "{name} tashkilotiga aloqador"

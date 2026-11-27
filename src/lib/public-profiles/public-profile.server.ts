@@ -88,7 +88,20 @@ export type PublicProfile = {
   pastEvents: PublicPastEvent[];
   activity: PublicActivity[];
   rewards: PublicReward[];
+  deductions: PublicDeduction[];
 };
+
+export type PublicDeduction = {
+  id: string;
+  kind: "no_show" | "adjustment" | "reset";
+  xp: number;
+  reason: string | null;
+  date: string;
+  opportunityTitle: string | null;
+  organization: string | null;
+};
+
+const DEDUCTION_KINDS = ["no_show", "adjustment", "reset"] as const;
 
 export type PublicReward = {
   id: string;
@@ -150,6 +163,7 @@ export function parsePublicProfile(value: unknown): PublicProfile | null {
     : null;
   const pastEvents = parsePastEvents(value.pastEvents);
   const rewards = parseRewards(value.rewards);
+  const deductions = parseDeductions(value.deductions);
   const activity =
     value.activity === undefined
       ? (pastEvents?.map(activityFromPastEvent) ?? null)
@@ -178,11 +192,12 @@ export function parsePublicProfile(value: unknown): PublicProfile | null {
     links === null ||
     pastEvents === null ||
     rewards === null ||
+    deductions === null ||
     activity === null ||
     (joinedAt !== null &&
       (typeof joinedAt !== "string" || Number.isNaN(Date.parse(joinedAt)))) ||
     !includes(PUBLIC_PROFILE_LEVELS, value.level) ||
-    !nonnegativeNumber(value.xp) ||
+    !Number.isInteger(value.xp) ||
     !nonnegativeNumber(value.stats.attendedEvents) ||
     !nonnegativeNumber(value.stats.confirmedHours)
   ) {
@@ -207,7 +222,7 @@ export function parsePublicProfile(value: unknown): PublicProfile | null {
     links,
     joinedAt: joinedAt as string | null,
     level: value.level as PublicProfileLevel,
-    xp: value.xp,
+    xp: value.xp as number,
     stats: {
       attendedEvents: value.stats.attendedEvents,
       confirmedHours: value.stats.confirmedHours,
@@ -215,7 +230,43 @@ export function parsePublicProfile(value: unknown): PublicProfile | null {
     pastEvents,
     activity,
     rewards,
+    deductions,
   };
+}
+
+function parseDeductions(value: unknown): PublicDeduction[] | null {
+  if (value === undefined) return [];
+  if (!Array.isArray(value)) return null;
+  const deductions: PublicDeduction[] = [];
+  for (const item of value) {
+    if (
+      !isRecord(item) ||
+      typeof item.id !== "string" ||
+      !item.id ||
+      !includes(DEDUCTION_KINDS, item.kind) ||
+      !Number.isInteger(item.xp) ||
+      (item.xp as number) >= 0 ||
+      typeof item.date !== "string" ||
+      !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/.test(item.date) ||
+      Number.isNaN(Date.parse(item.date))
+    )
+      return null;
+    const text = (field: unknown) =>
+      typeof field === "string" && field.trim() ? field.trim() : null;
+    const kind = item.kind as PublicDeduction["kind"];
+    const opportunityTitle = text(item.opportunityTitle);
+    if (kind === "no_show" && !opportunityTitle) return null;
+    deductions.push({
+      id: item.id,
+      kind,
+      xp: item.xp as number,
+      reason: kind === "adjustment" ? text(item.reason) : null,
+      date: item.date,
+      opportunityTitle: kind === "no_show" ? opportunityTitle : null,
+      organization: kind === "no_show" ? text(item.organization) : null,
+    });
+  }
+  return deductions;
 }
 
 function parseVerification(
