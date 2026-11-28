@@ -50,3 +50,10 @@ next-env.d.ts
 # remotion video project (source is tracked, deps and renders are not)
 /video/node_modules
 /video/out
+
+# agent guides and docs stay in local checkouts
+AGENTS.md
+CLAUDE.md
+docs/
+.claude/skills/
+.agents/
