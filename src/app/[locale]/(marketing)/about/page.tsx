@@ -42,6 +42,7 @@ function About({ locale }: { locale: Locale }) {
     id: founder.id,
     name: founder.name,
     role: common(`founderRoles.${founder.role}`),
+    photo: `/founders/${founder.id}.webp`,
     profilesLabel: t("founders.profilesLabel", { name: founder.name }),
     profiles: FOUNDER_PROFILE_IDS.map((id) => ({
       id,

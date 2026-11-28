@@ -1,4 +1,5 @@
 import { Send, type LucideIcon } from "lucide-react";
+import Image from "next/image";
 
 import { Linkedin } from "@/components/brand/channel-icons";
 import { Scene } from "@/components/marketing/scene";
@@ -21,6 +22,7 @@ export type FounderEntry = {
   id: string;
   name: string;
   role: string;
+  photo: string;
   profilesLabel: string;
   profiles: readonly FounderProfile[];
 };
@@ -40,7 +42,15 @@ export function FounderBoard({
     >
       {founders.map((founder) => (
         <li key={founder.id} className="border-t border-border py-6">
-          <p className="text-title font-semibold tracking-[-0.01em] text-ink">{founder.name}</p>
+          <Image
+            src={founder.photo}
+            alt={founder.name}
+            width={512}
+            height={512}
+            unoptimized
+            className="mb-5 size-28 rounded-full object-cover shadow-[0_0_0_3px_var(--color-knockout),0_0_0_5px_var(--color-orange-600)]"
+          />
+          <p className="text-title font-extrabold tracking-[-0.02em] text-ink">{founder.name}</p>
           <p className="mt-1 text-sm leading-snug text-ink-muted">{founder.role}</p>
           <ul
             role="list"
