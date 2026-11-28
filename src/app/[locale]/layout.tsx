@@ -1,10 +1,10 @@
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Onest, Source_Serif_4 } from "next/font/google";
+import { Onest } from "next/font/google";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
-import { ThemeScript } from "@/components/marketing/theme-script";
+import { MotionScript } from "@/components/marketing/motion-script";
 import { routing } from "@/i18n/routing";
 import { marketingOrigin } from "@/lib/seo/origin";
 import { searchEngineVerification } from "@/lib/seo/verification";
@@ -13,12 +13,6 @@ import "../globals.css";
 const onest = Onest({
   subsets: ["latin", "latin-ext", "cyrillic"],
   variable: "--font-onest",
-  display: "swap",
-});
-
-const sourceSerif = Source_Serif_4({
-  subsets: ["latin", "latin-ext", "cyrillic"],
-  variable: "--font-source-serif",
   display: "swap",
 });
 
@@ -59,12 +53,11 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      data-theme="light"
       suppressHydrationWarning
-      className={`${onest.variable} ${sourceSerif.variable} h-full`}
+      className={`${onest.variable} h-full`}
     >
       <head>
-        <ThemeScript />
+        <MotionScript />
       </head>
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider messages={null}>

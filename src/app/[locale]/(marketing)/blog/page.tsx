@@ -168,7 +168,7 @@ export default async function BlogPage({
         <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-primary-ink">
           {t("eyebrow")}
         </p>
-        <h1 className="font-serif text-page leading-tight text-ink">
+        <h1 className="font-sans text-page leading-tight text-ink">
           {t("title")}
         </h1>
         <p className="mt-5 max-w-2xl text-lead text-ink-muted">{t("lead")}</p>
@@ -217,7 +217,7 @@ export default async function BlogPage({
         </div>
       ) : (
         <div className="max-w-3xl rounded-lg border border-border bg-surface px-7 py-12">
-          <p className="font-serif text-2xl text-ink">{t("empty")}</p>
+          <p className="font-sans text-2xl text-ink">{t("empty")}</p>
         </div>
       )}
     </div>

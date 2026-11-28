@@ -16,9 +16,11 @@ import { cn } from "@/lib/utils";
 export function LocaleSwitcher({
   label,
   className,
+  tone = "surface",
 }: {
   label: string;
   className?: string;
+  tone?: "surface" | "inverse";
 }) {
   const active = useLocale() as Locale;
   const pathname = usePathname();
@@ -30,7 +32,10 @@ export function LocaleSwitcher({
           type="button"
           aria-label={`${label}: ${localeNames[active]}`}
           className={cn(
-            "group inline-flex h-10 items-center gap-1 rounded-full border border-border bg-surface pr-2 pl-3 text-xs font-semibold tracking-[0.08em] text-ink uppercase transition-colors hover:border-border-control hover:text-primary-ink",
+            "group inline-flex h-10 items-center gap-1 rounded-full border pr-2 pl-3 text-xs font-semibold tracking-[0.08em] uppercase transition-colors",
+            tone === "inverse"
+              ? "h-11 border-[1.5px] border-knockout/28 bg-transparent text-knockout hover:border-knockout/60"
+              : "border-border bg-surface text-ink hover:border-border-control hover:text-primary-ink",
             className,
           )}
         >

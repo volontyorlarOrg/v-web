@@ -60,7 +60,7 @@ export function BrandLockup({
 }: {
   name: string;
   className?: string;
-  tone?: "primary" | "inverse";
+  tone?: "primary" | "inverse" | "dark";
 }) {
   return (
     <span
@@ -72,7 +72,7 @@ export function BrandLockup({
       <BrandWordmark
         className={cn(
           "mt-[calc(var(--logo)*0.24)] ml-[calc(var(--logo)*0.3025)] hidden h-[calc(var(--logo)*0.6006)] w-auto min-[390px]:block",
-          tone === "primary" ? "text-logo-word" : "text-knockout",
+          tone === "primary" ? "text-logo-word" : tone === "dark" ? "text-navy-900" : "text-knockout",
         )}
       />
     </span>

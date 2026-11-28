@@ -74,7 +74,7 @@ export function PublicProfileSheet({
       <header className="px-6 pt-7 sm:px-10 sm:pt-10">
         <div
           aria-hidden="true"
-          className="profile-avatar grid size-24 place-items-center overflow-hidden rounded-full bg-surface-soft font-serif text-4xl tracking-[-0.02em] text-primary-ink sm:size-28"
+          className="profile-avatar grid size-24 place-items-center overflow-hidden rounded-full bg-surface-soft font-sans text-4xl tracking-[-0.02em] text-primary-ink sm:size-28"
         >
           {avatarUrl ? (
             <Image

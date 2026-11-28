@@ -7,10 +7,10 @@ export type HeaderNavItem = {
 };
 
 export const HEADER_NAV_ITEMS: readonly HeaderNavItem[] = [
-  { id: "volunteering", route: "volunteering" },
-  { id: "blog", route: "blog" },
-  { id: "partners", route: "partners" },
+  { id: "opportunities", route: "home", fragment: "imkoniyatlar" },
+  { id: "organisations", route: "home", fragment: "tashkilotlar" },
   { id: "about", route: "about" },
+  { id: "blog", route: "blog" },
   { id: "contact", route: "contact" },
 ];
 

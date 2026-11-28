@@ -26,6 +26,17 @@ export function channelUrl(id: ChannelId): string | null {
   }
 }
 
+export const OFFICIAL_LINKS = {
+  telegramChannel: "https://t.me/yvc_uz",
+  telegramAdmin: "https://t.me/yvc_admin",
+  telegramBot: "https://t.me/volontyor_uz_bot",
+  instagram: "https://www.instagram.com/yvc.uz/",
+} as const;
+
+export function officialChannelUrl(id: ChannelId): string {
+  return channelUrl(id) ?? (id === "telegram" ? OFFICIAL_LINKS.telegramChannel : OFFICIAL_LINKS.instagram);
+}
+
 export function configuredChannels(): ConfiguredChannel[] {
   return (["telegram", "instagram"] as const).flatMap((id) => {
     const url = channelUrl(id);

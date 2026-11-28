@@ -25,15 +25,19 @@ describe("header navigation items", () => {
     }
   });
 
-  it("keeps the primary navigation to five real page destinations", () => {
+  it("follows the redesign: two home sections, then three pages", () => {
     expect(HEADER_NAV_ITEMS.map((item) => item.id)).toEqual([
-      "volunteering",
-      "blog",
-      "partners",
+      "opportunities",
+      "organisations",
       "about",
+      "blog",
       "contact",
     ]);
-    for (const item of HEADER_NAV_ITEMS) {
+    expect(HEADER_NAV_ITEMS.slice(0, 2).map(headerNavHref)).toEqual([
+      "/#imkoniyatlar",
+      "/#tashkilotlar",
+    ]);
+    for (const item of HEADER_NAV_ITEMS.slice(2)) {
       expect(headerNavHref(item)).toBe(headerNavPath(item));
     }
   });

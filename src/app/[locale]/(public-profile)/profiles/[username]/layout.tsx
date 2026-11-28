@@ -30,7 +30,6 @@ export default async function PublicProfileLayout({
         labels={{
           home: nav("home"),
           language: nav("languageLabel"),
-          theme: nav("themeLabel"),
         }}
       />
       <main id="main" className="flex-1">

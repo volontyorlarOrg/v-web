@@ -14,27 +14,25 @@ function sourceFiles(directory: string): string[] {
 }
 
 describe("typography", () => {
-  it("declares a display serif alongside the interface sans", () => {
+  it("sets the whole site in Onest, with no second typeface", () => {
     expect(CSS).toMatch(/--font-sans:\s*var\(--font-onest\)/);
-    expect(CSS).toMatch(/--font-serif:\s*var\(--font-source-serif\)/);
+    expect(CSS).not.toMatch(/--font-serif|font-source-serif|Source_Serif/);
   });
 
-  it("gives headings the serif at regular weight without a class", () => {
+  it("gives headings Onest at extra-bold weight with tight tracking", () => {
     const base = CSS.slice(CSS.indexOf("h1,"), CSS.indexOf("::selection"));
-    expect(base).toContain(".display-face");
-    expect(base).toContain("--font-serif");
-    expect(base).toMatch(/font-weight:\s*400/);
+    expect(base).toContain("--font-sans");
+    expect(base).toMatch(/font-weight:\s*800/);
+    expect(base).toMatch(/letter-spacing:\s*-0\.0\d+em/);
   });
 
-  it("never sets the display faces bold, which would undo the register", () => {
+  it("never reaches for a serif utility in source", () => {
     const offenders: string[] = [];
 
     for (const file of sourceFiles(join(ROOT, "src"))) {
       const source = readFileSync(file, "utf8");
-      for (const [line] of source.matchAll(/^.*(text-display|text-headline|display-face).*$/gm)) {
-        if (/font-bold|font-extrabold|font-black/.test(line)) {
-          offenders.push(`${file.replace(`${ROOT}/`, "")}: ${line.trim()}`);
-        }
+      if (/\bfont-serif\b|Source_Serif_4/.test(source)) {
+        offenders.push(file.replace(`${ROOT}/`, ""));
       }
     }
 

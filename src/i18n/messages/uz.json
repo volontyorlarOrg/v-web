@@ -21,12 +21,13 @@
     "join": "Qoʻshiling",
     "primaryLabel": "Asosiy navigatsiya",
     "languageLabel": "Til",
-    "themeLabel": "Tungi rejim",
     "openMenu": "Menyuni ochish",
     "closeMenu": "Menyuni yopish",
     "skipToContent": "Asosiy qismga oʻtish",
     "signup": "Roʻyxatdan oʻtish",
-    "blog": "Blog"
+    "blog": "Blog",
+    "opportunities": "Imkoniyatlar",
+    "organisations": "Tashkilotlar uchun"
   },
   "footer": {
     "description": "Volontyorlik qiling. Mahallangizga yordam bering. Tasdiqlating.",
@@ -44,7 +45,6 @@
       "support": "Yordam"
     },
     "links": {
-      "regions": "Hududlar",
       "organisations": "Tashkilotlar uchun"
     },
     "updates": {
@@ -59,93 +59,186 @@
     "metaTitle": "Volontyorlar — Oʻzbekistondagi yoshlar uchun volontyorlik",
     "metaDescription": "Volontyorlar Oʻzbekiston boʻylab volontyorlik imkoniyatlarini topadi, tashkilotchilar bilan ishlaydi va yuqori sinf oʻquvchilarini volontyor kerak boʻlgan tadbirlar bilan bogʻlaydi.",
     "hero": {
-      "eyebrowLabel": "Oʻzbekiston boʻylab volontyorlik",
-      "eyebrow": "<region></region> volontyorlik",
-      "title": "Qilinadigan ish bor.",
-      "lead": "Oʻzingiz foydali boʻladigan joyni toping. Imkoniyatni hamjamiyat bilan ulashishdan oldin tashkilotchilar bilan gaplashamiz.",
-      "primaryCta": "Volontyor boʻling",
-      "loginCta": "Kirish",
-      "signupCta": "Volontyor boʻlish"
+      "title": "Ezgulik sari",
+      "titleAccent": "qadam.",
+      "lead": "Oʻzbekiston yoshlari uchun volontyorlik platformasi.",
+      "signup": "Volontyor boʻlish",
+      "browse": "Imkoniyatlarni koʻrish",
+      "countLabel": "yosh platformada",
+      "liveIdle": "Jonli: raqam oʻzi yangilanadi",
+      "liveJoined": "Yangi volontyor hozirgina qoʻshildi",
+      "badge": {
+        "label": "Volontyor badgeʼi",
+        "photoLabel": "Badge uchun rasm tanlash",
+        "photoHint": "Rasmingizni qoʻying",
+        "nameLabel": "Ismingiz",
+        "namePlaceholder": "Sizning ismingiz",
+        "role": "Volontyor"
+      }
     },
-    "map": {
-      "eyebrow": "Mamlakat boʻylab",
-      "title": "Volontyorlar Oʻzbekiston boʻylab kengaymoqda",
-      "lead": "Maqsadimiz — barcha oʻn toʻrtta hududda mahalliy faoliyatni yoʻlga qoʻyish.",
-      "regionsHeading": "Oʻzbekiston hududlari"
+    "partners": {
+      "label": "Hamkorlarimiz",
+      "logos": {
+        "youth-affairs-agency": "Yoshlar ishlari agentligi, Toshkent shahar boshqarmasi",
+        "chilonzor-district": "Chilonzor tuman hokimligi",
+        "youth-volunteer-club": "Youth Volunteer Club",
+        "youth-run-club": "Youth Run Club",
+        "youth-for-good": "Youth for Good"
+      }
     },
-    "stats": {
-      "eyebrow": "Bugungi holat",
-      "title": "Shu paytgacha qilingan ish",
-      "telegram": "Telegram hamjamiyati",
-      "events": "Volontyorlar bilan taʼminlangan tadbirlar",
-      "applications": "Hududiy lavozimlarga arizalar",
-      "regions": "Biz kengayayotgan hududlar"
+    "opportunities": {
+      "title": "Imkoniyatlar",
+      "lead": "Tadbirda yordam bering, soat va XP toʻplang.",
+      "filterLabel": "Turi",
+      "filters": {
+        "all": "Barchasi",
+        "volunteering": "Volontyorlik",
+        "competition": "Ishtirok"
+      },
+      "hours": "{count} soat",
+      "xp": "{value} XP",
+      "xpRange": "{min}–{max} XP",
+      "applications": "{count} kishi ariza topshirgan",
+      "apply": "Ariza topshirish",
+      "share": "Ulashish",
+      "copied": "Havola nusxalandi",
+      "all": "Barcha imkoniyatlarni koʻrish"
     },
-    "what": {
-      "eyebrow": "Nima qilamiz",
-      "title": "Imkoniyatlarni qayta joylashdan koʻra koʻproq",
-      "lead": "Tadbirlar ortidagi ishni biz bajaramiz.",
+    "portfolio": {
+      "title": "Volontyorlik portfoliongiz",
+      "lead": "Har bir tadbir, soat va XP bitta sahifada jamlanadi.",
       "items": {
-        "find": {
-          "title": "Imkoniyat topish",
-          "description": "Paydo boʻlishini kutmaymiz, oʻzimiz qidiramiz."
+        "link": {
+          "title": "Shaxsiy havola",
+          "body": "volontyorlar.uz/username havolasini doʻstlaringiz bilan ulashing."
         },
-        "contact": {
-          "title": "Tashkilotchilar bilan aloqa",
-          "description": "Tadbirni oʻtkazayotgan odam bilan gaplashamiz."
+        "history": {
+          "title": "Faoliyat tarixi",
+          "body": "Har bir tadbir tasdiqlangan soat va XP bilan saqlanadi."
         },
-        "source": {
-          "title": "Tadbirlarni jalb qilish",
-          "description": "Shu jumladan hech qayerda eʼlon qilinmaganlari."
-        },
-        "partnerships": {
-          "title": "Hamkorlik qurish",
-          "description": "Tashkilot va muassasalar bilan ishchi aloqalar."
-        },
-        "supply": {
-          "title": "Volontyorlar taʼminlash",
-          "description": "Tayyor volontyorlar. Hozircha 50 dan ortiq tadbir."
-        },
-        "regional": {
-          "title": "Hududiy faoliyat",
-          "description": "Faqat poytaxtda emas, hududlarda ham jamoalar."
+        "alerts": {
+          "title": "Telegram xabarnomalari",
+          "body": "Yangi imkoniyat chiqishi bilan xabar oling: <bot>@volontyor_uz_bot</bot> va <channel>@yvc_uz</channel> kanali."
         }
+      },
+      "sampleName": "Ism Familiya",
+      "role": "Volontyor",
+      "pick": "Havolangizni tanlang",
+      "inputLabel": "Foydalanuvchi nomi",
+      "placeholder": "username",
+      "check": "Tekshirish",
+      "states": {
+        "empty": "Lotin harflari, raqam yoki _. Kamida 5 ta belgi.",
+        "short": "Kamida 5 ta belgi kerak.",
+        "invalid": "Faqat kichik lotin harflari, raqam yoki _.",
+        "ok": "volontyorlar.uz/{username} mos keladi. Roʻyxatdan oʻtib, uni tanlang."
       }
     },
-    "how": {
-      "eyebrow": "Qanday ishlaydi",
-      "title": "Tadbir bilan volontyor orasidagi toʻrt qadam",
+    "levels": {
+      "title": "Darajalar",
+      "lead": "Tasdiqlangan soatlar sizni keyingi darajaga olib chiqadi.",
+      "start": "Boshlanish",
+      "hours": "{count} soat",
+      "names": {
+        "newcomer": "Yangi kelgan",
+        "volunteer": "Volontyor",
+        "supervisor": "Supervayzer",
+        "coordinator": "Koordinator",
+        "leader": "Yetakchi"
+      },
+      "rating": {
+        "title": "Reyting",
+        "body": "Har 3 oyda eng faol 3 volontyor Toshkent shahridan sovgʻa oladi. Keyingi uchlikda siz boʻlishingiz mumkin.",
+        "cta": "Toʻliq reyting",
+        "podiumLabel": "Reytingdagi birinchi uchlik",
+        "place": "{place}-oʻrin"
+      }
+    },
+    "organisations": {
+      "title": "Tashkilotlar uchun",
+      "lead": "Tadbiringizga volontyor kerakmi? Bizga ariza qoldiring, imkoniyatingizni faol yoshlarga yetkazamiz.",
       "steps": {
-        "find": {
-          "title": "Topamiz",
-          "description": "Imkoniyatlarni qidiramiz va tadbirlarni jalb qilamiz."
+        "submit": {
+          "title": "Ariza qoldiring",
+          "body": "Telegramʼda @yvc_admin ga tashkilot, tadbir, sana, joy va kerakli volontyorlar sonini yuboring."
         },
-        "check": {
-          "title": "Tekshiramiz",
-          "description": "Tashkilotchidan tadbirga nima kerakligini aniqlaymiz."
+        "publish": {
+          "title": "Imkoniyatni birga joylaymiz",
+          "body": "Jamoamiz siz bilan bogʻlanib, tadbirni platformaga chiqaradi."
         },
-        "share": {
-          "title": "Ulashamiz",
-          "description": "Imkoniyat hamjamiyatga eʼlon qilinadi."
-        },
-        "volunteer": {
-          "title": "Siz qatnashasiz",
-          "description": "Siz tadbirda ishtirok etasiz."
+        "choose": {
+          "title": "Volontyorlarni tanlang",
+          "body": "Har bir arizachining profili va tarixi koʻrinadi. Kelganlarga soat va XP yoziladi."
         }
+      },
+      "cta": "Ariza qoldirish",
+      "telegram": "Telegram:",
+      "panel": {
+        "title": "Tashkilotchi paneli",
+        "yours": "Sizning imkoniyatingiz",
+        "name": "Imkoniyat nomi",
+        "fresh": "Yangi arizalar",
+        "person": "Ism Familiya",
+        "roles": {
+          "volunteer": "Volontyor",
+          "supervisor": "Supervayzer",
+          "coordinator": "Koordinator"
+        },
+        "accept": "Qabul qilish",
+        "reject": "Rad etish",
+        "accepted": "Qabul qilingan",
+        "confirmed": "Tasdiqlangan"
       }
     },
-    "sources": {
-      "eyebrow": "Imkoniyat manbalari",
-      "title": "Imkoniyatlar qayerdan keladi",
-      "sourcesLabel": "Imkoniyat manbalari"
+    "team": {
+      "title": "Jamoamizga",
+      "titleAccent": "qoʻshiling.",
+      "lead": "Konsertlar, forumlar, xayriya va yakshanba yugurishlari. Har hafta yangi tadbir, yangi doʻstlar.",
+      "cta": "Volontyor boʻlish",
+      "photos": {
+        "youth-volunteer-club": "Youth Volunteer Club jamoasi tadbirda",
+        "fintech-forum": "FinTech va Banking forumidagi volontyorlar",
+        "youth-run-club": "Youth Run Club yakshanba yugurishi",
+        "concert-crew": "Hans Zimmer musiqasi konsertidagi volontyorlar",
+        "concert-tickets": "Volontyorlar bepul konsert chiptalari bilan",
+        "school-team": "Volontyorlar bino oldida",
+        "charity-drive": "Xayriya tadbiridagi volontyorlar",
+        "flag-hall": "Volontyorlar jamoasi bayroqlar oldida"
+      }
     },
-    "cta": {
-      "title": "Volontyorlikni topish oson boʻlishi kerak.",
-      "lead": "Imkoniyatlarni biz topgan zahoti oling.",
-      "primary": "Hamjamiyatga qoʻshiling",
-      "secondary": "Biz bilan gaplashing",
-      "signupLead": "Roʻyxatdan oʻting va volontyorlik sari ilk qadamni qoʻying.",
-      "signupPrimary": "Roʻyxatdan oʻtish"
+    "faq": {
+      "title": "Koʻp beriladigan savollar",
+      "lead": "Javob topmadingizmi? <link>Telegramʼda yozing.</link>",
+      "items": {
+        "who": {
+          "question": "Kim volontyor boʻla oladi?",
+          "answer": "Qonunga koʻra 18 yoshdan. 16–17 yoshlilar ham qatnasha oladi, agar bu oʻqishi va sogʻligʻiga zarar yetkazmasa. Baʼzi tadbirlarda tashkilotchi oʻz talablarini qoʻyadi."
+        },
+        "signup": {
+          "question": "Qanday roʻyxatdan oʻtaman?",
+          "answer": "app.volontyorlar.uz saytida Telegram, Google yoki email orqali kiring va profilingizni toʻldiring."
+        },
+        "xp": {
+          "question": "Soat va XP qanday yoziladi?",
+          "answer": "Tadbirdan keyin tashkilotchi ishtirokingizni tasdiqlaydi. Volontyorlikda har bir tasdiqlangan soat odatda 10 XP beradi. Tanlovlarda gʻolib 50, faol ishtirokchi 30, ishtirokchi 10 XP oladi. Sababsiz kelmaslik 10 XP ga tushadi."
+        },
+        "levels": {
+          "question": "Darajalar qanday oshadi?",
+          "answer": "Tasdiqlangan soatlaringizga qarab: Volontyor 10 soat, Supervayzer 50, Koordinator 100, Yetakchi 250 soatdan."
+        },
+        "profile": {
+          "question": "Profilimni kim koʻradi?",
+          "answer": "Ism, rasm, daraja va faoliyat tarixi ochiq profilingizda koʻrinadi. Telefon raqami kabi shaxsiy maʼlumotlarni sozlamalarda yashirishingiz mumkin. Siz ariza yuborgan tashkilotchi sizni tanlash uchun profilingizni toʻliq koʻradi."
+        },
+        "alerts": {
+          "question": "Yangi imkoniyatlardan qanday tez xabar topaman?",
+          "answer": "@volontyor_uz_bot va @yvc_uz Telegram kanali yangi imkoniyat chiqishi bilan xabar beradi."
+        },
+        "organisations": {
+          "question": "Tashkilotimiz qanday qoʻshiladi?",
+          "answer": "Telegramʼda @yvc_admin ga yozing: tashkilot nomi, tadbir haqida qisqacha, sana, joy va nechta volontyor kerakligini yuboring. Jamoamiz siz bilan bogʻlanadi."
+        }
+      }
     }
   },
   "about": {
@@ -228,7 +321,30 @@
       "body": "Imkoniyatlarni koʻrish, ariza berish va qatnashgan tadbirlaringiz yozuvini yuritish alohida ishlab chiqilayotgan Volontyorlar ilovasiga tegishli, bu saytga emas.",
       "pending": "Ilova alohida ishlab chiqilmoqda. U tayyor boʻlgunicha imkoniyatlar hamjamiyat kanali orqali ulashiladi.",
       "cta": "Volontyorlar ilovasini ochish"
-    }
+    },
+    "how": {
+      "eyebrow": "Qanday ishlaydi",
+      "title": "Tadbir bilan volontyor orasidagi toʻrt qadam",
+      "steps": {
+        "find": {
+          "title": "Topamiz",
+          "description": "Imkoniyatlarni qidiramiz va tadbirlarni jalb qilamiz."
+        },
+        "check": {
+          "title": "Tekshiramiz",
+          "description": "Tashkilotchidan tadbirga nima kerakligini aniqlaymiz."
+        },
+        "share": {
+          "title": "Ulashamiz",
+          "description": "Imkoniyat hamjamiyatga eʼlon qilinadi."
+        },
+        "volunteer": {
+          "title": "Siz qatnashasiz",
+          "description": "Siz tadbirda ishtirok etasiz."
+        }
+      }
+    },
+    "primaryCta": "Volontyor boʻling"
   },
   "partners": {
     "metaTitle": "Imkoniyat manbalari",

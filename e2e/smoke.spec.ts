@@ -180,16 +180,27 @@ test.describe("navigation", () => {
     await openNavigation(page);
     await page
       .getByRole("banner")
-      .getByRole("link", { name: "Volunteering" })
+      .getByRole("link", { name: "About" })
       .click();
-    await expect(page).toHaveURL(/\/en\/volunteering$/);
+    await expect(page).toHaveURL(/\/en\/about$/);
 
     await openNavigation(page);
     await page
       .getByRole("banner")
-      .getByRole("link", { name: "Partners" })
+      .getByRole("link", { name: "Contact" })
       .click();
-    await expect(page).toHaveURL(/\/en\/partners$/);
+    await expect(page).toHaveURL(/\/en\/contact$/);
+  });
+
+  test("the header jumps to the opportunities on the home page", async ({ page }) => {
+    await page.goto("/en/about");
+    await openNavigation(page);
+    await page
+      .getByRole("banner")
+      .getByRole("link", { name: "Opportunities" })
+      .click();
+    await expect(page).toHaveURL(/\/en#imkoniyatlar$/);
+    await expect(page.getByRole("heading", { level: 2, name: "Opportunities" })).toBeInViewport();
   });
 
   test("the legal pages load from the footer", async ({ page }) => {
@@ -213,7 +224,7 @@ test.describe("navigation", () => {
     await page.goto("/en");
     const cta = page
       .getByRole("main")
-      .getByRole("link", { name: "Join the community" })
+      .getByRole("link", { name: "Become a volunteer" })
       .first();
     const href = await cta.getAttribute("href");
     expect(href).toBe("/en/contact");
@@ -408,194 +419,94 @@ test.describe("mobile menu", () => {
   });
 });
 
-test.describe("the hero map", () => {
-  async function hasWebGL2(page: Page) {
-    return page.evaluate(() => {
-      try {
-        return Boolean(document.createElement("canvas").getContext("webgl2"));
-      } catch {
-        return false;
-      }
-    });
-  }
-
-  test("renders a plan-view map and every region name without JavaScript", async ({
-    browser,
-  }) => {
-    const context = await browser.newContext({ javaScriptEnabled: false });
-    const page = await context.newPage();
+test.describe("the home page", () => {
+  test("opens on the hero with its two calls to action", async ({ page }) => {
     await page.goto("/en");
-
-    const section = page.locator("#hero-map");
-    await expect(section).toHaveCount(1);
-
-    await expect(section.locator("svg")).toHaveCount(1);
-    await expect(section.locator("svg path")).toHaveCount(14);
-    await expect(section.locator("li")).toHaveCount(14);
-
-    await context.close();
+    const hero = page.locator('section[aria-labelledby="hero-title"]');
+    await expect(hero.getByRole("heading", { level: 1 })).toHaveText("A step toward good.");
+    await expect(hero.getByRole("link", { name: "Become a volunteer" })).toHaveAttribute("href", "/en/contact");
+    await expect(hero.getByRole("link", { name: "See opportunities" })).toHaveAttribute("href", "#imkoniyatlar");
   });
 
-  for (const [locale, name] of [
-    ["uz", "Qoraqalpogʻiston"],
-    ["ru", "Каракалпакстан"],
-    ["en", "Karakalpakstan"],
-  ] as const) {
-    test(`names the regions in ${locale}`, async ({ page }) => {
-      await page.goto(`/${locale}`);
-      await expect(
-        page.locator("#hero-map li").filter({ hasText: name }),
-      ).toHaveCount(1);
-      await expect(page.locator("#hero-map li")).toHaveCount(14);
-    });
-  }
-
-  test("pins a panel that releases into the next section", async ({ page }) => {
+  test("shows the live volunteer total from the backend", async ({ page }) => {
     await page.goto("/en");
-    if (!(await hasWebGL2(page))) {
-      const map = page.locator("#hero-map");
-      await expect(map.locator("svg path")).toHaveCount(14);
-      await expect(map.locator(":scope > div")).toHaveCSS(
-        "position",
-        "relative",
-      );
-      return;
-    }
-    await page.waitForFunction(
-      () => {
-        const panel = document.querySelector("#hero-map")?.firstElementChild;
-        return Boolean(panel) && getComputedStyle(panel!).position === "sticky";
-      },
-      null,
-      { timeout: 15_000 },
-    );
-
-    const geometry = await page.evaluate(() => {
-      const section = document.querySelector("#hero-map") as HTMLElement;
-      const panel = section.firstElementChild as HTMLElement;
-      return {
-        sectionHeight: section.offsetHeight,
-        panelHeight: panel.offsetHeight,
-        panelPosition: getComputedStyle(panel).position,
-        viewport: window.innerHeight,
-      };
-    });
-
-    expect(geometry.panelPosition).toBe("sticky");
-    expect(geometry.sectionHeight).toBeGreaterThan(geometry.panelHeight);
-    expect(geometry.panelHeight).toBeLessThanOrEqual(geometry.viewport);
+    await expect(page.getByTestId("live-count")).toHaveText("4,012");
+    await page.goto("/uz");
+    await expect(page.getByTestId("live-count")).toHaveText("4\u00a0012");
   });
 
-  test("keeps wheel scrolling available after the map expands the page", async ({
-    page,
-    browserName,
-    isMobile,
-  }) => {
-    test.skip(
-      browserName === "webkit" && isMobile,
-      "Playwright cannot send wheel events in mobile WebKit",
-    );
+  test("lets a visitor write a name on the badge", async ({ page }) => {
     await page.goto("/en");
-    if (await hasWebGL2(page)) {
-      await page.waitForFunction(
-        () => {
-          const panel = document.querySelector("#hero-map")?.firstElementChild;
-          return (
-            Boolean(panel) && getComputedStyle(panel!).position === "sticky"
-          );
-        },
-        null,
-        { timeout: 15_000 },
-      );
-    } else {
-      await expect(page.locator("#hero-map svg path")).toHaveCount(14);
-    }
-
-    await page.mouse.move(
-      (page.viewportSize()?.width ?? 1280) / 2,
-      (page.viewportSize()?.height ?? 720) / 2,
-    );
-    for (let index = 0; index < 42; index += 1) {
-      await page.mouse.wheel(0, 700);
-      await page.waitForTimeout(75);
-    }
-
-    await expect
-      .poll(() =>
-        page.evaluate(
-          () =>
-            document.documentElement.scrollHeight -
-            window.innerHeight -
-            window.scrollY,
-        ),
-      )
-      .toBeLessThanOrEqual(2);
+    const name = page.getByRole("textbox", { name: "Your name" });
+    await name.fill("Aziza");
+    await expect(name).toHaveValue("Aziza");
   });
 
-  test("renders a complete non-pinned state with reduced motion", async ({
-    page,
-  }) => {
+  test("filters the opportunities by type", async ({ page }) => {
+    await page.goto("/en");
+    const section = page.locator("#imkoniyatlar");
+    const cards = section.locator("ul[role=list] > li");
+    await expect(cards).toHaveCount(3);
+
+    await section.getByRole("button", { name: "Participation" }).click();
+    await expect(section.getByRole("button", { name: "Participation" })).toHaveAttribute("aria-pressed", "true");
+    await expect(cards).toHaveCount(2);
+    for (const card of await cards.all()) {
+      await expect(card.getByText("Participation", { exact: true })).toBeVisible();
+    }
+
+    await section.getByRole("button", { name: "Volunteering" }).click();
+    await expect(cards).toHaveCount(3);
+  });
+
+  test("checks a username against the platform rule as it is typed", async ({ page }) => {
+    await page.goto("/en");
+    const input = page.getByRole("textbox", { name: "Username" });
+    const status = page.locator("#portfolio-username-status");
+
+    await input.fill("Ab");
+    await expect(status).toHaveText("At least 5 characters are needed.");
+
+    await input.fill("aziza.uz");
+    await expect(status).toHaveText("Only lowercase Latin letters, digits or _.");
+
+    await input.fill("aziza_uz");
+    await expect(status).toHaveText("volontyorlar.uz/aziza_uz fits. Sign up and choose it.");
+  });
+
+  test("opens the first question and toggles the rest", async ({ page }) => {
+    await page.goto("/en");
+    const questions = page.locator("#savollar details");
+    await expect(questions).toHaveCount(7);
+    await expect(questions.first()).toHaveAttribute("open", "");
+    await questions.nth(2).locator("summary").click();
+    await expect(questions.nth(2)).toHaveAttribute("open", "");
+  });
+
+  test("puts Abdulaziz first on the sample podium", async ({ page }) => {
+    await page.goto("/en");
+    const podium = page.getByRole("list", { name: "Top three on the leaderboard" });
+    await expect(podium.getByText("Abdulaziz Yusupaliev")).toBeVisible();
+    await expect(podium.locator("li").nth(1)).toContainText("Abdulaziz Yusupaliev");
+  });
+
+  test("keeps every section visible with reduced motion", async ({ page }) => {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/en");
-
-    const state = await page.evaluate(() => {
-      const panel = document.querySelector("#hero-map")
-        ?.firstElementChild as HTMLElement;
-      const hiddenScenes = [
-        ...document.querySelectorAll<HTMLElement>("[data-scene]"),
-      ].filter((element) => getComputedStyle(element).opacity === "0");
-      const duplicateMarquee = document.querySelector<HTMLElement>(
-        '.marquee-track[aria-hidden="true"]',
-      );
-
-      return {
-        duplicateMarqueeDisplay: duplicateMarquee
-          ? getComputedStyle(duplicateMarquee).display
-          : null,
-        hiddenSceneCount: hiddenScenes.length,
-        motionEnabled: document.documentElement.hasAttribute("data-motion"),
-        panelPosition: getComputedStyle(panel).position,
-      };
-    });
-
-    expect(state).toEqual({
-      duplicateMarqueeDisplay: "none",
-      hiddenSceneCount: 0,
-      motionEnabled: false,
-      panelPosition: "relative",
-    });
-  });
-
-  test("keeps the page's only h1 in the hero above the map", async ({
-    page,
-  }) => {
-    await page.goto("/en");
-    const hero = page.locator("#hero-map");
-    await expect(hero.getByRole("heading", { level: 1 })).toHaveCount(1);
-    await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
-    await expect(
-      hero.getByRole("heading", {
-        level: 2,
-        name: /growing across Uzbekistan/i,
-      }),
-    ).toHaveCount(1);
-  });
-
-  test("the hero call to action stays reachable at rest", async ({ page }) => {
-    await page.goto("/en");
-    const cta = page
-      .locator("#hero-map")
-      .getByRole("link", { name: "Become a volunteer" });
-    await expect(cta).toBeVisible();
-    await expect(cta).toHaveAttribute("href", "/en/contact");
+    await expect(page.locator("html")).not.toHaveAttribute("data-motion", "");
+    for (const id of ["imkoniyatlar", "portfolio", "darajalar", "tashkilotlar", "jamoa", "savollar"]) {
+      await expect(page.locator(`#${id}`)).toBeVisible();
+    }
+    const opacities = await page
+      .locator(".level-badge, .podium-who")
+      .evaluateAll((nodes) => nodes.map((node) => getComputedStyle(node).opacity));
+    expect(opacities.every((value) => value === "1")).toBe(true);
   });
 
   test("offers no sign-in link while the product application has no origin", async ({
     page,
   }) => {
     await page.goto("/en");
-    await expect(
-      page.locator("#hero-map").getByRole("link", { name: "Log in" }),
-    ).toHaveCount(0);
+    await expect(page.getByRole("banner").getByRole("link", { name: "Log in" })).toHaveCount(0);
   });
 });

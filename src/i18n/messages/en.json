@@ -21,12 +21,13 @@
     "join": "Join us",
     "primaryLabel": "Main navigation",
     "languageLabel": "Language",
-    "themeLabel": "Dark theme",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "skipToContent": "Skip to content",
     "signup": "Create account",
-    "blog": "Blog"
+    "blog": "Blog",
+    "opportunities": "Opportunities",
+    "organisations": "For organisations"
   },
   "footer": {
     "description": "Volunteer. Help your local community. Get it verified.",
@@ -44,7 +45,6 @@
       "support": "Support"
     },
     "links": {
-      "regions": "Regions",
       "organisations": "For organisations"
     },
     "updates": {
@@ -59,93 +59,186 @@
     "metaTitle": "Volontyorlar — volunteering for young people in Uzbekistan",
     "metaDescription": "Volontyorlar finds volunteer opportunities across Uzbekistan, works with the organisers behind them, and connects high school students to events that need volunteers.",
     "hero": {
-      "eyebrowLabel": "Volunteering across Uzbekistan",
-      "eyebrow": "Volunteering in <region></region>",
-      "title": "There’s work to be done.",
-      "lead": "Find where you can make yourself useful. We speak with organisers before sharing an opportunity with the community.",
-      "primaryCta": "Become a volunteer",
-      "loginCta": "Log in",
-      "signupCta": "Become volunteer"
+      "title": "A step toward",
+      "titleAccent": "good.",
+      "lead": "The volunteering platform for young people in Uzbekistan.",
+      "signup": "Become a volunteer",
+      "browse": "See opportunities",
+      "countLabel": "young people on the platform",
+      "liveIdle": "Live: the number updates itself",
+      "liveJoined": "A new volunteer just joined",
+      "badge": {
+        "label": "Volunteer badge",
+        "photoLabel": "Choose a photo for the badge",
+        "photoHint": "Add your photo",
+        "nameLabel": "Your name",
+        "namePlaceholder": "Your name",
+        "role": "Volunteer"
+      }
     },
-    "map": {
-      "eyebrow": "Across the country",
-      "title": "Volontyorlar is growing across Uzbekistan",
-      "lead": "Our goal is local operations in all fourteen regions.",
-      "regionsHeading": "Regions of Uzbekistan"
+    "partners": {
+      "label": "Our partners",
+      "logos": {
+        "youth-affairs-agency": "Youth Affairs Agency, Tashkent City Department",
+        "chilonzor-district": "Chilanzar District Administration",
+        "youth-volunteer-club": "Youth Volunteer Club",
+        "youth-run-club": "Youth Run Club",
+        "youth-for-good": "Youth for Good"
+      }
     },
-    "stats": {
-      "eyebrow": "Where we are now",
-      "title": "The work so far",
-      "telegram": "Telegram community",
-      "events": "Events supplied with volunteers",
-      "applications": "Applications for regional roles",
-      "regions": "Regions we are expanding to"
+    "opportunities": {
+      "title": "Opportunities",
+      "lead": "Help at an event, collect hours and XP.",
+      "filterLabel": "Type",
+      "filters": {
+        "all": "All",
+        "volunteering": "Volunteering",
+        "competition": "Participation"
+      },
+      "hours": "{count} h",
+      "xp": "{value} XP",
+      "xpRange": "{min}–{max} XP",
+      "applications": "{count} applied",
+      "apply": "Apply",
+      "share": "Share",
+      "copied": "Link copied",
+      "all": "See all opportunities"
     },
-    "what": {
-      "eyebrow": "What we do",
-      "title": "More than reposting opportunities",
-      "lead": "We do the work behind the events.",
+    "portfolio": {
+      "title": "Your volunteering portfolio",
+      "lead": "Every event, hour and XP on one page.",
       "items": {
-        "find": {
-          "title": "Finding opportunities",
-          "description": "We look, instead of waiting for it to appear."
+        "link": {
+          "title": "Your own link",
+          "body": "Share volontyorlar.uz/username with your friends."
         },
-        "contact": {
-          "title": "Contacting organisers",
-          "description": "We speak to whoever is running the event."
+        "history": {
+          "title": "Activity history",
+          "body": "Every event is kept with its confirmed hours and XP."
         },
-        "source": {
-          "title": "Sourcing events",
-          "description": "Including events that were never advertised."
-        },
-        "partnerships": {
-          "title": "Building partnerships",
-          "description": "Working relationships with real organisations."
-        },
-        "supply": {
-          "title": "Supplying volunteers",
-          "description": "Volunteers who are ready. More than 50 events so far."
-        },
-        "regional": {
-          "title": "Building regional operations",
-          "description": "Teams in the regions, not only the capital."
+        "alerts": {
+          "title": "Telegram alerts",
+          "body": "Hear about new opportunities the moment they appear: <bot>@volontyor_uz_bot</bot> and the <channel>@yvc_uz</channel> channel."
         }
+      },
+      "sampleName": "Your Name",
+      "role": "Volunteer",
+      "pick": "Choose your link",
+      "inputLabel": "Username",
+      "placeholder": "username",
+      "check": "Check",
+      "states": {
+        "empty": "Latin letters, digits or _. At least 5 characters.",
+        "short": "At least 5 characters are needed.",
+        "invalid": "Only lowercase Latin letters, digits or _.",
+        "ok": "volontyorlar.uz/{username} fits. Sign up and choose it."
       }
     },
-    "how": {
-      "eyebrow": "How it works",
-      "title": "Four steps between an event and a volunteer",
+    "levels": {
+      "title": "Levels",
+      "lead": "Confirmed hours take you to the next level.",
+      "start": "Start",
+      "hours": "{count} h",
+      "names": {
+        "newcomer": "Newcomer",
+        "volunteer": "Volunteer",
+        "supervisor": "Supervisor",
+        "coordinator": "Coordinator",
+        "leader": "Leader"
+      },
+      "rating": {
+        "title": "Leaderboard",
+        "body": "Every 3 months the three most active volunteers receive a gift from the city of Tashkent. You could be in the next three.",
+        "cta": "Full leaderboard",
+        "podiumLabel": "Top three on the leaderboard",
+        "place": "Place {place}"
+      }
+    },
+    "organisations": {
+      "title": "For organisations",
+      "lead": "Need volunteers for your event? Send us a request and we will bring your opportunity to active young people.",
       "steps": {
-        "find": {
-          "title": "We find it",
-          "description": "We look for opportunities and bring in events."
+        "submit": {
+          "title": "Send a request",
+          "body": "Message @yvc_admin on Telegram with the organisation, event, date, place and how many volunteers you need."
         },
-        "check": {
-          "title": "We check it",
-          "description": "We ask the organiser what the event actually needs."
+        "publish": {
+          "title": "We publish it together",
+          "body": "Our team gets in touch and puts the event on the platform."
         },
-        "share": {
-          "title": "We share it",
-          "description": "The opportunity goes out to the community."
-        },
-        "volunteer": {
-          "title": "You volunteer",
-          "description": "You take part in the event."
+        "choose": {
+          "title": "Choose your volunteers",
+          "body": "You see every applicant's profile and history. Those who come get their hours and XP."
         }
+      },
+      "cta": "Send a request",
+      "telegram": "Telegram:",
+      "panel": {
+        "title": "Organiser panel",
+        "yours": "Your opportunity",
+        "name": "Opportunity name",
+        "fresh": "New applications",
+        "person": "Full Name",
+        "roles": {
+          "volunteer": "Volunteer",
+          "supervisor": "Supervisor",
+          "coordinator": "Coordinator"
+        },
+        "accept": "Accept",
+        "reject": "Decline",
+        "accepted": "Accepted",
+        "confirmed": "Confirmed"
       }
     },
-    "sources": {
-      "eyebrow": "Opportunity sources",
-      "title": "Where the opportunities come from",
-      "sourcesLabel": "Opportunity sources"
+    "team": {
+      "title": "Join",
+      "titleAccent": "our team.",
+      "lead": "Concerts, forums, charity and Sunday runs. A new event and new friends every week.",
+      "cta": "Become a volunteer",
+      "photos": {
+        "youth-volunteer-club": "The Youth Volunteer Club team at an event",
+        "fintech-forum": "Volunteers at the FinTech and Banking forum",
+        "youth-run-club": "A Youth Run Club Sunday run",
+        "concert-crew": "Volunteers at a concert of Hans Zimmer's music",
+        "concert-tickets": "Volunteers with free concert tickets",
+        "school-team": "Volunteers in front of a building",
+        "charity-drive": "Volunteers at a charity drive",
+        "flag-hall": "A volunteer team in front of flags"
+      }
     },
-    "cta": {
-      "title": "Volunteering should be easy to find.",
-      "lead": "Get opportunities as soon as we find them.",
-      "primary": "Join the community",
-      "secondary": "Talk to us",
-      "signupLead": "Create your account and take your first step into volunteering.",
-      "signupPrimary": "Create account"
+    "faq": {
+      "title": "Frequently asked questions",
+      "lead": "Didn't find an answer? <link>Write to us on Telegram.</link>",
+      "items": {
+        "who": {
+          "question": "Who can volunteer?",
+          "answer": "By law, from 18. People aged 16–17 can take part too, as long as it does not harm their studies or health. Some organisers set their own requirements."
+        },
+        "signup": {
+          "question": "How do I sign up?",
+          "answer": "Sign in at app.volontyorlar.uz with Telegram, Google or email, then complete your profile."
+        },
+        "xp": {
+          "question": "How are hours and XP recorded?",
+          "answer": "After the event the organiser confirms you took part. In volunteering each confirmed hour usually gives 10 XP. In competitions the winner gets 50, an active participant 30 and a participant 10 XP. An unexcused no-show costs 10 XP."
+        },
+        "levels": {
+          "question": "How do levels go up?",
+          "answer": "By your confirmed hours: Volunteer from 10 hours, Supervisor from 50, Coordinator from 100, Leader from 250."
+        },
+        "profile": {
+          "question": "Who sees my profile?",
+          "answer": "Your name, photo, level and activity history appear on your public profile. Personal details such as your phone number can be hidden in settings. An organiser you apply to sees your full profile so they can decide."
+        },
+        "alerts": {
+          "question": "How do I hear about new opportunities quickly?",
+          "answer": "@volontyor_uz_bot and the @yvc_uz Telegram channel announce every new opportunity."
+        },
+        "organisations": {
+          "question": "How does our organisation join?",
+          "answer": "Message @yvc_admin on Telegram with the organisation name, a short note about the event, the date, the place and how many volunteers you need. Our team will get in touch."
+        }
+      }
     }
   },
   "about": {
@@ -228,7 +321,30 @@
       "body": "Browsing opportunities, applying, and keeping a record of the events you attended belong to the separate Volontyorlar application, not to this website.",
       "pending": "The application is being built separately. Until it is available, opportunities are shared through our community channel.",
       "cta": "Open the Volontyorlar app"
-    }
+    },
+    "how": {
+      "eyebrow": "How it works",
+      "title": "Four steps between an event and a volunteer",
+      "steps": {
+        "find": {
+          "title": "We find it",
+          "description": "We look for opportunities and bring in events."
+        },
+        "check": {
+          "title": "We check it",
+          "description": "We ask the organiser what the event actually needs."
+        },
+        "share": {
+          "title": "We share it",
+          "description": "The opportunity goes out to the community."
+        },
+        "volunteer": {
+          "title": "You volunteer",
+          "description": "You take part in the event."
+        }
+      }
+    },
+    "primaryCta": "Become a volunteer"
   },
   "partners": {
     "metaTitle": "Opportunity sources",

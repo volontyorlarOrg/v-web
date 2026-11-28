@@ -125,14 +125,14 @@ export function ArticleView({
             {title ? (
               <h1
                 className={cn(
-                  "font-serif text-balance break-words text-ink",
+                  "font-sans text-balance break-words text-ink",
                   title.length > LONG_TITLE ? "text-headline" : "text-display",
                 )}
               >
                 {title}
               </h1>
             ) : preview && labels.missingTitle ? (
-              <h1 className="font-serif text-headline text-ink-muted/70 italic">
+              <h1 className="font-sans text-headline text-ink-muted/70 italic">
                 {labels.missingTitle}
               </h1>
             ) : null}

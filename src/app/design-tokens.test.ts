@@ -3,8 +3,6 @@ import { join } from "node:path";
 import { describe, expect, it } from "vitest";
 
 const CSS = readFileSync(join(process.cwd(), "src/app/globals.css"), "utf8");
-const DARK_START = CSS.indexOf(':root[data-theme="dark"]');
-const DARK_CSS = CSS.slice(DARK_START, CSS.indexOf("}", DARK_START));
 
 function tokenIn(source: string, name: string): string | null {
   const match = source.match(
@@ -17,10 +15,6 @@ function token(name: string): string {
   const value = tokenIn(CSS, name);
   if (!value) throw new Error(`Missing design token --color-${name}`);
   return value;
-}
-
-function darkToken(name: string): string {
-  return tokenIn(DARK_CSS, name) ?? token(name);
 }
 
 function relativeLuminance(hex: string): number {
@@ -153,63 +147,56 @@ describe("structural tokens", () => {
   });
 });
 
-describe("the dark theme", () => {
-  it("is switched by a data attribute, so the same tokens carry both themes", () => {
-    expect(DARK_START).toBeGreaterThan(0);
-    expect(DARK_CSS).toMatch(/color-scheme:\s*dark/);
+describe("the landing palette from the 2026-11 redesign", () => {
+  it.each([
+    ["navy-900", "#0b1b2b"],
+    ["navy-800", "#0a2034"],
+    ["navy-700", "#17395a"],
+    ["blue-600", "#007fc2"],
+    ["blue-700", "#006da8"],
+    ["blue-400", "#34a9ec"],
+    ["lenta", "#0e77b6"],
+    ["orange-600", "#e85d30"],
+    ["orange-700", "#d24e22"],
+    ["fog-50", "#f3f7fa"],
+    ["fog-200", "#e3eaf1"],
+    ["fog-500", "#5b6b7c"],
+    ["fog-600", "#4a5b6c"],
+    ["navy-muted", "#9fb3c8"],
+  ])("%s is %s", (name, value) => {
+    expect(token(name)).toBe(value);
   });
 
-  it("turns the page ground near-black rather than blue", () => {
-    expect(relativeLuminance(darkToken("paper"))).toBeLessThan(0.01);
-    expect(relativeLuminance(darkToken("band"))).toBeLessThan(0.03);
+  it("keeps the brand blue and orange equal to the logo kit", () => {
+    expect(token("blue-600")).toBe(token("primary"));
+    expect(token("orange-600")).toBe(token("accent"));
   });
 
-  it.each(TEXT_TOKENS)("%s meets AA on every dark surface", (foreground) => {
-    for (const surface of SURFACES) {
-      expect(
-        contrast(darkToken(foreground), darkToken(surface)),
-        `${foreground} on ${surface}`,
-      ).toBeGreaterThanOrEqual(AA_TEXT);
+  it.each(["knockout", "navy-copy", "navy-muted", "blue-400"])(
+    "%s reads at AA on the navy ground",
+    (foreground) => {
+      expect(contrast(token(foreground), token("navy-900"))).toBeGreaterThanOrEqual(AA_TEXT);
+      expect(contrast(token(foreground), token("navy-800"))).toBeGreaterThanOrEqual(AA_TEXT);
+    },
+  );
+
+  it.each(["navy-900", "fog-600", "fog-500"])("%s reads at AA on the light grounds", (foreground) => {
+    for (const surface of ["fog-50", "surface"]) {
+      expect(contrast(token(foreground), token(surface)), `${foreground} on ${surface}`).toBeGreaterThanOrEqual(AA_TEXT);
     }
   });
 
-  it.each(GRAPHICS_TOKENS)(
-    "%s clears 3:1 on every dark surface",
-    (foreground) => {
-      for (const surface of SURFACES) {
-        expect(
-          contrast(darkToken(foreground), darkToken(surface)),
-          `${foreground} on ${surface}`,
-        ).toBeGreaterThanOrEqual(AA_LARGE);
-      }
-    },
-  );
-
-  it.each(["action", "action-hover", "band"])(
-    "keeps white labels legible on %s",
-    (fill) => {
-      expect(
-        contrast(darkToken("knockout"), darkToken(fill)),
-      ).toBeGreaterThanOrEqual(AA_TEXT);
-    },
-  );
-
-  it("keeps band copy, the inverse button and control borders legible", () => {
-    expect(
-      contrast(darkToken("band-copy"), darkToken("band")),
-    ).toBeGreaterThanOrEqual(AA_TEXT);
-    expect(
-      contrast(darkToken("action"), darkToken("knockout")),
-    ).toBeGreaterThanOrEqual(AA_TEXT);
-    expect(
-      contrast(darkToken("primary-deep"), darkToken("primary-muted")),
-    ).toBeGreaterThanOrEqual(AA_TEXT);
-    expect(
-      contrast(darkToken("border-control"), darkToken("paper")),
-    ).toBeGreaterThanOrEqual(AA_LARGE);
+  it("keeps white labels on the orange action at least large-text legible", () => {
+    expect(contrast(token("knockout"), token("orange-600"))).toBeGreaterThanOrEqual(AA_LARGE);
+    expect(contrast(token("knockout"), token("orange-700"))).toBeGreaterThanOrEqual(AA_LARGE);
   });
 
-  it.each(HUE_PAIRS)("keeps %s and %s too close to combine", (blue, orange) => {
-    expect(contrast(darkToken(blue), darkToken(orange))).toBeLessThan(AA_LARGE);
+  it("keeps tag text legible on its tint", () => {
+    expect(contrast(token("orange-ink"), token("orange-50"))).toBeGreaterThanOrEqual(AA_TEXT);
+    expect(contrast(token("blue-ink"), token("blue-50"))).toBeGreaterThanOrEqual(AA_TEXT);
+  });
+
+  it("defines a single light token set, with no dark theme switch", () => {
+    expect(CSS).not.toMatch(/data-theme/);
   });
 });

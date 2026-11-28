@@ -23,7 +23,7 @@ export default async function BlogPreviewPage({
     return (
       <div className="container-page py-24">
         <div className="max-w-xl rounded-lg border border-border bg-surface p-8">
-          <h1 className="font-serif text-3xl text-ink">{t("previewExpiredTitle")}</h1>
+          <h1 className="font-sans text-3xl text-ink">{t("previewExpiredTitle")}</h1>
           <p className="mt-3 leading-relaxed text-ink-muted">{t("previewExpiredBody")}</p>
         </div>
       </div>

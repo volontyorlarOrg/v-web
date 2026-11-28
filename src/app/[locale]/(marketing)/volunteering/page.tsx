@@ -39,14 +39,13 @@ export default async function VolunteeringPage({
 
 function Volunteering({ locale }: { locale: Locale }) {
   const t = useTranslations("volunteering");
-  const home = useTranslations("home");
   const join = joinDestination();
   const opportunities = opportunitiesDestination(locale);
 
   const steps: Step[] = HOW_STEPS.map((id) => ({
     id,
-    title: home(`how.steps.${id}.title`),
-    description: home(`how.steps.${id}.description`),
+    title: t(`how.steps.${id}.title`),
+    description: t(`how.steps.${id}.description`),
     actor: id === "volunteer" ? "volunteer" : "organisation",
   }));
 
@@ -57,7 +56,7 @@ function Volunteering({ locale }: { locale: Locale }) {
       <PageHero title={t("title")} lead={t("lead")} />
 
       <Section>
-        <SectionHeader eyebrow={home("how.eyebrow")} title={home("how.title")} />
+        <SectionHeader eyebrow={t("how.eyebrow")} title={t("how.title")} />
         <StepRail steps={steps} className="mt-14" />
       </Section>
 
@@ -125,7 +124,7 @@ function Volunteering({ locale }: { locale: Locale }) {
               className: "scene-rise mt-9 [--scene-delay:460ms]",
             })}
           >
-            {home("hero.primaryCta")}
+            {t("primaryCta")}
           </ActionLink>
         </Scene>
       </Section>

@@ -46,11 +46,11 @@ function BlogBlock({
       );
     case "heading":
       return node.attrs?.level === 3 ? (
-        <h3 className="mb-4 mt-10 font-serif text-2xl leading-tight text-ink">
+        <h3 className="mb-4 mt-10 font-sans text-2xl leading-tight text-ink">
           {content}
         </h3>
       ) : (
-        <h2 className="mb-4 mt-12 font-serif text-3xl leading-tight text-ink">
+        <h2 className="mb-4 mt-12 font-sans text-3xl leading-tight text-ink">
           {content}
         </h2>
       );
@@ -70,7 +70,7 @@ function BlogBlock({
       return <li>{content}</li>;
     case "blockquote":
       return (
-        <blockquote className="my-9 border-l-4 border-primary-ink pl-6 font-serif text-xl italic leading-relaxed text-ink-muted">
+        <blockquote className="my-9 border-l-4 border-primary-ink pl-6 font-sans text-xl italic leading-relaxed text-ink-muted">
           {content}
         </blockquote>
       );

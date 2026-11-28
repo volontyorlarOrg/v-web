@@ -34,3 +34,11 @@ export function signupDestination(locale: Locale): Destination | null {
 export function opportunitiesDestination(locale: Locale): Destination | null {
   return app(`/${locale}`);
 }
+
+export function opportunityListDestination(locale: Locale): Destination | null {
+  return app(`/${locale}/opportunities`);
+}
+
+export function leaderboardDestination(locale: Locale): Destination | null {
+  return app(`/${locale}/leaderboard`);
+}

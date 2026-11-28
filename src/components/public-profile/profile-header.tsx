@@ -1,5 +1,4 @@
 import { BrandLockup } from "@/components/brand/logo";
-import { ThemeToggle } from "@/components/marketing/theme-toggle";
 import { ProfileLocaleSwitcher } from "@/components/public-profile/profile-locale-switcher";
 import type { Locale } from "@/i18n/routing";
 import { ORGANIZATION_NAME } from "@/lib/content/org";
@@ -11,7 +10,7 @@ export function ProfileHeader({
 }: {
   locale: Locale;
   username: string;
-  labels: { home: string; language: string; theme: string };
+  labels: { home: string; language: string };
 }) {
   return (
     <header className="border-b border-border bg-paper">
@@ -29,7 +28,6 @@ export function ProfileHeader({
             username={username}
             label={labels.language}
           />
-          <ThemeToggle label={labels.theme} />
         </div>
       </div>
     </header>

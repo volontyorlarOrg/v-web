@@ -90,6 +90,11 @@ const reserved = {
 };
 
 createServer((request, response) => {
+  if (request.url === "/public/stats") {
+    response.writeHead(200, { "Content-Type": "application/json" });
+    response.end(JSON.stringify({ volunteerTotal: 4012 }));
+    return;
+  }
   if (request.url === "/health") {
     response.writeHead(200).end("ok");
     return;
