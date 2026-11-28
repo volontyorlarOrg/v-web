@@ -12,7 +12,7 @@ export default function BlogError({
   return (
     <div className="container-page py-24">
       <div className="max-w-xl rounded-lg border border-border bg-surface p-8">
-        <h1 className="font-sans text-3xl text-ink">{t("error")}</h1>
+        <h1 className="text-3xl text-ink">{t("error")}</h1>
         <button
           type="button"
           onClick={reset}

@@ -81,7 +81,7 @@ export function OpportunityBoard({
                   alt=""
                   width={card.cover.width}
                   height={card.cover.height}
-                  sizes="(max-width: 980px) 100vw, 380px"
+                  unoptimized
                   className="size-full object-cover"
                 />
                 <span

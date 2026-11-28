@@ -182,7 +182,7 @@ export function LevelsSection({ locale }: { locale: Locale }) {
               return (
                 <li
                   key={place}
-                  className="flex w-[180px] flex-none flex-col items-center"
+                  className="flex w-[180px] flex-none flex-col items-center min-[1200px]:w-[200px]"
                   style={{ "--i": look.delay } as CSSProperties}
                 >
                   <div className="podium-who flex flex-col items-center text-center">
@@ -192,7 +192,7 @@ export function LevelsSection({ locale }: { locale: Locale }) {
                     >
                       {initialsOf(person.name)}
                     </span>
-                    <p className="mt-3.5 mb-0 text-base font-bold">{person.name}</p>
+                    <p className="mt-3.5 mb-0 text-base font-bold whitespace-nowrap">{person.name}</p>
                     <p className="mt-1 mb-0 text-sm font-bold text-blue-ink">{person.xp} XP</p>
                   </div>
                   <div

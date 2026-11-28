@@ -6,7 +6,7 @@ import type { CSSProperties } from "react";
 import { ActionLink } from "@/components/marketing/action-link";
 import type { Locale } from "@/i18n/routing";
 import { joinDestination, signupDestination } from "@/lib/content/cta";
-import { TEAM_ROWS, type TeamPhoto } from "@/lib/content/home";
+import { MARQUEE_COPIES, TEAM_ROWS, type TeamPhoto } from "@/lib/content/home";
 
 const ROW_DURATION = ["80s", "90s"] as const;
 
@@ -24,7 +24,9 @@ function PhotoList({ photos, hidden, alt }: { photos: readonly TeamPhoto[]; hidd
             alt={hidden ? "" : alt(photo)}
             width={photo.width}
             height={photo.height}
-            sizes="(max-width: 980px) 200px, 410px"
+            unoptimized
+            loading="eager"
+            draggable={false}
             className="block size-full object-cover"
           />
         </li>
@@ -69,10 +71,11 @@ export function TeamSection({ locale }: { locale: Locale }) {
             key={ROW_DURATION[index]}
             className="marquee-run"
             data-reverse={index === 1 ? "" : undefined}
-            style={{ "--run": ROW_DURATION[index] } as CSSProperties}
+            style={{ "--run": ROW_DURATION[index], "--copies": MARQUEE_COPIES } as CSSProperties}
           >
-            <PhotoList photos={row} hidden={false} alt={alt} />
-            <PhotoList photos={row} hidden alt={alt} />
+            {Array.from({ length: MARQUEE_COPIES }, (_, copy) => (
+              <PhotoList key={copy} photos={row} hidden={copy > 0} alt={alt} />
+            ))}
           </div>
         ))}
       </div>

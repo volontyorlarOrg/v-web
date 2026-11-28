@@ -181,20 +181,22 @@ const photo = (id: TeamPhoto["id"], width: number, height: number): TeamPhoto =>
 
 export const TEAM_ROWS: readonly (readonly TeamPhoto[])[] = [
   [
-    photo("youth-volunteer-club", 1400, 1050),
-    photo("fintech-forum", 1400, 933),
-    photo("youth-run-club", 1280, 720),
-    photo("concert-crew", 1050, 1400),
-    photo("concert-tickets", 1400, 933),
+    photo("youth-volunteer-club", 613, 460),
+    photo("fintech-forum", 690, 460),
+    photo("youth-run-club", 817, 460),
+    photo("concert-crew", 345, 460),
+    photo("concert-tickets", 690, 460),
   ],
   [
-    photo("school-team", 1400, 1050),
-    photo("charity-drive", 1400, 1050),
-    photo("flag-hall", 1400, 788),
-    photo("youth-volunteer-club", 1400, 1050),
-    photo("concert-crew", 1050, 1400),
+    photo("school-team", 613, 460),
+    photo("charity-drive", 613, 460),
+    photo("flag-hall", 817, 460),
+    photo("youth-volunteer-club", 613, 460),
+    photo("concert-crew", 345, 460),
   ],
 ];
+
+export const MARQUEE_COPIES = 4;
 
 export const FAQ_IDS = [
   "who",

@@ -58,7 +58,7 @@ export function LiveCount({
   const shown = [0, 1, 2].map((slot) => joiners[(joined + 2 - slot) % joiners.length]);
 
   return (
-    <div className="mt-[22px] flex items-center gap-4">
+    <div className="mt-[22px] flex items-center gap-4 max-[420px]:items-start">
       <div aria-hidden="true" className="flex pl-2.5">
         {shown.map((joiner, slot) => (
           <span
@@ -74,7 +74,7 @@ export function LiveCount({
         ))}
       </div>
       <div aria-live="polite" className="flex flex-col gap-0.5">
-        <span className="inline-flex items-baseline gap-2 overflow-hidden">
+        <span className="inline-flex flex-wrap items-baseline gap-x-2 overflow-hidden">
           <strong
             key={count}
             data-testid="live-count"
@@ -85,7 +85,7 @@ export function LiveCount({
           >
             {formatCount(count, locale)}
           </strong>
-          <span className="text-[15px] whitespace-nowrap text-navy-copy">{labels.count}</span>
+          <span className="text-[15px] text-navy-copy">{labels.count}</span>
         </span>
         <span className="inline-flex items-center gap-[7px] text-[13px] text-navy-muted">
           <span aria-hidden="true" className="size-[7px] rounded-full bg-live" />

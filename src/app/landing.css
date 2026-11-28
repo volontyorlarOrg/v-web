@@ -349,7 +349,7 @@
   .marquee-run {
     display: flex;
     width: max-content;
-    animation: marquee-half var(--run, 32s) linear infinite;
+    animation: marquee-copy var(--run, 32s) linear infinite;
   }
 
   .marquee-run[data-reverse] {
@@ -360,12 +360,12 @@
     animation-play-state: paused;
   }
 
-  @keyframes marquee-half {
+  @keyframes marquee-copy {
     from {
       transform: translateX(0);
     }
     to {
-      transform: translateX(-50%);
+      transform: translateX(calc(-100% / var(--copies, 2)));
     }
   }
 

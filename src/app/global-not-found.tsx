@@ -52,7 +52,7 @@ export default async function GlobalNotFound() {
 
               return (
                 <li key={locale} lang={locale}>
-                  <Heading className="text-2xl font-bold tracking-[-0.025em] sm:text-3xl">
+                  <Heading className="text-2xl tracking-[-0.035em] sm:text-3xl">
                     {t("title")}
                   </Heading>
                   <p className="mt-2 text-ink-muted">{t("description")}</p>

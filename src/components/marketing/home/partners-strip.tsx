@@ -2,9 +2,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import type { CSSProperties } from "react";
 
-import { PARTNER_LOGOS } from "@/lib/content/home";
-
-const COPIES = 4;
+import { MARQUEE_COPIES, PARTNER_LOGOS } from "@/lib/content/home";
 
 export function PartnersStrip() {
   const t = useTranslations("home.partners");
@@ -12,8 +10,8 @@ export function PartnersStrip() {
   return (
     <section id="hamkorlar" aria-label={t("label")} className="overflow-hidden bg-knockout pt-11 pb-[52px]">
       <div className="marquee-strip marquee-pause mt-7">
-        <div className="marquee-run" style={{ "--run": "32s" } as CSSProperties}>
-          {Array.from({ length: COPIES }, (_, copy) => (
+        <div className="marquee-run" style={{ "--run": "16s", "--copies": MARQUEE_COPIES } as CSSProperties}>
+          {Array.from({ length: MARQUEE_COPIES }, (_, copy) => (
             <ul
               key={copy}
               aria-hidden={copy > 0 || undefined}
@@ -26,6 +24,9 @@ export function PartnersStrip() {
                     alt={copy > 0 ? "" : t(`logos.${logo.id}`)}
                     width={logo.width}
                     height={logo.height}
+                    unoptimized
+                    loading="eager"
+                    draggable={false}
                     className="partner-logo block w-auto"
                     style={{ height: logo.displayHeight }}
                   />

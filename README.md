@@ -40,9 +40,10 @@ environment you export yourself.
 ## Frontend foundation
 
 - Next.js 16 App Router and React 19, server components by default
-- Tailwind CSS 4 with semantic tokens in `src/app/globals.css`
+- Tailwind CSS 4 with the brand tokens in `src/app/globals.css` and the landing
+  sections' motion and patterns in `src/app/landing.css`
 - `next-intl` for `uz` / `ru` / `en` routing and catalogs
-- Onest and Source Serif 4, self-hosted through `next/font`
+- Onest, self-hosted through `next/font`, as the only typeface
 - shadcn/ui primitives on `radix-ui`, `class-variance-authority`, `clsx`,
   `tailwind-merge` and Lucide icons
 
@@ -63,10 +64,11 @@ environment you export yourself.
 ```
 
 Plus `/robots.txt`, `/sitemap.xml`, `/manifest.webmanifest`, and the API
-routes under `/api/blog/*`.
+routes under `/api/blog/*` and `/api/home/stats`.
 
-The blog and public profiles read the backend server-side; everything else is
-static.
+The home page reads one live figure, the volunteer total, from the backend's
+`/public/stats` (cached 60 s). The blog and public profiles read the backend
+server-side; everything else is static.
 
 ## Environment variables
 
@@ -76,10 +78,10 @@ degrades instead of guessing:
 | Variable | Effect while unset |
 | --- | --- |
 | `NEXT_PUBLIC_SITE_URL` | Pages send `noindex`, `robots.txt` disallows crawling, the sitemap is empty |
-| `NEXT_PUBLIC_APP_ORIGIN` | Sign-in and app links are not rendered |
-| `VOLONTYORLAR_API_URL` | No blog and no public profiles |
+| `NEXT_PUBLIC_APP_ORIGIN` | Sign-in, sign-up and app links fall back to the contact page or disappear |
+| `VOLONTYORLAR_API_URL` | No blog, no public profiles, and the home page shows its last known volunteer total |
 | `BLOG_ADMIN_ORIGIN`, `BLOG_REVALIDATION_SECRET` | Blog previews and on-demand revalidation are off |
-| `NEXT_PUBLIC_TELEGRAM_URL`, `NEXT_PUBLIC_INSTAGRAM_URL` | The join action falls back to the contact page and the channel is omitted |
+| `NEXT_PUBLIC_TELEGRAM_URL`, `NEXT_PUBLIC_INSTAGRAM_URL` | The official channel addresses from `src/lib/constants/channels.ts` are used |
 | `GOOGLE_SITE_VERIFICATION`, `YANDEX_VERIFICATION`, `BING_SITE_VERIFICATION` | No ownership tokens are published |
 | `LEGAL_CONTACT_EMAIL`, `LEGAL_CORRESPONDENCE_ADDRESS` | The legal pages omit those lines |
 
