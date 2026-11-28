@@ -25,7 +25,7 @@ export function SiteFooter() {
       links: [
         { label: nav("volunteering"), href: navHref("volunteering") },
         { label: nav("blog"), href: navHref("blog") },
-        { label: t("links.organisations"), href: `${navHref("home")}#tashkilotlar` },
+        { label: t("links.organisations"), href: navHref("organisations") },
       ],
     },
     {

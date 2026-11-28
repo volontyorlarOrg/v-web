@@ -5,6 +5,8 @@ export type RouteKey =
   | "about"
   | "partners"
   | "volunteering"
+  | "opportunities"
+  | "organisations"
   | "contact"
   | "privacy"
   | "terms"
@@ -32,6 +34,22 @@ export const publicRoutes: readonly PublicRoute[] = [
     inMainNav: false,
     inLegalNav: false,
     priority: 1,
+    changeFrequency: "monthly",
+  },
+  {
+    key: "opportunities",
+    path: "/opportunities",
+    inMainNav: true,
+    inLegalNav: false,
+    priority: 0.9,
+    changeFrequency: "weekly",
+  },
+  {
+    key: "organisations",
+    path: "/organisations",
+    inMainNav: true,
+    inLegalNav: false,
+    priority: 0.8,
     changeFrequency: "monthly",
   },
   {

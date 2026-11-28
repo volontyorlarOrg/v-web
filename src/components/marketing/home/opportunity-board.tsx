@@ -36,8 +36,10 @@ const TINT = {
 export function OpportunityBoard({
   cards,
   labels,
+  limit = 3,
 }: {
   cards: readonly BoardCard[];
+  limit?: number;
   labels: {
     filter: string;
     filters: Record<Filter, string>;
@@ -47,7 +49,7 @@ export function OpportunityBoard({
   };
 }) {
   const [filter, setFilter] = useState<Filter>("all");
-  const shown = cards.filter((card) => filter === "all" || card.kind === filter).slice(0, 3);
+  const shown = cards.filter((card) => filter === "all" || card.kind === filter).slice(0, limit);
 
   return (
     <>

@@ -12,22 +12,27 @@ const APPLICANTS = [
   { role: "coordinator", state: "confirmed" },
 ] as const;
 
-export function OrganisationsSection() {
+export function OrganisationsSection({ showHeading = true }: { showHeading?: boolean }) {
   const t = useTranslations("home.organisations");
 
   return (
     <section
       id="tashkilotlar"
-      aria-labelledby="organisations-title"
+      aria-labelledby={showHeading ? "organisations-title" : undefined}
+      aria-label={showHeading ? undefined : t("title")}
       className="navy-ground-up focus-sky scroll-mt-4 overflow-hidden px-5 py-20 text-knockout min-[981px]:px-[132px] min-[981px]:py-[120px]"
     >
       <div className="mx-auto grid max-w-[1176px] grid-cols-1 items-center gap-20 min-[981px]:grid-cols-[1fr_600px]">
         <div>
-          <h2 id="organisations-title" className="m-0 text-[40px] leading-[1.02] font-extrabold tracking-[-0.04em] min-[981px]:text-[56px]">
-            {t("title")}
-          </h2>
-          <p className="mt-[18px] mb-0 max-w-[480px] text-[19px] leading-[1.5] text-navy-muted">{t("lead")}</p>
-          <ol className="mt-8 mb-0 max-w-[480px] border-b border-knockout/12 p-0">
+          {showHeading ? (
+            <>
+              <h2 id="organisations-title" className="m-0 text-[40px] leading-[1.02] font-extrabold tracking-[-0.04em] min-[981px]:text-[56px]">
+                {t("title")}
+              </h2>
+              <p className="mt-[18px] mb-0 max-w-[480px] text-[19px] leading-[1.5] text-navy-muted">{t("lead")}</p>
+            </>
+          ) : null}
+          <ol className={`${showHeading ? "mt-8" : "mt-0"} mb-0 max-w-[480px] border-b border-knockout/12 p-0`}>
             {STEPS.map((id, index) => (
               <li key={id} className="grid grid-cols-[40px_1fr] gap-4 border-t border-knockout/12 py-[18px]">
                 <span

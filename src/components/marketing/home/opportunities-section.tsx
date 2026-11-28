@@ -8,6 +8,16 @@ import { SAMPLE_OPPORTUNITIES, type SampleOpportunity } from "@/lib/content/home
 import { localePath, navHref } from "@/lib/routing/routes";
 import { appHref, marketingUrl } from "@/lib/seo/origin";
 
+export function opportunitiesDestination(locale: Locale): Destination {
+  return (
+    opportunityListDestination(locale) ?? {
+      href: navHref("opportunities"),
+      external: false,
+      newTab: false,
+    }
+  );
+}
+
 const GHOST_TINTS = ["bg-tint-blue", "bg-tint-violet", "bg-tint-sand"] as const;
 
 function dateLabel(item: SampleOpportunity, locale: Locale) {
@@ -24,14 +34,10 @@ function dateLabel(item: SampleOpportunity, locale: Locale) {
   return sameDay ? `${day.format(start)}, ${time.format(start)}` : day.formatRange(start, end);
 }
 
-export function OpportunitiesSection({ locale }: { locale: Locale }) {
+export function OpportunityList({ locale, limit = 3 }: { locale: Locale; limit?: number }) {
   const t = useTranslations("home.opportunities");
-  const list: Destination = opportunityListDestination(locale) ?? {
-    href: navHref("volunteering"),
-    external: false,
-    newTab: false,
-  };
-  const listHref = list.external ? list.href : localePath(locale, "volunteering");
+  const list = opportunitiesDestination(locale);
+  const listHref = list.external ? list.href : localePath(locale, "opportunities");
 
   const cards: BoardCard[] = SAMPLE_OPPORTUNITIES.map((item) => ({
     slug: item.slug,
@@ -54,6 +60,29 @@ export function OpportunitiesSection({ locale }: { locale: Locale }) {
   }));
 
   return (
+    <OpportunityBoard
+      limit={limit}
+      cards={cards}
+      labels={{
+        filter: t("filterLabel"),
+        filters: {
+          all: t("filters.all"),
+          volunteering: t("filters.volunteering"),
+          competition: t("filters.competition"),
+        },
+        apply: t("apply"),
+        share: t("share"),
+        copied: t("copied"),
+      }}
+    />
+  );
+}
+
+export function OpportunitiesSection({ locale }: { locale: Locale }) {
+  const t = useTranslations("home.opportunities");
+  const list = opportunitiesDestination(locale);
+
+  return (
     <section
       id="imkoniyatlar"
       aria-labelledby="opportunities-title"
@@ -65,20 +94,7 @@ export function OpportunitiesSection({ locale }: { locale: Locale }) {
         </h2>
         <p className="mt-4 mb-0 text-[19px] leading-[1.5] text-fog-600">{t("lead")}</p>
 
-        <OpportunityBoard
-          cards={cards}
-          labels={{
-            filter: t("filterLabel"),
-            filters: {
-              all: t("filters.all"),
-              volunteering: t("filters.volunteering"),
-              competition: t("filters.competition"),
-            },
-            apply: t("apply"),
-            share: t("share"),
-            copied: t("copied"),
-          }}
-        />
+        <OpportunityList locale={locale} />
 
         <div className="relative mt-6">
           <div

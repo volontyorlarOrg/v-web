@@ -611,5 +611,41 @@
     "contact": "Aloqa",
     "responsible": "Masʼul shaxslar",
     "pending": "Elektron pochtamiz va pochta manzilimiz shu yerda eʼlon qilinadi. Ungacha volontyor ilovasidagi Sozlamalar → Maxfiylik orqali yozing."
+  },
+  "opportunitiesPage": {
+    "metaTitle": "Imkoniyatlar — Volontyorlar",
+    "metaDescription": "Oʻzbekistondagi volontyorlik tadbirlari: soat va XP qanday toʻplanadi, darajalar va soʻnggi imkoniyatlar.",
+    "title": "Tadbirda yordam bering, soat va XP toʻplang",
+    "lead": "Konsertlar, forumlar, xayriya va tanlovlar: har bir imkoniyatda tashkilotchi, sana, joy va XP oldindan koʻrinadi.",
+    "latest": {
+      "title": "Soʻnggi imkoniyatlar",
+      "lead": "Platformadagi yaqinda boʻlib oʻtgan tadbirlardan namunalar. Yangilari ilovada chiqadi."
+    },
+    "cta": "Barcha imkoniyatlarni koʻrish",
+    "xp": {
+      "title": "Soat va XP qanday yoziladi",
+      "lead": "Tadbirdan keyin tashkilotchi ishtirokingizni tasdiqlaydi, shundan soʻng soat va XP profilingizga yoziladi.",
+      "items": {
+        "volunteering": {
+          "title": "Volontyorlik",
+          "body": "Har bir tasdiqlangan soat odatda 10 XP beradi. Tadbir soatlari tashkilotchi tomonidan tasdiqlanadi."
+        },
+        "competition": {
+          "title": "Ishtirok va tanlovlar",
+          "body": "Gʻolib 50, faol ishtirokchi 30, ishtirokchi 10 XP oladi. Sababsiz kelmaslik 10 XP ga tushadi."
+        },
+        "levels": {
+          "title": "Darajalar",
+          "body": "Daraja tasdiqlangan soatlarga bogʻliq:"
+        }
+      }
+    }
+  },
+  "organisationsPage": {
+    "metaTitle": "Tashkilotlar uchun — Volontyorlar",
+    "metaDescription": "Tadbiringizga volontyor kerakmi? Ariza qoldiring, biz imkoniyatni faol yoshlarga yetkazamiz.",
+    "title": "Tadbiringizga volontyorlar topamiz",
+    "lead": "Bizga ariza qoldiring, imkoniyatingizni platformaga joylaymiz va faol yoshlarga yetkazamiz.",
+    "partnersTitle": "Biz bilan ishlaydiganlar"
   }
 }

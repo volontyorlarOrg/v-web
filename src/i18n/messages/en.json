@@ -611,5 +611,41 @@
     "contact": "Contact",
     "responsible": "Responsible individuals",
     "pending": "Our contact email and postal address will be published here. Until then, write to us in Settings → Privacy in the volunteer app."
+  },
+  "opportunitiesPage": {
+    "metaTitle": "Opportunities — Volontyorlar",
+    "metaDescription": "Volunteering events across Uzbekistan: how hours and XP are earned, the levels, and the latest opportunities.",
+    "title": "Help at an event, collect hours and XP",
+    "lead": "Concerts, forums, charity and competitions: every opportunity shows its organiser, date, place and XP up front.",
+    "latest": {
+      "title": "Latest opportunities",
+      "lead": "Examples of recent events on the platform. New ones appear in the app."
+    },
+    "cta": "See all opportunities",
+    "xp": {
+      "title": "How hours and XP are recorded",
+      "lead": "After the event the organiser confirms you took part, and the hours and XP are written to your profile.",
+      "items": {
+        "volunteering": {
+          "title": "Volunteering",
+          "body": "Each confirmed hour usually gives 10 XP. The organiser confirms the hours."
+        },
+        "competition": {
+          "title": "Participation and competitions",
+          "body": "The winner gets 50, an active participant 30 and a participant 10 XP. An unexcused no-show costs 10 XP."
+        },
+        "levels": {
+          "title": "Levels",
+          "body": "Your level follows your confirmed hours:"
+        }
+      }
+    }
+  },
+  "organisationsPage": {
+    "metaTitle": "For organisations — Volontyorlar",
+    "metaDescription": "Need volunteers for your event? Send a request and we will bring it to active young people.",
+    "title": "We find volunteers for your event",
+    "lead": "Send us a request, and we publish the opportunity on the platform and bring it to active young people.",
+    "partnersTitle": "Who we work with"
   }
 }

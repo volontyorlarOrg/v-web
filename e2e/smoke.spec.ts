@@ -192,15 +192,30 @@ test.describe("navigation", () => {
     await expect(page).toHaveURL(/\/en\/contact$/);
   });
 
-  test("the header jumps to the opportunities on the home page", async ({ page }) => {
+  test("every header item opens its own page", async ({ page }) => {
+    const pages = [
+      ["Opportunities", /\/en\/opportunities$/],
+      ["For organisations", /\/en\/organisations$/],
+      ["About", /\/en\/about$/],
+      ["Blog", /\/en\/blog$/],
+      ["Contact", /\/en\/contact$/],
+    ] as const;
+    for (const [name, url] of pages) {
+      await page.goto("/en");
+      await openNavigation(page);
+      await page.getByRole("banner").getByRole("link", { name }).click();
+      await expect(page).toHaveURL(url);
+      await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
+    }
+  });
+
+  test("the About page shows both founders with their photos", async ({ page }) => {
     await page.goto("/en/about");
-    await openNavigation(page);
-    await page
-      .getByRole("banner")
-      .getByRole("link", { name: "Opportunities" })
-      .click();
-    await expect(page).toHaveURL(/\/en#imkoniyatlar$/);
-    await expect(page.getByRole("heading", { level: 2, name: "Opportunities" })).toBeInViewport();
+    for (const name of ["Arslon Rajabov", "Abdulaziz Yusupaliev"]) {
+      const photo = page.getByRole("img", { name });
+      await expect(photo).toBeVisible();
+      expect(await photo.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0);
+    }
   });
 
   test("the legal pages load from the footer", async ({ page }) => {
