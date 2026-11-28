@@ -48,6 +48,7 @@ export function FounderBoard({
             width={512}
             height={512}
             unoptimized
+            loading="eager"
             className="mb-5 size-28 rounded-full object-cover shadow-[0_0_0_3px_var(--color-knockout),0_0_0_5px_var(--color-orange-600)]"
           />
           <p className="text-title font-extrabold tracking-[-0.02em] text-ink">{founder.name}</p>

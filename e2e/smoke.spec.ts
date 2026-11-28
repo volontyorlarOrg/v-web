@@ -200,8 +200,8 @@ test.describe("navigation", () => {
       ["Blog", /\/en\/blog$/],
       ["Contact", /\/en\/contact$/],
     ] as const;
+    await page.goto("/en");
     for (const [name, url] of pages) {
-      await page.goto("/en");
       await openNavigation(page);
       await page.getByRole("banner").getByRole("link", { name }).click();
       await expect(page).toHaveURL(url);
