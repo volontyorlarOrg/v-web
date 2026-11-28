@@ -214,7 +214,9 @@ test.describe("navigation", () => {
     for (const name of ["Arslon Rajabov", "Abdulaziz Yusupaliev"]) {
       const photo = page.getByRole("img", { name });
       await expect(photo).toBeVisible();
-      expect(await photo.evaluate((img: HTMLImageElement) => img.naturalWidth)).toBeGreaterThan(0);
+      await expect
+        .poll(() => photo.evaluate((img: HTMLImageElement) => (img.complete ? img.naturalWidth : 0)))
+        .toBeGreaterThan(0);
     }
   });
 

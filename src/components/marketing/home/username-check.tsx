@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { GlyphMark } from "@/components/marketing/home/marks";
 import { checkUsername, normaliseUsername, USERNAME_MAX_LENGTH, type UsernameCheck } from "@/lib/content/home";
@@ -32,6 +32,12 @@ export function UsernameCheckForm({
 }) {
   const [typed, setTyped] = useState("");
   const [settled, setSettled] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const early = inputRef.current?.value ?? "";
+    if (early) setTyped(normaliseUsername(early));
+  }, []);
 
   useEffect(() => {
     const timer = window.setTimeout(() => setSettled(typed), DEBOUNCE_MS);
@@ -74,6 +80,7 @@ export function UsernameCheckForm({
           volontyorlar.uz/
         </span>
         <input
+          ref={inputRef}
           value={typed}
           onChange={(event) => setTyped(normaliseUsername(event.target.value))}
           placeholder={labels.placeholder}
